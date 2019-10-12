@@ -1,0 +1,66 @@
+IsExistSn：追溯码存在
+IsExistType：型号存在
+IsStationName：工位存在
+
+IsFirstStation：是否是第一个工位
+snLast：上一个追溯码
+IsPassLastSn：上一工位为Pass
+
+
+
+if(IsFirstStation)
+{
+	insert into(追溯码，型号，工位名称，结果，时间) db;
+	//如果服务未设置首站，则设置此工位为首站工位
+	判断此工位是否成功
+}else
+{
+	//查询上一个工位是否已经成功
+	if(IsPassLastSn)
+	{
+	//上一工位已成功
+		//继续判断当前工位传入参数是否能成功
+		if(IsExistSn)
+		{
+		//追溯码存在
+			if(IsType)
+			{
+			//型号存在
+				if(IsStationName)
+				{
+				//工位存在
+				//更新数据
+				//return
+				}else
+				{
+				//工位不存在
+				//查询3次不成功，反馈查询工位不存在
+				//更新数据
+				//return
+				}
+			}
+			else
+			{
+			//型号不存在
+			//查询3次不成功，反馈查询型号不存在
+			//更新数据
+			//return
+			}
+		}else
+		{
+			//追溯码不存在
+			//查询3次不成功，反馈查询追溯码不存在
+			//更新数据
+			//return
+		}
+		
+	}else
+	{
+		//上一工位未能成功，此工位不能继续
+		//查询3次不成功，反馈上一工位未成功
+		//这种情况可在界面通过管理员方式手动修改当前工位
+	}
+}
+
+
+

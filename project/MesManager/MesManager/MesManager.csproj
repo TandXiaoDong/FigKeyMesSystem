@@ -1,0 +1,743 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FF199236-D643-4121-A3ED-CF7AE76D1DDC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MesManager</RootNamespace>
+    <AssemblyName>MesManager</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>GenericShareFolder.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IrisSkin4">
+      <HintPath>..\Lib\IrisSkin4.dll</HintPath>
+    </Reference>
+    <Reference Include="LEDLib">
+      <HintPath>..\Lib\LEDLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AnalysisServices.AdomdClient, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Microsoft.AnalysisServices.AdomdClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="NetronLight">
+      <HintPath>..\Lib\NetronLight.dll</HintPath>
+    </Reference>
+    <Reference Include="RadControlSpy, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\RadControlSpy.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlSugar">
+      <HintPath>..\Lib\DB\SqlSugar.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.WinControls, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Telerik.WinControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.ChartView, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Telerik.WinControls.ChartView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.GridView, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Telerik.WinControls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.RadChart, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Telerik.WinControls.RadChart.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.RadDiagram, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.RadDock, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Telerik.WinControls.RadDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Aqua, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Aqua.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Breeze, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Breeze.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Crystal, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Crystal.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.CrystalDark, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.CrystalDark.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Desert, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Desert.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Fluent, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Fluent.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.FluentDark, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.FluentDark.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.HighContrastBlack, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.HighContrastBlack.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Material, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Material.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.MaterialBlueGrey, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.MaterialBlueGrey.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.MaterialPink, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.MaterialPink.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.MaterialTeal, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.MaterialTeal.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2007Black, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Office2007Black.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2007Silver, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Office2007Silver.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2010Black, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Office2010Black.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2010Blue, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Office2010Blue.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2010Silver, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Office2010Silver.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2013Dark, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Office2013Dark.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2013Light, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Office2013Light.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.TelerikMetro, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.TelerikMetro.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.TelerikMetroBlue, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.TelerikMetroBlue.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.TelerikMetroTouch, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.TelerikMetroTouch.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.VisualStudio2012Dark, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.VisualStudio2012Dark.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.VisualStudio2012Light, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.VisualStudio2012Light.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Windows7, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Windows7.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Windows8, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Windows8.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Telerik.WinControls.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI.Design, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.UI.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="TelerikCommon, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\TelerikCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="TelerikData, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\TelerikData.dll</HintPath>
+    </Reference>
+    <Reference Include="TelerikExport, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\TelerikExport.dll</HintPath>
+    </Reference>
+    <Reference Include="VisualStyleBuilder.Design, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\telerik\VisualStyleBuilder.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AnalysisMaterialCode.cs" />
+    <Compile Include="Connected Services\MesServiceTest\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\MesService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WeatherWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ComGraph.cs" />
+    <Compile Include="Control\DataGridViewCommon.cs" />
+    <Compile Include="Control\ListViewCommon.cs" />
+    <Compile Include="Control\TelerikUI\GridViewCommon\GridViewDataExport\ExportData.cs" />
+    <Compile Include="Control\TreeViewControl.cs" />
+    <Compile Include="Control\TreeViewUI\LoadTreeView.cs" />
+    <Compile Include="Control\TreeViewUI\TreeViewData.cs" />
+    <Compile Include="Control\ZedGraph.cs" />
+    <Compile Include="DB\Config.cs" />
+    <Compile Include="DB\Order.cs" />
+    <Compile Include="DB\OrderItem.cs" />
+    <Compile Include="DB\SQLServer.cs" />
+    <Compile Include="FigKeyLog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FigKeyLog.designer.cs">
+      <DependentUpon>FigKeyLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RadView\Material.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RadView\Material.Designer.cs">
+      <DependentUpon>Material.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RadView\MaterialOutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RadView\MaterialOutBox.Designer.cs">
+      <DependentUpon>MaterialOutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\BasicConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\BasicConfig.Designer.cs">
+      <DependentUpon>BasicConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\GetBackPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\GetBackPwd.Designer.cs">
+      <DependentUpon>GetBackPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\GraphView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\GraphView.Designer.cs">
+      <DependentUpon>GraphView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MaterialDetailMsg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MaterialDetailMsg.Designer.cs">
+      <DependentUpon>MaterialDetailMsg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MESMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MESMainForm.Designer.cs">
+      <DependentUpon>MESMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RadView\PackageProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RadView\PackageProduct.Designer.cs">
+      <DependentUpon>PackageProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ModifyPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ModifyPwd.Designer.cs">
+      <DependentUpon>ModifyPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ProductMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ProductMaterial.Designer.cs">
+      <DependentUpon>ProductMaterial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RadView\ProductType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RadView\ProductType.Designer.cs">
+      <DependentUpon>ProductType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ProductPackageDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ProductPackageDetail.Designer.cs">
+      <DependentUpon>ProductPackageDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Register.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Register.Designer.cs">
+      <DependentUpon>Register.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RadView\SetStation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RadView\SetStation.Designer.cs">
+      <DependentUpon>SetStation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RadView\SetStationAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RadView\SetStationAdmin.Designer.cs">
+      <DependentUpon>SetStationAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RadView\Station.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RadView\Station.Designer.cs">
+      <DependentUpon>Station.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RadView\UpLoadImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RadView\UpLoadImage.Designer.cs">
+      <DependentUpon>UpLoadImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ProductPackage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ProductPackage.Designer.cs">
+      <DependentUpon>ProductPackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\QuanlityAnomaly.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\QuanlityAnomaly.Designer.cs">
+      <DependentUpon>QuanlityAnomaly.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\RepairCenter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\RepairCenter.Designer.cs">
+      <DependentUpon>RepairCenter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SNCenter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SNCenter.Designer.cs">
+      <DependentUpon>SNCenter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StatisticalAnalysis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\StatisticalAnalysis.Designer.cs">
+      <DependentUpon>StatisticalAnalysis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TestLogDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TestLogDetail.Designer.cs">
+      <DependentUpon>TestLogDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TestStand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TestStand.Designer.cs">
+      <DependentUpon>TestStand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TProcess.Designer.cs">
+      <DependentUpon>TProcess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UserManager.Designer.cs">
+      <DependentUpon>UserManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WelcomeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WelcomeForm.designer.cs">
+      <DependentUpon>WelcomeForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FigKeyLog.resx">
+      <DependentUpon>FigKeyLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.byn.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.en-150.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RadView\Material.resx">
+      <DependentUpon>Material.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RadView\MaterialOutBox.resx">
+      <DependentUpon>MaterialOutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\BasicConfig.resx">
+      <DependentUpon>BasicConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\GetBackPwd.resx">
+      <DependentUpon>GetBackPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\GraphView.resx">
+      <DependentUpon>GraphView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MaterialDetailMsg.resx">
+      <DependentUpon>MaterialDetailMsg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MESMainForm.resx">
+      <DependentUpon>MESMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RadView\PackageProduct.resx">
+      <DependentUpon>PackageProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ModifyPwd.resx">
+      <DependentUpon>ModifyPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ProductMaterial.resx">
+      <DependentUpon>ProductMaterial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RadView\ProductType.resx">
+      <DependentUpon>ProductType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ProductPackageDetail.resx">
+      <DependentUpon>ProductPackageDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Register.resx">
+      <DependentUpon>Register.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RadView\SetStation.resx">
+      <DependentUpon>SetStation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RadView\SetStationAdmin.resx">
+      <DependentUpon>SetStationAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RadView\Station.resx">
+      <DependentUpon>Station.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RadView\UpLoadImage.resx">
+      <DependentUpon>UpLoadImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ProductPackage.resx">
+      <DependentUpon>ProductPackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\QuanlityAnomaly.resx">
+      <DependentUpon>QuanlityAnomaly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\RepairCenter.resx">
+      <DependentUpon>RepairCenter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SNCenter.resx">
+      <DependentUpon>SNCenter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\StatisticalAnalysis.resx">
+      <DependentUpon>StatisticalAnalysis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TestLogDetail.resx">
+      <DependentUpon>TestLogDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TestStand.resx">
+      <DependentUpon>TestStand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TProcess.resx">
+      <DependentUpon>TProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserManager.resx">
+      <DependentUpon>UserManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WelcomeForm.cs.resx">
+      <DependentUpon>WelcomeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WelcomeForm.resx">
+      <DependentUpon>WelcomeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="Connected Services\MesServiceTest\MesService.wsdl" />
+    <None Include="Connected Services\MesServiceTest\MesService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesServiceTest\MesService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesServiceTest\MesService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesService\MesManager.MesService.LoginResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MesService\MesManager.MesService.MaterialStockEnum.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MesService\MesManager.MesService.ProductMaterial.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MesService\MesManager.MesService.RegisterResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MesService\MesService.wsdl" />
+    <None Include="Connected Services\MesService\MesService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesService\MesService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesService\MesService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesService\MesService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesService\MesService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WeatherWebService\WeatherWebService.wsdl" />
+    <None Include="DB\WT_SCL.bak" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
+    <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MesService\MesService.disco" />
+    <None Include="Connected Services\MesService\configuration91.svcinfo" />
+    <None Include="Connected Services\MesService\configuration.svcinfo" />
+    <None Include="Connected Services\MesService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\MesServiceTest\MesService.disco" />
+    <None Include="Connected Services\MesServiceTest\configuration91.svcinfo" />
+    <None Include="Connected Services\MesServiceTest\configuration.svcinfo" />
+    <None Include="Connected Services\MesServiceTest\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\WeatherWebService\WeatherWebService.disco" />
+    <None Include="Connected Services\WeatherWebService\configuration91.svcinfo" />
+    <None Include="Connected Services\WeatherWebService\configuration.svcinfo" />
+    <None Include="Connected Services\WeatherWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="DB\WT_SCL.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DB\WT_SCL_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>WT_SCL.mdf</DependentUpon>
+    </Content>
+    <None Include="Resources\vsb-bg.png" />
+    <None Include="Resources\ThViewer-bg.png" />
+    <None Include="Resources\movieLab-bg.png" />
+    <None Include="Resources\figkeyLogo1.png" />
+    <None Include="Resources\figkeyLogo.png" />
+    <None Include="Resources\favicon.ico" />
+    <None Include="Resources\t01ef4cc12bbcc9fb6e.jpg" />
+    <None Include="Resources\背景-01.jpg" />
+    <None Include="Resources\GenericShareFolder_128x128.png" />
+    <None Include="Resources\GenericShareFolder_24x24.png" />
+    <Content Include="GenericShareFolder.ico" />
+    <Content Include="License-LGPL.txt" />
+    <Content Include="MES修改设计.txt" />
+    <None Include="Resources\bullet_delete.png" />
+    <None Include="Resources\update.png" />
+    <None Include="Resources\upload_for_cloud.png" />
+    <None Include="Resources\DeleteDataSource_16x16.png" />
+    <None Include="Resources\ClearGrid.png" />
+    <None Include="Resources\bullet_add.png" />
+    <None Include="Resources\万通公司LOG.png" />
+    <None Include="Resources\万通公司LOG426x90.png" />
+    <None Include="Resources\Export_16x16.png" />
+    <None Include="Resources\Refresh_16x16.png" />
+    <None Include="Resources\file_extension_txt.png" />
+    <None Include="Resources\FolderList32.png" />
+    <None Include="Resources\file_extension_xls.png" />
+    <None Include="Resources\ffpic1306125140893.png" />
+    <None Include="Resources\package.ico" />
+    <None Include="Resources\package.png" />
+    <None Include="Resources\package32.png" />
+    <None Include="Resources\PackageProduct_32x32.png" />
+    <None Include="Resources\PackageProduct_16x16.png" />
+    <None Include="Resources\Product_16x16.png" />
+    <None Include="Resources\ServerConnection.png" />
+    <None Include="Resources\GenericShareFolder_16x16.png" />
+    <None Include="Resources\server_database.png" />
+    <None Include="Resources\box_open.png" />
+    <None Include="Resources\Project_16x16.png" />
+    <None Include="Resources\terminal_seats_red.png" />
+    <None Include="Resources\cancel.png" />
+    <None Include="Resources\Cancel_16x16.png" />
+    <None Include="Resources\Apply_16x16.png" />
+    <None Include="Resources\Version_16x16.png" />
+    <None Include="Resources\save_data.png" />
+    <None Include="Resources\configure_cluster.png" />
+    <None Include="Resources\Search_16x16.png" />
+    <None Include="Resources\exclamation.png" />
+    <Content Include="功能描述.txt" />
+    <Content Include="完善.txt" />
+    <Content Include="新增.txt" />
+    <Content Include="新需求.txt" />
+    <Content Include="说明.txt" />
+    <Content Include="需求.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\CommonLibrary\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{f028916d-2588-4aad-b429-1dd004e1d561}</Project>
+      <Name>CommonUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\MesServiceTest\" />
+    <WCFMetadataStorage Include="Connected Services\MesService\" />
+    <WCFMetadataStorage Include="Connected Services\WeatherWebService\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MesService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://192.168.1.8:8086/MesService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://192.168.1.8:8086/MesService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://192.168.1.8:8086/MesService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMesService_TestCommunication_InputMessage">
+    <wsdl:part name="parameters" element="tns:TestCommunication" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_TestCommunication_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TestCommunicationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateTestResultData_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTestResultData" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateTestResultData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTestResultDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectLastTestResult_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectLastTestResult" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectLastTestResult_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectLastTestResultResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateMaterialStatistics_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMaterialStatistics" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateMaterialStatistics_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMaterialStatisticsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_CheckMaterialPutStorage_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckMaterialPutStorage" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_CheckMaterialPutStorage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckMaterialPutStorageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectMaterialSurplusAmount_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectMaterialSurplusAmount" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectMaterialSurplusAmount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectMaterialSurplusAmountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_CheckMaterialUseState_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckMaterialUseState" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_CheckMaterialUseState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckMaterialUseStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_CheckMaterialMatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckMaterialMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_CheckMaterialMatch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckMaterialMatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdatePackageProductBindingMsg_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePackageProductBindingMsg" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdatePackageProductBindingMsg_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePackageProductBindingMsgResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateProgrameVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProgrameVersion" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateProgrameVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProgrameVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateLimitConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateLimitConfig" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateLimitConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateLimitConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateTestLog_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTestLog" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateTestLog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTestLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectCurrentTProcess_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCurrentTProcess" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectCurrentTProcess_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCurrentTProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectAllTProcess_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectAllTProcess" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectAllTProcess_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectAllTProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectStationList_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectStationList" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectStationList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectStationListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectTypeNoList_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectTypeNoList" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectTypeNoList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectTypeNoListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectMaterialList_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectMaterialList" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectMaterialList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectMaterialListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_BindingPCBA_InputMessage">
+    <wsdl:part name="parameters" element="tns:BindingPCBA" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_BindingPCBA_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BindingPCBAResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectLimitConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectLimitConfig" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectLimitConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectLimitConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectProgrameVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectProgrameVersion" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectProgrameVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectProgrameVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectPackageStorage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectPackageStorage" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectPackageStorage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectPackageStorageResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMesService">
+    <wsdl:operation name="TestCommunication">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/TestCommunication" message="tns:IMesService_TestCommunication_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/TestCommunicationResponse" message="tns:IMesService_TestCommunication_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTestResultData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/UpdateTestResultData" message="tns:IMesService_UpdateTestResultData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/UpdateTestResultDataResponse" message="tns:IMesService_UpdateTestResultData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectLastTestResult">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectLastTestResult" message="tns:IMesService_SelectLastTestResult_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectLastTestResultResponse" message="tns:IMesService_SelectLastTestResult_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMaterialStatistics">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/UpdateMaterialStatistics" message="tns:IMesService_UpdateMaterialStatistics_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/UpdateMaterialStatisticsResponse" message="tns:IMesService_UpdateMaterialStatistics_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckMaterialPutStorage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/CheckMaterialPutStorage" message="tns:IMesService_CheckMaterialPutStorage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/CheckMaterialPutStorageResponse" message="tns:IMesService_CheckMaterialPutStorage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectMaterialSurplusAmount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectMaterialSurplusAmount" message="tns:IMesService_SelectMaterialSurplusAmount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectMaterialSurplusAmountResponse" message="tns:IMesService_SelectMaterialSurplusAmount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckMaterialUseState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/CheckMaterialUseState" message="tns:IMesService_CheckMaterialUseState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/CheckMaterialUseStateResponse" message="tns:IMesService_CheckMaterialUseState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckMaterialMatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/CheckMaterialMatch" message="tns:IMesService_CheckMaterialMatch_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/CheckMaterialMatchResponse" message="tns:IMesService_CheckMaterialMatch_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePackageProductBindingMsg">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/UpdatePackageProductBindingMsg" message="tns:IMesService_UpdatePackageProductBindingMsg_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/UpdatePackageProductBindingMsgResponse" message="tns:IMesService_UpdatePackageProductBindingMsg_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProgrameVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/UpdateProgrameVersion" message="tns:IMesService_UpdateProgrameVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/UpdateProgrameVersionResponse" message="tns:IMesService_UpdateProgrameVersion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLimitConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/UpdateLimitConfig" message="tns:IMesService_UpdateLimitConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/UpdateLimitConfigResponse" message="tns:IMesService_UpdateLimitConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTestLog">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/UpdateTestLog" message="tns:IMesService_UpdateTestLog_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/UpdateTestLogResponse" message="tns:IMesService_UpdateTestLog_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectCurrentTProcess">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectCurrentTProcess" message="tns:IMesService_SelectCurrentTProcess_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectCurrentTProcessResponse" message="tns:IMesService_SelectCurrentTProcess_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectAllTProcess">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectAllTProcess" message="tns:IMesService_SelectAllTProcess_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectAllTProcessResponse" message="tns:IMesService_SelectAllTProcess_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectStationList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectStationList" message="tns:IMesService_SelectStationList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectStationListResponse" message="tns:IMesService_SelectStationList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectTypeNoList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectTypeNoList" message="tns:IMesService_SelectTypeNoList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectTypeNoListResponse" message="tns:IMesService_SelectTypeNoList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectMaterialList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectMaterialList" message="tns:IMesService_SelectMaterialList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectMaterialListResponse" message="tns:IMesService_SelectMaterialList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BindingPCBA">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/BindingPCBA" message="tns:IMesService_BindingPCBA_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/BindingPCBAResponse" message="tns:IMesService_BindingPCBA_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectLimitConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectLimitConfig" message="tns:IMesService_SelectLimitConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectLimitConfigResponse" message="tns:IMesService_SelectLimitConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectProgrameVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectProgrameVersion" message="tns:IMesService_SelectProgrameVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectProgrameVersionResponse" message="tns:IMesService_SelectProgrameVersion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectPackageStorage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectPackageStorage" message="tns:IMesService_SelectPackageStorage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectPackageStorageResponse" message="tns:IMesService_SelectPackageStorage_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IMesService" type="tns:IMesService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TestCommunication">
+      <soap:operation soapAction="http://tempuri.org/IMesService/TestCommunication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTestResultData">
+      <soap:operation soapAction="http://tempuri.org/IMesService/UpdateTestResultData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectLastTestResult">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectLastTestResult" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMaterialStatistics">
+      <soap:operation soapAction="http://tempuri.org/IMesService/UpdateMaterialStatistics" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckMaterialPutStorage">
+      <soap:operation soapAction="http://tempuri.org/IMesService/CheckMaterialPutStorage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectMaterialSurplusAmount">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectMaterialSurplusAmount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckMaterialUseState">
+      <soap:operation soapAction="http://tempuri.org/IMesService/CheckMaterialUseState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckMaterialMatch">
+      <soap:operation soapAction="http://tempuri.org/IMesService/CheckMaterialMatch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePackageProductBindingMsg">
+      <soap:operation soapAction="http://tempuri.org/IMesService/UpdatePackageProductBindingMsg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProgrameVersion">
+      <soap:operation soapAction="http://tempuri.org/IMesService/UpdateProgrameVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLimitConfig">
+      <soap:operation soapAction="http://tempuri.org/IMesService/UpdateLimitConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTestLog">
+      <soap:operation soapAction="http://tempuri.org/IMesService/UpdateTestLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCurrentTProcess">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectCurrentTProcess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectAllTProcess">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectAllTProcess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectStationList">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectStationList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectTypeNoList">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectTypeNoList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectMaterialList">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectMaterialList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BindingPCBA">
+      <soap:operation soapAction="http://tempuri.org/IMesService/BindingPCBA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectLimitConfig">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectLimitConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectProgrameVersion">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectProgrameVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectPackageStorage">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectPackageStorage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MesService">
+    <wsdl:port name="BasicHttpBinding_IMesService" binding="tns:BasicHttpBinding_IMesService">
+      <soap:address location="http://192.168.1.8:8086/MesService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

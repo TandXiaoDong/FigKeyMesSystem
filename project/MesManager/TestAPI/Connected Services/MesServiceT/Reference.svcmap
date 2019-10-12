@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="bf1218b8-f726-4211-8dcd-a22690f12a03" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.8:8086/MesService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MesService.xsd" MetadataType="Schema" ID="bb5d4d56-ef9a-4bc2-9b54-6cf90778f7df" SourceId="1" SourceUrl="http://192.168.1.8:8086/MesService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MesService.wsdl" MetadataType="Wsdl" ID="6991d1de-d3da-434f-8650-741087a96734" SourceId="1" SourceUrl="http://192.168.1.8:8086/MesService.svc?wsdl" />
+    <MetadataFile FileName="MesService1.xsd" MetadataType="Schema" ID="3c898f6d-bfd6-45d5-9e56-f4e3bc646cee" SourceId="1" SourceUrl="http://192.168.1.8:8086/MesService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MesService.disco" MetadataType="Disco" ID="9f5e3ca9-1642-4873-a013-ae8ca3f5aec3" SourceId="1" SourceUrl="http://192.168.1.8:8086/MesService.svc?disco" />
+    <MetadataFile FileName="MesService2.xsd" MetadataType="Schema" ID="854c2913-fd86-404e-8908-9ffcc289b03d" SourceId="1" SourceUrl="http://192.168.1.8:8086/MesService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

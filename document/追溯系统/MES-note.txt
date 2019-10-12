@@ -1,0 +1,43 @@
+
+1   pcb 板上的码， query with sn,partType,stationName (001，AAA,“烧录”);
+2	pcb 板上的码，
+3	pcb 板上的码，==>外壳的码
+4	外壳的码
+5	外壳的码
+
+001，AAA,pre-flash，pass，2019-06-12
+001，AAA,flash，pass，2019-06-12
+
+sn	搜不到&& statName==“烧录” ==> 加到数据库里面(类似 001，AAA,0，pass，2019-06-12)，return ”ok“，
+	搜到了：( 001，xxx,n，pass，2019-06-12)
+	partype ==AAA?  
+		station	n	==> 最后一条数据是不是本站 fail，开始测试，
+
+sn		搜到了
+partype==AAA？
+station	sn ==>最后一条数据是不是上一站 pass
+
+1.	pass==> 不能生产
+	fail==> 可以再次生产
+	001，xxx,AAA,0，pass，2019-06-12		
+	001，xxx,AAA,1，pass，2019-06-12;		
+	001，xxx,AAA,2，fail，2019-06-12;		
+	001，xxx,AAA,1，pass，2019-06-12;	admin set
+	002，xxx,AAA,4，pass，2019-06-12;
+==>001,AAA,2;
+	001，xxx,AAA,2，fail，2019-06-12;	
+	001，xxx,AAA,1，pass，2019-06-12;	admin set
+
+	
+	001，xxx,AAA,2，pass，2019-06-12
+										001，AAA,3；001，002；
+	001, 002，AAA,3，pass，2019-06-12
+	001, 002，AAA,4，pass，2019-06-12		002，AAA,4
+	001, 002，AAA,5，pass，2019-06-12		002，AAA,5
+	
+	
+	
+	001，xxx,AAA,1，pass，2019-06-12;		
+	002，xxx,AAA,2，pass，2019-06-12;	
+	003，xxx,AAA,3，pass，2019-06-12;	
+	004，xxx,AAA,4，pass，2019-06-12;	

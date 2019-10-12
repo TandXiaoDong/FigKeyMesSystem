@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mesServer", "mesServer\mesServer.csproj", "{F442D3DE-F8D2-4D7B-8C2C-3FDE743EDB11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbAccess", "dbAccess\dbAccess.csproj", "{A270BC75-5B20-4C38-8253-F557480B25A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbAccessTest", "dbAccessTest\dbAccessTest.csproj", "{301EE3E7-5EF8-4D53-8448-004BCA84A12A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F442D3DE-F8D2-4D7B-8C2C-3FDE743EDB11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F442D3DE-F8D2-4D7B-8C2C-3FDE743EDB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F442D3DE-F8D2-4D7B-8C2C-3FDE743EDB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F442D3DE-F8D2-4D7B-8C2C-3FDE743EDB11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A270BC75-5B20-4C38-8253-F557480B25A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A270BC75-5B20-4C38-8253-F557480B25A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A270BC75-5B20-4C38-8253-F557480B25A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A270BC75-5B20-4C38-8253-F557480B25A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{301EE3E7-5EF8-4D53-8448-004BCA84A12A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{301EE3E7-5EF8-4D53-8448-004BCA84A12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{301EE3E7-5EF8-4D53-8448-004BCA84A12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{301EE3E7-5EF8-4D53-8448-004BCA84A12A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

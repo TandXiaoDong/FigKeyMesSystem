@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="MESInterface.MesService" CodeBehind="MesService.svc.cs" %>

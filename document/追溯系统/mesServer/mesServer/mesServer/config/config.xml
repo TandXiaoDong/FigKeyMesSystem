@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<ConfigData>
+<StationName>300</StationName>
+<ServerAddress>127.0.0.1</ServerAddress>
+<ServerPort>8088</ServerPort>
+</ConfigData>

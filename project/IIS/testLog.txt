@@ -1,0 +1,2 @@
+item	low	high	value	result
+first	20	100	40	pass
