@@ -286,12 +286,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\CommonLibrary\CommonUtils\CommonUtils\CommonUtils.csproj">
-      <Project>{f028916d-2588-4aad-b429-1dd004e1d561}</Project>
-      <Name>CommonUtils</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\DeleteDataSource_16x16.png" />
   </ItemGroup>
   <ItemGroup>

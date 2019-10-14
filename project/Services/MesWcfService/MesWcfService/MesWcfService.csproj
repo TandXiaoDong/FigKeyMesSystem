@@ -123,8 +123,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\CommonLibrary\CommonUtils\CommonUtils\CommonUtils.csproj">
-      <Project>{ebfca1b5-23f1-4f94-928a-db1a7b98eed6}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\CommonRepository\MyCommonLibrary001\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{302d8a43-249b-49d6-9b8a-10e538359bcd}</Project>
       <Name>CommonUtils</Name>
     </ProjectReference>
   </ItemGroup>

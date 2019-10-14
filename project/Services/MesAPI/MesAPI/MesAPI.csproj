@@ -350,8 +350,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\CommonLibrary\CommonUtils\CommonUtils\CommonUtils.csproj">
-      <Project>{ebfca1b5-23f1-4f94-928a-db1a7b98eed6}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\CommonRepository\MyCommonLibrary001\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{6a35a8e4-c63c-4690-b484-e6029de4ecce}</Project>
       <Name>CommonUtils</Name>
     </ProjectReference>
   </ItemGroup>

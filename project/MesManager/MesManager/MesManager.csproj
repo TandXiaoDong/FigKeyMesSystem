@@ -613,7 +613,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\WeatherWebService\WeatherWebService.wsdl" />
-    <None Include="DB\WT_SCL.bak" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
@@ -631,13 +630,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MesService\MesService.disco" />
-    <None Include="Connected Services\MesService\configuration91.svcinfo" />
-    <None Include="Connected Services\MesService\configuration.svcinfo" />
-    <None Include="Connected Services\MesService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Connected Services\MesServiceTest\MesService.disco" />
     <None Include="Connected Services\MesServiceTest\configuration91.svcinfo" />
     <None Include="Connected Services\MesServiceTest\configuration.svcinfo" />
@@ -652,13 +644,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="DB\WT_SCL.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DB\WT_SCL_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>WT_SCL.mdf</DependentUpon>
-    </Content>
     <None Include="Resources\vsb-bg.png" />
     <None Include="Resources\ThViewer-bg.png" />
     <None Include="Resources\movieLab-bg.png" />
@@ -669,6 +654,13 @@
     <None Include="Resources\背景-01.jpg" />
     <None Include="Resources\GenericShareFolder_128x128.png" />
     <None Include="Resources\GenericShareFolder_24x24.png" />
+    <None Include="Connected Services\MesService\MesService.disco" />
+    <None Include="Connected Services\MesService\configuration91.svcinfo" />
+    <None Include="Connected Services\MesService\configuration.svcinfo" />
+    <None Include="Connected Services\MesService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="GenericShareFolder.ico" />
     <Content Include="License-LGPL.txt" />
     <Content Include="MES修改设计.txt" />
@@ -729,15 +721,15 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\CommonLibrary\CommonUtils\CommonUtils\CommonUtils.csproj">
-      <Project>{f028916d-2588-4aad-b429-1dd004e1d561}</Project>
-      <Name>CommonUtils</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\MesServiceTest\" />
     <WCFMetadataStorage Include="Connected Services\MesService\" />
     <WCFMetadataStorage Include="Connected Services\WeatherWebService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\CommonRepository\MyCommonLibrary001\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{8893ddbb-e768-4571-a2f8-7ebb401f0b55}</Project>
+      <Name>CommonUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
