@@ -565,11 +565,23 @@ namespace MesManager.MesService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestProgrameVersion", ReplyAction="http://tempuri.org/IMesService/SelectTestProgrameVersionResponse")]
         System.Threading.Tasks.Task<System.Data.DataSet> SelectTestProgrameVersionAsync(string productTypeNo);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestProgrameVersion", ReplyAction="http://tempuri.org/IMesService/DeleteTestProgrameVersionResponse")]
+        int DeleteTestProgrameVersion(string productTypeNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestProgrameVersion", ReplyAction="http://tempuri.org/IMesService/DeleteTestProgrameVersionResponse")]
+        System.Threading.Tasks.Task<int> DeleteTestProgrameVersionAsync(string productTypeNo);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestLimitConfig", ReplyAction="http://tempuri.org/IMesService/SelectTestLimitConfigResponse")]
         System.Data.DataSet SelectTestLimitConfig(string productTypeNo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestLimitConfig", ReplyAction="http://tempuri.org/IMesService/SelectTestLimitConfigResponse")]
         System.Threading.Tasks.Task<System.Data.DataSet> SelectTestLimitConfigAsync(string productTypeNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestLimitConfig", ReplyAction="http://tempuri.org/IMesService/DeleteTestLimitConfigResponse")]
+        int DeleteTestLimitConfig(string productTypeNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestLimitConfig", ReplyAction="http://tempuri.org/IMesService/DeleteTestLimitConfigResponse")]
+        System.Threading.Tasks.Task<int> DeleteTestLimitConfigAsync(string productTypeNo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestLogDataDetail", ReplyAction="http://tempuri.org/IMesService/SelectTestLogDataDetailResponse")]
         System.Data.DataSet SelectTestLogDataDetail(string queryFilter, string startDate, string endDate);
@@ -1017,12 +1029,28 @@ namespace MesManager.MesService {
             return base.Channel.SelectTestProgrameVersionAsync(productTypeNo);
         }
         
+        public int DeleteTestProgrameVersion(string productTypeNo) {
+            return base.Channel.DeleteTestProgrameVersion(productTypeNo);
+        }
+        
+        public System.Threading.Tasks.Task<int> DeleteTestProgrameVersionAsync(string productTypeNo) {
+            return base.Channel.DeleteTestProgrameVersionAsync(productTypeNo);
+        }
+        
         public System.Data.DataSet SelectTestLimitConfig(string productTypeNo) {
             return base.Channel.SelectTestLimitConfig(productTypeNo);
         }
         
         public System.Threading.Tasks.Task<System.Data.DataSet> SelectTestLimitConfigAsync(string productTypeNo) {
             return base.Channel.SelectTestLimitConfigAsync(productTypeNo);
+        }
+        
+        public int DeleteTestLimitConfig(string productTypeNo) {
+            return base.Channel.DeleteTestLimitConfig(productTypeNo);
+        }
+        
+        public System.Threading.Tasks.Task<int> DeleteTestLimitConfigAsync(string productTypeNo) {
+            return base.Channel.DeleteTestLimitConfigAsync(productTypeNo);
         }
         
         public System.Data.DataSet SelectTestLogDataDetail(string queryFilter, string startDate, string endDate) {

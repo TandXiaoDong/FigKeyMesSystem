@@ -67,6 +67,7 @@ namespace MesManager.UI
         {
             if (currentDataType == TestStandDataType.TEST_LIMIT_CONFIG)
             {
+                DeleteTestLimitConfig();
             }
             else if (currentDataType == TestStandDataType.TEST_LOG_DATA)
             {
@@ -74,6 +75,7 @@ namespace MesManager.UI
             }
             else if (currentDataType == TestStandDataType.TEST_PROGRAME_VERSION)
             {
+                DeleteTestProgramVersion();
             }
         }
 
@@ -311,6 +313,11 @@ namespace MesManager.UI
 
         private void TestLogDetailDelete()
         {
+            if (this.radGridView1.RowCount < 1)
+            {
+                MessageBox.Show("没有可以清除的数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (MessageBox.Show("是否确认清除当前所有数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
             var returnRes = serviceClient.DeleteTestLogData(this.tool_queryCondition.Text.Trim(),this.pickerStartTime.Text,this.pickerEndTime.Text);
@@ -323,6 +330,44 @@ namespace MesManager.UI
             {
                 MessageBox.Show("清除数据未完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void DeleteTestProgramVersion()
+        {
+            if (this.radGridView1.RowCount < 1)
+            {
+                MessageBox.Show("没有可以清除的数据！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
+            if (MessageBox.Show("是否确认清除当前所有数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            var returnRes = serviceClient.DeleteTestProgrameVersion(this.tool_queryCondition.Text.Trim());
+            if (returnRes > 0)
+            {
+                RefreshUI();
+                MessageBox.Show("清除数据完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            MessageBox.Show("清除数据未完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void DeleteTestLimitConfig()
+        {
+            if (this.radGridView1.RowCount < 1)
+            {
+                MessageBox.Show("没有可以清除的数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (MessageBox.Show("是否确认清除当前所有数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            var returnRes = serviceClient.DeleteTestLimitConfig(this.tool_queryCondition.Text.Trim());
+            if (returnRes > 0)
+            {
+                RefreshUI();
+                MessageBox.Show("清除数据完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            MessageBox.Show("清除数据未完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

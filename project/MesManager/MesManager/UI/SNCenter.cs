@@ -421,6 +421,13 @@ namespace MesManager.UI
                 this.tool_productCheckClearDB.Enabled = false;
                 this.tool_quanlityClearDB.Enabled = false;
                 this.tool_SNClearDB.Enabled = false;
+
+                //
+                this.tool_materialClearDB.Visible = false;
+                this.tool_packageClearDB.Visible = false;
+                this.tool_productCheckClearDB.Visible = false;
+                this.tool_quanlityClearDB.Visible = false;
+                this.tool_SNClearDB.Visible = false;
             }
         }
 

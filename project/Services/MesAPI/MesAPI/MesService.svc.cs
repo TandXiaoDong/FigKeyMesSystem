@@ -2578,8 +2578,21 @@ namespace MesAPI
                     $"{DbTable.F_TEST_LIMIT_CONFIG_NAME} WHERE " +
                     $"{DbTable.F_TEST_LIMIT_CONFIG.TYPE_NO} = '{productTypeNo}' ";
             }
-            
             return SQLServer.ExecuteDataSet(selectSQL);
+        }
+
+        public int DeleteTestLimitConfig(string productTypeNo)
+        {
+            var deleteSQL = "";
+            if (productTypeNo == "")
+            {
+                deleteSQL = $"delete from {DbTable.F_TEST_LIMIT_CONFIG_NAME} ";
+            }
+            else
+            {
+                deleteSQL = $"delete from {DbTable.F_TEST_LIMIT_CONFIG_NAME} where {DbTable.F_TEST_LIMIT_CONFIG.TYPE_NO} = '{productTypeNo}'";
+            }
+            return SQLServer.ExecuteNonQuery(deleteSQL);
         }
 
         public DataSet SelectTestProgrameVersion(string productTypeNo)
@@ -2612,6 +2625,21 @@ namespace MesAPI
             }
             
             return SQLServer.ExecuteDataSet(selectSQL);
+        }
+
+        public int DeleteTestProgrameVersion(string productTypeNo)
+        {
+            var deleteSQL = $"";
+            if (productTypeNo == "")
+            {
+                deleteSQL = $"delete from {DbTable.F_TEST_PROGRAME_VERSION_NAME} ";
+            }
+            else
+            {
+                deleteSQL = $"delete from {DbTable.F_TEST_PROGRAME_VERSION_NAME} where " +
+                    $"{DbTable.F_TEST_PROGRAME_VERSION.TYPE_NO} = '{productTypeNo}'";
+            }
+            return SQLServer.ExecuteNonQuery(deleteSQL);
         }
 
         public DataSet SelectTodayTestLogData(string queryFilter,string startTime,string endTime)

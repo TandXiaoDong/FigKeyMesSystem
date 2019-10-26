@@ -157,7 +157,13 @@ namespace MesAPI
         DataSet SelectTestProgrameVersion(string productTypeNo);
 
         [OperationContract]
+        int DeleteTestProgrameVersion(string productTypeNo);
+
+        [OperationContract]
         DataSet SelectTestLimitConfig(string productTypeNo);
+
+        [OperationContract]
+        int DeleteTestLimitConfig(string productTypeNo);
 
         [OperationContract]
         DataSet SelectTestLogDataDetail(string queryFilter,string startDate, string endDate);

@@ -751,6 +751,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="DeleteTestProgrameVersion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="productTypeNo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteTestProgrameVersionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteTestProgrameVersionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SelectTestLimitConfig">
     <xs:complexType>
       <xs:sequence>
@@ -774,6 +788,20 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteTestLimitConfig">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="productTypeNo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteTestLimitConfigResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteTestLimitConfigResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
