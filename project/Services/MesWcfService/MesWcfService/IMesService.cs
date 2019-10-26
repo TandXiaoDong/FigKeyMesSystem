@@ -115,10 +115,12 @@ namespace MesWcfService
         #region【接口】UpdatePackageProductBindingMsg 【打包/抽检】添加绑定信息/更新绑定信息                
         [OperationContract]
         [SwaggerWcfPath("UpdatePackageProductBindingMsg", "成品打包/成品抽检-更新数据/绑定/解绑")]
-        [WebInvoke(Method = "POST", UriTemplate = "UpdatePackageProductBindingMsg",
+        [WebInvoke(Method = "GET", UriTemplate = "UpdatePackageProductBindingMsg?outCaseCode={outCaseCode}&snOutter={snOutter}&" +
+            "typeNo={typeNo}&stationName={stationName}&bindingState={bindingState}&remark={remark}&teamLeader={teamLeader}&admin={admin}",
             BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        string UpdatePackageProductBindingMsg([SwaggerWcfParameter(Description = "箱子编码*")]string outCaseCode,
-            [SwaggerWcfParameter(Description = "追溯码*")]string[] snOutter,
+        string[] UpdatePackageProductBindingMsg(
+            [SwaggerWcfParameter(Description = "箱子编码*")]string outCaseCode,
+            [SwaggerWcfParameter(Description = "追溯码*")]string snOutter,
             [SwaggerWcfParameter(Description = "产品型号*")]string typeNo,
             [SwaggerWcfParameter(Description = "工序名称*")]string stationName,
             [SwaggerWcfParameter(Description = "绑定或解绑,0-解除绑定,1-添加绑定*")]string bindingState,
@@ -265,6 +267,26 @@ namespace MesWcfService
     RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         string UpdatePackageStorage(string productTypeNo, int capacity);
         #endregion
+
+        [OperationContract]
+        [SwaggerWcfPath("QueryPCBAMes", "查询PCBA")]
+        [WebInvoke(Method = "GET", UriTemplate = "QueryPCBAMes?pcbaSN={pcbaSN}", BodyStyle = WebMessageBodyStyle.Bare,
+     RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        DataSet QueryPCBAMes(string pcbaSN);
+
+        [OperationContract]
+        [SwaggerWcfPath("UpdatePcbaBindingState", "更新PCBA绑定状态")]
+        [WebInvoke(Method = "GET", UriTemplate = "UpdatePcbaBindingState?pcbaSn={pcbaSn}&outterSn={outterSn}&bindingState={bindingState}&pcbaState={pcbaState}&outterState={outterState}", 
+            BodyStyle = WebMessageBodyStyle.Bare,
+    RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        bool UpdatePcbaBindingState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
+
+        [OperationContract]
+        [SwaggerWcfPath("CheckPcbaState", "CheckPcbaState")]
+        [WebInvoke(Method = "GET", UriTemplate = "CheckPcbaState?snPcba={snPcba}&snOutter={snOutter}",
+           BodyStyle = WebMessageBodyStyle.Bare,
+   RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        string[] CheckPcbaState(string snPcba, string snOutter);
     }
 
     // 使用下面示例中说明的数据约定将复合类型添加到服务操作。

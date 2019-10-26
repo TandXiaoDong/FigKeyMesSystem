@@ -93,6 +93,11 @@
             this.tool_quanlity_export = new System.Windows.Forms.ToolStripButton();
             this.btn_quanlity = new System.Windows.Forms.ToolStripButton();
             this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
+            this.tool_materialClearDB = new System.Windows.Forms.ToolStripButton();
+            this.tool_productCheckClearDB = new System.Windows.Forms.ToolStripButton();
+            this.tool_quanlityClearDB = new System.Windows.Forms.ToolStripButton();
+            this.tool_packageClearDB = new System.Windows.Forms.ToolStripButton();
+            this.tool_SNClearDB = new System.Windows.Forms.ToolStripButton();
             this.panel_material.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewMaterial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewMaterial.MasterTemplate)).BeginInit();
@@ -133,7 +138,7 @@
             this.panel_material.Controls.Add(this.panel5);
             this.panel_material.Location = new System.Drawing.Point(4, 100);
             this.panel_material.Name = "panel_material";
-            this.panel_material.Size = new System.Drawing.Size(622, 57);
+            this.panel_material.Size = new System.Drawing.Size(726, 57);
             this.panel_material.TabIndex = 27;
             // 
             // radGridViewMaterial
@@ -147,7 +152,7 @@
             this.radGridViewMaterial.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridViewMaterial.Name = "radGridViewMaterial";
             this.radGridViewMaterial.Padding = new System.Windows.Forms.Padding(1);
-            this.radGridViewMaterial.Size = new System.Drawing.Size(622, 20);
+            this.radGridViewMaterial.Size = new System.Drawing.Size(726, 20);
             this.radGridViewMaterial.TabIndex = 8;
             this.radGridViewMaterial.ThemeName = "Breeze";
             // 
@@ -157,7 +162,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(622, 37);
+            this.panel5.Size = new System.Drawing.Size(726, 37);
             this.panel5.TabIndex = 7;
             // 
             // toolStrip3
@@ -171,10 +176,11 @@
             this.toolStripLabel7,
             this.tool_material_exportFilter,
             this.tool_material_export,
-            this.btn_materialSelect});
+            this.btn_materialSelect,
+            this.tool_materialClearDB});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(622, 37);
+            this.toolStrip3.Size = new System.Drawing.Size(726, 37);
             this.toolStrip3.TabIndex = 32;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -221,16 +227,16 @@
             this.btn_materialSelect.Image = global::MesManager.Properties.Resources.Refresh_16x16;
             this.btn_materialSelect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btn_materialSelect.Name = "btn_materialSelect";
-            this.btn_materialSelect.Size = new System.Drawing.Size(55, 23);
+            this.btn_materialSelect.Size = new System.Drawing.Size(55, 34);
             this.btn_materialSelect.Text = "查询";
             // 
             // panel_sn
             // 
             this.panel_sn.Controls.Add(this.radGridViewSn);
             this.panel_sn.Controls.Add(this.panel4);
-            this.panel_sn.Location = new System.Drawing.Point(638, 95);
+            this.panel_sn.Location = new System.Drawing.Point(4, 388);
             this.panel_sn.Name = "panel_sn";
-            this.panel_sn.Size = new System.Drawing.Size(622, 146);
+            this.panel_sn.Size = new System.Drawing.Size(726, 40);
             this.panel_sn.TabIndex = 28;
             // 
             // radGridViewSn
@@ -245,7 +251,7 @@
             this.radGridViewSn.MasterTemplate.HorizontalScrollState = Telerik.WinControls.UI.ScrollState.AlwaysShow;
             this.radGridViewSn.MasterTemplate.ViewDefinition = tableViewDefinition2;
             this.radGridViewSn.Name = "radGridViewSn";
-            this.radGridViewSn.Size = new System.Drawing.Size(622, 107);
+            this.radGridViewSn.Size = new System.Drawing.Size(726, 1);
             this.radGridViewSn.TabIndex = 10;
             this.radGridViewSn.ThemeName = "Breeze";
             // 
@@ -255,7 +261,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(622, 39);
+            this.panel4.Size = new System.Drawing.Size(726, 39);
             this.panel4.TabIndex = 8;
             // 
             // toolStrip1
@@ -269,10 +275,11 @@
             this.toolStripLabel5,
             this.tool_sn_exportFilter,
             this.tool_sn_export,
-            this.btn_selectOfSn});
+            this.btn_selectOfSn,
+            this.tool_SNClearDB});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(622, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(726, 39);
             this.toolStrip1.TabIndex = 31;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -327,7 +334,7 @@
             this.panel_package.Controls.Add(this.panel3);
             this.panel_package.Location = new System.Drawing.Point(4, 325);
             this.panel_package.Name = "panel_package";
-            this.panel_package.Size = new System.Drawing.Size(622, 165);
+            this.panel_package.Size = new System.Drawing.Size(726, 45);
             this.panel_package.TabIndex = 29;
             // 
             // panel3
@@ -337,7 +344,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(622, 165);
+            this.panel3.Size = new System.Drawing.Size(726, 45);
             this.panel3.TabIndex = 8;
             // 
             // radGridViewPackage
@@ -350,7 +357,7 @@
             // 
             this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition3;
             this.radGridViewPackage.Name = "radGridViewPackage";
-            this.radGridViewPackage.Size = new System.Drawing.Size(622, 123);
+            this.radGridViewPackage.Size = new System.Drawing.Size(726, 3);
             this.radGridViewPackage.TabIndex = 32;
             this.radGridViewPackage.ThemeName = "Breeze";
             // 
@@ -360,7 +367,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(622, 42);
+            this.panel1.Size = new System.Drawing.Size(726, 42);
             this.panel1.TabIndex = 34;
             // 
             // toolStrip2
@@ -374,10 +381,11 @@
             this.toolStripLabel6,
             this.tool_package_exportFilter,
             this.tool_package_export,
-            this.btn_selectOfPackage});
+            this.btn_selectOfPackage,
+            this.tool_packageClearDB});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(622, 42);
+            this.toolStrip2.Size = new System.Drawing.Size(726, 42);
             this.toolStrip2.TabIndex = 32;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -433,7 +441,7 @@
             this.panel_productCheck.Controls.Add(this.panel7);
             this.panel_productCheck.Location = new System.Drawing.Point(4, 173);
             this.panel_productCheck.Name = "panel_productCheck";
-            this.panel_productCheck.Size = new System.Drawing.Size(622, 68);
+            this.panel_productCheck.Size = new System.Drawing.Size(726, 40);
             this.panel_productCheck.TabIndex = 30;
             // 
             // radGridViewCheck
@@ -446,7 +454,7 @@
             // 
             this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition4;
             this.radGridViewCheck.Name = "radGridViewCheck";
-            this.radGridViewCheck.Size = new System.Drawing.Size(622, 28);
+            this.radGridViewCheck.Size = new System.Drawing.Size(726, 0);
             this.radGridViewCheck.TabIndex = 11;
             this.radGridViewCheck.ThemeName = "Breeze";
             // 
@@ -456,7 +464,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(0, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(622, 40);
+            this.panel7.Size = new System.Drawing.Size(726, 40);
             this.panel7.TabIndex = 8;
             // 
             // toolStrip4
@@ -470,10 +478,11 @@
             this.toolStripLabel8,
             this.tool_productCheck_exportFilter,
             this.tool_productCheck_export,
-            this.btn_productCheck});
+            this.btn_productCheck,
+            this.tool_productCheckClearDB});
             this.toolStrip4.Location = new System.Drawing.Point(0, 0);
             this.toolStrip4.Name = "toolStrip4";
-            this.toolStrip4.Size = new System.Drawing.Size(622, 40);
+            this.toolStrip4.Size = new System.Drawing.Size(726, 40);
             this.toolStrip4.TabIndex = 32;
             this.toolStrip4.Text = "toolStrip4";
             // 
@@ -589,7 +598,7 @@
             this.panel_quanlity.Controls.Add(this.panel6);
             this.panel_quanlity.Location = new System.Drawing.Point(4, 247);
             this.panel_quanlity.Name = "panel_quanlity";
-            this.panel_quanlity.Size = new System.Drawing.Size(622, 72);
+            this.panel_quanlity.Size = new System.Drawing.Size(726, 43);
             this.panel_quanlity.TabIndex = 31;
             // 
             // radGridViewQuanlity
@@ -602,7 +611,7 @@
             // 
             this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition5;
             this.radGridViewQuanlity.Name = "radGridViewQuanlity";
-            this.radGridViewQuanlity.Size = new System.Drawing.Size(622, 32);
+            this.radGridViewQuanlity.Size = new System.Drawing.Size(726, 3);
             this.radGridViewQuanlity.TabIndex = 10;
             this.radGridViewQuanlity.ThemeName = "Breeze";
             // 
@@ -612,7 +621,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(622, 40);
+            this.panel6.Size = new System.Drawing.Size(726, 40);
             this.panel6.TabIndex = 8;
             // 
             // toolStrip5
@@ -626,10 +635,11 @@
             this.toolStripLabel10,
             this.tool_quanlity_exportFilter,
             this.tool_quanlity_export,
-            this.btn_quanlity});
+            this.btn_quanlity,
+            this.tool_quanlityClearDB});
             this.toolStrip5.Location = new System.Drawing.Point(0, 0);
             this.toolStrip5.Name = "toolStrip5";
-            this.toolStrip5.Size = new System.Drawing.Size(622, 40);
+            this.toolStrip5.Size = new System.Drawing.Size(726, 40);
             this.toolStrip5.TabIndex = 32;
             this.toolStrip5.Text = "toolStrip5";
             // 
@@ -678,6 +688,51 @@
             this.btn_quanlity.Name = "btn_quanlity";
             this.btn_quanlity.Size = new System.Drawing.Size(55, 37);
             this.btn_quanlity.Text = "查询";
+            // 
+            // tool_materialClearDB
+            // 
+            this.tool_materialClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_materialClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_materialClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_materialClearDB.Name = "tool_materialClearDB";
+            this.tool_materialClearDB.Size = new System.Drawing.Size(55, 34);
+            this.tool_materialClearDB.Text = "清除";
+            // 
+            // tool_productCheckClearDB
+            // 
+            this.tool_productCheckClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_productCheckClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_productCheckClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_productCheckClearDB.Name = "tool_productCheckClearDB";
+            this.tool_productCheckClearDB.Size = new System.Drawing.Size(55, 37);
+            this.tool_productCheckClearDB.Text = "清除";
+            // 
+            // tool_quanlityClearDB
+            // 
+            this.tool_quanlityClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_quanlityClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_quanlityClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_quanlityClearDB.Name = "tool_quanlityClearDB";
+            this.tool_quanlityClearDB.Size = new System.Drawing.Size(55, 37);
+            this.tool_quanlityClearDB.Text = "清除";
+            // 
+            // tool_packageClearDB
+            // 
+            this.tool_packageClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_packageClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_packageClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_packageClearDB.Name = "tool_packageClearDB";
+            this.tool_packageClearDB.Size = new System.Drawing.Size(55, 39);
+            this.tool_packageClearDB.Text = "清除";
+            // 
+            // tool_SNClearDB
+            // 
+            this.tool_SNClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_SNClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_SNClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_SNClearDB.Name = "tool_SNClearDB";
+            this.tool_SNClearDB.Size = new System.Drawing.Size(55, 36);
+            this.tool_SNClearDB.Text = "清除";
             // 
             // SNCenter
             // 
@@ -803,5 +858,10 @@
         private Telerik.WinControls.Themes.BreezeTheme breezeTheme1;
         private Telerik.WinControls.UI.RadGridView radGridViewCheck;
         private Telerik.WinControls.UI.RadGridView radGridViewPackage;
+        private System.Windows.Forms.ToolStripButton tool_materialClearDB;
+        private System.Windows.Forms.ToolStripButton tool_productCheckClearDB;
+        private System.Windows.Forms.ToolStripButton tool_SNClearDB;
+        private System.Windows.Forms.ToolStripButton tool_packageClearDB;
+        private System.Windows.Forms.ToolStripButton tool_quanlityClearDB;
     }
 }

@@ -50,10 +50,11 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tool_queryCondition = new System.Windows.Forms.ToolStripComboBox();
-            this.tool_export = new System.Windows.Forms.ToolStripButton();
             this.tool_programv = new System.Windows.Forms.ToolStripButton();
             this.tool_specCfg = new System.Windows.Forms.ToolStripButton();
             this.tool_logData = new System.Windows.Forms.ToolStripButton();
+            this.tool_exportCondition = new System.Windows.Forms.ToolStripComboBox();
+            this.tool_export = new System.Windows.Forms.ToolStripButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.rbtn_threeMonth = new System.Windows.Forms.RadioButton();
@@ -67,6 +68,7 @@
             this.pickerEndTime = new Telerik.WinControls.UI.RadDateTimePicker();
             this.pickerStartTime = new Telerik.WinControls.UI.RadDateTimePicker();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
+            this.tool_clearDB = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -122,6 +124,7 @@
             // listView1
             // 
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(928, 279);
@@ -229,10 +232,12 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.tool_queryCondition,
-            this.tool_export,
             this.tool_programv,
             this.tool_specCfg,
-            this.tool_logData});
+            this.tool_logData,
+            this.tool_exportCondition,
+            this.tool_export,
+            this.tool_clearDB});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1272, 27);
@@ -251,15 +256,6 @@
             this.tool_queryCondition.ForeColor = System.Drawing.Color.SteelBlue;
             this.tool_queryCondition.Name = "tool_queryCondition";
             this.tool_queryCondition.Size = new System.Drawing.Size(121, 27);
-            // 
-            // tool_export
-            // 
-            this.tool_export.ForeColor = System.Drawing.Color.White;
-            this.tool_export.Image = global::MesManager.Properties.Resources.Export_16x16;
-            this.tool_export.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_export.Name = "tool_export";
-            this.tool_export.Size = new System.Drawing.Size(59, 24);
-            this.tool_export.Text = "导出";
             // 
             // tool_programv
             // 
@@ -288,6 +284,20 @@
             this.tool_logData.Size = new System.Drawing.Size(90, 24);
             this.tool_logData.Text = "LOG记录";
             // 
+            // tool_exportCondition
+            // 
+            this.tool_exportCondition.Name = "tool_exportCondition";
+            this.tool_exportCondition.Size = new System.Drawing.Size(121, 27);
+            // 
+            // tool_export
+            // 
+            this.tool_export.ForeColor = System.Drawing.Color.White;
+            this.tool_export.Image = global::MesManager.Properties.Resources.Export_16x16;
+            this.tool_export.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_export.Name = "tool_export";
+            this.tool_export.Size = new System.Drawing.Size(59, 24);
+            this.tool_export.Text = "导出";
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.tableLayoutPanel1);
@@ -309,7 +319,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.38926F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 98F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108F));
             this.tableLayoutPanel1.Controls.Add(this.rbtn_threeMonth, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbtn_oneMonth, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbtn_today, 0, 0);
@@ -328,7 +338,7 @@
             this.rbtn_threeMonth.AutoSize = true;
             this.rbtn_threeMonth.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_threeMonth.ForeColor = System.Drawing.Color.White;
-            this.rbtn_threeMonth.Location = new System.Drawing.Point(170, 3);
+            this.rbtn_threeMonth.Location = new System.Drawing.Point(168, 3);
             this.rbtn_threeMonth.Name = "rbtn_threeMonth";
             this.rbtn_threeMonth.Size = new System.Drawing.Size(92, 49);
             this.rbtn_threeMonth.TabIndex = 16;
@@ -343,7 +353,7 @@
             this.rbtn_oneMonth.ForeColor = System.Drawing.Color.White;
             this.rbtn_oneMonth.Location = new System.Drawing.Point(72, 3);
             this.rbtn_oneMonth.Name = "rbtn_oneMonth";
-            this.rbtn_oneMonth.Size = new System.Drawing.Size(92, 49);
+            this.rbtn_oneMonth.Size = new System.Drawing.Size(90, 49);
             this.rbtn_oneMonth.TabIndex = 15;
             this.rbtn_oneMonth.TabStop = true;
             this.rbtn_oneMonth.Text = "最近一个月";
@@ -367,7 +377,7 @@
             this.rbtn_oneYear.AutoSize = true;
             this.rbtn_oneYear.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_oneYear.ForeColor = System.Drawing.Color.White;
-            this.rbtn_oneYear.Location = new System.Drawing.Point(268, 3);
+            this.rbtn_oneYear.Location = new System.Drawing.Point(266, 3);
             this.rbtn_oneYear.Name = "rbtn_oneYear";
             this.rbtn_oneYear.Size = new System.Drawing.Size(79, 49);
             this.rbtn_oneYear.TabIndex = 18;
@@ -380,9 +390,9 @@
             this.rbtn_custom.AutoSize = true;
             this.rbtn_custom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_custom.ForeColor = System.Drawing.Color.White;
-            this.rbtn_custom.Location = new System.Drawing.Point(353, 3);
+            this.rbtn_custom.Location = new System.Drawing.Point(351, 3);
             this.rbtn_custom.Name = "rbtn_custom";
-            this.rbtn_custom.Size = new System.Drawing.Size(101, 49);
+            this.rbtn_custom.Size = new System.Drawing.Size(103, 49);
             this.rbtn_custom.TabIndex = 13;
             this.rbtn_custom.TabStop = true;
             this.rbtn_custom.Text = "自定义日期";
@@ -460,6 +470,15 @@
             this.radGridView1.Size = new System.Drawing.Size(1175, 168);
             this.radGridView1.TabIndex = 15;
             this.radGridView1.ThemeName = "Breeze";
+            // 
+            // tool_clearDB
+            // 
+            this.tool_clearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_clearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_clearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_clearDB.Name = "tool_clearDB";
+            this.tool_clearDB.Size = new System.Drawing.Size(59, 24);
+            this.tool_clearDB.Text = "清除";
             // 
             // TestStand
             // 
@@ -542,5 +561,7 @@
         private System.Windows.Forms.RadioButton rbtn_today;
         private System.Windows.Forms.RadioButton rbtn_oneYear;
         private System.Windows.Forms.RadioButton rbtn_custom;
+        private System.Windows.Forms.ToolStripComboBox tool_exportCondition;
+        private System.Windows.Forms.ToolStripButton tool_clearDB;
     }
 }

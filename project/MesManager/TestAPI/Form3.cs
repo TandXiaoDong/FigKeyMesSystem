@@ -9,14 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using MySql.Data.MySqlClient;
-using CommonUtils.Logger;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace TestAPI
 {
     public partial class Form3 : DockContent
     {
-        private MesServiceT.MesServiceClient serviceClient;
         private DockPanel dockPanel;
         public Form3()
         {
@@ -32,11 +30,10 @@ namespace TestAPI
             //form2.Show(this.dockPanel,DockState.DockBottom);
             //测试数据
             MesServiceTest.MesServiceClient mesServiceTest = new MesServiceTest.MesServiceClient();
-            var sn = "017 B198230033020";
-            var station = "外壳装配工站";
-            var code = "A19083000029&S2.118&1.2.11.116&50&20190830&1T20190830001";
-            var result = mesServiceTest.SelectLastTestResult(sn,station);
-            var up = mesServiceTest.UpdateMaterialStatistics("A01",station,code,"2","8","0");
+            MesService.MesServiceClient cst = new MesService.MesServiceClient();
+            var res = mesServiceTest.UpdatePackageProductBindingMsg("13","0012","A01","","0","","","");
+            //var msg = mesServiceTest.CheckPcbaState("017 B19922001901", "");
+            MessageBox.Show(res[0]+"  "+res[1]);
         }
 
         public void LSOSQL()

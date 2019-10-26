@@ -643,6 +643,12 @@ namespace MesManager.MesService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultLogDetail", ReplyAction="http://tempuri.org/IMesService/SelectTestResultLogDetailResponse")]
         System.Threading.Tasks.Task<System.Data.DataSet> SelectTestResultLogDetailAsync(string queryFilter, string startTime, string endTime);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestLogData", ReplyAction="http://tempuri.org/IMesService/DeleteTestLogDataResponse")]
+        string DeleteTestLogData(string queryCondition, string startTime, string endTime);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestLogData", ReplyAction="http://tempuri.org/IMesService/DeleteTestLogDataResponse")]
+        System.Threading.Tasks.Task<string> DeleteTestLogDataAsync(string queryCondition, string startTime, string endTime);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/GetPCBASn", ReplyAction="http://tempuri.org/IMesService/GetPCBASnResponse")]
         string GetPCBASn(string sn);
         
@@ -668,10 +674,16 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<System.Data.DataSet> SelectPackageProductCheckAsync(string queryFilter, string state, bool IsShowNumber);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/ModifyMaterialStock", ReplyAction="http://tempuri.org/IMesService/ModifyMaterialStockResponse")]
-        MesManager.MesService.MaterialStockEnum ModifyMaterialStock(string materialCode, int stock, string username);
+        MesManager.MesService.MaterialStockEnum ModifyMaterialStock(string materialCode, int stock, string describle, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/ModifyMaterialStock", ReplyAction="http://tempuri.org/IMesService/ModifyMaterialStockResponse")]
-        System.Threading.Tasks.Task<MesManager.MesService.MaterialStockEnum> ModifyMaterialStockAsync(string materialCode, int stock, string username);
+        System.Threading.Tasks.Task<MesManager.MesService.MaterialStockEnum> ModifyMaterialStockAsync(string materialCode, int stock, string describle, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateInsern", ReplyAction="http://tempuri.org/IMesService/UpdateInsernResponse")]
+        string UpdateInsern(string sn);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateInsern", ReplyAction="http://tempuri.org/IMesService/UpdateInsernResponse")]
+        System.Threading.Tasks.Task<string> UpdateInsernAsync(string sn);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1109,6 +1121,14 @@ namespace MesManager.MesService {
             return base.Channel.SelectTestResultLogDetailAsync(queryFilter, startTime, endTime);
         }
         
+        public string DeleteTestLogData(string queryCondition, string startTime, string endTime) {
+            return base.Channel.DeleteTestLogData(queryCondition, startTime, endTime);
+        }
+        
+        public System.Threading.Tasks.Task<string> DeleteTestLogDataAsync(string queryCondition, string startTime, string endTime) {
+            return base.Channel.DeleteTestLogDataAsync(queryCondition, startTime, endTime);
+        }
+        
         public string GetPCBASn(string sn) {
             return base.Channel.GetPCBASn(sn);
         }
@@ -1141,12 +1161,20 @@ namespace MesManager.MesService {
             return base.Channel.SelectPackageProductCheckAsync(queryFilter, state, IsShowNumber);
         }
         
-        public MesManager.MesService.MaterialStockEnum ModifyMaterialStock(string materialCode, int stock, string username) {
-            return base.Channel.ModifyMaterialStock(materialCode, stock, username);
+        public MesManager.MesService.MaterialStockEnum ModifyMaterialStock(string materialCode, int stock, string describle, string username) {
+            return base.Channel.ModifyMaterialStock(materialCode, stock, describle, username);
         }
         
-        public System.Threading.Tasks.Task<MesManager.MesService.MaterialStockEnum> ModifyMaterialStockAsync(string materialCode, int stock, string username) {
-            return base.Channel.ModifyMaterialStockAsync(materialCode, stock, username);
+        public System.Threading.Tasks.Task<MesManager.MesService.MaterialStockEnum> ModifyMaterialStockAsync(string materialCode, int stock, string describle, string username) {
+            return base.Channel.ModifyMaterialStockAsync(materialCode, stock, describle, username);
+        }
+        
+        public string UpdateInsern(string sn) {
+            return base.Channel.UpdateInsern(sn);
+        }
+        
+        public System.Threading.Tasks.Task<string> UpdateInsernAsync(string sn) {
+            return base.Channel.UpdateInsernAsync(sn);
         }
     }
 }

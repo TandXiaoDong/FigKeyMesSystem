@@ -232,6 +232,9 @@ namespace MesAPI.DB
             public const string SN_OUTTER = "[sn_outter]";
             public const string MATERIAL_CODE = "[material_code]";
             public const string UPDATE_DATE = "update_date";
+            public const string BINDING_STATE = "[binding_state]";
+            public const string PCBA_STATE = "[pcba_state]";
+            public const string OUTTER_STATE = "[outter_state]";
         }
     }
 }

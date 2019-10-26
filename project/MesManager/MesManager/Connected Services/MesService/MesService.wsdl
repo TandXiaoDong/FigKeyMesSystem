@@ -315,6 +315,12 @@
   <wsdl:message name="IMesService_SelectTestResultLogDetail_OutputMessage">
     <wsdl:part name="parameters" element="tns:SelectTestResultLogDetailResponse" />
   </wsdl:message>
+  <wsdl:message name="IMesService_DeleteTestLogData_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTestLogData" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_DeleteTestLogData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTestLogDataResponse" />
+  </wsdl:message>
   <wsdl:message name="IMesService_GetPCBASn_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPCBASn" />
   </wsdl:message>
@@ -344,6 +350,12 @@
   </wsdl:message>
   <wsdl:message name="IMesService_ModifyMaterialStock_OutputMessage">
     <wsdl:part name="parameters" element="tns:ModifyMaterialStockResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateInsern_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateInsern" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateInsern_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateInsernResponse" />
   </wsdl:message>
   <wsdl:portType name="IMesService">
     <wsdl:operation name="TestCommunication">
@@ -550,6 +562,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectTestResultLogDetail" message="tns:IMesService_SelectTestResultLogDetail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectTestResultLogDetailResponse" message="tns:IMesService_SelectTestResultLogDetail_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="DeleteTestLogData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteTestLogData" message="tns:IMesService_DeleteTestLogData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/DeleteTestLogDataResponse" message="tns:IMesService_DeleteTestLogData_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPCBASn">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/GetPCBASn" message="tns:IMesService_GetPCBASn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/GetPCBASnResponse" message="tns:IMesService_GetPCBASn_OutputMessage" />
@@ -569,6 +585,10 @@
     <wsdl:operation name="ModifyMaterialStock">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/ModifyMaterialStock" message="tns:IMesService_ModifyMaterialStock_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/ModifyMaterialStockResponse" message="tns:IMesService_ModifyMaterialStock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInsern">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/UpdateInsern" message="tns:IMesService_UpdateInsern_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/UpdateInsernResponse" message="tns:IMesService_UpdateInsern_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMesService" type="tns:IMesService">
@@ -1032,6 +1052,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DeleteTestLogData">
+      <soap:operation soapAction="http://tempuri.org/IMesService/DeleteTestLogData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPCBASn">
       <soap:operation soapAction="http://tempuri.org/IMesService/GetPCBASn" style="document" />
       <wsdl:input>
@@ -1070,6 +1099,15 @@
     </wsdl:operation>
     <wsdl:operation name="ModifyMaterialStock">
       <soap:operation soapAction="http://tempuri.org/IMesService/ModifyMaterialStock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInsern">
+      <soap:operation soapAction="http://tempuri.org/IMesService/UpdateInsern" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

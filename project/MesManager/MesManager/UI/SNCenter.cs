@@ -12,7 +12,7 @@ using System.IO;
 using Telerik.WinControls.UI.Export;
 using CommonUtils.Logger;
 using CommonUtils.FileHelper;
-using MesManager.TelerikWinform.GridViewCommon.GridViewDataExport;
+using WindowsFormTelerik.GridViewExportData;
 using System.Threading;
 using Telerik.WinControls.Themes;
 using Sunisoft.IrisSkin;
@@ -76,14 +76,6 @@ namespace MesManager.UI
         public const string CASE_AMOUNTED = "产品实际数据";
         #endregion
 
-        private enum ExportFormat
-        {
-            EXCEL,
-            HTML,
-            PDF,
-            CSV
-        }
-
         public SNCenter()
         {
             InitializeComponent();
@@ -130,6 +122,37 @@ namespace MesManager.UI
 
             this.radGridViewMaterial.CellDoubleClick += RadGridViewMaterial_CellDoubleClick;
             this.radGridViewPackage.CellDoubleClick += RadGridViewPackage_CellDoubleClick;
+
+            this.tool_SNClearDB.Click += Tool_SNClearDB_Click;
+            this.tool_quanlityClearDB.Click += Tool_quanlityClearDB_Click;
+            this.tool_packageClearDB.Click += Tool_packageClearDB_Click;
+            this.tool_materialClearDB.Click += Tool_materialClearDB_Click;
+            this.tool_productCheckClearDB.Click += Tool_productCheckClearDB_Click;
+        }
+
+        private void Tool_productCheckClearDB_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Tool_materialClearDB_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Tool_packageClearDB_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Tool_quanlityClearDB_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Tool_SNClearDB_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #region UI style
@@ -269,64 +292,34 @@ namespace MesManager.UI
 
         private void Tool_package_export_Click(object sender, EventArgs e)
         {
-            ExportGridViewData(this.tool_package_exportFilter.SelectedIndex, this.radGridViewPackage);
+            ExportGridViewData(this.tool_package_exportFilter.Text, this.radGridViewPackage);
         }
 
         private void Tool_quanlity_export_Click(object sender, EventArgs e)
         {
-            ExportGridViewData(this.tool_quanlity_exportFilter.SelectedIndex, this.radGridViewQuanlity);
+            ExportGridViewData(this.tool_quanlity_exportFilter.Text, this.radGridViewQuanlity);
         }
 
         private void Tool_productCheck_export_Click(object sender, EventArgs e)
         {
-            ExportGridViewData(this.tool_productCheck_exportFilter.SelectedIndex, this.radGridViewCheck);
+            ExportGridViewData(this.tool_productCheck_exportFilter.Text, this.radGridViewCheck);
         }
 
         private void Tool_material_export_Click(object sender, EventArgs e)
         {
-            ExportGridViewData(this.tool_material_exportFilter.SelectedIndex, this.radGridViewMaterial);
+            ExportGridViewData(this.tool_material_exportFilter.Text, this.radGridViewMaterial);
         }
 
         private void Tool_sn_export_Click(object sender, EventArgs e)
         {
-            ExportGridViewData(this.tool_sn_exportFilter.SelectedIndex,this.radGridViewSn);
+            ExportGridViewData(this.tool_sn_exportFilter.Text,this.radGridViewSn);
         }
 
-        private void ExportGridViewData(int selectIndex,RadGridView radGridView)
+        private void ExportGridViewData(string exportCondition,RadGridView radGridView)
         {
-            var filter = "Excel (*.xls)|*.xls";
-            if (selectIndex == (int)ExportFormat.EXCEL)
-            {
-                filter = "Excel (*.xls)|*.xls";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToExcelML(path, radGridView);
-            }
-            else if (selectIndex == (int)ExportFormat.HTML)
-            {
-                filter = "Html File (*.htm)|*.htm";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToHTML(path, radGridView);
-            }
-            else if (selectIndex == (int)ExportFormat.PDF)
-            {
-                filter = "PDF file (*.pdf)|*.pdf";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToPDF(path, radGridView);
-            }
-            else if (selectIndex == (int)ExportFormat.CSV)
-            {
-                filter = "PDF file (*.pdf)|*.csv";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToCSV(path, radGridView);
-            }
+            GridViewExport.ExportFormat exportFormat = GridViewExport.ExportFormat.EXCEL;
+            Enum.TryParse(exportCondition,out exportFormat);
+            GridViewExport.ExportGridViewData(exportFormat, radGridView);
         }
 
         private void Btn_materialSelect_Click(object sender, EventArgs e)
@@ -392,35 +385,43 @@ namespace MesManager.UI
             this.panel_sn.Visible = true;
             this.panel_sn.Dock = DockStyle.Fill;
             this.tool_sn_exportFilter.Items.Clear();
-            this.tool_sn_exportFilter.Items.Add(ExportFormat.EXCEL);
-            this.tool_sn_exportFilter.Items.Add(ExportFormat.HTML);
-            this.tool_sn_exportFilter.Items.Add(ExportFormat.PDF);
-            this.tool_sn_exportFilter.Items.Add(ExportFormat.CSV);
+            this.tool_sn_exportFilter.Items.Add(GridViewExport.ExportFormat.EXCEL);
+            this.tool_sn_exportFilter.Items.Add(GridViewExport.ExportFormat.HTML);
+            this.tool_sn_exportFilter.Items.Add(GridViewExport.ExportFormat.PDF);
+            this.tool_sn_exportFilter.Items.Add(GridViewExport.ExportFormat.CSV);
             this.tool_sn_exportFilter.SelectedIndex = 0;
             this.tool_package_exportFilter.Items.Clear();
-            this.tool_package_exportFilter.Items.Add(ExportFormat.EXCEL);
-            this.tool_package_exportFilter.Items.Add(ExportFormat.HTML);
-            this.tool_package_exportFilter.Items.Add(ExportFormat.PDF);
-            this.tool_package_exportFilter.Items.Add(ExportFormat.CSV);
+            this.tool_package_exportFilter.Items.Add(GridViewExport.ExportFormat.EXCEL);
+            this.tool_package_exportFilter.Items.Add(GridViewExport.ExportFormat.HTML);
+            this.tool_package_exportFilter.Items.Add(GridViewExport.ExportFormat.PDF);
+            this.tool_package_exportFilter.Items.Add(GridViewExport.ExportFormat.CSV);
             this.tool_package_exportFilter.SelectedIndex = 0;
             this.tool_material_exportFilter.Items.Clear();
-            this.tool_material_exportFilter.Items.Add(ExportFormat.EXCEL);
-            this.tool_material_exportFilter.Items.Add(ExportFormat.HTML);
-            this.tool_material_exportFilter.Items.Add(ExportFormat.PDF);
-            this.tool_material_exportFilter.Items.Add(ExportFormat.CSV);
+            this.tool_material_exportFilter.Items.Add(GridViewExport.ExportFormat.EXCEL);
+            this.tool_material_exportFilter.Items.Add(GridViewExport.ExportFormat.HTML);
+            this.tool_material_exportFilter.Items.Add(GridViewExport.ExportFormat.PDF);
+            this.tool_material_exportFilter.Items.Add(GridViewExport.ExportFormat.CSV);
             this.tool_material_exportFilter.SelectedIndex = 0;
             this.tool_productCheck_exportFilter.Items.Clear();
-            this.tool_productCheck_exportFilter.Items.Add(ExportFormat.EXCEL);
-            this.tool_productCheck_exportFilter.Items.Add(ExportFormat.HTML);
-            this.tool_productCheck_exportFilter.Items.Add(ExportFormat.PDF);
-            this.tool_productCheck_exportFilter.Items.Add(ExportFormat.CSV);
+            this.tool_productCheck_exportFilter.Items.Add(GridViewExport.ExportFormat.EXCEL);
+            this.tool_productCheck_exportFilter.Items.Add(GridViewExport.ExportFormat.HTML);
+            this.tool_productCheck_exportFilter.Items.Add(GridViewExport.ExportFormat.PDF);
+            this.tool_productCheck_exportFilter.Items.Add(GridViewExport.ExportFormat.CSV);
             this.tool_productCheck_exportFilter.SelectedIndex = 0;
             this.tool_quanlity_exportFilter.Items.Clear();
-            this.tool_quanlity_exportFilter.Items.Add(ExportFormat.EXCEL);
-            this.tool_quanlity_exportFilter.Items.Add(ExportFormat.HTML);
-            this.tool_quanlity_exportFilter.Items.Add(ExportFormat.PDF);
-            this.tool_quanlity_exportFilter.Items.Add(ExportFormat.CSV);
+            this.tool_quanlity_exportFilter.Items.Add(GridViewExport.ExportFormat.EXCEL);
+            this.tool_quanlity_exportFilter.Items.Add(GridViewExport.ExportFormat.HTML);
+            this.tool_quanlity_exportFilter.Items.Add(GridViewExport.ExportFormat.PDF);
+            this.tool_quanlity_exportFilter.Items.Add(GridViewExport.ExportFormat.CSV);
             this.tool_quanlity_exportFilter.SelectedIndex = 0;
+            if (MESMainForm.currentUsetType != 0)
+            {
+                this.tool_materialClearDB.Enabled = false;
+                this.tool_packageClearDB.Enabled = false;
+                this.tool_productCheckClearDB.Enabled = false;
+                this.tool_quanlityClearDB.Enabled = false;
+                this.tool_SNClearDB.Enabled = false;
+            }
         }
 
         private void SetPanelFalse()
@@ -436,15 +437,18 @@ namespace MesManager.UI
         {
             var filter = tb_sn.Text;
             //DataSet ds = (await serviceClient.SelectTestResultUpperAsync(filter, filter, filter, true));
+            LogHelper.Log.Info("【开始查询】");
             DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter);
             if (ds.Tables.Count < 1)
             {
-                this.radGridViewSn.DataSource = null;
+                this.radGridViewSn.DataSource = null;   
                 return;
             }
             DataTable dt = ds.Tables[0];
+            this.radGridViewSn.BeginEdit();
             this.radGridViewSn.DataSource = null; 
-            radGridViewSn.DataSource = dt;
+            this.radGridViewSn.DataSource = dt;
+            this.radGridViewSn.EndEdit();
             this.radGridViewSn.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridViewSn.BestFitColumns();
         }
@@ -507,6 +511,7 @@ namespace MesManager.UI
             this.radGridViewCheck.Columns[2].BestFit();
             this.radGridViewCheck.Columns[9].BestFit();
         }
+
         private void InitDataTable()
         {
             if (dataSourceMaterialBasic == null)
@@ -631,51 +636,12 @@ namespace MesManager.UI
             var ds = await serviceClient.SelectMaterialBasicMsgAsync(this.tb_material.Text);
             if (ds.Tables.Count < 1)
             {
-                this.dataSourceMaterialBasic.Clear();
                 return;
             }
-            var dt = ds.Tables[0];
-            this.dataSourceMaterialBasic.Clear();
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                DataRow dr = dataSourceMaterialBasic.NewRow();
-                var materialCode = dt.Rows[i][0].ToString();//pn/lot/rid/dc/qty
-                //var materialName = dt.Rows[i][1].ToString();
-                var productTypeNo = dt.Rows[i][2].ToString();
-                var useAmounted = dt.Rows[i][3].ToString();
-                var sn = dt.Rows[i][4].ToString();
-                var amountTotal = dt.Rows[i][5].ToString();
-                var putInStorage = dt.Rows[i][6].ToString();
-                var currentRemain = dt.Rows[i][7].ToString();
-                var snPCBA = serviceClient.GetPCBASn(sn);
-                var snOutter = serviceClient.GetProductSn(sn);
-                if (!materialCode.Contains("&"))
-                    continue;
-                AnalysisMaterialCode analysisMaterial = AnalysisMaterialCode.GetMaterialDetail(materialCode);
-                var pnCode = analysisMaterial.MaterialPN;
-                var lotCode = analysisMaterial.MaterialLOT;
-                var ridCode = analysisMaterial.MaterialRID;
-                var dcCode = analysisMaterial.MaterialDC;
-                //var qtyCode = analysisMaterial.MaterialQTY;
-                var materialName = serviceClient.SelectMaterialName(pnCode);
-                dr[DATA_ORDER] = i + 1;
-                dr[MATERIAL_PN] = pnCode;
-                dr[MATERIAL_LOT] = lotCode;
-                dr[MATERIAL_RID] = ridCode;
-                dr[MATERIAL_DC] = dcCode;
-                dr[MATERIAL_QTY] = putInStorage;
-                dr[MATERIAL_NAME] = materialName;
-                dr[PRODUCT_TYPENO] = productTypeNo;
-                dr[USE_AMOUNTED] = useAmounted;
-                dr[RESIDUE_STOCK] = int.Parse(putInStorage) - int.Parse(amountTotal);
-                dr[CURRENT_RESIDUE_STOCK] = currentRemain;
-
-                dr[SN_PCBA] = snPCBA;
-                dr[SN_OUTTER] = snOutter;
-                dataSourceMaterialBasic.Rows.Add(dr);
-            }
-            this.radGridViewMaterial.DataSource = dataSourceMaterialBasic;
-            this.radGridViewMaterial.Columns[0].BestFit();
+            this.radGridViewMaterial.DataSource = ds.Tables[0];
+            //this.radGridViewMaterial.Columns[0].BestFit();
+            this.radGridViewMaterial.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridViewMaterial.BestFitColumns();
         }
 
         private void Btn_selectOfSn_Click(object sender, EventArgs e)

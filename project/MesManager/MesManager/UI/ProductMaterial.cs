@@ -21,6 +21,7 @@ namespace MesManager.UI
         private string keyTypeNo;
         private string keyDescrible;
         private string keyOldMaterialStock;
+        private string keyOldMaterialDescrible;
 
         #region 物料统计字段
         private const string MATERIAL_STOCK_ORDER = "序号";
@@ -30,6 +31,7 @@ namespace MesManager.UI
         private const string MATERIAL_DC = "收料日期";
         private const string MATERIAL_NAME = "物料名称";
         private const string MATERIAL_QTY = "入库库存";
+        private const string MATERIAL_DECRIBLE = "备注";
         private const string ADMIN = "管理员";
         private const string UPDATE_DATE = "更新日期";
         #endregion
@@ -114,6 +116,7 @@ namespace MesManager.UI
             materialStockData.Columns.Add(MATERIAL_DC);
             materialStockData.Columns.Add(MATERIAL_NAME);
             materialStockData.Columns.Add(MATERIAL_QTY);
+            materialStockData.Columns.Add(MATERIAL_DECRIBLE);
             materialStockData.Columns.Add(ADMIN);
             materialStockData.Columns.Add(UPDATE_DATE);
         }
@@ -139,14 +142,16 @@ namespace MesManager.UI
         private void RadGridView2_CellEndEdit(object sender, GridViewCellEventArgs e)
         {
             var materialStock = this.radGridView2.CurrentRow.Cells[6].Value;
+            var describle = this.radGridView2.CurrentRow.Cells[7].Value;
             var materialRid = this.radGridView2.CurrentRow.Cells[3].Value;
             if (materialStock == null)
                 return;
-            if (materialStock.ToString() != keyOldMaterialStock)
+            ProductMaterial productMaterial = new ProductMaterial();
+            if (materialStock.ToString() != keyOldMaterialStock || describle.ToString() != keyOldMaterialDescrible)
             {
-                ProductMaterial productMaterial = new ProductMaterial();
                 productMaterial.keyOldMaterialStock = materialStock.ToString();
                 productMaterial.keyMaterialCode = serviceClient.GetMaterialCode(materialRid.ToString());
+                productMaterial.keyOldMaterialDescrible = describle.ToString();
                 this.pmStockList.Add(productMaterial);
             }
         }
@@ -154,9 +159,15 @@ namespace MesManager.UI
         private void RadGridView2_CellBeginEdit(object sender, GridViewCellCancelEventArgs e)
         {
             var materialStock = this.radGridView2.CurrentRow.Cells[6].Value;
-            if (materialStock == null)
-                return;
-            keyOldMaterialStock = materialStock.ToString();
+            var materialDescrible = this.radGridView2.CurrentRow.Cells[7].Value;
+            if (materialStock != null)
+            {
+                keyOldMaterialStock = materialStock.ToString();
+            }
+            if (materialDescrible != null)
+            {
+                keyOldMaterialDescrible = materialDescrible.ToString();
+            }
         }
 
         private void Tool_material_stock_Click(object sender, EventArgs e)
@@ -387,6 +398,7 @@ namespace MesManager.UI
                     dr[MATERIAL_QTY] = materialStock;
                     dr[UPDATE_DATE] = dt.Rows[i][3].ToString();
                     dr[ADMIN] = dt.Rows[i][2].ToString();
+                    dr[MATERIAL_DECRIBLE] = dt.Rows[i][4].ToString();
                     this.materialStockData.Rows.Add(dr);
                 }
             }
@@ -397,7 +409,6 @@ namespace MesManager.UI
             this.radGridView2.Columns[3].ReadOnly = true;
             this.radGridView2.Columns[4].ReadOnly = true;
             this.radGridView2.Columns[5].ReadOnly = true;
-            this.radGridView2.Columns[7].ReadOnly = true;
             this.radGridView2.Columns[8].ReadOnly = true;
             this.radGridView2.Columns[0].BestFit();
         }
@@ -465,8 +476,9 @@ namespace MesManager.UI
             foreach (var productMaterial in pmStockList)
             {
                 int modifyStock;
-                int.TryParse(productMaterial.keyOldMaterialStock.Trim(),out modifyStock);
-                MesService.MaterialStockEnum materialStockEnum = serviceClient.ModifyMaterialStock(productMaterial.keyMaterialCode,modifyStock,MESMainForm.currentUser);
+                int.TryParse(productMaterial.keyOldMaterialStock.Trim(), out modifyStock);
+                MesService.MaterialStockEnum materialStockEnum = serviceClient.ModifyMaterialStock(productMaterial.keyMaterialCode,
+                    modifyStock, productMaterial.keyOldMaterialDescrible, MESMainForm.currentUser);
                 if (materialStockEnum == MesService.MaterialStockEnum.STATUS_FAIL)
                 {
                     updateRes = false;

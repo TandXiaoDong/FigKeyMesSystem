@@ -78,10 +78,12 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var iRes = SQLServer.ExecuteNonQuery(insertSQL);
             if (iRes == 1)//新入库成功
             {
+                LogHelper.Log.Info("【入库】入库成功");
                 //更新物料PN
                 UpdateMaterialPN(MaterialCodeMsg.GetMaterialPN(materialCode));
                 return ConvertCheckMaterialPutInStorage(MaterialCheckPutStorageEnum.STATUS_IS_NEW_PUT_INT_STORAGE);
             }
+            LogHelper.Log.Info("【入库失败】");
             return ConvertCheckMaterialPutInStorage(MaterialCheckPutStorageEnum.STATUS_IS_PUT_IN_FAIL_STORAGE);
         }
 
@@ -429,14 +431,25 @@ namespace MesWcfService.MessageQueue.RemoteClient
                         //插入成功
                         var iuRes = UpdateMaterialAmounted(materialCode, int.Parse(amounted));//更新总的计数
                         var isRes = UpdateMaterialState(materialCode);//更新状态
-                        UpdateCurrentMaterialRemain(materialCode, productTypeNo, stationName, pcbaSN);
+                        var b = UpdateCurrentMaterialRemain(materialCode, productTypeNo, stationName, pcbaSN);
                         if (iuRes > 0 && isRes > 0)
                         {
                             //更新物料使用数量成功
                             return ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.STATUS_USCCESS);
                         }
+                        else
+                        {
+                            if (iuRes < 1)
+                            {
+                                LogHelper.Log.Info("【更新物料统计】更新总的计数失败");
+                            }
+                            if (isRes < 1)
+                            {
+                                LogHelper.Log.Info("【更新物料统计】更新状态失败");
+                            }
+                        }
                     }
-                    LogHelper.Log.Error("【插入失败】"+insertSQL);
+                    LogHelper.Log.Error("【更新物料统计-插入失败】"+insertSQL);
                     return ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.STATUS_FAIL);
                 }
 
@@ -548,7 +561,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             return 0;
         }
 
-        private static void UpdateCurrentMaterialRemain(string materialCode,string typeNo,string stationName,string pcbaSN)
+        private static bool UpdateCurrentMaterialRemain(string materialCode,string typeNo,string stationName,string pcbaSN)
         {
             try
             {
@@ -574,20 +587,24 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     if (dtRemain > 0)
                     {
                         LogHelper.Log.Info("【当前物料剩余数量更新成功！】");
+                        return true;
                     }
                     else
                     {
-                        LogHelper.Log.Info("【当前物料剩余数量更新失败！】");
+                        LogHelper.Log.Info("【当前物料剩余数量更新失败！】"+updateRemain);
+                        return false;
                     }
                 }
                 else
                 {
-                    LogHelper.Log.Info("【更新物料剩余数量-查询库存与使用总数失败】");
+                    LogHelper.Log.Info("【更新物料剩余数量-查询库存与使用总数失败】"+selectSQL);
+                    return false;
                 }
             }
             catch (Exception ex)
             {
                 LogHelper.Log.Error("更新物料剩余数量异常-"+ex.Message);
+                return false;
             }
         }
         #endregion

@@ -18,6 +18,7 @@ using MesAPI.DB;
 using MesAPI.Model;
 using System.Data.SqlClient;
 using MesAPI.Common;
+using System.Data.Common;
 
 namespace MesAPI
 {
@@ -39,6 +40,35 @@ namespace MesAPI
         private static string STATION_AIR = "气密";
         private static string STATION_STENT = "支架";
         private static string STATION_PRODUCT = "成品";
+
+        #region 物料统计字段
+        private const string DATA_ORDER = "序号";
+        private const string MATERIAL_PN = "物料号";
+        private const string MATERIAL_LOT = "批次号";
+        private const string MATERIAL_RID = "料盘号";
+        private const string MATERIAL_DC = "收料日期";
+        private const string MATERIAL_QTY = "入库库存";
+        private const string MATERIAL_NAME = "物料名称";
+        private const string PRODUCT_TYPENO = "产品型号";
+        private const string SN_PCBA = "PCBA";
+        private const string SN_OUTTER = "外壳";
+        private const string STATION_NAME = "工站名称";
+        private const string USE_AMOUNTED = "当前使用数量";
+        private const string RESIDUE_STOCK = "入库剩余库存";
+        private const string CURRENT_RESIDUE_STOCK = "当前剩余库存";
+        private const string TEAM_LEADER = "班组长";
+        private const string ADMIN = "管理员";
+        private const string UPDATE_DATE = "更新日期";
+        private const string PCBA_STATUS = "PCBA绑定状态";
+
+        private const string EXCEPT_TYPE = "异常类型";
+        private const string EXCEPT_STOCK = "异常数量";
+        private const string ACTUAL_STOCK = "实际库存";
+        private const string MATERIAL_STATE = "物料状态";
+        private const string SHUT_REASON = "结单原因";
+        private const string USER_NAME = "结单用户";
+        private const string STATEMENT_DATE = "结单日期";
+        #endregion
 
         private string GetDateTimeNow()
         {
@@ -463,22 +493,31 @@ namespace MesAPI
         /// <returns></returns>
         private List<string> SelectUseAllPcbaSN()
         {
-            var selectSQL = $"SELECT DISTINCT {DbTable.F_Test_Result.SN} " +
-                $"FROM " +
-                $"{DbTable.F_TEST_RESULT_NAME} ";
-            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             List<string> pcbaList = new List<string>();
-            if (dt.Rows.Count > 0)
+            var selectSQL = $"select {DbTable.F_Test_Result.SN} from {DbTable.F_TEST_RESULT_NAME} " +
+                $"order by {DbTable.F_Test_Result.STATION_IN_DATE} desc";
+            try
             {
-                for (int i = 0; i < dt.Rows.Count; i++)
+                var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                if (dt.Rows.Count > 0)
                 {
-                    var pcbaSN = dt.Rows[i][0].ToString();
-                    if (!IsProductSN(pcbaSN))
+                    //去重
+                    DataView dv = new DataView(dt);
+                    dt = dv.ToTable(true,"sn");
+                    for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        //是PCBA
-                        pcbaList.Add(pcbaSN);
+                        var pcbaSN = dt.Rows[i][0].ToString();                                                                                                                      
+                        if (!IsProductSN(pcbaSN))
+                        {
+                            //是PCBA
+                            pcbaList.Add(pcbaSN);
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error(ex.Message);
             }
             return pcbaList;
         }
@@ -1065,6 +1104,7 @@ namespace MesAPI
                     TestResultBasic testResultBasic = new TestResultBasic();
                     if (dtResult.Rows.Count > 0)
                     {
+                        //pcbasn查询结果
                         testResultBasic.TestResultValue = dtResult.Rows[0][5].ToString();
                         var currentTestResult = testResultBasic.TestResultValue.Trim().ToLower();
                         if (currentTestResult != "pass")
@@ -1074,6 +1114,7 @@ namespace MesAPI
                     }
                     else
                     {
+                        //productsn查询结果
                         selectResultSQL = $"SELECT TOP 1 " +
                         $"{DbTable.F_Test_Result.SN}," +
                         $"{DbTable.F_Test_Result.TYPE_NO}," +
@@ -1100,6 +1141,12 @@ namespace MesAPI
                             {
                                 IsFinalResultPass = false;
                             }
+                        }
+                        else
+                        {
+                            //pcbasn/productsn都无查询结果；无进站记录
+                            //流程为未完成状态
+                            return "未完成";
                         }
                     }
                 }
@@ -1331,6 +1378,147 @@ namespace MesAPI
             return ds;
         }
 
+        public string DeleteTestLogData(string queryCondition,string startTime,string endTime)
+        {
+            var delTestResult = "";
+            var selectTestResultSQL = "";
+            try
+            {
+                if (delTestResult == "")
+                {
+                    //删除测试log数据
+                    selectTestResultSQL = $"SELECT " +
+                            $"{DbTable.F_Test_Result.SN}," +
+                            $"{DbTable.F_Test_Result.TYPE_NO}," +
+                            $"{DbTable.F_Test_Result.STATION_NAME}," +
+                            $"{DbTable.F_Test_Result.TEST_RESULT}," +
+                            $"{DbTable.F_Test_Result.STATION_IN_DATE}," +
+                            $"{DbTable.F_Test_Result.STATION_OUT_DATE}," +
+                            $"{DbTable.F_Test_Result.TEAM_LEADER}," +
+                            $"{DbTable.F_Test_Result.JOIN_DATE_TIME} " +
+                            $"FROM " +
+                            $"{DbTable.F_TEST_RESULT_NAME} " +
+                            $"WHERE " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                            $"AND " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
+                            $"ORDER BY " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} " +
+                            $"DESC";
+                    delTestResult = $"delete FROM " +
+                            $"{DbTable.F_TEST_RESULT_NAME} " +
+                            $"WHERE " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                            $"AND " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' ";
+                }
+                else
+                {
+                    var pcbaSN = GetPCBASn(queryCondition);
+                    var productSN = GetProductSn(queryCondition);
+                    selectTestResultSQL = $"SELECT " +
+                            $"{DbTable.F_Test_Result.SN}," +
+                            $"{DbTable.F_Test_Result.TYPE_NO}," +
+                            $"{DbTable.F_Test_Result.STATION_NAME}," +
+                            $"{DbTable.F_Test_Result.TEST_RESULT}," +
+                            $"{DbTable.F_Test_Result.STATION_IN_DATE}," +
+                            $"{DbTable.F_Test_Result.STATION_OUT_DATE}," +
+                            $"{DbTable.F_Test_Result.TEAM_LEADER}," +
+                            $"{DbTable.F_Test_Result.JOIN_DATE_TIME} " +
+                            $"FROM " +
+                            $"{DbTable.F_TEST_RESULT_NAME} " +
+                            $"WHERE " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                            $"AND " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
+                            $"AND " +
+                            $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' " +
+                            $"OR " +
+                            $"{DbTable.F_Test_Result.SN} = '{productSN}' " +
+                            $"OR " +
+                            $"{DbTable.F_Test_Result.STATION_NAME} = '{queryCondition}'";
+                    delTestResult = $"delete FROM " +
+                            $"{DbTable.F_TEST_RESULT_NAME} " +
+                            $"WHERE " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                            $"AND " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}'" +
+                            $"AND " +
+                            $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' " +
+                            $"OR " +
+                            $"{DbTable.F_Test_Result.SN} = '{productSN}' " +
+                            $"OR " +
+                            $"{DbTable.F_Test_Result.STATION_NAME} = '{queryCondition}'";
+                }
+                var dtRes = SQLServer.ExecuteDataSet(selectTestResultSQL);
+                if (dtRes.Tables.Count > 0)
+                {
+                    int count = 0;
+                    foreach (DataRow dr in dtRes.Tables[0].Rows)
+                    {
+                        var sn = dr[0].ToString();
+                        var typeNo = dr[1].ToString();
+                        var stationName = dr[2].ToString();
+                        var joinTime = dr[7].ToString();
+                        var pcbaSN = GetPCBASn(sn);
+                        var productSN = GetProductSn(sn);
+                        var delLogSQL = $"delete from {DbTable.F_TEST_LOG_DATA_NAME} where " +
+                            $"{DbTable.F_TEST_LOG_DATA.TYPE_NO}='{typeNo}' " +
+                            $"and " +
+                            $"{DbTable.F_TEST_LOG_DATA.PRODUCT_SN}='{pcbaSN}' " +
+                            $"and " +
+                            $"{DbTable.F_TEST_LOG_DATA.STATION_NAME}='{stationName}' " +
+                            $"and " +
+                            $"{DbTable.F_TEST_LOG_DATA.JOIN_DATE_TIME}='{joinTime}'";
+                        var delRow = SQLServer.ExecuteNonQuery(delLogSQL);
+                        if (delRow < 1)
+                        {
+                            delLogSQL = $"delete from {DbTable.F_TEST_LOG_DATA_NAME} where " +
+                            $"{DbTable.F_TEST_LOG_DATA.TYPE_NO}='{typeNo}' " +
+                            $"and " +
+                            $"{DbTable.F_TEST_LOG_DATA.PRODUCT_SN}='{productSN}' " +
+                            $"and " +
+                            $"{DbTable.F_TEST_LOG_DATA.STATION_NAME}='{stationName}' " +
+                            $"and " +
+                            $"{DbTable.F_TEST_LOG_DATA.JOIN_DATE_TIME}='{joinTime}'";
+                            delRow += SQLServer.ExecuteNonQuery(delLogSQL);
+                        }
+                        count += delRow;
+                    }
+                    //执行删除测试结果数据
+
+                    var delRes = SQLServer.ExecuteNonQuery(delTestResult);
+                    if (delRes > 0 && count > 0)
+                    {
+                        LogHelper.Log.Info($"【删除测试数据】0X01 完成{delRes}条");
+                        LogHelper.Log.Info($"【删除测试LOG数据】0X01 完成{count}条");
+                        return "0X01";
+                    }
+                    else if (delRes > 0 && count <= 0)
+                    {
+                        LogHelper.Log.Info($"【删除测试LOG数据】未完成");
+                        return "0X02";
+                    }
+                    else if (delRes <= 0 && count > 0)
+                    {
+                        LogHelper.Log.Info($"【删除测试数据】未完成");
+                        return "0X03";
+                    }
+                    LogHelper.Log.Info($"【删除测试数据及log数据】未完成");
+                    return "0X04";
+                }
+                else
+                {
+                    LogHelper.Log.Info($"【查询log测试数据】查询失败-删除失败delTestResult={delTestResult}selectTestResultSQL={selectTestResultSQL}");
+                    return "0X05";
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error(ex.Message + ex.StackTrace);
+                return "0X06";
+            }
+        }
         #endregion
 
         #region 物料信息表
@@ -1671,8 +1859,11 @@ namespace MesAPI
         public DataSet SelectMaterialBasicMsg(string queryCondition)
         {
             var selectSQL = "";
+            DataSet ds = new DataSet();
             var pcbaSN = GetPCBASn(queryCondition);
             var productSN = GetProductSn(queryCondition);
+
+            #region SQL
             selectSQL = $"SELECT DISTINCT " +
                 $"a.{DbTable.F_Material_Statistics.MATERIAL_CODE} 物料编码," +
                 $"b.{DbTable.F_Material.MATERIAL_NAME} 物料名称," +
@@ -1698,9 +1889,73 @@ namespace MesAPI
                 $"b.{DbTable.F_Material.MATERIAL_AMOUNTED}," +
                 $"b.{DbTable.F_Material.MATERIAL_STOCK}," +
                 $"a.{DbTable.F_Material_Statistics.MATERIAL_CURRENT_REMAIN}";
+            #endregion
 
-            LogHelper.Log.Info(selectSQL);
-            return SQLServer.ExecuteDataSet(selectSQL);
+            LogHelper.Log.Info("SelectMaterialBasicMsg=" + selectSQL);
+            #region init datatable
+            DataTable dataSourceMaterialBasic = new DataTable();
+            dataSourceMaterialBasic.Columns.Add(DATA_ORDER);
+            dataSourceMaterialBasic.Columns.Add(MATERIAL_PN);
+            dataSourceMaterialBasic.Columns.Add(MATERIAL_LOT);
+            dataSourceMaterialBasic.Columns.Add(MATERIAL_RID);
+            dataSourceMaterialBasic.Columns.Add(MATERIAL_DC);
+            dataSourceMaterialBasic.Columns.Add(MATERIAL_NAME);
+            dataSourceMaterialBasic.Columns.Add(PRODUCT_TYPENO);
+            dataSourceMaterialBasic.Columns.Add(SN_PCBA);
+            dataSourceMaterialBasic.Columns.Add(SN_OUTTER);
+            dataSourceMaterialBasic.Columns.Add(MATERIAL_QTY);
+            dataSourceMaterialBasic.Columns.Add(USE_AMOUNTED);
+            dataSourceMaterialBasic.Columns.Add(CURRENT_RESIDUE_STOCK);
+            dataSourceMaterialBasic.Columns.Add(RESIDUE_STOCK);
+            dataSourceMaterialBasic.Columns.Add(PCBA_STATUS);
+            #endregion
+            DbDataReader dataReader = SQLServer.ExecuteDataReader(selectSQL);
+            if (!dataReader.HasRows)
+                return null;
+            var i = 0;
+            while (dataReader.Read())
+            {
+                DataRow dr = dataSourceMaterialBasic.NewRow();
+                var materialCode = dataReader[0].ToString();//pn/lot/rid/dc/qty
+                //var materialName = dt.Rows[i][1].ToString();
+                var productTypeNo = dataReader[2].ToString();
+                var useAmounted = dataReader[3].ToString();
+                var sn = dataReader[4].ToString();
+                var amountTotal = dataReader[5].ToString();
+                var putInStorage = dataReader[6].ToString();
+                var currentRemain = dataReader[7].ToString();
+                var snPCBA = GetPCBASn(sn);
+                var snOutter = GetProductSn(sn);
+                if (!materialCode.Contains("&"))
+                    continue;
+                AnalysisMaterialCode analysisMaterial = AnalysisMaterialCode.GetMaterialDetail(materialCode);
+                var pnCode = analysisMaterial.MaterialPN;
+                var lotCode = analysisMaterial.MaterialLOT;
+                var ridCode = analysisMaterial.MaterialRID;
+                var dcCode = analysisMaterial.MaterialDC;
+                //var qtyCode = analysisMaterial.MaterialQTY;
+                var materialName = SelectMaterialName(pnCode);
+                dr[DATA_ORDER] = i + 1;
+                dr[MATERIAL_PN] = pnCode;
+                dr[MATERIAL_LOT] = lotCode;
+                dr[MATERIAL_RID] = ridCode;
+                dr[MATERIAL_DC] = dcCode;
+                dr[MATERIAL_QTY] = putInStorage;
+                dr[MATERIAL_NAME] = materialName;
+                dr[PRODUCT_TYPENO] = productTypeNo;
+                dr[USE_AMOUNTED] = useAmounted;
+                dr[RESIDUE_STOCK] = int.Parse(putInStorage) - int.Parse(amountTotal);
+                dr[CURRENT_RESIDUE_STOCK] = currentRemain;
+
+                dr[SN_PCBA] = snPCBA;
+                dr[SN_OUTTER] = snOutter;
+                dr[PCBA_STATUS] = SelectPcbaMsg(snPCBA,snOutter);
+                dataSourceMaterialBasic.Rows.Add(dr);
+                i++;
+            }
+            dataReader.Close();
+            ds.Tables.Add(dataSourceMaterialBasic);
+            return ds;
         }
 
         public DataSet SelectMaterialDetailMsg(string materialCode)
@@ -1726,6 +1981,54 @@ namespace MesAPI
                            $"a.{DbTable.F_Material_Statistics.MATERIAL_CODE} like '{materialCode}' ";
             LogHelper.Log.Info(selectSQL);
             return SQLServer.ExecuteDataSet(selectSQL);
+        }
+
+        private string SelectPcbaMsg(string snPCBA,string snOutter)
+        {
+            var selectSQL = $"SELECT top 1" +
+                $"{DbTable.F_BINDING_PCBA.BINDING_STATE}," +
+                $"{DbTable.F_BINDING_PCBA.PCBA_STATE}," +
+                $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} " +
+                $"FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{snPCBA}' " +
+                $"AND " +
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                var bindingState = dt.Rows[0][0].ToString();
+                var pcbaState = dt.Rows[0][1].ToString();
+                var outterState = dt.Rows[0][2].ToString();
+                if (bindingState == "1")
+                {
+                    //已绑定
+                    return "【已绑定】状态正常";
+                }
+                else if (bindingState == "0")
+                {
+                    //已解绑
+                    if (pcbaState == "0" && outterState == "1")
+                    {
+                        //pcba异常
+                        return "【已解绑】PCBA异常";
+                    }
+                    else if (pcbaState == "1" && outterState == "0")
+                    {
+                        //外壳异常
+                        return "【已解绑】外壳异常";
+                    }
+                    else if (pcbaState == "0" && outterState == "0")
+                    {
+                        //pcba与外壳都异常
+                        return "【已解绑】都异常";
+                    }
+                    else
+                        return "";
+                }
+                else
+                    return "";
+            }
+            return "【未绑定】";
         }
         #endregion
 
@@ -2465,7 +2768,7 @@ namespace MesAPI
         #endregion
 
         #region 物料库存
-        public MaterialStockEnum ModifyMaterialStock(string materialCode,int stock,string admin)
+        public MaterialStockEnum ModifyMaterialStock(string materialCode,int stock,string describle,string admin)
         {
             var selectSQL = $"SELECT * FROM {DbTable.F_MATERIAL_NAME} " +
                 $"WHERE " +
@@ -2478,7 +2781,9 @@ namespace MesAPI
                 $"WHERE " +
                 $"{DbTable.F_Material.MATERIAL_CODE} = '{materialCode}' " +
                 $"AND " +
-                $"{DbTable.F_Material.MATERIAL_STOCK} = '{stock}'";
+                $"{DbTable.F_Material.MATERIAL_STOCK} = '{stock}' " +
+                $"AND " +
+                $"{DbTable.F_Material.MATERIAL_DESCRIBLE} = '{describle}'";
                 dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
                 if (dt.Rows.Count < 1)
                 {
@@ -2486,11 +2791,13 @@ namespace MesAPI
                     //更新
                     var updateSQL = $"UPDATE {DbTable.F_MATERIAL_NAME} SET " +
                         $"{DbTable.F_Material.MATERIAL_STOCK} = '{stock}'," +
+                        $"{DbTable.F_Material.MATERIAL_DESCRIBLE} = '{describle}'," +
                         $"{DbTable.F_Material.MATERIAL_USERNAME} = '{admin}'," +
                         $"{DbTable.F_Material.MATERIAL_UPDATE_DATE} = '{GetDateTimeNow()}'" +
                         $"WHERE " +
                         $"{DbTable.F_Material.MATERIAL_CODE} = '{materialCode}'";
                     var res = SQLServer.ExecuteNonQuery(updateSQL);
+                    LogHelper.Log.Info(updateSQL);
                     if (res == 1)
                     {
                         //更新库存后，更新物料状态
@@ -2589,6 +2896,13 @@ namespace MesAPI
             if (dt.Rows.Count > 0)
                 return dt.Rows[0][0].ToString();
             return "";
+        }
+
+        public string UpdateInsern(string sn)
+        {
+            var updateSQL = $"update {DbTable.F_BINDING_PCBA_NAME} set  " +
+                $"{DbTable.F_BINDING_PCBA.PRODUCT_TYPE_NO} = 'A03' where {DbTable.F_BINDING_PCBA.SN_PCBA} = '017 B19922002104'";
+            return SQLServer.ExecuteNonQuery(updateSQL).ToString();
         }
     }
 }

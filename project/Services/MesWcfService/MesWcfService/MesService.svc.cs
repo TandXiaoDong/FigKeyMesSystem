@@ -213,18 +213,31 @@ namespace MesWcfService
 
         #region 成品打包接口/成品抽检-更新绑定信息
         [SwaggerWcfTag("MesServcie 服务")]
-        [SwaggerWcfResponse("数值","更新数据成功，返回更新更新数据")]
-        [SwaggerWcfResponse("PARAMS_NOT_LONG_ENOUGH", "数组长度不足")]
-        [SwaggerWcfResponse("BINDING_STATE_VALUE_ERROR", "绑定状态值有误，只能是0或1；1-绑定，0-解绑")]
-        [SwaggerWcfResponse("STATUS_FAIL", "更新失败，发生异常错误")]
-        public string UpdatePackageProductBindingMsg(string outCaseCode,string[] snOutter,string typeNo,string stationName,
+        [SwaggerWcfResponse("0X01", "STATUS_FULL")] //该产品已放满
+        [SwaggerWcfResponse("0X02", "STATUS_BINDED_OTHER_CASE")]  //该产品已绑定其他箱子
+        [SwaggerWcfResponse("0X03", "STATUS_EXIST_BINDED_UPDATE_SUCCESS")] //已经存在绑定记录-更新成功
+        [SwaggerWcfResponse("0X04", "STATUS_EXIST_BINDED_UPDATE_FAIL")]    //已经存在绑定记录-更新失败
+        [SwaggerWcfResponse("0X05", "STATUS_NONE_EXIST_UNBIND_UPDATE_SUCCESS")] //不存在绑定记录--解除绑定--更新成功
+        [SwaggerWcfResponse("0X06", "STATUS_NONE_EXIST_UNBIND_UPDATE_FAIL")]    //不存在绑定记录--解除绑定--更新失败
+        [SwaggerWcfResponse("0X07", "STATUS_NONE_EXIST_REBIND_SUCCESS")]    //不存在绑定记录-重新绑定-更新成功
+        [SwaggerWcfResponse("0X08", "STATUS_NONE_EXIST_REBIND_FAIL")]       //不存在绑定记录-重新绑定-更新失败
+        [SwaggerWcfResponse("0X09", "STATUS_INSERT_SUCCESS")]               //插入成功，可以继续
+        [SwaggerWcfResponse("0X10", "STATUS_INSERT_FAIL")]                  //插入失败
+        [SwaggerWcfResponse("0X11", "STATUS_EXCEPT_FAIL")]                  //异常
+        [SwaggerWcfResponse("0X12", "STATUS_NONE_EXIST_BINDING_STATE")]     //传入绑定状态物料0/1
+        [SwaggerWcfResponse("0X13", "STATUS_INSERT_BINDING_STATE_INVALID")] //插入绑定产品，传入绑定状态无效
+        public string[] UpdatePackageProductBindingMsg(string outCaseCode,string snOutter,string typeNo,string stationName,
             string bindingState,string remark,string teamLeader,string admin)
         {
-            foreach (var sn in snOutter)
-            {
-                string[] array = new string[] { outCaseCode,sn,typeNo,stationName,bindingState,remark,teamLeader,admin};
-                updatePackageProductQueue.Enqueue(array);
-            }
+            //1）判断当前箱子是否装满
+            //2）已经绑定的产品，从另一个已经绑定其他箱子取出来绑定
+            //3）当产品装满后，将剩余的产品返回
+            //foreach (var sn in snOutter)
+            //{
+                
+            //}
+            string[] array = new string[] { outCaseCode.Trim(), snOutter.Trim(), typeNo.Trim(), stationName.Trim(), bindingState.Trim(), remark.Trim(), teamLeader.Trim(), admin.Trim() };
+            updatePackageProductQueue.Enqueue(array);
             return UPackageProduct.PackageProductMsg(updatePackageProductQueue);
         }
         #endregion
@@ -425,10 +438,337 @@ namespace MesWcfService
                 $"{DbTable.F_Out_Case_Storage.STORAGE_CAPACITY} = '{capacity}' " +
                 $"WHERE " +
                 $"{DbTable.F_Out_Case_Storage.TYPE_NO} = '{productTypeNo}'";
+            LogHelper.Log.Info("【更新产品容量】"+updateSQL);
             var count = SQLServer.ExecuteNonQuery(updateSQL);
-            if (count == 1)
+            if (count > 0)
                 return "OK";
             return "FAIL";
+        }
+        #endregion
+
+        #region pcba解绑与查询
+        [SwaggerWcfTag("MesServcie 服务")]
+        public DataSet QueryPCBAMes(string sn)
+        {
+            DataSet ds = new DataSet();
+            var selectSQL = $"select distinct " +
+                $"{DbTable.F_BINDING_PCBA.PRODUCT_TYPE_NO} 产品型号," +
+                $"{DbTable.F_BINDING_PCBA.SN_PCBA} PCBASN," +
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} 外壳SN," +
+                $"{DbTable.F_BINDING_PCBA.BINDING_STATE}," +
+                $"{DbTable.F_BINDING_PCBA.PCBA_STATE}," +
+                $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} " +
+                $"from " +
+                $"{DbTable.F_BINDING_PCBA_NAME}  " +
+                $"where " +
+                $"{DbTable.F_BINDING_PCBA.SN_PCBA} like '%{sn}%' " +
+                $"or " +
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} like '%{sn}%'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("序号");
+            dataTable.Columns.Add("产品型号");
+            dataTable.Columns.Add("当前工位");
+            dataTable.Columns.Add("PCBASN");
+            dataTable.Columns.Add("外壳SN");
+            dataTable.Columns.Add("绑定状态");
+            dataTable.Columns.Add("PCBA状态");
+            dataTable.Columns.Add("外壳状态");
+            dataTable.Columns.Add("绑定日期");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataRow dr = dataTable.NewRow();
+                dr["序号"] = i + 1;
+                dr["产品型号"] = dt.Rows[i][0].ToString();
+                dr["当前工位"] = "外壳装配工位";
+                var snPCBA = dt.Rows[i][1].ToString();
+                var outterSn = dt.Rows[i][2].ToString();
+                dr["PCBASN"] = snPCBA;
+                dr["外壳SN"] = outterSn;
+                dr["绑定日期"] = SelectBindingDate(snPCBA, outterSn);
+                var bindingState = dt.Rows[i][3].ToString();
+                if (bindingState == "1")
+                    dr["绑定状态"] = "已绑定";
+                else if (bindingState == "0")
+                    dr["绑定状态"] = "已解除绑定";
+                var pcbaState = dt.Rows[i][4].ToString();
+                if (pcbaState == "0")
+                    dr["PCBA状态"] = "异常";
+                else if (pcbaState == "1")
+                    dr["PCBA状态"] = "正常";
+                var outterState = dt.Rows[i][5].ToString();
+                if (outterState == "0")
+                    dr["外壳状态"] = "异常";
+                else if (outterState == "1")
+                    dr["外壳状态"] = "正常";
+                dataTable.Rows.Add(dr);
+            }
+            ds.Tables.Add(dataTable);
+            return ds;
+        }
+
+        private string SelectBindingDate(string pcbaSn,string outterSn)
+        {
+            var selectSQL = $"select top 1 {DbTable.F_BINDING_PCBA.UPDATE_DATE} " +
+                $"from {DbTable.F_BINDING_PCBA_NAME} " +
+                $"where {DbTable.F_BINDING_PCBA.SN_PCBA}='{pcbaSn}' " +
+                $"and " +
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER}='{outterSn}' " +
+                $"order by {DbTable.F_BINDING_PCBA.UPDATE_DATE} desc";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+                return dt.Rows[0][0].ToString();
+            return "";
+        }
+
+        [SwaggerWcfTag("MesServcie 服务")]
+        public bool UpdatePcbaBindingState(string pcbaSn,string outterSn,int bindingState,int pcbaState,int outterState)
+        {
+            /*
+             * 更新PCBA与外壳状态
+             * 解绑的三种情况：
+             * 1）PCBA异常：更新所有PCBA状态异常
+             * 2）外壳异常：更新所有外壳状态
+             * 3）PCBA与外壳都异常：更新所有PCBA与所有外壳异常状态
+             */
+            var pcbaUpdate = "";
+            if (pcbaState == 0 && outterState == 1)
+            {
+                pcbaUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                    $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '0' ," +
+                    $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                    $"WHERE {DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbaSn}'";
+            }
+            else if (pcbaState == 1 && outterState == 0)
+            {
+                pcbaUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                    $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '0'," +
+                    $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                    $"WHERE {DbTable.F_BINDING_PCBA.SN_OUTTER} = '{outterSn}'";
+            }
+            else if (pcbaState == 0 && outterState == 0)
+            {
+                pcbaUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                    $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '0'," +
+                    $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '0'," +
+                    $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                    $"WHERE " +
+                    $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{outterSn}' " +
+                    $"OR " +
+                    $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbaSn}'";
+            }
+            LogHelper.Log.Info("【更新解除绑定状态】"+ pcbaUpdate);
+            var res = SQLServer.ExecuteNonQuery(pcbaUpdate);
+            if (res > 0)
+            {
+                //state update successful
+                return true;
+            }
+            //update failed
+            return false;
+        }
+        #endregion
+
+        #region check pcba state
+        [SwaggerWcfTag("MesServcie 服务")]
+        [SwaggerWcfResponse("array", "array[0]=状态结果代码，array[1]=具体值，当前只有0X07才有值")]
+        [SwaggerWcfResponse("0X01", "STATUS_BINDED")]
+        [SwaggerWcfResponse("0X02", "STATUS_UNBIND_SHELL_EXCEPT")]
+        [SwaggerWcfResponse("0X03", "STATUS_UNBIND_PCBA_EXCEPT")]
+        [SwaggerWcfResponse("0X04", "STATUS_UNDIND_PCBA_SHELL_EXCEPT")]
+        [SwaggerWcfResponse("0X05", "FAIL_UNKNOWN_EXCEPT")]
+        [SwaggerWcfResponse("0X06", "FAIL_UNKNOWN_ERROR")]
+        [SwaggerWcfResponse("0X07", "STATUS_BINDED_SHELL_FOR_OTHER")]
+        [SwaggerWcfResponse("0X08", "STATUS_NONE_BINDING")]
+        [SwaggerWcfResponse("0X09", "STATUS_EXECUTE_SQL_EXCEPT")]
+        [SwaggerWcfResponse("0X10", "FAIL_PCBA_NULL")]
+        [SwaggerWcfResponse("0X11", "STATUS_PCBA_UNBIND_EXCEPT")]
+        [SwaggerWcfResponse("0X12", "STATUS_PCBA_NORMAL")]
+        [SwaggerWcfResponse("0X13", "STATUS_NONE_BINDING_SHELL_EXCEPT")]
+        [SwaggerWcfResponse("0X14", "STATUS_SHELL_BINDED_OTHER_PCBA")]
+        public string[] CheckPcbaState(string snPcba,string snOutter)
+        {
+            /*
+             * 传入外壳的三种情况：
+             * 1）新的外壳：
+             * 2）旧的外壳
+             * 3）坏的外壳
+             * 验证流程：
+             * 1）pcba与外壳查询是否绑定
+             *  1-绑定：查询结果已绑定，该外壳为旧外壳
+             *  2-未绑定/解绑：两者无绑定记录，无解绑记录；
+             *              判定为新外壳，查询pcba是否绑定其他外壳
+             *              1-绑定其他外壳：返回绑定的外壳SN
+             *              2-也未绑定其他外壳：该PCBA未绑定任何外壳
+             *  3-无记录            
+             *              
+             */
+            #region sql
+            var selectPcba = $"select TOP 1 " +
+                $"{DbTable.F_BINDING_PCBA.BINDING_STATE}," +
+                $"{DbTable.F_BINDING_PCBA.PCBA_STATE}," +
+                $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} " +
+                $"from " +
+                $"{DbTable.F_BINDING_PCBA_NAME} " +
+                $"where " +
+                $"{DbTable.F_BINDING_PCBA.SN_PCBA} ='{snPcba}' " +
+                $"and " +
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}'";
+            #endregion
+            var bindingState = "1";
+            var pcbaState = "1";
+            var outterState = "1";
+            string[] arrayList = new string[2];
+            try
+            {
+                if (snPcba == "")
+                {
+                    arrayList[0] = "0X10";
+                    LogHelper.Log.Info($"【查询PCBA绑定状态】"+arrayList[0]);
+                    return arrayList;
+                }
+                if (snPcba != "" && snOutter == "")
+                {
+                    //查询PCBA的状态
+                    var selectPCBA = $"SELECT {DbTable.F_BINDING_PCBA.BINDING_STATE}," +
+                        $"{DbTable.F_BINDING_PCBA.PCBA_STATE} " +
+                        $"FROM {DbTable.F_BINDING_PCBA_NAME} " +
+                        $"WHERE " +
+                        $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{snPcba}' " +
+                        $"AND {DbTable.F_BINDING_PCBA.BINDING_STATE} = '0' " +
+                        $"AND {DbTable.F_BINDING_PCBA.PCBA_STATE} = '0'";
+                    var dtPcba = SQLServer.ExecuteDataSet(selectPCBA).Tables[0];
+                    if (dtPcba.Rows.Count > 0)
+                    {
+                        //PCBA已解绑，且已异常
+                        arrayList[0] = "0X11";//STATUS_PCBA_UNBIND_EXCEPT
+                        LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                        return arrayList;
+                    }
+                    arrayList[0] = "0X12";//STATUS_PCBA_NORMAL
+                    LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                    return arrayList;
+                }
+                var dt = SQLServer.ExecuteDataSet(selectPcba).Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    //有绑定记录：已绑定/已解绑
+                    //已绑定-旧外壳
+                    //已解绑-坏外壳
+                    bindingState = dt.Rows[0][0].ToString();
+                    pcbaState = dt.Rows[0][1].ToString();
+                    outterState = dt.Rows[0][2].ToString();
+                    if (bindingState == "1")
+                    {
+                        //已绑定 STATUS_BINDED
+                        arrayList[0] = "0X01";
+                        LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                        return arrayList;
+                    }
+                    else if (bindingState == "0")
+                    {
+                        //已解绑
+                        if (outterState == "0" && pcbaState == "1")
+                        {
+                            //外壳坏了 STATUS_UNBIND_SHELL_EXCEPT
+                            arrayList[0] = "0X02";
+                            LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                            return arrayList;
+                        }
+                        else if (outterState == "1" && pcbaState == "0")
+                        {
+                            //PCBA坏了 STATUS_UNBIND_PCBA_EXCEPT
+                            arrayList[0] = "0X03";
+                            LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                            return arrayList;
+                        }
+                        else if (outterState == "0" && pcbaState == "0")
+                        {
+                            //PCBA与外壳都坏了，STATUS_UNDIND_PCBA_SHELL_EXCEPT
+                            arrayList[0] = "0X04";
+                            LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                            return arrayList;
+                        }
+                        else
+                        {
+                            //理论上不存在这种可能 FAIL_UNKNOWN_EXCEPT
+                            arrayList[0] = "0X05";
+                            LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                            return arrayList;
+                        }
+                    }
+                    else
+                    {
+                        //未知错误 FAIL_UNKNOWN_ERROR
+                        arrayList[0] = "0X06";
+                        LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                        return arrayList;
+                    }
+                }
+                else
+                {
+                    //无绑定记录，判定为新外壳，查询pcba是否绑定其他外壳
+                    var selectOther = $"SELECT {DbTable.F_BINDING_PCBA.SN_OUTTER} FROM {DbTable.F_BINDING_PCBA_NAME} " +
+                        $"WHERE " +
+                        $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{snPcba}' " +
+                        $"AND {DbTable.F_BINDING_PCBA.BINDING_STATE} = '1'";
+                    var dtOther = SQLServer.ExecuteDataSet(selectOther).Tables[0];
+                    if (dtOther.Rows.Count > 0)
+                    {
+                        //已绑定其他外壳 STATUS_BINDED_SHELL_FOR_OTHER
+                        var otherShell = dtOther.Rows[0][0].ToString();
+                        arrayList[0] = "0X07";
+                        arrayList[1] = otherShell;
+                        LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                        return arrayList;
+                    }
+                    else
+                    {
+                        //无查询记录，未绑定任何外壳 
+                        //进一步判断传入外壳是否异常
+                        var selectShell = $"SELECT {DbTable.F_BINDING_PCBA.BINDING_STATE}," +
+                        $"{DbTable.F_BINDING_PCBA.PCBA_STATE} " +
+                        $"FROM {DbTable.F_BINDING_PCBA_NAME} " +
+                        $"WHERE " +
+                        $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}' " +
+                        $"AND {DbTable.F_BINDING_PCBA.OUTTER_STATE} = '0'";
+                        var shelldt = SQLServer.ExecuteDataSet(selectShell).Tables[0];
+                        if (shelldt.Rows.Count > 0)
+                        {
+                            //外壳异常
+                            arrayList[0] = "0X13";//STATUS_NONE_BINDING_SHELL_EXCEPT
+                            LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                            return arrayList;
+                        }
+                        //外壳正常
+                        //在判断此外壳是否有绑定其他PCBA
+                        var selectOtherPcba = $"SELECT * " +
+                        $"FROM {DbTable.F_BINDING_PCBA_NAME} " +
+                        $"WHERE " +
+                        $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}' " +
+                        $"AND " +
+                        $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '1'";
+                        var dtotherPcba = SQLServer.ExecuteDataSet(selectOtherPcba).Tables[0];
+                        if (dtotherPcba.Rows.Count > 0)
+                        {
+                            //该外壳有绑定其他PCBA
+                            arrayList[0] = "0X14"; //STATUS_SHELL_BINDED_OTHER_PCBA
+                            LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                            return arrayList;
+                        }
+                        arrayList[0] = "0X08"; //STATUS_NONE_BINDING_NORMAL
+                        LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                        return arrayList;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error(ex.Message+ex.StackTrace);
+                LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
+                arrayList[0] = "0X09";//STATUS_EXECUTE_SQL_EXCEPT
+                return arrayList;
+            }
         }
         #endregion
     }

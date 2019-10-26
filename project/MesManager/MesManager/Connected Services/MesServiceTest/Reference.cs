@@ -70,10 +70,10 @@ namespace MesManager.MesServiceTest {
         System.Threading.Tasks.Task<string> UpdatePackageProductBindingMsgAsync(string outCaseCode, string[] snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateProgrameVersion", ReplyAction="http://tempuri.org/IMesService/UpdateProgrameVersionResponse")]
-        string UpdateProgrameVersion(string typeNo, string stationName, string programeName, string programeVersion, string teamLeader, string admin);
+        string UpdateProgrameVersion(string typeNo, string stationName, string programePath, string programeName, string teamLeader, string admin);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateProgrameVersion", ReplyAction="http://tempuri.org/IMesService/UpdateProgrameVersionResponse")]
-        System.Threading.Tasks.Task<string> UpdateProgrameVersionAsync(string typeNo, string stationName, string programeName, string programeVersion, string teamLeader, string admin);
+        System.Threading.Tasks.Task<string> UpdateProgrameVersionAsync(string typeNo, string stationName, string programePath, string programeName, string teamLeader, string admin);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateLimitConfig", ReplyAction="http://tempuri.org/IMesService/UpdateLimitConfigResponse")]
         string UpdateLimitConfig(string stationName, string typeNo, string testItem, string limit, string teamLeader, string admin);
@@ -140,6 +140,30 @@ namespace MesManager.MesServiceTest {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectPackageStorage", ReplyAction="http://tempuri.org/IMesService/SelectPackageStorageResponse")]
         System.Threading.Tasks.Task<int> SelectPackageStorageAsync(string productTypeNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePackageStorage", ReplyAction="http://tempuri.org/IMesService/UpdatePackageStorageResponse")]
+        string UpdatePackageStorage(string productTypeNo, int capacity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePackageStorage", ReplyAction="http://tempuri.org/IMesService/UpdatePackageStorageResponse")]
+        System.Threading.Tasks.Task<string> UpdatePackageStorageAsync(string productTypeNo, int capacity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/QueryPCBAMes", ReplyAction="http://tempuri.org/IMesService/QueryPCBAMesResponse")]
+        System.Data.DataSet QueryPCBAMes(string pcbaSN);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/QueryPCBAMes", ReplyAction="http://tempuri.org/IMesService/QueryPCBAMesResponse")]
+        System.Threading.Tasks.Task<System.Data.DataSet> QueryPCBAMesAsync(string pcbaSN);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePcbaBindingState", ReplyAction="http://tempuri.org/IMesService/UpdatePcbaBindingStateResponse")]
+        bool UpdatePcbaBindingState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePcbaBindingState", ReplyAction="http://tempuri.org/IMesService/UpdatePcbaBindingStateResponse")]
+        System.Threading.Tasks.Task<bool> UpdatePcbaBindingStateAsync(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CheckPcbaState", ReplyAction="http://tempuri.org/IMesService/CheckPcbaStateResponse")]
+        string[] CheckPcbaState(string snPcba, string snOutter);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CheckPcbaState", ReplyAction="http://tempuri.org/IMesService/CheckPcbaStateResponse")]
+        System.Threading.Tasks.Task<string[]> CheckPcbaStateAsync(string snPcba, string snOutter);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -241,12 +265,12 @@ namespace MesManager.MesServiceTest {
             return base.Channel.UpdatePackageProductBindingMsgAsync(outCaseCode, snOutter, typeNo, stationName, bindingState, remark, teamLeader, admin);
         }
         
-        public string UpdateProgrameVersion(string typeNo, string stationName, string programeName, string programeVersion, string teamLeader, string admin) {
-            return base.Channel.UpdateProgrameVersion(typeNo, stationName, programeName, programeVersion, teamLeader, admin);
+        public string UpdateProgrameVersion(string typeNo, string stationName, string programePath, string programeName, string teamLeader, string admin) {
+            return base.Channel.UpdateProgrameVersion(typeNo, stationName, programePath, programeName, teamLeader, admin);
         }
         
-        public System.Threading.Tasks.Task<string> UpdateProgrameVersionAsync(string typeNo, string stationName, string programeName, string programeVersion, string teamLeader, string admin) {
-            return base.Channel.UpdateProgrameVersionAsync(typeNo, stationName, programeName, programeVersion, teamLeader, admin);
+        public System.Threading.Tasks.Task<string> UpdateProgrameVersionAsync(string typeNo, string stationName, string programePath, string programeName, string teamLeader, string admin) {
+            return base.Channel.UpdateProgrameVersionAsync(typeNo, stationName, programePath, programeName, teamLeader, admin);
         }
         
         public string UpdateLimitConfig(string stationName, string typeNo, string testItem, string limit, string teamLeader, string admin) {
@@ -335,6 +359,38 @@ namespace MesManager.MesServiceTest {
         
         public System.Threading.Tasks.Task<int> SelectPackageStorageAsync(string productTypeNo) {
             return base.Channel.SelectPackageStorageAsync(productTypeNo);
+        }
+        
+        public string UpdatePackageStorage(string productTypeNo, int capacity) {
+            return base.Channel.UpdatePackageStorage(productTypeNo, capacity);
+        }
+        
+        public System.Threading.Tasks.Task<string> UpdatePackageStorageAsync(string productTypeNo, int capacity) {
+            return base.Channel.UpdatePackageStorageAsync(productTypeNo, capacity);
+        }
+        
+        public System.Data.DataSet QueryPCBAMes(string pcbaSN) {
+            return base.Channel.QueryPCBAMes(pcbaSN);
+        }
+        
+        public System.Threading.Tasks.Task<System.Data.DataSet> QueryPCBAMesAsync(string pcbaSN) {
+            return base.Channel.QueryPCBAMesAsync(pcbaSN);
+        }
+        
+        public bool UpdatePcbaBindingState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState) {
+            return base.Channel.UpdatePcbaBindingState(pcbaSn, outterSn, bindingState, pcbaState, outterState);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdatePcbaBindingStateAsync(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState) {
+            return base.Channel.UpdatePcbaBindingStateAsync(pcbaSn, outterSn, bindingState, pcbaState, outterState);
+        }
+        
+        public string[] CheckPcbaState(string snPcba, string snOutter) {
+            return base.Channel.CheckPcbaState(snPcba, snOutter);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> CheckPcbaStateAsync(string snPcba, string snOutter) {
+            return base.Channel.CheckPcbaStateAsync(snPcba, snOutter);
         }
     }
 }

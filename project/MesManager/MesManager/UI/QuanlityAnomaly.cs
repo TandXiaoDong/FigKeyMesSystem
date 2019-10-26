@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
+using MesManager.Control;
 
 namespace MesManager.UI
 {
@@ -14,6 +15,7 @@ namespace MesManager.UI
     {
         private MesService.MesServiceClient serviceClient;
         private MesServiceTest.MesServiceClient serviceClientTest;
+
         public QuanlityAnomaly()
         {
             InitializeComponent();
@@ -35,9 +37,15 @@ namespace MesManager.UI
             FORCE_OVER = 3
         }
 
-        private void Btn_apply_Click(object sender, EventArgs e)
+        private void QuanlityAnomaly_Load(object sender, EventArgs e)
         {
-            CommitQuanlityData();
+            InitConfig();
+            RefreshControl();
+            QueryPcbaMsg();
+            this.tb_pcbasn.TextChanged += Tb_pcbasn_TextChanged;
+            this.tb_pcbasn.KeyDown += Tb_pcbasn_KeyDown;
+            this.btn_apply.Click += Btn_apply_Click;
+            this.btn_cancel.Click += Btn_cancel_Click;
         }
 
         private void Btn_cancel_Click(object sender, EventArgs e)
@@ -45,10 +53,44 @@ namespace MesManager.UI
             this.Close();
         }
 
-        private void QuanlityAnomaly_Load(object sender, EventArgs e)
+        private void Btn_apply_Click(object sender, EventArgs e)
         {
-            InitConfig();
-            RefreshControl();
+            CommitQuanlityData();
+        }
+
+        private void Tb_pcbasn_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                QueryPcbaMsg();
+            }
+        }
+
+        private void Tb_pcbasn_TextChanged(object sender, EventArgs e)
+        {
+            QueryPcbaMsg();
+        }
+
+        async private void QueryPcbaMsg()
+        {
+            var dt = (await serviceClientTest.QueryPCBAMesAsync(this.tb_pcbasn.Text)).Tables[0];
+            this.radGridView1.DataSource = dt;
+            DataGridViewCommon.SetRadGridViewProperty(this.radGridView1, false);
+            this.radGridView1.ReadOnly = true;
+            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridView1.BestFitColumns();
+            foreach (var rowInfo in this.radGridView1.Rows)
+            {
+                var bindingState = rowInfo.Cells[5].Value.ToString();
+                var pcbaState = rowInfo.Cells[6].Value.ToString();
+                var outterState = rowInfo.Cells[7].Value.ToString();
+                if (bindingState == "已解除绑定")
+                    rowInfo.Cells[5].Style.ForeColor = Color.Red;
+                if (pcbaState == "异常")
+                    rowInfo.Cells[6].Style.ForeColor = Color.PaleVioletRed;
+                if (outterState == "异常")
+                    rowInfo.Cells[7].Style.ForeColor = Color.PaleVioletRed;
+            }
         }
 
         private void RefreshControl()
@@ -126,6 +168,70 @@ namespace MesManager.UI
             {
                 MessageBox.Show("结单失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void btn_exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void CancelPcbaBinding()
+        {
+            if (this.radGridView1.RowCount < 1)
+                return;
+            var pcbaValue = this.radGridView1.CurrentRow.Cells[3].Value;
+            var outterShellValue = this.radGridView1.CurrentRow.Cells[4].Value;
+            var bindingState = this.radGridView1.CurrentRow.Cells[5].Value;
+
+            //是否选择要解除绑定的数据行
+            if (pcbaValue == null)
+            {
+                MessageBox.Show("请选择要解绑的PCBA！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
+            //是否选择异常类型
+            if (this.cb_pcba.CheckState != CheckState.Checked && this.cb_shell.CheckState != CheckState.Checked)
+            {
+                MessageBox.Show("请选择异常类型！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
+            //更新完成后
+            var pcbaState = 1;
+            var shellState = 1;
+            if (this.cb_pcba.CheckState == CheckState.Checked)
+                pcbaState = 0;
+            if (this.cb_shell.CheckState == CheckState.Checked)
+                shellState = 0;
+            if (bindingState.ToString().Equals("已解除绑定"))
+            {
+                MessageBox.Show("该PCBA已解除绑定，请勿重复操作！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
+            if (MessageBox.Show($"确定要解除【{pcbaValue.ToString()}】绑定？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                return;
+            var bindingResult = serviceClientTest.UpdatePcbaBindingState(pcbaValue.ToString(), 
+                outterShellValue.ToString(),0, pcbaState, shellState);
+            if(bindingResult)
+            {
+                this.cb_pcba.CheckState = CheckState.Unchecked;
+                this.cb_shell.CheckState = CheckState.Unchecked;
+                MessageBox.Show("解除绑定成功！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                QueryPcbaMsg();
+                return;
+            }
+            MessageBox.Show("解除绑定失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void btn_cancelBinding_Click(object sender, EventArgs e)
+        {
+            CancelPcbaBinding();
+        }
+
+        private void btn_query_Click(object sender, EventArgs e)
+        {
+            SearchForm searchForm = new SearchForm();
+            searchForm.ShowDialog();
+            this.cb_materialCode.Text = SearchForm.currentMaterialCode;
         }
     }
 }

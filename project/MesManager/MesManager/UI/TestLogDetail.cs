@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using MesManager.Control;
-using MesManager.TelerikWinform.GridViewCommon.GridViewDataExport;
+using WindowsFormTelerik.GridViewExportData;
 using Telerik.WinControls.UI.Export;
 using Telerik.WinControls.UI;
 using CommonUtils.Logger;
@@ -147,52 +147,14 @@ namespace MesManager.UI
 
         private void Btn_export_Click(object sender, EventArgs e)
         {
-            ExportGridViewData(0,this.radGridView1);
+            //ExportGridViewData(0,this.radGridView1);
         }
 
-        private void ExportGridViewData(int selectIndex, RadGridView radGridView)
+        private void ExportGridViewData()
         {
-            var filter = "Excel (*.xls)|*.xls";
-            if (selectIndex == (int)ExportFormat.EXCEL)
-            {
-                filter = "Excel (*.xls)|*.xls";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToExcelML(path, radGridView);
-            }
-            else if (selectIndex == (int)ExportFormat.HTML)
-            {
-                filter = "Html File (*.htm)|*.htm";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToHTML(path, radGridView);
-            }
-            else if (selectIndex == (int)ExportFormat.PDF)
-            {
-                filter = "PDF file (*.pdf)|*.pdf";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToPDF(path, radGridView);
-            }
-            else if (selectIndex == (int)ExportFormat.CSV)
-            {
-                filter = "PDF file (*.pdf)|*.csv";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToCSV(path, radGridView);
-            }
-        }
-
-        private enum ExportFormat
-        {
-            EXCEL,
-            HTML,
-            PDF,
-            CSV
+            GridViewExport.ExportFormat exportFormat = GridViewExport.ExportFormat.EXCEL;
+            //Enum.TryParse(tool_package_exportFilter.Text, out exportFormat);
+            //GridViewExport.ExportGridViewData(exportFormat, this.radGridView1);
         }
     }
 }

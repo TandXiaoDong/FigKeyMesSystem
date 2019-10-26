@@ -197,6 +197,9 @@ namespace MesAPI
         DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime);
 
         [OperationContract]
+        string DeleteTestLogData(string queryCondition, string startTime, string endTime);
+
+        [OperationContract]
         string GetPCBASn(string sn);
 
         [OperationContract]
@@ -209,6 +212,9 @@ namespace MesAPI
         DataSet SelectPackageProductCheck(string queryFilter, string state, bool IsShowNumber);
 
         [OperationContract]
-        MaterialStockEnum ModifyMaterialStock(string materialCode, int stock,string username);
+        MaterialStockEnum ModifyMaterialStock(string materialCode, int stock,string describle,string username);
+
+        [OperationContract]
+        string UpdateInsern(string sn);
     }
 }

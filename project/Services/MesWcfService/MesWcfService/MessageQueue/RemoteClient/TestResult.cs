@@ -294,14 +294,15 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 return queryResult;
             }
         }
-
         public static string SelectSN(string snOutter)
         {
             //两种情况
             //sn= snoutter;
             var selectSQL = $"SELECT {DbTable.F_BINDING_PCBA.SN_PCBA} FROM  {DbTable.F_BINDING_PCBA_NAME} " +
                 $"WHERE " +
-                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}'";
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}' " +
+                $"AND " +
+                $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '1'";
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             if (dt.Rows.Count > 0)
             {
@@ -310,7 +311,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
             //sn= snPcba
             selectSQL = $"SELECT {DbTable.F_BINDING_PCBA.SN_OUTTER} FROM {DbTable.F_BINDING_PCBA_NAME} " +
                 $"WHERE " +
-                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{snOutter}'";
+                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{snOutter}' AND " +
+                $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '1'";
 
             dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             if (dt.Rows.Count > 0)

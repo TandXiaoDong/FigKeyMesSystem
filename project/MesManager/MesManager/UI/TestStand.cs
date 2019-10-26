@@ -10,7 +10,7 @@ using Telerik.WinControls.UI;
 using MesManager.Control;
 using MesManager.Control.TreeViewUI;
 using MesManager.Properties;
-using MesManager.TelerikWinform.GridViewCommon.GridViewDataExport;
+using WindowsFormTelerik.GridViewExportData;
 using Telerik.WinControls.UI.Export;
 using CommonUtils.Logger;
 using CommonUtils.FileHelper;
@@ -41,14 +41,6 @@ namespace MesManager.UI
             TEST_LOG_DATA
         }
 
-        private enum ExportFormat
-        {
-            EXCEL,
-            HTML,
-            PDF,
-            CSV
-        }
-
         private void TestStand_Load(object sender, EventArgs e)
         {
             Init();
@@ -68,6 +60,21 @@ namespace MesManager.UI
             this.rbtn_oneMonth.Click += Rbtn_oneMonth_Click;
             this.rbtn_threeMonth.Click += Rbtn_threeMonth_Click;
             this.rbtn_oneYear.Click += Rbtn_oneYear_Click;
+            this.tool_clearDB.Click += Tool_clearDB_Click;
+        }
+
+        private void Tool_clearDB_Click(object sender, EventArgs e)
+        {
+            if (currentDataType == TestStandDataType.TEST_LIMIT_CONFIG)
+            {
+            }
+            else if (currentDataType == TestStandDataType.TEST_LOG_DATA)
+            {
+                TestLogDetailDelete();
+            }
+            else if (currentDataType == TestStandDataType.TEST_PROGRAME_VERSION)
+            {
+            }
         }
 
         private void Rbtn_oneYear_Click(object sender, EventArgs e)
@@ -105,7 +112,7 @@ namespace MesManager.UI
 
         private void Tool_export_Click(object sender, EventArgs e)
         {
-            ExportGridViewData(0,this.radGridView1);
+            ExportGridViewData();
         }
 
         private void RadGridView1_CellDoubleClick(object sender, GridViewCellEventArgs e)
@@ -201,6 +208,8 @@ namespace MesManager.UI
         async private void Init()
         {
             serviceClient = new MesService.MesServiceClient();
+            if (MESMainForm.currentUsetType != 0)
+                this.tool_clearDB.Enabled = false;
             this.panel1.Visible = false;
             rbtn_today.Checked = true;
             this.radGridView1.Dock = DockStyle.Fill;
@@ -225,7 +234,11 @@ namespace MesManager.UI
             this.panel2.Visible = true;
             this.pickerStartTime.Text = DateTime.Now.ToString("yyyy-MM-dd") + " 00:00:00";
             this.pickerEndTime.Text = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
-
+            this.tool_exportCondition.Items.Add(GridViewExport.ExportFormat.EXCEL.ToString());
+            this.tool_exportCondition.Items.Add(GridViewExport.ExportFormat.HTML.ToString());
+            this.tool_exportCondition.Items.Add(GridViewExport.ExportFormat.PDF.ToString());
+            this.tool_exportCondition.Items.Add(GridViewExport.ExportFormat.CSV.ToString());
+            this.tool_exportCondition.SelectedIndex = 0;
             RefreshUI();
         }
 
@@ -284,46 +297,32 @@ namespace MesManager.UI
             this.radGridView1.BestFitColumns();
         }
 
-        private void ExportGridViewData(int selectIndex, RadGridView radGridView)
+        private void ExportGridViewData()
         {
-            var filter = "Excel (*.xls)|*.xls";
-            if (selectIndex == (int)ExportFormat.EXCEL)
-            {
-                filter = "Excel (*.xls)|*.xls";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToExcelML(path, radGridView);
-            }
-            else if (selectIndex == (int)ExportFormat.HTML)
-            {
-                filter = "Html File (*.htm)|*.htm";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToHTML(path, radGridView);
-            }
-            else if (selectIndex == (int)ExportFormat.PDF)
-            {
-                filter = "PDF file (*.pdf)|*.pdf";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToPDF(path, radGridView);
-            }
-            else if (selectIndex == (int)ExportFormat.CSV)
-            {
-                filter = "PDF file (*.pdf)|*.csv";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToCSV(path, radGridView);
-            }
+            GridViewExport.ExportFormat exportFormat = GridViewExport.ExportFormat.EXCEL;
+            Enum.TryParse(tool_queryCondition.Text, out exportFormat);
+            GridViewExport.ExportGridViewData(exportFormat, this.radGridView1);
         }
 
         private void Btn_search_Click(object sender, EventArgs e)
         {
             RefreshUI();
+        }
+
+        private void TestLogDetailDelete()
+        {
+            if (MessageBox.Show("是否确认清除当前所有数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            var returnRes = serviceClient.DeleteTestLogData(this.tool_queryCondition.Text.Trim(),this.pickerStartTime.Text,this.pickerEndTime.Text);
+            if (returnRes == "0X01")
+            {
+                RefreshUI();
+                MessageBox.Show("清除数据完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("清除数据未完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

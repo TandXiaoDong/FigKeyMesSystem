@@ -1042,22 +1042,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="DeleteTestLogData">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="queryCondition" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="startTime" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="endTime" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="DeleteTestLogDataResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="DeleteTestLogDataResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="GetPCBASn">
     <xs:complexType>
       <xs:sequence>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://192.168.1.8:8086/MesService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://192.168.0.110:8086/MesService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="TestCommunication">
     <xs:complexType>
       <xs:sequence>
@@ -24,6 +24,7 @@
         <xs:element minOccurs="0" name="result" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="teamLeader" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="admin" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="joinDateTime" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -133,7 +134,14 @@
   <xs:element name="UpdatePackageProductBindingMsg">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="bindingMsg" nillable="true" type="q2:ArrayOfstring" />
+        <xs:element minOccurs="0" name="outCaseCode" nillable="true" type="xs:string" />
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="snOutter" nillable="true" type="q2:ArrayOfstring" />
+        <xs:element minOccurs="0" name="typeNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="stationName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="bindingState" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="remark" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="teamLeader" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="admin" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -149,8 +157,8 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="typeNo" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="stationName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="programePath" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="programeName" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="programeVersion" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="teamLeader" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="admin" nillable="true" type="xs:string" />
       </xs:sequence>
@@ -194,6 +202,7 @@
         <xs:element minOccurs="0" name="testResult" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="teamLeader" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="admin" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="joinDateTime" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -274,6 +283,7 @@
         <xs:element minOccurs="0" name="snPCBA" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="snOutter" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="materialCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productTypeNo" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -326,6 +336,80 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="SelectPackageStorageResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePackageStorage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="productTypeNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="capacity" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePackageStorageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdatePackageStorageResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryPCBAMes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pcbaSN" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryPCBAMesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="QueryPCBAMesResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePcbaBindingState">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pcbaSn" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="outterSn" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="bindingState" type="xs:int" />
+        <xs:element minOccurs="0" name="pcbaState" type="xs:int" />
+        <xs:element minOccurs="0" name="outterState" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePcbaBindingStateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdatePcbaBindingStateResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckPcbaState">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="snPcba" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="snOutter" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckPcbaStateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CheckPcbaStateResult" nillable="true" type="q9:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

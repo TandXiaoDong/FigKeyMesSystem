@@ -37,10 +37,8 @@ namespace MesManager
                 applicationContext.MainForm = mainForm;
                 //初始化
                 mainForm.InitMain();
-
                 WelcomeForm welcomeForm = applicationContext.Tag as WelcomeForm;
                 welcomeForm.Close();
-
                 mainForm.Show();
             }
         }

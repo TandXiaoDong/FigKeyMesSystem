@@ -16,10 +16,11 @@ namespace MesManager.UI
         private RadTitleBarElement titleBar;
         private bool isFormMoving = false;
         private static bool IsLogin;
-        public static string currentUser;
+        public static string currentUser;//0-admin,2-操作员
         public static int currentUsetType;
         private MesService.MesServiceClient serviceClient;
         private bool IsFirstState = true;
+        public static bool IsCompleted;
         public MESMainForm()
         {
             InitializeComponent();
@@ -35,13 +36,14 @@ namespace MesManager.UI
             serviceClient = new MesService.MesServiceClient();
             TestCommunication();
             IsFirstState = false;
+            IsCompleted = true;
+            this.DialogResult = DialogResult.OK;
         }
 
         public void InitMain()
         {
             PrepareTitleBar();
             EventHandlers();
-            System.Threading.Thread.Sleep(1000);
         }
 
         private void TestCommunication()

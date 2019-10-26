@@ -264,15 +264,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Connected Services\WeatherWebService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Control\ComGraph.cs" />
     <Compile Include="Control\DataGridViewCommon.cs" />
     <Compile Include="Control\ListViewCommon.cs" />
-    <Compile Include="Control\TelerikUI\GridViewCommon\GridViewDataExport\ExportData.cs" />
     <Compile Include="Control\TreeViewControl.cs" />
     <Compile Include="Control\TreeViewUI\LoadTreeView.cs" />
     <Compile Include="Control\TreeViewUI\TreeViewData.cs" />
@@ -426,6 +420,12 @@
     <Compile Include="UI\RepairCenter.Designer.cs">
       <DependentUpon>RepairCenter.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SearchForm.Designer.cs">
+      <DependentUpon>SearchForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SNCenter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -549,6 +549,9 @@
     <EmbeddedResource Include="UI\RepairCenter.resx">
       <DependentUpon>RepairCenter.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\SearchForm.resx">
+      <DependentUpon>SearchForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\SNCenter.resx">
       <DependentUpon>SNCenter.cs</DependentUpon>
     </EmbeddedResource>
@@ -574,14 +577,17 @@
       <DependentUpon>WelcomeForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
-    <None Include="Connected Services\MesServiceTest\MesService.wsdl" />
     <None Include="Connected Services\MesServiceTest\MesService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService1.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService1.wsdl" />
+    <None Include="Connected Services\MesServiceTest\MesService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService2.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesServiceTest\MesService32.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\MesService\MesManager.MesService.LoginResult.datasource">
@@ -612,7 +618,6 @@
     <None Include="Connected Services\MesService\MesService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\WeatherWebService\WeatherWebService.wsdl" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
@@ -630,17 +635,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MesServiceTest\MesService.disco" />
     <None Include="Connected Services\MesServiceTest\configuration91.svcinfo" />
     <None Include="Connected Services\MesServiceTest\configuration.svcinfo" />
     <None Include="Connected Services\MesServiceTest\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Connected Services\WeatherWebService\WeatherWebService.disco" />
-    <None Include="Connected Services\WeatherWebService\configuration91.svcinfo" />
-    <None Include="Connected Services\WeatherWebService\configuration.svcinfo" />
-    <None Include="Connected Services\WeatherWebService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -661,6 +658,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Connected Services\MesServiceTest\MesService1.disco" />
     <Content Include="GenericShareFolder.ico" />
     <Content Include="License-LGPL.txt" />
     <Content Include="MES修改设计.txt" />
@@ -723,12 +721,15 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\MesServiceTest\" />
     <WCFMetadataStorage Include="Connected Services\MesService\" />
-    <WCFMetadataStorage Include="Connected Services\WeatherWebService\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\CommonRepository\MyCommonLibrary001\CommonUtils\CommonUtils\CommonUtils.csproj">
       <Project>{8893ddbb-e768-4571-a2f8-7ebb401f0b55}</Project>
       <Name>CommonUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\CommonRepository\MyCommonLibrary001\CommonUtils\WindowsFormTelerik\WindowsFormTelerik.csproj">
+      <Project>{f35ef484-7884-4954-ae3b-2323db3a0e62}</Project>
+      <Name>WindowsFormTelerik</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

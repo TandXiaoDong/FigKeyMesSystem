@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CommonUtils.tool;
 using Lassalle;
 using Lassalle.DlgFlow;
 using Lassalle.Flow;
@@ -27,7 +26,7 @@ namespace TestAPI
             InitializeComponent();
         }
 
-        async private void Button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             var sn = tb_sn.Text.Trim();
             var result = tb_result.Text.Trim();
@@ -35,7 +34,7 @@ namespace TestAPI
             var station = tb_station.Text.Trim();
             var time = tb_date.Text.Trim();
             textBox1.Text = "";
-            textBox1.Text = await serviceClient.InsertTestResultDataAsync(sn,typeno,station,time,result);
+            //textBox1.Text = await serviceClient.InsertTestResultDataAsync(sn,typeno,station,time,result);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -57,19 +56,19 @@ namespace TestAPI
             var typeno = "type_no_0001";
             var station = "station_name_002";
 
-            string[] array = await serviceClient.SelectLastTestResultAsync(sn,typeno,station);
+            //string[] array = await serviceClient.SelectLastTestResultAsync(sn,typeno,station);
         }
 
         async private void Button3_Click(object sender, EventArgs e)
         {
-            var res = await serviceClient.UpdatePackageProductAsync("20190806code","0003","0");
-            textBox1.Text = res.ToString();
+            //var res = await serviceClient.UpdatePackageProductAsync("20190806code","0003","0");
+            //textBox1.Text = res.ToString();
         }
 
         private void Button4_Click(object sender, EventArgs e)
         {
             string path = @"D:\work\project\FigKey\LoggerConfigurator\LoggerConfigurator\bin\Debug\编译器";
-            textBox1.Text = Execute.ExecuteApply(path, "xcpmake.bat").ToString();
+            //textBox1.Text = Execute.ExecuteApply(path, "xcpmake.bat").ToString();
         }
 
 

@@ -22,6 +22,7 @@ namespace MesWcfService.DB
         public const string F_TEST_LOG_DATA_NAME            = "[WT_SCL].[dbo].[f_test_log_data]";
         public const string F_BINDING_PCBA_NAME             = "[WT_SCL].[dbo].[f_binding_pcba]";
         public const string F_MATERIAL_PN_NAME              = "[WT_SCL].[dbo].[f_material_pn]";
+        public const string F_PCBA_NAME                     = "[WT_SCL].[dbo].[f_pcba]";
 
         public class F_User
         {
@@ -208,6 +209,17 @@ namespace MesWcfService.DB
             public const string SN_OUTTER = "[sn_outter]";
             public const string MATERIAL_CODE = "[material_code]";
             public const string UPDATE_DATE = "[update_date]";
+            public const string BINDING_STATE = "[binding_state]";
+            public const string PCBA_STATE = "[pcba_state]";
+            public const string OUTTER_STATE = "[outter_state]";
+        }
+
+        public class F_PCBA
+        {
+            public const string SN_PCBA = "[sn_pcba]";
+            public const string SN_OUTTER = "sn_outter";
+            public const string PCBA_STATE = "pcba_state";
+            public const string OUTTER_STATE = "shell_state";
         }
     }
 }

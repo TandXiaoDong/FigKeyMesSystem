@@ -416,52 +416,61 @@ namespace MesManager.UI
         /// </summary>
         private void NetronLightGraph()
         {
-            this.groupbox_graph.Controls.Clear();
-            GraphControl graphControl1 = new GraphControl();
-            graphControl1.Dock = DockStyle.Fill;
-            graphControl1.Enabled = false;
-            graphControl1.ShowGrid = false;
-            graphControl1.BackColor = Color.SteelBlue;
-            graphControl1.Font = new Font("宋体",10);
-            this.groupbox_graph.Controls.Add(graphControl1);
-            int x = 50;//this is left margin
-            int y = 30;
-            SimpleRectangle srSharpLast = null;
-            
-            for (int i = 0; i < this.radGridView1.Rows.Count; i++)
+            try
             {
-                var stationName = this.radGridView1.Rows[i].Cells[1].Value.ToString();
-                
-                SimpleRectangle srSharp = graphControl1.AddShape(ShapeTypes.Rectangular, new Point(x, y)) as SimpleRectangle;
-                Graphics graphics = CreateGraphics();
-                SizeF sizeF = graphics.MeasureString(stationName, new Font("宋体", 10));
-                srSharp.Text = stationName;
-                srSharp.Height = 50;
-                srSharp.Width = (int)sizeF.Width + (int)sizeF.Width / 2;
-                graphics.Dispose();
-                srSharp.ShapeColor = Color.LightSteelBlue;
-                if (i % 2 == 0  && i>1)
-                {
-                    graphControl1.AddConnection(srSharpLast.Connectors[2], srSharp.Connectors[1]);
-                }
-                if (i + 1 < this.radGridView1.Rows.Count)
-                {
-                    x += srSharp.Width + 80;
-                    var stationNameLast = this.radGridView1.Rows[i + 1].Cells[1].Value.ToString();
-                    Graphics graphicsLast = CreateGraphics();
-                    SizeF sizeFLast = graphicsLast.MeasureString(stationNameLast, new Font("宋体", 10));
+                this.groupbox_graph.Controls.Clear();
+                GraphControl graphControl1 = new GraphControl();
+                graphControl1.Dock = DockStyle.Fill;
+                graphControl1.Enabled = false;
+                graphControl1.ShowGrid = false;
+                graphControl1.BackColor = Color.SteelBlue;
+                graphControl1.Font = new Font("宋体", 10);
+                this.groupbox_graph.Controls.Add(graphControl1);
+                int x = 50;//this is left margin
+                int y = 30;
+                SimpleRectangle srSharpLast = null;
 
-                    srSharpLast = graphControl1.AddShape(ShapeTypes.Rectangular, new Point(x, y)) as SimpleRectangle;
-                    srSharpLast.Text = stationNameLast;
-                    srSharpLast.Height = 50;
-                    srSharpLast.Width = (int)sizeFLast.Width + (int)sizeFLast.Width / 2;
-                    graphicsLast.Dispose();
-                    srSharpLast.ShapeColor = Color.LightSteelBlue;
+                for (int i = 0; i < this.radGridView1.Rows.Count; i++)
+                {
+                    var stationName = this.radGridView1.Rows[i].Cells[1].Value.ToString();
 
-                    graphControl1.AddConnection(srSharp.Connectors[2],srSharpLast.Connectors[1]);
-                    i++;
+                    SimpleRectangle srSharp = graphControl1.AddShape(ShapeTypes.Rectangular, new Point(x, y)) as SimpleRectangle;
+                    Graphics graphics = CreateGraphics();
+                    SizeF sizeF = graphics.MeasureString(stationName, new Font("宋体", 10));
+                    srSharp.Text = stationName;
+                    srSharp.Height = 50;
+                    srSharp.Width = (int)sizeF.Width + (int)sizeF.Width / 2;
+                    graphics.Dispose();
+                    srSharp.ShapeColor = Color.LightSteelBlue;
+                    if (i % 2 == 0 && i > 1)
+                    {
+                        graphControl1.AddConnection(srSharpLast.Connectors[2], srSharp.Connectors[1]);
+                    }
+                    if (i + 1 < this.radGridView1.Rows.Count)
+                    {
+                        x += srSharp.Width + 80;
+                        var stationNameLast = this.radGridView1.Rows[i + 1].Cells[1].Value.ToString();
+                        Graphics graphicsLast = CreateGraphics();
+                        SizeF sizeFLast = graphicsLast.MeasureString(stationNameLast, new Font("宋体", 10));
+
+                        srSharpLast = graphControl1.AddShape(ShapeTypes.Rectangular, new Point(x, y)) as SimpleRectangle;
+                        srSharpLast.Text = stationNameLast;
+                        srSharpLast.Height = 50;
+                        srSharpLast.Width = (int)sizeFLast.Width + (int)sizeFLast.Width / 2;
+                        graphicsLast.Dispose();
+                        srSharpLast.ShapeColor = Color.LightSteelBlue;
+
+                        graphControl1.AddConnection(srSharp.Connectors[2], srSharpLast.Connectors[1]);
+                        i++;
+                    }
+                    if (srSharpLast == null)
+                        return;
+                    x += srSharpLast.Width + 80;
                 }
-                x += srSharpLast.Width + 80;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error(ex.Message);
             }
         }
     }

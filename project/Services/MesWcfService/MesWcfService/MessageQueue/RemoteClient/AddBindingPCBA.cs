@@ -57,13 +57,18 @@ namespace MesWcfService.MessageQueue.RemoteClient
             else
             {
                 //insert
+                //插入前先判断PCBA、外壳的状态
                 var insertSQL = $"INSERT INTO {DbTable.F_BINDING_PCBA_NAME}(" +
                     $"{DbTable.F_BINDING_PCBA.SN_PCBA}," +
                     $"{DbTable.F_BINDING_PCBA.SN_OUTTER}," +
                     $"{DbTable.F_BINDING_PCBA.UPDATE_DATE}," +
                     $"{DbTable.F_BINDING_PCBA.MATERIAL_CODE}," +
-                    $"{DbTable.F_BINDING_PCBA.PRODUCT_TYPE_NO}) VALUES(" +
-                    $"'{sn_pcba}','{sn_outter}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{materialCode}','{productTypeNo}')";
+                    $"{DbTable.F_BINDING_PCBA.PRODUCT_TYPE_NO}," +
+                    $"{DbTable.F_BINDING_PCBA.PCBA_STATE}," +
+                    $"{DbTable.F_BINDING_PCBA.OUTTER_STATE}" +
+                    $") VALUES(" +
+                    $"'{sn_pcba}','{sn_outter}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'," +
+                    $"'{materialCode}','{productTypeNo}','{SelectPcbaState(sn_pcba)}','{SelectShellState(sn_outter)}')";
                 int isRes = SQLServer.ExecuteNonQuery(insertSQL);
                 if (isRes > 0)
                     return "OK";
@@ -73,6 +78,30 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     return "FAIL";
                 }
             }
+        }
+
+        private static string SelectPcbaState(string snPCBA)
+        {
+            var selectSQL = $"SELECT top 1 {DbTable.F_BINDING_PCBA.PCBA_STATE} FROM " +
+                $"{DbTable.F_BINDING_PCBA_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{snPCBA}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+                return dt.Rows[0][0].ToString();
+            return "1";
+        }
+
+        private static string SelectShellState(string snOutter)
+        {
+            var selectSQL = $"SELECT top 1 {DbTable.F_BINDING_PCBA.OUTTER_STATE} FROM " +
+                $"{DbTable.F_BINDING_PCBA_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+                return dt.Rows[0][0].ToString();
+            return "1";
         }
 
         private static bool IsExistPCBA(string snPcba,string snOutter,string materialCode,string productTypeNo)

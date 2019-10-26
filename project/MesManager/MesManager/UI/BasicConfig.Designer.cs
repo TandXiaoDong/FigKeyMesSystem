@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasicConfig));
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -37,7 +37,6 @@
             this.chamferedRectShape1 = new Telerik.WinControls.ChamferedRectShape();
             this.donutShape1 = new Telerik.WinControls.Tests.DonutShape();
             this.customShape1 = new Telerik.WinControls.OldShapeEditor.CustomShape();
-            this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
             this.menu_add = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_del = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_commit = new Telerik.WinControls.UI.RadMenuItem();
@@ -46,11 +45,14 @@
             this.menu_clear_db = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_export = new Telerik.WinControls.UI.RadMenuItem();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
+            this.menu_exportCondition = new Telerik.WinControls.UI.RadMenuComboItem();
+            this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.menu_exportCondition.ComboBoxElement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -95,23 +97,6 @@
             // 
             this.customShape1.Dimension = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.customShape1.IsRightToLeft = false;
-            // 
-            // radMenu1
-            // 
-            this.radMenu1.BackColor = System.Drawing.Color.Transparent;
-            this.radMenu1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.menu_add,
-            this.menu_del,
-            this.menu_commit,
-            this.menu_refresh,
-            this.menu_grid,
-            this.menu_clear_db,
-            this.menu_export});
-            this.radMenu1.Location = new System.Drawing.Point(0, 0);
-            this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(1272, 36);
-            this.radMenu1.TabIndex = 9;
             // 
             // menu_add
             // 
@@ -172,11 +157,49 @@
             // 
             // 
             // 
-            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition2;
+            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
             this.radGridView1.Size = new System.Drawing.Size(1272, 679);
             this.radGridView1.TabIndex = 14;
             this.radGridView1.ThemeName = "Breeze";
+            // 
+            // menu_exportCondition
+            // 
+            // 
+            // 
+            // 
+            this.menu_exportCondition.ComboBoxElement.ArrowButtonMinWidth = 17;
+            this.menu_exportCondition.ComboBoxElement.AutoCompleteAppend = null;
+            this.menu_exportCondition.ComboBoxElement.AutoCompleteDataSource = null;
+            this.menu_exportCondition.ComboBoxElement.AutoCompleteSuggest = null;
+            this.menu_exportCondition.ComboBoxElement.DataMember = "";
+            this.menu_exportCondition.ComboBoxElement.DataSource = null;
+            this.menu_exportCondition.ComboBoxElement.DefaultValue = null;
+            this.menu_exportCondition.ComboBoxElement.DisplayMember = "";
+            this.menu_exportCondition.ComboBoxElement.DropDownAnimationEasing = Telerik.WinControls.RadEasingType.InQuad;
+            this.menu_exportCondition.ComboBoxElement.DropDownAnimationEnabled = true;
+            this.menu_exportCondition.ComboBoxElement.EditableElementText = "";
+            this.menu_exportCondition.ComboBoxElement.EditorElement = this.menu_exportCondition.ComboBoxElement;
+            this.menu_exportCondition.ComboBoxElement.EditorManager = null;
+            this.menu_exportCondition.ComboBoxElement.Filter = null;
+            this.menu_exportCondition.ComboBoxElement.FilterExpression = "";
+            this.menu_exportCondition.ComboBoxElement.Focusable = true;
+            this.menu_exportCondition.ComboBoxElement.FormatString = "";
+            this.menu_exportCondition.ComboBoxElement.FormattingEnabled = true;
+            this.menu_exportCondition.ComboBoxElement.MaxDropDownItems = 0;
+            this.menu_exportCondition.ComboBoxElement.MaxLength = 32767;
+            this.menu_exportCondition.ComboBoxElement.MaxValue = null;
+            this.menu_exportCondition.ComboBoxElement.MinValue = null;
+            this.menu_exportCondition.ComboBoxElement.NullValue = null;
+            this.menu_exportCondition.ComboBoxElement.OwnerOffset = 0;
+            this.menu_exportCondition.ComboBoxElement.ShowImageInEditorArea = true;
+            this.menu_exportCondition.ComboBoxElement.SortStyle = Telerik.WinControls.Enumerations.SortStyle.None;
+            this.menu_exportCondition.ComboBoxElement.Value = null;
+            this.menu_exportCondition.ComboBoxElement.ValueMember = "";
+            this.menu_exportCondition.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menu_exportCondition.Name = "menu_exportCondition";
+            this.menu_exportCondition.PositionOffset = new System.Drawing.SizeF(0F, 6F);
+            this.menu_exportCondition.Text = "radMenuComboItem1";
             // 
             // BasicConfig
             // 
@@ -184,6 +207,24 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
             this.ClientSize = new System.Drawing.Size(1272, 737);
+            // 
+            // radMenu1
+            // 
+            this.radMenu1.BackColor = System.Drawing.Color.Transparent;
+            this.radMenu1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.menu_add,
+            this.menu_del,
+            this.menu_commit,
+            this.menu_refresh,
+            this.menu_grid,
+            this.menu_clear_db,
+            this.menu_exportCondition,
+            this.menu_export});
+            this.radMenu1.Location = new System.Drawing.Point(0, 0);
+            this.radMenu1.Name = "radMenu1";
+            this.radMenu1.Size = new System.Drawing.Size(1272, 36);
+            this.radMenu1.TabIndex = 9;
             this.Controls.Add(this.radGridView1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.radMenu1);
@@ -199,9 +240,10 @@
             this.Load += new System.EventHandler(this.BasicConfig_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.menu_exportCondition.ComboBoxElement)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -221,9 +263,10 @@
         private Telerik.WinControls.ChamferedRectShape chamferedRectShape1;
         private Telerik.WinControls.Tests.DonutShape donutShape1;
         private Telerik.WinControls.OldShapeEditor.CustomShape customShape1;
-        private Telerik.WinControls.UI.RadMenu radMenu1;
         private Telerik.WinControls.UI.RadMenuItem menu_add;
         private Telerik.WinControls.UI.RadGridView radGridView1;
         private Telerik.WinControls.UI.RadMenuItem menu_export;
+        private Telerik.WinControls.UI.RadMenuComboItem menu_exportCondition;
+        private Telerik.WinControls.UI.RadMenu radMenu1;
     }
 }

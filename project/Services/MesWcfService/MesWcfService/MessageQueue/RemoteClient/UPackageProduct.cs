@@ -214,27 +214,33 @@ namespace MesWcfService.MessageQueue.RemoteClient
             SQLServer.ExecuteNonQuery(insertSQL);
         }
 
-        public static string PackageProductMsg(Queue<string[]> ppQueue)
+        public static string[] PackageProductMsg(Queue<string[]> ppQueue)
         {
+            string[] resultArray = new string[2];
             try
             {
-                int updateRow = 0;
-                while(ppQueue.Count > 0)
+                //2）已经绑定的产品，从另一个已经绑定其他箱子取出来绑定
+                //3）当产品装满后，将剩余的产品返回
+                int count = 0; //已插入的数量/已重新绑定的数量
+                while (ppQueue.Count > 0)
                 {
                     var array = ppQueue.Dequeue();
-                    if (array.Length < 8)
-                        return ProductPackageEnum.PARAMS_NOT_LONG_ENOUGH.ToString();
                     var outCaseCode = array[0];
                     var snOutter = array[1];
                     var typeNo = array[2];
                     var stationName = array[3];
                     var bindingState = array[4];
                     if (bindingState != "0" && bindingState != "1")
-                        return ProductPackageEnum.BINDING_STATE_VALUE_ERROR + "";
+                    {
+                        resultArray[0] = "0X12";//STATUS_NONE_EXIST_BINDING_STATE
+                        LogHelper.Log.Info($"【更新产品打包】0X12 STATUS_NONE_EXIST_BINDING_STATE");
+                        return resultArray;
+                    }
                     var remark = array[5];
                     var teamdLeader = array[6];
                     var admin = array[7];
 
+                    #region SQL 
                     string insertSQL = $"INSERT INTO {DbTable.F_OUT_CASE_PRODUCT_NAME}(" +
                         $"{DbTable.F_Out_Case_Product.OUT_CASE_CODE}," +
                         $"{DbTable.F_Out_Case_Product.SN_OUTTER}," +
@@ -248,57 +254,259 @@ namespace MesWcfService.MessageQueue.RemoteClient
                         $"'{outCaseCode}','{snOutter}','{typeNo}','{stationName}'," +
                         $"'{bindingState}','{remark}','{teamdLeader}','{admin}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
 
-                    string updateSQL = $"UPDATE {DbTable.F_OUT_CASE_PRODUCT_NAME} SET " +
+                    string updateSQL = $"UPDATE " +
+                        $"{DbTable.F_OUT_CASE_PRODUCT_NAME} SET " +
                     $"{DbTable.F_Out_Case_Product.TYPE_NO} = '{typeNo}'," +
                     $"{DbTable.F_Out_Case_Product.BINDING_STATE} = '{bindingState}'," +
                     $"{DbTable.F_Out_Case_Product.REMARK} = '{remark}'," +
                     $"{DbTable.F_Out_Case_Product.TEAM_LEADER} = '{teamdLeader}'," +
                     $"{DbTable.F_Out_Case_Product.ADMIN} = '{admin}'," +
                     $"{DbTable.F_Out_Case_Product.UPDATE_DATE} = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' " +
-                    $"WHERE {DbTable.F_Out_Case_Product.OUT_CASE_CODE} = '{outCaseCode}' AND " +
+                    $"WHERE " +
+                    $"{DbTable.F_Out_Case_Product.OUT_CASE_CODE} = '{outCaseCode}' " +
+                    $"AND " +
                     $"{DbTable.F_Out_Case_Product.SN_OUTTER} = '{snOutter}' ";
+                    #endregion
 
-                    if (isExistBindingRecord(outCaseCode, snOutter))
+                    if (IsExistOtherBindingRecord(snOutter, outCaseCode))
                     {
-                        //update
-                        if (bindingState == "0")
-                        {
-                            //将解绑数据添加到记录
-                            InsertProductCheckRecord(outCaseCode, snOutter, typeNo, stationName, bindingState, remark, teamdLeader, admin);
-                        }
-                        int usRes = SQLServer.ExecuteNonQuery(updateSQL);
-                        if(usRes > 0)
-                            updateRow++;
+                        //该产品已绑定其他箱子 STATUS_BINDED_OTHER_CASE
+                        //返回
+                        resultArray[0] = "0X02";
+                        LogHelper.Log.Info($"【更新产品打包】0X02 STATUS_BINDED_OTHER_CASE");
+                        return resultArray;
                     }
                     else
                     {
-                        //insert
-                        int isRes = SQLServer.ExecuteNonQuery(insertSQL);
-                        if(isRes > 0)
-                            updateRow++;
+                        //该产品未绑定其他箱子，可以继续下一步
+                        //是否存在记录--绑定/未绑定/不存在
+                        if (IsExistRecord(outCaseCode, snOutter))
+                        {
+                            //存在记录
+                            if (IsExistBindingRecord(outCaseCode, snOutter))
+                            {
+                                //存在绑定记录
+                                //更新其他信息
+                                int usRes = SQLServer.ExecuteNonQuery(updateSQL);
+                                if (usRes > 0)
+                                {
+                                    resultArray[0] = "0X03";//STATUS_EXIST_BINDED_UPDATE_SUCCESS
+                                    LogHelper.Log.Info($"【更新产品打包】0X03 STATUS_EXIST_BINDED_UPDATE_SUCCESS");
+                                    return resultArray;
+                                }
+                                else
+                                {
+                                    resultArray[0] = "0X04";//STATUS_EXIST_BINDED_UPDATE_FAIL
+                                    LogHelper.Log.Info($"【更新产品打包】0X04 STATUS_EXIST_BINDED_UPDATE_FAIL");
+                                    return resultArray;
+                                }
+                            }
+                            else
+                            {
+                                //不存在解绑记录
+                                //判断是否要解绑或重新绑定
+                                if (bindingState == "0")
+                                {
+                                    //将解绑数据添加到记录
+                                    InsertProductCheckRecord(outCaseCode, snOutter, typeNo, stationName, bindingState, remark, teamdLeader, admin);
+                                    int usRes = SQLServer.ExecuteNonQuery(updateSQL);
+                                    if (usRes > 0)
+                                    {
+                                        resultArray[0] = "0X05";//STATUS_NONE_EXIST_BINDED_UPDATE_SUCCESS
+                                        LogHelper.Log.Info($"【更新产品打包】0X05 STATUS_NONE_EXIST_UNBIND_UPDATE_SUCCESS");
+                                        return resultArray;
+                                    }
+                                    else
+                                    {
+                                        resultArray[0] = "0X06";//STATUS_NONE_EXIST_BINDED_UPDATE_FAIL
+                                        LogHelper.Log.Info($"【更新产品打包】0X06 STATUS_NONE_EXIST_UNBIND_UPDATE_FAIL");
+                                        return resultArray;
+                                    }
+                                }
+                                else if (bindingState == "1")
+                                {
+                                    //重新绑定
+                                    int usRes = SQLServer.ExecuteNonQuery(updateSQL);
+                                    if (usRes > 0)
+                                    {
+                                        resultArray[0] = "0X07";//STATUS_NONE_EXIST_REBIND_SUCCESS
+                                        LogHelper.Log.Info($"【更新产品打包】0X07 STATUS_NONE_EXIST_REBIND_SUCCESS");
+                                        return resultArray;
+                                    }
+                                    else
+                                    {
+                                        resultArray[0] = "0X08";//STATUS_NONE_EXIST_REBIND_FAIL
+                                        LogHelper.Log.Info($"【更新产品打包】0X08 STATUS_NONE_EXIST_REBIND_FAIL");
+                                        return resultArray;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            //insert
+                            if (IsOutCaseFull(outCaseCode, typeNo))//已装满
+                            {
+                                LogHelper.Log.Info("【更新产品打包】0X01 STATUS_FULL");
+                                resultArray[0] = "0X01"; //STATUS_FULL
+                                return resultArray;
+                            }
+                            if (bindingState != "1")
+                            {
+                                LogHelper.Log.Info("【更新产品打包】0X13 STATUS_INSERT_BINDING_STATE_INVALID");
+                                resultArray[0] = "0X13"; //STATUS_FULL
+                                return resultArray;
+                            }
+                            int isRes = SQLServer.ExecuteNonQuery(insertSQL);
+                            if (isRes > 0)
+                            {
+                                resultArray[0] = "0X09";//STATUS_INSERT_SUCCESS
+                                LogHelper.Log.Info($"【更新产品打包】0X09 STATUS_INSERT_SUCCESS");
+                                return resultArray;
+                            }
+                            else
+                            {
+                                resultArray[0] = "0X10";//STATUS_INSERT_FAIL
+                                LogHelper.Log.Info($"【更新产品打包】0X10 STATUS_INSERT_FAIL");
+                                return resultArray;
+                            }
+                        }
                     }
                 }
-                return updateRow+"";
+                return resultArray;
             }
             catch (Exception ex)
             {
-                LogHelper.Log.Error("【产品绑定异常错误！】"+ex.Message);
-                return ProductPackageEnum.STATUS_FAIL.ToString();
+                LogHelper.Log.Error("【产品绑定异常错误！】"+ex.Message+ex.StackTrace);
+                resultArray[0] = "0X11";//STATUS_NONE_EXIST_BINDED_UPDATE_FAIL
+                LogHelper.Log.Info($"【更新产品打包】0X11 STATUS_EXCEPT_FAIL");
+                return resultArray;
             }
         }
 
-        private static bool isExistBindingRecord(string caseCode, string snOutter)
+
+        private static bool IsExistRecord(string caseCode, string snOutter)
         {
             var selectSQL = $"SELECT {DbTable.F_Out_Case_Product.BINDING_STATE} " +
                 $"FROM {DbTable.F_OUT_CASE_PRODUCT_NAME} WHERE " +
                 $"{DbTable.F_Out_Case_Product.OUT_CASE_CODE} = '{caseCode}' AND " +
-                $"{DbTable.F_Out_Case_Product.SN_OUTTER} = '{snOutter}'";
+                $"{DbTable.F_Out_Case_Product.SN_OUTTER} = '{snOutter}' ";
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             if (dt.Rows.Count > 0)
             {
                 return true;
             }
-            return false;
+            return false;//已解绑/无绑定记录
+        }
+
+
+        /// <summary>
+        /// 该产品是存在绑定记录
+        /// </summary>
+        /// <param name="caseCode"></param>
+        /// <param name="snOutter"></param>
+        /// <returns></returns>
+        private static bool IsExistBindingRecord(string caseCode, string snOutter)
+        {
+            var selectSQL = $"SELECT {DbTable.F_Out_Case_Product.BINDING_STATE} " +
+                $"FROM {DbTable.F_OUT_CASE_PRODUCT_NAME} WHERE " +
+                $"{DbTable.F_Out_Case_Product.OUT_CASE_CODE} = '{caseCode}' AND " +
+                $"{DbTable.F_Out_Case_Product.SN_OUTTER} = '{snOutter}' " +
+                $"AND " +
+                $"{DbTable.F_Out_Case_Product.BINDING_STATE} = '1'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                return true;
+            }
+            return false;//已解绑/无绑定记录
+        }
+
+        private static bool IsExistOtherBindingRecord(string productSN,string caseCode)
+        {
+            var selectSQL = $"SELECT distinct " +
+                $"{DbTable.F_Out_Case_Product.OUT_CASE_CODE} " +
+                $"FROM " +
+                $"{DbTable.F_OUT_CASE_PRODUCT_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_Out_Case_Product.SN_OUTTER} = '{productSN}' " +
+                $"AND " +
+                $"{DbTable.F_Out_Case_Product.BINDING_STATE} = '1'";
+            var ds = SQLServer.ExecuteDataSet(selectSQL);
+            if (ds.Tables.Count < 1)
+            {
+                LogHelper.Log.Info("【更新产品打包】不存在其他绑定记录"+selectSQL);
+                return false;
+            }
+            LogHelper.Log.Info("【更新产品打包】可能存在其他绑定记录");
+            System.Data.DataTable dt = ds.Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                if (caseCode != dt.Rows[0][0].ToString())
+                {
+                    //该产品已绑定其他箱子
+                    LogHelper.Log.Info("【更新产品打包】存在其他绑定记录");
+                    return true;
+                }
+                else
+                {
+                    LogHelper.Log.Info("【更新产品打包】不存在其他绑定记录<<casecode="+caseCode+"<<nowcase="+ dt.Rows[0][0].ToString());
+                    return false;
+                }
+            }
+            return false;//该产品未绑定其他箱子
+        }
+
+        /// <summary>
+        /// 根据产品获取已绑定箱子的剩余空间大小
+        /// </summary>
+        /// <param name="outcaseCode"></param>
+        /// <param name="productTypeNo"></param>
+        /// <returns></returns>
+        public static int SelectProductOutCaseRemain(string outcaseCode,string productTypeNo)
+        {
+            try
+            {
+                var totalSize = -1;
+                var useSize = -1;
+                //查询箱子总数
+                var selectTotalSize = $"SELECT {DbTable.F_Out_Case_Storage.STORAGE_CAPACITY} " +
+                    $"FROM " +
+                    $"{DbTable.F_OUT_CASE_STORAGE_NAME} " +
+                    $"WHERE " +
+                    $"{DbTable.F_Out_Case_Storage.TYPE_NO} = '{productTypeNo}'";
+                var dt = SQLServer.ExecuteDataSet(selectTotalSize).Tables[0];
+                if (dt.Rows.Count > 0)
+                    int.TryParse(dt.Rows[0][0].ToString(), out totalSize);
+                else
+                {
+                    LogHelper.Log.Info($"【查询箱子总数失败！】{selectTotalSize}");
+                }
+                //查询箱子剩余数量
+                var selectRemain = $"select COUNT(*) " +
+                    $"from {DbTable.F_OUT_CASE_PRODUCT_NAME} " +
+                    $"where " +
+                    $"{DbTable.F_Out_Case_Product.OUT_CASE_CODE} = '{outcaseCode}' " +
+                    $"and " +
+                    $"{DbTable.F_Out_Case_Product.SN_OUTTER}='{productTypeNo}' " +
+                    $"and " +
+                    $"{DbTable.F_Out_Case_Product.BINDING_STATE}='1'";
+                var useDt = SQLServer.ExecuteDataSet(selectRemain).Tables[0];
+                if (useDt.Rows.Count > 0)
+                {
+                    int.TryParse(useDt.Rows[0][0].ToString(),out useSize);
+                }
+                else
+                {
+                    LogHelper.Log.Info($"【查询箱子剩余数量失败！】{selectRemain}");
+                }
+                return totalSize - useSize;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error("【根据产品获取已绑定箱子的剩余空间大小！】" + ex.Message+ex.StackTrace);
+                return 0;
+            }
         }
 
         public static int SelectPackageStorage(Queue<string> queue)
@@ -318,6 +526,40 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 LogHelper.Log.Error("【获取产品打包容量异常！】" + ex.Message);
                 return 0;
             }
+        }
+
+        public static bool IsOutCaseFull(string casecode,string productTypeNo)
+        {
+            var selectActualAmount = $"select distinct COUNT(*) from " +
+                $"{DbTable.F_OUT_CASE_PRODUCT_NAME} " +
+                $"where " +
+                $"{DbTable.F_Out_Case_Product.OUT_CASE_CODE}='{casecode}' " +
+                $"and " +
+                $"{DbTable.F_Out_Case_Product.BINDING_STATE} = '1'";
+
+            var selectCapacity = $"select " +
+                $"{DbTable.F_Out_Case_Storage.STORAGE_CAPACITY} from " +
+                $"{DbTable.F_OUT_CASE_STORAGE_NAME} " +
+                $"where " +
+                $"{DbTable.F_Out_Case_Storage.TYPE_NO} = '{productTypeNo}'";
+            try
+            {
+                var actualdt = SQLServer.ExecuteDataSet(selectActualAmount).Tables[0];
+                var capacitydt = SQLServer.ExecuteDataSet(selectCapacity).Tables[0];
+                var actualAmount = 0;
+                var capacity = 0;
+                if (actualdt.Rows.Count > 0)
+                    actualAmount = int.Parse(actualdt.Rows[0][0].ToString());
+                if (capacitydt.Rows.Count > 0)
+                    capacity = int.Parse(capacitydt.Rows[0][0].ToString());
+                if (actualAmount < capacity)
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error(ex.Message+ex.StackTrace);
+            }
+            return true;
         }
     }
 }

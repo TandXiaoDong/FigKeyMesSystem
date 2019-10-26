@@ -11,7 +11,7 @@ using CommonUtils.Logger;
 using MesManager.Control;
 using MesManager.RadView;
 using System.Configuration;
-using MesManager.TelerikWinform.GridViewCommon.GridViewDataExport;
+using WindowsFormTelerik.GridViewExportData;
 using CommonUtils.FileHelper;
 
 namespace MesManager.UI
@@ -86,6 +86,11 @@ namespace MesManager.UI
             this.radGridView1.AllowRowHeaderContextMenu = false;
             var bMaterialCode = int.TryParse(ConfigurationManager.AppSettings["materialLength"].ToString(), out materialCodeLength);
             int.TryParse(ConfigurationManager.AppSettings["IsAutoAdd"].ToString(),out IsAutoAdd);
+            this.menu_exportCondition.Items.Add(GridViewExport.ExportFormat.EXCEL.ToString());
+            this.menu_exportCondition.Items.Add(GridViewExport.ExportFormat.HTML.ToString());
+            this.menu_exportCondition.Items.Add(GridViewExport.ExportFormat.PDF.ToString());
+            this.menu_exportCondition.Items.Add(GridViewExport.ExportFormat.CSV.ToString());
+            this.menu_exportCondition.Text = GridViewExport.ExportFormat.EXCEL.ToString();
             DataSource();
             RefreshData();
             if (!bMaterialCode)
@@ -141,7 +146,9 @@ namespace MesManager.UI
 
         private void Menu_export_Click(object sender, EventArgs e)
         {
-            ExportGridViewData(0, this.radGridView1);
+            GridViewExport.ExportFormat exportFormat = GridViewExport.ExportFormat.EXCEL;
+            Enum.TryParse(this.menu_exportCondition.Text,out exportFormat);
+            GridViewExport.ExportGridViewData(exportFormat,this.radGridView1);
         }
 
         private void Tb_materialInput_TextChanged(object sender, EventArgs e)
@@ -455,50 +462,5 @@ namespace MesManager.UI
             }
         }
         #endregion
-
-        private void ExportGridViewData(int selectIndex, RadGridView radGridView)
-        {
-            var filter = "Excel (*.xls)|*.xls";
-            if (selectIndex == (int)ExportFormat.EXCEL)
-            {
-                filter = "Excel (*.xls)|*.xls";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToExcelML(path, radGridView);
-            }
-            else if (selectIndex == (int)ExportFormat.HTML)
-            {
-                filter = "Html File (*.htm)|*.htm";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToHTML(path, radGridView);
-            }
-            else if (selectIndex == (int)ExportFormat.PDF)
-            {
-                filter = "PDF file (*.pdf)|*.pdf";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToPDF(path, radGridView);
-            }
-            else if (selectIndex == (int)ExportFormat.CSV)
-            {
-                filter = "PDF file (*.pdf)|*.csv";
-                var path = FileSelect.SaveAs(filter, "C:\\");
-                if (path == "")
-                    return;
-                ExportData.RunExportToCSV(path, radGridView);
-            }
-        }
-        private enum ExportFormat
-        {
-            EXCEL,
-            HTML,
-            PDF,
-            CSV
-        }
-
     }
 }
