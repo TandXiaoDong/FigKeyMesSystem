@@ -59,9 +59,9 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Location = new System.Drawing.Point(28, 302);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(315, 13);
+            this.label3.Size = new System.Drawing.Size(290, 13);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Copyright (c) 2007-2019  丰柯电子科技（上海）有限公司";
+            this.label3.Text = "Copyright (c)  2019  丰柯电子科技（上海）有限公司";
             // 
             // label2
             // 

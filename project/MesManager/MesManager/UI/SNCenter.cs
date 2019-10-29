@@ -422,13 +422,12 @@ namespace MesManager.UI
                 this.tool_quanlityClearDB.Enabled = false;
                 this.tool_SNClearDB.Enabled = false;
 
-                //
-                this.tool_materialClearDB.Visible = false;
-                this.tool_packageClearDB.Visible = false;
-                this.tool_productCheckClearDB.Visible = false;
-                this.tool_quanlityClearDB.Visible = false;
-                this.tool_SNClearDB.Visible = false;
             }
+            this.tool_materialClearDB.Visible = false;
+            this.tool_packageClearDB.Visible = false;
+            this.tool_productCheckClearDB.Visible = false;
+            this.tool_quanlityClearDB.Visible = false;
+            this.tool_SNClearDB.Visible = false;
         }
 
         private void SetPanelFalse()
@@ -641,10 +640,10 @@ namespace MesManager.UI
             //物料信息表
             //物料编码+物料名称+所属型号+在哪个工序/站位消耗+该位置消耗数量
             var ds = await serviceClient.SelectMaterialBasicMsgAsync(this.tb_material.Text);
-            if (ds.Tables.Count < 1)
-            {
+            if (ds == null)
                 return;
-            }
+            if (ds.Tables.Count < 1)
+                return;
             this.radGridViewMaterial.DataSource = ds.Tables[0];
             //this.radGridViewMaterial.Columns[0].BestFit();
             this.radGridViewMaterial.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;

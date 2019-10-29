@@ -64,10 +64,10 @@ namespace MesManager.MesServiceTest {
         System.Threading.Tasks.Task<string> CheckMaterialMatchAsync(string productTypeNo, string materialPN, string actualMaterialPn, string materialCode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePackageProductBindingMsg", ReplyAction="http://tempuri.org/IMesService/UpdatePackageProductBindingMsgResponse")]
-        string UpdatePackageProductBindingMsg(string outCaseCode, string[] snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin);
+        string[] UpdatePackageProductBindingMsg(string outCaseCode, string snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePackageProductBindingMsg", ReplyAction="http://tempuri.org/IMesService/UpdatePackageProductBindingMsgResponse")]
-        System.Threading.Tasks.Task<string> UpdatePackageProductBindingMsgAsync(string outCaseCode, string[] snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin);
+        System.Threading.Tasks.Task<string[]> UpdatePackageProductBindingMsgAsync(string outCaseCode, string snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateProgrameVersion", ReplyAction="http://tempuri.org/IMesService/UpdateProgrameVersionResponse")]
         string UpdateProgrameVersion(string typeNo, string stationName, string programePath, string programeName, string teamLeader, string admin);
@@ -257,11 +257,11 @@ namespace MesManager.MesServiceTest {
             return base.Channel.CheckMaterialMatchAsync(productTypeNo, materialPN, actualMaterialPn, materialCode);
         }
         
-        public string UpdatePackageProductBindingMsg(string outCaseCode, string[] snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin) {
+        public string[] UpdatePackageProductBindingMsg(string outCaseCode, string snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin) {
             return base.Channel.UpdatePackageProductBindingMsg(outCaseCode, snOutter, typeNo, stationName, bindingState, remark, teamLeader, admin);
         }
         
-        public System.Threading.Tasks.Task<string> UpdatePackageProductBindingMsgAsync(string outCaseCode, string[] snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin) {
+        public System.Threading.Tasks.Task<string[]> UpdatePackageProductBindingMsgAsync(string outCaseCode, string snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin) {
             return base.Channel.UpdatePackageProductBindingMsgAsync(outCaseCode, snOutter, typeNo, stationName, bindingState, remark, teamLeader, admin);
         }
         

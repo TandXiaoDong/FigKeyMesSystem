@@ -577,17 +577,17 @@
       <DependentUpon>WelcomeForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
-    <None Include="Connected Services\MesServiceTest\MesService.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService.wsdl" />
+    <None Include="Connected Services\MesServiceTest\MesService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService1.wsdl" />
-    <None Include="Connected Services\MesServiceTest\MesService3.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService11.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService31.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService12.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService32.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService13.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\MesService\MesManager.MesService.LoginResult.datasource">
@@ -602,20 +602,20 @@
     <None Include="Connected Services\MesService\MesManager.MesService.RegisterResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\MesService\MesService.wsdl" />
-    <None Include="Connected Services\MesService\MesService.xsd">
+    <None Include="Connected Services\MesService\MesService1.wsdl" />
+    <None Include="Connected Services\MesService\MesService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService1.xsd">
+    <None Include="Connected Services\MesService\MesService51.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService2.xsd">
+    <None Include="Connected Services\MesService\MesService52.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService3.xsd">
+    <None Include="Connected Services\MesService\MesService53.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService4.xsd">
+    <None Include="Connected Services\MesService\MesService54.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -651,23 +651,21 @@
     <None Include="Resources\背景-01.jpg" />
     <None Include="Resources\GenericShareFolder_128x128.png" />
     <None Include="Resources\GenericShareFolder_24x24.png" />
-    <None Include="Connected Services\MesService\MesService.disco" />
     <None Include="Connected Services\MesService\configuration91.svcinfo" />
     <None Include="Connected Services\MesService\configuration.svcinfo" />
     <None Include="Connected Services\MesService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService1.disco" />
+    <None Include="Connected Services\MesService\MesService1.disco" />
+    <None Include="Connected Services\MesServiceTest\MesService.disco" />
     <Content Include="GenericShareFolder.ico" />
     <Content Include="License-LGPL.txt" />
     <Content Include="MES修改设计.txt" />
-    <None Include="Resources\bullet_delete.png" />
     <None Include="Resources\update.png" />
     <None Include="Resources\upload_for_cloud.png" />
     <None Include="Resources\DeleteDataSource_16x16.png" />
     <None Include="Resources\ClearGrid.png" />
-    <None Include="Resources\bullet_add.png" />
     <None Include="Resources\万通公司LOG.png" />
     <None Include="Resources\万通公司LOG426x90.png" />
     <None Include="Resources\Export_16x16.png" />
@@ -696,6 +694,10 @@
     <None Include="Resources\configure_cluster.png" />
     <None Include="Resources\Search_16x16.png" />
     <None Include="Resources\exclamation.png" />
+    <None Include="Resources\bullet_add.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\bullet_delete.png" />
+    <None Include="Resources\delete.png" />
     <Content Include="功能描述.txt" />
     <Content Include="完善.txt" />
     <Content Include="新增.txt" />

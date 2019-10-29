@@ -13,6 +13,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
     {
         private bool IsRecordExist;
         private bool IsProductBinding;
+        private bool IsExistOtherBindingRecord;
+        private string bindedOtherOutcasecode;
 
 
         public enum ProductPackageEnum
@@ -226,8 +228,26 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 {
                     var array = ppQueue.Dequeue();
                     var outCaseCode = array[0];
+                    //if (outCaseCode == "")
+                    //{
+                    //    resultArray[0] = "0X14";//STATUS_NONE_OUTCASE_CODE
+                    //    LogHelper.Log.Info($"【更新产品打包】0X14 STATUS_NONE_OUTCASE_CODE");
+                    //    return resultArray;
+                    //}
                     var snOutter = array[1];
+                    if (snOutter == "")
+                    {
+                        resultArray[0] = "0X15";//STATUS_NONE_SN_OUTTER
+                        LogHelper.Log.Info($"【更新产品打包】0X15 STATUS_NONE_SN_OUTTER");
+                        return resultArray;
+                    }
                     var typeNo = array[2];
+                    //if (typeNo == "")
+                    //{
+                    //    resultArray[0] = "0X16";//STATUS_NONE_TYPE_NO
+                    //    LogHelper.Log.Info($"【更新产品打包】0X16 STATUS_NONE_TYPE_NO");
+                    //    return resultArray;
+                    //}
                     var stationName = array[3];
                     var bindingState = array[4];
                     if (bindingState != "0" && bindingState != "1")
@@ -268,11 +288,13 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     $"{DbTable.F_Out_Case_Product.SN_OUTTER} = '{snOutter}' ";
                     #endregion
 
-                    if (IsExistOtherBindingRecord(snOutter, outCaseCode))
+                    var otherBindingState = OtherBindingRecordState(snOutter, outCaseCode);
+                    if (otherBindingState.IsExistOtherBindingRecord)
                     {
                         //该产品已绑定其他箱子 STATUS_BINDED_OTHER_CASE
                         //返回
                         resultArray[0] = "0X02";
+                        resultArray[1] = otherBindingState.bindedOtherOutcasecode;
                         LogHelper.Log.Info($"【更新产品打包】0X02 STATUS_BINDED_OTHER_CASE");
                         return resultArray;
                     }
@@ -345,6 +367,12 @@ namespace MesWcfService.MessageQueue.RemoteClient
                         else
                         {
                             //insert
+                            if (outCaseCode == "")
+                            {
+                                resultArray[0] = "0X17";//STATUS_NONE_OUTCASE_CODE
+                                LogHelper.Log.Info($"【更新产品打包】0X17 插入产品时，传入箱子编号为空");
+                                return resultArray;
+                            }
                             if (IsOutCaseFull(outCaseCode, typeNo))//已装满
                             {
                                 LogHelper.Log.Info("【更新产品打包】0X01 STATUS_FULL");
@@ -422,8 +450,9 @@ namespace MesWcfService.MessageQueue.RemoteClient
             return false;//已解绑/无绑定记录
         }
 
-        private static bool IsExistOtherBindingRecord(string productSN,string caseCode)
+        private static UPackageProduct OtherBindingRecordState(string productSN,string caseCode)
         {
+            UPackageProduct uPackageProduct = new UPackageProduct();
             var selectSQL = $"SELECT distinct " +
                 $"{DbTable.F_Out_Case_Product.OUT_CASE_CODE} " +
                 $"FROM " +
@@ -436,25 +465,32 @@ namespace MesWcfService.MessageQueue.RemoteClient
             if (ds.Tables.Count < 1)
             {
                 LogHelper.Log.Info("【更新产品打包】不存在其他绑定记录"+selectSQL);
-                return false;
+                uPackageProduct.IsExistOtherBindingRecord = false;
+                return uPackageProduct;
             }
             LogHelper.Log.Info("【更新产品打包】可能存在其他绑定记录");
             System.Data.DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > 0)
             {
-                if (caseCode != dt.Rows[0][0].ToString())
+                var otherCaseCode = dt.Rows[0][0].ToString();
+                if (caseCode != otherCaseCode)
                 {
                     //该产品已绑定其他箱子
                     LogHelper.Log.Info("【更新产品打包】存在其他绑定记录");
-                    return true;
+                    uPackageProduct.IsExistOtherBindingRecord = true;
+                    uPackageProduct.bindedOtherOutcasecode = otherCaseCode;
+                    return uPackageProduct;
                 }
                 else
                 {
                     LogHelper.Log.Info("【更新产品打包】不存在其他绑定记录<<casecode="+caseCode+"<<nowcase="+ dt.Rows[0][0].ToString());
-                    return false;
+                    uPackageProduct.IsExistOtherBindingRecord = false;
+                    return uPackageProduct;
                 }
             }
-            return false;//该产品未绑定其他箱子
+            //该产品未绑定其他箱子
+            uPackageProduct.IsExistOtherBindingRecord = false;
+            return uPackageProduct;
         }
 
         /// <summary>

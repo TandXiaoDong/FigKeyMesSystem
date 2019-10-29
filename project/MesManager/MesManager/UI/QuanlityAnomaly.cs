@@ -46,6 +46,12 @@ namespace MesManager.UI
             this.tb_pcbasn.KeyDown += Tb_pcbasn_KeyDown;
             this.btn_apply.Click += Btn_apply_Click;
             this.btn_cancel.Click += Btn_cancel_Click;
+            this.btn_repaireComplete.Click += Btn_repaireComplete_Click;
+        }
+
+        private void Btn_repaireComplete_Click(object sender, EventArgs e)
+        {
+            ReCoverPcbaBinding();
         }
 
         private void Btn_cancel_Click(object sender, EventArgs e)
@@ -173,6 +179,116 @@ namespace MesManager.UI
         private void btn_exit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void ReCoverPcbaBinding()
+        {
+            if (this.radGridView1.RowCount < 1)
+                return;
+            var pcbaValue = this.radGridView1.CurrentRow.Cells[3].Value.ToString().Trim();
+            var outterShellValue = this.radGridView1.CurrentRow.Cells[4].Value.ToString().Trim();
+            var bindingState = this.radGridView1.CurrentRow.Cells[5].Value.ToString().Trim();
+            var pcbaState = this.radGridView1.CurrentRow.Cells[6].Value.ToString().Trim();
+            var shellState = this.radGridView1.CurrentRow.Cells[7].Value.ToString().Trim();
+
+            //是否选择要恢复正常的数据行
+            if (pcbaValue == null)
+            {
+                MessageBox.Show("请选择已维修完成的PCBA或外壳！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            //是否选择异常类型
+            if (this.cb_pcba.CheckState != CheckState.Checked && this.cb_shell.CheckState != CheckState.Checked)
+            {
+                MessageBox.Show("请选择异常类型！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            //验证选择是否正确
+            if (this.cb_pcba.CheckState == CheckState.Checked && this.cb_shell.CheckState != CheckState.Checked)
+            {
+                //选择的pcba异常，外壳正常
+                if (pcbaState != "异常")
+                {
+                    MessageBox.Show($"该PCBA【{pcbaValue.ToString()}】没有异常！请重新选择异常PCBA","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    return;
+                }
+                //验证通过，执行更新
+                if (MessageBox.Show($"确定【{pcbaValue.ToString()}】已维修完成？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                    return;
+                var bindingResult = serviceClientTest.UpdatePcbaBindingState(pcbaValue.ToString(),
+                        outterShellValue.ToString(), int.Parse(bindingState.ToString()), 1, int.Parse(shellState.ToString()));
+                if (bindingResult)
+                {
+                    this.cb_pcba.CheckState = CheckState.Unchecked;
+                    this.cb_shell.CheckState = CheckState.Unchecked;
+                    MessageBox.Show("更新维修完成状态成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    QueryPcbaMsg();
+                    return;
+                }
+                MessageBox.Show("更新维修完成状态成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (this.cb_pcba.CheckState == CheckState.Checked && cb_shell.CheckState == CheckState.Checked)
+            {
+                if (pcbaState.ToString() != "异常" && shellState.ToString() == "异常")
+                {
+                    MessageBox.Show($"该PCBA【{pcbaValue.ToString()}】没有异常！，", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else if (pcbaState.ToString() == "异常" && shellState.ToString() != "异常")
+                {
+                    MessageBox.Show($"该外壳【{outterShellValue.ToString()}】没有异常！，", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else if (pcbaState.ToString() != "异常" && shellState.ToString() != "异常")
+                {
+                    MessageBox.Show($"该PCBA【{pcbaValue.ToString()}】与外壳【{outterShellValue.ToString()}】没有异常！，", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else if (pcbaState.ToString() == "异常" && shellState.ToString() == "异常")
+                {
+                    //验证通过，执行更新
+                    if (MessageBox.Show($"确定PCBA【{pcbaValue.ToString()}】与外壳【{outterShellValue.ToString()}】已维修完成？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                        return;
+                    var bindingResult = serviceClientTest.UpdatePcbaBindingState(pcbaValue.ToString(),
+                        outterShellValue.ToString(), int.Parse(bindingState.ToString()), 1, 1);
+                    if (bindingResult)
+                    {
+                        this.cb_pcba.CheckState = CheckState.Unchecked;
+                        this.cb_shell.CheckState = CheckState.Unchecked;
+                        MessageBox.Show("更新维修完成状态成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        QueryPcbaMsg();
+                        return;
+                    }
+                    MessageBox.Show("更新维修完成状态成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else if (this.cb_pcba.CheckState != CheckState.Checked && cb_shell.CheckState == CheckState.Checked)
+            {
+                if (outterShellValue.ToString() != "异常")
+                {
+                    MessageBox.Show($"该外壳【{outterShellValue.ToString()}】没有异常！请重新选择外壳，", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                //验证通过，执行更新
+                if (MessageBox.Show($"确定外壳【{outterShellValue.ToString()}】已维修完成？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                    return;
+                var bindingResult = serviceClientTest.UpdatePcbaBindingState(pcbaValue.ToString(),
+                        outterShellValue.ToString(), int.Parse(bindingState.ToString()), int.Parse(pcbaState.ToString()), 1);
+                if (bindingResult)
+                {
+                    this.cb_pcba.CheckState = CheckState.Unchecked;
+                    this.cb_shell.CheckState = CheckState.Unchecked;
+                    MessageBox.Show("更新维修完成状态成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    QueryPcbaMsg();
+                    return;
+                }
+                MessageBox.Show("更新维修完成状态成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (this.cb_pcba.CheckState != CheckState.Checked && cb_shell.CheckState != CheckState.Checked)
+            {
+                MessageBox.Show($"没有选择已维修完成的PCBA!，", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
         }
 
         private void CancelPcbaBinding()

@@ -224,8 +224,11 @@ namespace MesWcfService
         [SwaggerWcfResponse("0X09", "STATUS_INSERT_SUCCESS")]               //插入成功，可以继续
         [SwaggerWcfResponse("0X10", "STATUS_INSERT_FAIL")]                  //插入失败
         [SwaggerWcfResponse("0X11", "STATUS_EXCEPT_FAIL")]                  //异常
-        [SwaggerWcfResponse("0X12", "STATUS_NONE_EXIST_BINDING_STATE")]     //传入绑定状态物料0/1
+        [SwaggerWcfResponse("0X12", "STATUS_NONE_EXIST_BINDING_STATE")]     //传入绑定状态无效0/1
         [SwaggerWcfResponse("0X13", "STATUS_INSERT_BINDING_STATE_INVALID")] //插入绑定产品，传入绑定状态无效
+        [SwaggerWcfResponse("0X14", "STATUS_NONE_OUTCASE_CODE")] //传入箱子编码为空
+        [SwaggerWcfResponse("0X15", "STATUS_NONE_SN")] //传入产品SN为空
+        [SwaggerWcfResponse("0X16", "STATUS_NONE_TYPE_NO")] //传入产品型号为空
         public string[] UpdatePackageProductBindingMsg(string outCaseCode,string snOutter,string typeNo,string stationName,
             string bindingState,string remark,string teamLeader,string admin)
         {
@@ -572,20 +575,21 @@ namespace MesWcfService
         #region check pcba state
         [SwaggerWcfTag("MesServcie 服务")]
         [SwaggerWcfResponse("array", "array[0]=状态结果代码，array[1]=具体值，当前只有0X07才有值")]
-        [SwaggerWcfResponse("0X01", "STATUS_BINDED")]
-        [SwaggerWcfResponse("0X02", "STATUS_UNBIND_SHELL_EXCEPT")]
-        [SwaggerWcfResponse("0X03", "STATUS_UNBIND_PCBA_EXCEPT")]
-        [SwaggerWcfResponse("0X04", "STATUS_UNDIND_PCBA_SHELL_EXCEPT")]
-        [SwaggerWcfResponse("0X05", "FAIL_UNKNOWN_EXCEPT")]
-        [SwaggerWcfResponse("0X06", "FAIL_UNKNOWN_ERROR")]
-        [SwaggerWcfResponse("0X07", "STATUS_BINDED_SHELL_FOR_OTHER")]
-        [SwaggerWcfResponse("0X08", "STATUS_NONE_BINDING")]
-        [SwaggerWcfResponse("0X09", "STATUS_EXECUTE_SQL_EXCEPT")]
-        [SwaggerWcfResponse("0X10", "FAIL_PCBA_NULL")]
-        [SwaggerWcfResponse("0X11", "STATUS_PCBA_UNBIND_EXCEPT")]
-        [SwaggerWcfResponse("0X12", "STATUS_PCBA_NORMAL")]
-        [SwaggerWcfResponse("0X13", "STATUS_NONE_BINDING_SHELL_EXCEPT")]
-        [SwaggerWcfResponse("0X14", "STATUS_SHELL_BINDED_OTHER_PCBA")]
+        [SwaggerWcfResponse("0X01", "STATUS_BINDED")]//传入的外壳已绑定 -- 可以继续
+        [SwaggerWcfResponse("0X02", "STATUS_UNBIND_SHELL_EXCEPT")]//传入的外壳已解绑---此外壳异常---不能继续使用
+        [SwaggerWcfResponse("0X03", "STATUS_UNBIND_PCBA_EXCEPT")]//传入的外壳已解绑---此PCBA异常--不能继续使用
+        [SwaggerWcfResponse("0X04", "STATUS_UNDIND_PCBA_SHELL_EXCEPT")]//传入的外壳已解绑---此外壳与PCBA都异常---不能继续使用
+        [SwaggerWcfResponse("0X05", "FAIL_UNKNOWN_EXCEPT")]//未知异常
+        [SwaggerWcfResponse("0X06", "FAIL_UNKNOWN_ERROR")]//未知异常
+        [SwaggerWcfResponse("0X07", "STATUS_BINDED_SHELL_FOR_OTHER")]//传入的PCBA已绑定其他外壳，未绑定当前外壳 ---可以继续
+        [SwaggerWcfResponse("0X08", "STATUS_NONE_BINDING")]//传入的PCBA未绑定任何外壳----可以继续
+        [SwaggerWcfResponse("0X09", "STATUS_EXECUTE_SQL_EXCEPT")]//执行SQL异常
+        [SwaggerWcfResponse("0X10", "FAIL_PCBA_NULL")]//传入PCBA为空--不能继续
+        ////一下两种情况传入参数PCBA不为空，外壳为空
+        [SwaggerWcfResponse("0X11", "STATUS_PCBA_UNBIND_EXCEPT")]//PCBA已解绑，且已异常
+        [SwaggerWcfResponse("0X12", "STATUS_PCBA_NORMAL")]// PCBA正常（可能解绑，也可能是绑定，但未品质正常）
+        [SwaggerWcfResponse("0X13", "STATUS_NONE_BINDING_SHELL_EXCEPT")]//外壳异常
+        [SwaggerWcfResponse("0X14", "STATUS_SHELL_BINDED_OTHER_PCBA")]//该外壳有绑定其他PCBA
         public string[] CheckPcbaState(string snPcba,string snOutter)
         {
             /*

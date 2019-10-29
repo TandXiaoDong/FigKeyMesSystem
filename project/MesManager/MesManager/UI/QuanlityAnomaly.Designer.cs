@@ -32,15 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuanlityAnomaly));
             this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
             this.radDock1 = new Telerik.WinControls.UI.Docking.RadDock();
-            this.documentContainer1 = new Telerik.WinControls.UI.Docking.DocumentContainer();
             this.dw_materialOver = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
-            this.dw_pcba = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.crystalTheme1 = new Telerik.WinControls.Themes.CrystalTheme();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rbtn_material_stock = new Telerik.WinControls.UI.RadRadioButton();
-            this.rbtn_material_produce = new Telerik.WinControls.UI.RadRadioButton();
-            this.rbtn_material_process = new Telerik.WinControls.UI.RadRadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_query = new Telerik.WinControls.UI.RadButton();
@@ -61,26 +53,26 @@
             this.tb_stock = new System.Windows.Forms.TextBox();
             this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rbtn_material_stock = new Telerik.WinControls.UI.RadRadioButton();
+            this.rbtn_material_produce = new Telerik.WinControls.UI.RadRadioButton();
+            this.rbtn_material_process = new Telerik.WinControls.UI.RadRadioButton();
+            this.documentContainer1 = new Telerik.WinControls.UI.Docking.DocumentContainer();
+            this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
+            this.dw_pcba = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.radLabel7 = new Telerik.WinControls.UI.RadLabel();
             this.tb_pcbasn = new Telerik.WinControls.UI.RadTextBox();
             this.cb_pcba = new Telerik.WinControls.UI.RadCheckBox();
             this.cb_shell = new Telerik.WinControls.UI.RadCheckBox();
-            this.btn_cancelBinding = new Telerik.WinControls.UI.RadButton();
             this.btn_exit = new Telerik.WinControls.UI.RadButton();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
+            this.btn_cancelBinding = new Telerik.WinControls.UI.RadButton();
+            this.crystalTheme1 = new Telerik.WinControls.Themes.CrystalTheme();
+            this.btn_repaireComplete = new Telerik.WinControls.UI.RadButton();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).BeginInit();
-            this.documentContainer1.SuspendLayout();
             this.dw_materialOver.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
-            this.documentTabStrip1.SuspendLayout();
-            this.dw_pcba.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_stock)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_produce)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_process)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btn_query)).BeginInit();
@@ -95,26 +87,38 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_stock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_produce)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_process)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).BeginInit();
+            this.documentContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
+            this.documentTabStrip1.SuspendLayout();
+            this.dw_pcba.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pcbasn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cb_pcba)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cb_shell)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_cancelBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_exit)).BeginInit();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cancelBinding)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_repaireComplete)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.dw_materialOver;
+            this.radDock1.ActiveWindow = this.dw_pcba;
             this.radDock1.Controls.Add(this.documentContainer1);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radDock1.IsCleanUpTarget = true;
             this.radDock1.Location = new System.Drawing.Point(0, 0);
             this.radDock1.MainDocumentContainer = this.documentContainer1;
             this.radDock1.Name = "radDock1";
+            this.radDock1.Padding = new System.Windows.Forms.Padding(0);
             // 
             // 
             // 
@@ -123,17 +127,6 @@
             this.radDock1.TabIndex = 11;
             this.radDock1.TabStop = false;
             this.radDock1.ThemeName = "Breeze";
-            // 
-            // documentContainer1
-            // 
-            this.documentContainer1.Controls.Add(this.documentTabStrip1);
-            this.documentContainer1.Name = "documentContainer1";
-            // 
-            // 
-            // 
-            this.documentContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentContainer1.SizeInfo.SizeMode = Telerik.WinControls.UI.Docking.SplitPanelSizeMode.Fill;
-            this.documentContainer1.ThemeName = "Breeze";
             // 
             // dw_materialOver
             // 
@@ -144,89 +137,8 @@
             this.dw_materialOver.Location = new System.Drawing.Point(5, 27);
             this.dw_materialOver.Name = "dw_materialOver";
             this.dw_materialOver.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dw_materialOver.Size = new System.Drawing.Size(772, 574);
+            this.dw_materialOver.Size = new System.Drawing.Size(782, 584);
             this.dw_materialOver.Text = "物料结单";
-            // 
-            // documentTabStrip1
-            // 
-            this.documentTabStrip1.CanUpdateChildIndex = true;
-            this.documentTabStrip1.Controls.Add(this.dw_pcba);
-            this.documentTabStrip1.Controls.Add(this.dw_materialOver);
-            this.documentTabStrip1.Location = new System.Drawing.Point(0, 0);
-            this.documentTabStrip1.Name = "documentTabStrip1";
-            // 
-            // 
-            // 
-            this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 1;
-            this.documentTabStrip1.Size = new System.Drawing.Size(782, 606);
-            this.documentTabStrip1.TabIndex = 0;
-            this.documentTabStrip1.TabStop = false;
-            this.documentTabStrip1.ThemeName = "Breeze";
-            // 
-            // dw_pcba
-            // 
-            this.dw_pcba.BackColor = System.Drawing.Color.SteelBlue;
-            this.dw_pcba.Controls.Add(this.radGridView1);
-            this.dw_pcba.Controls.Add(this.panel2);
-            this.dw_pcba.Controls.Add(this.btn_exit);
-            this.dw_pcba.Controls.Add(this.btn_cancelBinding);
-            this.dw_pcba.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dw_pcba.Location = new System.Drawing.Point(5, 27);
-            this.dw_pcba.Name = "dw_pcba";
-            this.dw_pcba.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dw_pcba.Size = new System.Drawing.Size(772, 574);
-            this.dw_pcba.Text = "PCBA解除绑定";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox2.Controls.Add(this.rbtn_material_stock);
-            this.groupBox2.Controls.Add(this.rbtn_material_produce);
-            this.groupBox2.Controls.Add(this.rbtn_material_process);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox2.ForeColor = System.Drawing.Color.White;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(772, 84);
-            this.groupBox2.TabIndex = 12;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "异常类别";
-            // 
-            // rbtn_material_stock
-            // 
-            this.rbtn_material_stock.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.rbtn_material_stock.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtn_material_stock.ForeColor = System.Drawing.Color.White;
-            this.rbtn_material_stock.Location = new System.Drawing.Point(39, 31);
-            this.rbtn_material_stock.Name = "rbtn_material_stock";
-            this.rbtn_material_stock.Size = new System.Drawing.Size(105, 21);
-            this.rbtn_material_stock.TabIndex = 2;
-            this.rbtn_material_stock.Text = "库存物料异常";
-            this.rbtn_material_stock.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-            // 
-            // rbtn_material_produce
-            // 
-            this.rbtn_material_produce.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtn_material_produce.ForeColor = System.Drawing.Color.White;
-            this.rbtn_material_produce.Location = new System.Drawing.Point(166, 31);
-            this.rbtn_material_produce.Name = "rbtn_material_produce";
-            this.rbtn_material_produce.Size = new System.Drawing.Size(105, 21);
-            this.rbtn_material_produce.TabIndex = 3;
-            this.rbtn_material_produce.TabStop = false;
-            this.rbtn_material_produce.Text = "生产物料异常";
-            // 
-            // rbtn_material_process
-            // 
-            this.rbtn_material_process.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtn_material_process.ForeColor = System.Drawing.Color.White;
-            this.rbtn_material_process.Location = new System.Drawing.Point(288, 31);
-            this.rbtn_material_process.Name = "rbtn_material_process";
-            this.rbtn_material_process.Size = new System.Drawing.Size(105, 21);
-            this.rbtn_material_process.TabIndex = 4;
-            this.rbtn_material_process.TabStop = false;
-            this.rbtn_material_process.Text = "生产过程异常";
             // 
             // groupBox1
             // 
@@ -236,7 +148,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(0, 84);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(772, 490);
+            this.groupBox1.Size = new System.Drawing.Size(782, 500);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "结单记录";
@@ -264,7 +176,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 19);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(766, 468);
+            this.panel1.Size = new System.Drawing.Size(776, 478);
             this.panel1.TabIndex = 5;
             // 
             // btn_query
@@ -441,6 +353,124 @@
             this.radLabel2.TabIndex = 1;
             this.radLabel2.Text = "物料编码";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.Controls.Add(this.rbtn_material_stock);
+            this.groupBox2.Controls.Add(this.rbtn_material_produce);
+            this.groupBox2.Controls.Add(this.rbtn_material_process);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox2.ForeColor = System.Drawing.Color.White;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(782, 84);
+            this.groupBox2.TabIndex = 12;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "异常类别";
+            // 
+            // rbtn_material_stock
+            // 
+            this.rbtn_material_stock.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.rbtn_material_stock.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtn_material_stock.ForeColor = System.Drawing.Color.White;
+            this.rbtn_material_stock.Location = new System.Drawing.Point(39, 31);
+            this.rbtn_material_stock.Name = "rbtn_material_stock";
+            this.rbtn_material_stock.Size = new System.Drawing.Size(105, 21);
+            this.rbtn_material_stock.TabIndex = 2;
+            this.rbtn_material_stock.Text = "库存物料异常";
+            this.rbtn_material_stock.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
+            // 
+            // rbtn_material_produce
+            // 
+            this.rbtn_material_produce.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtn_material_produce.ForeColor = System.Drawing.Color.White;
+            this.rbtn_material_produce.Location = new System.Drawing.Point(166, 31);
+            this.rbtn_material_produce.Name = "rbtn_material_produce";
+            this.rbtn_material_produce.Size = new System.Drawing.Size(105, 21);
+            this.rbtn_material_produce.TabIndex = 3;
+            this.rbtn_material_produce.TabStop = false;
+            this.rbtn_material_produce.Text = "生产物料异常";
+            // 
+            // rbtn_material_process
+            // 
+            this.rbtn_material_process.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtn_material_process.ForeColor = System.Drawing.Color.White;
+            this.rbtn_material_process.Location = new System.Drawing.Point(288, 31);
+            this.rbtn_material_process.Name = "rbtn_material_process";
+            this.rbtn_material_process.Size = new System.Drawing.Size(105, 21);
+            this.rbtn_material_process.TabIndex = 4;
+            this.rbtn_material_process.TabStop = false;
+            this.rbtn_material_process.Text = "生产过程异常";
+            // 
+            // documentContainer1
+            // 
+            this.documentContainer1.Controls.Add(this.documentTabStrip1);
+            this.documentContainer1.Name = "documentContainer1";
+            // 
+            // 
+            // 
+            this.documentContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.documentContainer1.SizeInfo.SizeMode = Telerik.WinControls.UI.Docking.SplitPanelSizeMode.Fill;
+            this.documentContainer1.ThemeName = "Breeze";
+            // 
+            // documentTabStrip1
+            // 
+            this.documentTabStrip1.CanUpdateChildIndex = true;
+            this.documentTabStrip1.Controls.Add(this.dw_pcba);
+            this.documentTabStrip1.Controls.Add(this.dw_materialOver);
+            this.documentTabStrip1.Location = new System.Drawing.Point(0, 0);
+            this.documentTabStrip1.Name = "documentTabStrip1";
+            // 
+            // 
+            // 
+            this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.documentTabStrip1.SelectedIndex = 0;
+            this.documentTabStrip1.Size = new System.Drawing.Size(792, 616);
+            this.documentTabStrip1.TabIndex = 0;
+            this.documentTabStrip1.TabStop = false;
+            this.documentTabStrip1.ThemeName = "Breeze";
+            // 
+            // dw_pcba
+            // 
+            this.dw_pcba.BackColor = System.Drawing.Color.SteelBlue;
+            this.dw_pcba.Controls.Add(this.btn_repaireComplete);
+            this.dw_pcba.Controls.Add(this.radGridView1);
+            this.dw_pcba.Controls.Add(this.panel2);
+            this.dw_pcba.Controls.Add(this.btn_exit);
+            this.dw_pcba.Controls.Add(this.btn_cancelBinding);
+            this.dw_pcba.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dw_pcba.Location = new System.Drawing.Point(5, 27);
+            this.dw_pcba.Name = "dw_pcba";
+            this.dw_pcba.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dw_pcba.Size = new System.Drawing.Size(782, 584);
+            this.dw_pcba.Text = "PCBA解除绑定";
+            // 
+            // radGridView1
+            // 
+            this.radGridView1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.radGridView1.Location = new System.Drawing.Point(0, 56);
+            // 
+            // 
+            // 
+            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
+            this.radGridView1.Name = "radGridView1";
+            this.radGridView1.Size = new System.Drawing.Size(782, 459);
+            this.radGridView1.TabIndex = 9;
+            this.radGridView1.ThemeName = "Breeze";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.radLabel7);
+            this.panel2.Controls.Add(this.tb_pcbasn);
+            this.panel2.Controls.Add(this.cb_pcba);
+            this.panel2.Controls.Add(this.cb_shell);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(782, 56);
+            this.panel2.TabIndex = 8;
+            // 
             // radLabel7
             // 
             this.radLabel7.ForeColor = System.Drawing.Color.White;
@@ -474,16 +504,6 @@
             this.cb_shell.TabIndex = 5;
             this.cb_shell.Text = "外壳异常";
             // 
-            // btn_cancelBinding
-            // 
-            this.btn_cancelBinding.Location = new System.Drawing.Point(571, 532);
-            this.btn_cancelBinding.Name = "btn_cancelBinding";
-            this.btn_cancelBinding.Size = new System.Drawing.Size(79, 24);
-            this.btn_cancelBinding.TabIndex = 6;
-            this.btn_cancelBinding.Text = "解除绑定";
-            this.btn_cancelBinding.ThemeName = "Breeze";
-            this.btn_cancelBinding.Click += new System.EventHandler(this.btn_cancelBinding_Click);
-            // 
             // btn_exit
             // 
             this.btn_exit.Location = new System.Drawing.Point(685, 532);
@@ -494,30 +514,24 @@
             this.btn_exit.ThemeName = "Breeze";
             this.btn_exit.Click += new System.EventHandler(this.btn_exit_Click);
             // 
-            // panel2
+            // btn_cancelBinding
             // 
-            this.panel2.Controls.Add(this.radLabel7);
-            this.panel2.Controls.Add(this.tb_pcbasn);
-            this.panel2.Controls.Add(this.cb_pcba);
-            this.panel2.Controls.Add(this.cb_shell);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(772, 56);
-            this.panel2.TabIndex = 8;
+            this.btn_cancelBinding.Location = new System.Drawing.Point(573, 532);
+            this.btn_cancelBinding.Name = "btn_cancelBinding";
+            this.btn_cancelBinding.Size = new System.Drawing.Size(79, 24);
+            this.btn_cancelBinding.TabIndex = 6;
+            this.btn_cancelBinding.Text = "解除绑定";
+            this.btn_cancelBinding.ThemeName = "Breeze";
+            this.btn_cancelBinding.Click += new System.EventHandler(this.btn_cancelBinding_Click);
             // 
-            // radGridView1
+            // btn_repaireComplete
             // 
-            this.radGridView1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.radGridView1.Location = new System.Drawing.Point(0, 56);
-            // 
-            // 
-            // 
-            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
-            this.radGridView1.Name = "radGridView1";
-            this.radGridView1.Size = new System.Drawing.Size(772, 459);
-            this.radGridView1.TabIndex = 9;
-            this.radGridView1.ThemeName = "Breeze";
+            this.btn_repaireComplete.Location = new System.Drawing.Point(467, 532);
+            this.btn_repaireComplete.Name = "btn_repaireComplete";
+            this.btn_repaireComplete.Size = new System.Drawing.Size(79, 24);
+            this.btn_repaireComplete.TabIndex = 10;
+            this.btn_repaireComplete.Text = "维修完成";
+            this.btn_repaireComplete.ThemeName = "Breeze";
             // 
             // QuanlityAnomaly
             // 
@@ -538,17 +552,7 @@
             this.Load += new System.EventHandler(this.QuanlityAnomaly_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).EndInit();
             this.radDock1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).EndInit();
-            this.documentContainer1.ResumeLayout(false);
             this.dw_materialOver.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
-            this.documentTabStrip1.ResumeLayout(false);
-            this.dw_pcba.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_stock)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_produce)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_process)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -564,16 +568,27 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_stock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_produce)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_process)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).EndInit();
+            this.documentContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
+            this.documentTabStrip1.ResumeLayout(false);
+            this.dw_pcba.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pcbasn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cb_pcba)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cb_shell)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_cancelBinding)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_exit)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cancelBinding)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_repaireComplete)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -619,5 +634,6 @@
         private Telerik.WinControls.UI.RadButton btn_cancelBinding;
         private System.Windows.Forms.Panel panel2;
         private Telerik.WinControls.UI.RadGridView radGridView1;
+        private Telerik.WinControls.UI.RadButton btn_repaireComplete;
     }
 }
