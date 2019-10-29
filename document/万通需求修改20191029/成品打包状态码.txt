@@ -1,0 +1,13 @@
+[SwaggerWcfResponse("0X01", "STATUS_FULL")] //该产品已放满
+        [SwaggerWcfResponse("0X02", "STATUS_BINDED_OTHER_CASE")]  //该产品已绑定其他箱子
+        [SwaggerWcfResponse("0X03", "STATUS_EXIST_BINDED_UPDATE_SUCCESS")] //已经存在绑定记录-更新成功
+        [SwaggerWcfResponse("0X04", "STATUS_EXIST_BINDED_UPDATE_FAIL")]    //已经存在绑定记录-更新失败
+        [SwaggerWcfResponse("0X05", "STATUS_NONE_EXIST_UNBIND_UPDATE_SUCCESS")] //不存在绑定记录--解除绑定--更新成功
+        [SwaggerWcfResponse("0X06", "STATUS_NONE_EXIST_UNBIND_UPDATE_FAIL")]    //不存在绑定记录--解除绑定--更新失败
+        [SwaggerWcfResponse("0X07", "STATUS_NONE_EXIST_REBIND_SUCCESS")]    //不存在绑定记录-重新绑定-更新成功
+        [SwaggerWcfResponse("0X08", "STATUS_NONE_EXIST_REBIND_FAIL")]       //不存在绑定记录-重新绑定-更新失败
+        [SwaggerWcfResponse("0X09", "STATUS_INSERT_SUCCESS")]               //插入成功，可以继续
+        [SwaggerWcfResponse("0X10", "STATUS_INSERT_FAIL")]                  //插入失败
+        [SwaggerWcfResponse("0X11", "STATUS_EXCEPT_FAIL")]                  //异常
+        [SwaggerWcfResponse("0X12", "STATUS_NONE_EXIST_BINDING_STATE")]     //传入绑定状态物料0/1
+        [SwaggerWcfResponse("0X13", "STATUS_INSERT_BINDING_STATE_INVALID")] //插入绑定产品，传入绑定状态无效

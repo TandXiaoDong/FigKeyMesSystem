@@ -203,20 +203,33 @@ namespace MesManager.UI
                 MessageBox.Show("请选择异常类型！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (bindingState == "已解除绑定")
+                bindingState = "0";
+            else if (bindingState == "已绑定")
+                bindingState = "1";
+            if (shellState == "异常")
+                shellState = "0";
+            else if (shellState == "正常")
+                shellState = "1";
+            if (pcbaState == "异常")
+                pcbaState = "0";
+            else if (pcbaState == "正常")
+                pcbaState = "1";
+
             //验证选择是否正确
             if (this.cb_pcba.CheckState == CheckState.Checked && this.cb_shell.CheckState != CheckState.Checked)
             {
                 //选择的pcba异常，外壳正常
-                if (pcbaState != "异常")
+                if (pcbaState != "0")
                 {
                     MessageBox.Show($"该PCBA【{pcbaValue.ToString()}】没有异常！请重新选择异常PCBA","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     return;
                 }
                 //验证通过，执行更新
-                if (MessageBox.Show($"确定【{pcbaValue.ToString()}】已维修完成？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                if (MessageBox.Show($"确定【{pcbaValue.ToString()}】已维修完成？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
-                var bindingResult = serviceClientTest.UpdatePcbaBindingState(pcbaValue.ToString(),
-                        outterShellValue.ToString(), int.Parse(bindingState.ToString()), 1, int.Parse(shellState.ToString()));
+                var bindingResult = serviceClientTest.UpdatePCBABindingRepaireState(pcbaValue,outterShellValue, 
+                    int.Parse(bindingState), 1, int.Parse(shellState));
                 if (bindingResult)
                 {
                     this.cb_pcba.CheckState = CheckState.Unchecked;
@@ -229,28 +242,29 @@ namespace MesManager.UI
             }
             else if (this.cb_pcba.CheckState == CheckState.Checked && cb_shell.CheckState == CheckState.Checked)
             {
-                if (pcbaState.ToString() != "异常" && shellState.ToString() == "异常")
+                if (pcbaState != "0" && shellState == "0")
                 {
                     MessageBox.Show($"该PCBA【{pcbaValue.ToString()}】没有异常！，", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                else if (pcbaState.ToString() == "异常" && shellState.ToString() != "异常")
+                else if (pcbaState == "0" && shellState != "0")
                 {
                     MessageBox.Show($"该外壳【{outterShellValue.ToString()}】没有异常！，", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                else if (pcbaState.ToString() != "异常" && shellState.ToString() != "异常")
+                else if (pcbaState != "0" && shellState != "0")
                 {
                     MessageBox.Show($"该PCBA【{pcbaValue.ToString()}】与外壳【{outterShellValue.ToString()}】没有异常！，", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                else if (pcbaState.ToString() == "异常" && shellState.ToString() == "异常")
+                else if (pcbaState == "0" && shellState == "0")
                 {
                     //验证通过，执行更新
-                    if (MessageBox.Show($"确定PCBA【{pcbaValue.ToString()}】与外壳【{outterShellValue.ToString()}】已维修完成？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                    if (MessageBox.Show($"确定PCBA【{pcbaValue.ToString()}】与外壳【{outterShellValue.ToString()}】已维修完成？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.OK)
                         return;
-                    var bindingResult = serviceClientTest.UpdatePcbaBindingState(pcbaValue.ToString(),
-                        outterShellValue.ToString(), int.Parse(bindingState.ToString()), 1, 1);
+
+                    var bindingResult = serviceClientTest.UpdatePCBABindingRepaireState(pcbaValue,outterShellValue, 
+                        int.Parse(bindingState), 1,1);
                     if (bindingResult)
                     {
                         this.cb_pcba.CheckState = CheckState.Unchecked;
@@ -264,16 +278,16 @@ namespace MesManager.UI
             }
             else if (this.cb_pcba.CheckState != CheckState.Checked && cb_shell.CheckState == CheckState.Checked)
             {
-                if (outterShellValue.ToString() != "异常")
+                if (shellState != "0")
                 {
                     MessageBox.Show($"该外壳【{outterShellValue.ToString()}】没有异常！请重新选择外壳，", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 //验证通过，执行更新
-                if (MessageBox.Show($"确定外壳【{outterShellValue.ToString()}】已维修完成？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                if (MessageBox.Show($"确定外壳【{outterShellValue.ToString()}】已维修完成？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
-                var bindingResult = serviceClientTest.UpdatePcbaBindingState(pcbaValue.ToString(),
-                        outterShellValue.ToString(), int.Parse(bindingState.ToString()), int.Parse(pcbaState.ToString()), 1);
+                var bindingResult = serviceClientTest.UpdatePCBABindingRepaireState(pcbaValue,
+                        outterShellValue, int.Parse(bindingState), int.Parse(pcbaState), 1);
                 if (bindingResult)
                 {
                     this.cb_pcba.CheckState = CheckState.Unchecked;
@@ -318,12 +332,17 @@ namespace MesManager.UI
                 pcbaState = 0;
             if (this.cb_shell.CheckState == CheckState.Checked)
                 shellState = 0;
-            if (bindingState.ToString().Equals("已解除绑定"))
+            if (bindingState.ToString().Equals("已解除绑定") && pcbaState.ToString().Equals("异常"))
             {
-                MessageBox.Show("该PCBA已解除绑定，请勿重复操作！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("该PCBA已解除绑定，请勿重复操作！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (MessageBox.Show($"确定要解除【{pcbaValue.ToString()}】绑定？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+            else if (bindingState.ToString().Equals("已解除绑定") && shellState.ToString().Equals("异常"))
+            {
+                MessageBox.Show("该PCBA已解除绑定，请勿重复操作！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (MessageBox.Show($"确定要解除【{pcbaValue.ToString()}】绑定？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
             var bindingResult = serviceClientTest.UpdatePcbaBindingState(pcbaValue.ToString(), 
                 outterShellValue.ToString(),0, pcbaState, shellState);

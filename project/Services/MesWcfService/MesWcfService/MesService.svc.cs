@@ -570,6 +570,61 @@ namespace MesWcfService
             //update failed
             return false;
         }
+
+        [SwaggerWcfTag("MesService 服务")]
+        public bool UpdatePCBABindingRepaireState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState)
+        {
+            /*
+             * 更新PCBA与外壳状态
+             * 解绑的三种情况：
+             * 1）PCBA异常：更新所有PCBA状态异常
+             * 2）外壳异常：更新所有外壳状态
+             * 3）PCBA与外壳都异常：更新所有PCBA与所有外壳异常状态
+             */
+            try
+            {
+                var pcbaUpdate = "";
+                if (pcbaState == 1 && outterState == 0)
+                {
+                    pcbaUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                        $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '1' ," +
+                        $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                        $"WHERE {DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbaSn}'";
+                }
+                else if (pcbaState == 0 && outterState == 1)
+                {
+                    pcbaUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                        $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '1'," +
+                        $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                        $"WHERE {DbTable.F_BINDING_PCBA.SN_OUTTER} = '{outterSn}'";
+                }
+                else if (pcbaState == 1 && outterState == 1)
+                {
+                    pcbaUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                        $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '1'," +
+                        $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '1'," +
+                        $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                        $"WHERE " +
+                        $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{outterSn}' " +
+                        $"OR " +
+                        $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbaSn}'";
+                }
+
+                LogHelper.Log.Info("【PCBA绑定-维修完成】" + pcbaUpdate);
+                var res = SQLServer.ExecuteNonQuery(pcbaUpdate);
+                if (res > 0)
+                {
+                    //state update successful
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error(ex.Message+ex.StackTrace);
+            }
+            //update failed
+            return false;
+        }
         #endregion
 
         #region check pcba state
@@ -579,7 +634,7 @@ namespace MesWcfService
         [SwaggerWcfResponse("0X02", "STATUS_UNBIND_SHELL_EXCEPT")]//传入的外壳已解绑---此外壳异常---不能继续使用
         [SwaggerWcfResponse("0X03", "STATUS_UNBIND_PCBA_EXCEPT")]//传入的外壳已解绑---此PCBA异常--不能继续使用
         [SwaggerWcfResponse("0X04", "STATUS_UNDIND_PCBA_SHELL_EXCEPT")]//传入的外壳已解绑---此外壳与PCBA都异常---不能继续使用
-        [SwaggerWcfResponse("0X05", "FAIL_UNKNOWN_EXCEPT")]//未知异常
+        [SwaggerWcfResponse("0X05", "STATUS_PCBA_SHELL_REPAIRE_COMPLETE")]//已解绑，但是PCBA与外壳都修复好
         [SwaggerWcfResponse("0X06", "FAIL_UNKNOWN_ERROR")]//未知异常
         [SwaggerWcfResponse("0X07", "STATUS_BINDED_SHELL_FOR_OTHER")]//传入的PCBA已绑定其他外壳，未绑定当前外壳 ---可以继续
         [SwaggerWcfResponse("0X08", "STATUS_NONE_BINDING")]//传入的PCBA未绑定任何外壳----可以继续
@@ -695,7 +750,7 @@ namespace MesWcfService
                         }
                         else
                         {
-                            //理论上不存在这种可能 FAIL_UNKNOWN_EXCEPT
+                            //已解绑，但是PCBA与外壳都修复好 STATUS_PCBA_SHELL_REPAIRE_COMPLETE
                             arrayList[0] = "0X05";
                             LogHelper.Log.Info($"【查询PCBA绑定状态】" + arrayList[0]);
                             return arrayList;

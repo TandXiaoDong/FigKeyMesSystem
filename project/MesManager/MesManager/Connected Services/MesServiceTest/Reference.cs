@@ -159,6 +159,12 @@ namespace MesManager.MesServiceTest {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePcbaBindingState", ReplyAction="http://tempuri.org/IMesService/UpdatePcbaBindingStateResponse")]
         System.Threading.Tasks.Task<bool> UpdatePcbaBindingStateAsync(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePCBABindingRepaireState", ReplyAction="http://tempuri.org/IMesService/UpdatePCBABindingRepaireStateResponse")]
+        bool UpdatePCBABindingRepaireState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePCBABindingRepaireState", ReplyAction="http://tempuri.org/IMesService/UpdatePCBABindingRepaireStateResponse")]
+        System.Threading.Tasks.Task<bool> UpdatePCBABindingRepaireStateAsync(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CheckPcbaState", ReplyAction="http://tempuri.org/IMesService/CheckPcbaStateResponse")]
         string[] CheckPcbaState(string snPcba, string snOutter);
         
@@ -383,6 +389,14 @@ namespace MesManager.MesServiceTest {
         
         public System.Threading.Tasks.Task<bool> UpdatePcbaBindingStateAsync(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState) {
             return base.Channel.UpdatePcbaBindingStateAsync(pcbaSn, outterSn, bindingState, pcbaState, outterState);
+        }
+        
+        public bool UpdatePCBABindingRepaireState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState) {
+            return base.Channel.UpdatePCBABindingRepaireState(pcbaSn, outterSn, bindingState, pcbaState, outterState);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdatePCBABindingRepaireStateAsync(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState) {
+            return base.Channel.UpdatePCBABindingRepaireStateAsync(pcbaSn, outterSn, bindingState, pcbaState, outterState);
         }
         
         public string[] CheckPcbaState(string snPcba, string snOutter) {

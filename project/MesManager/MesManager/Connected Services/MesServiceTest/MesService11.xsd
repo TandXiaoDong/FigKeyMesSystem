@@ -398,6 +398,24 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="UpdatePCBABindingRepaireState">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pcbaSn" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="outterSn" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="bindingState" type="xs:int" />
+        <xs:element minOccurs="0" name="pcbaState" type="xs:int" />
+        <xs:element minOccurs="0" name="outterState" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePCBABindingRepaireStateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdatePCBABindingRepaireStateResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="CheckPcbaState">
     <xs:complexType>
       <xs:sequence>

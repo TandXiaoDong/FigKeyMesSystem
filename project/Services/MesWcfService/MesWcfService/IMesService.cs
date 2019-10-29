@@ -282,6 +282,13 @@ namespace MesWcfService
         bool UpdatePcbaBindingState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
 
         [OperationContract]
+        [SwaggerWcfPath("UpdatePCBABindingRepaireState", "更新PCBA绑定状态")]
+        [WebInvoke(Method = "GET", UriTemplate = "UpdatePCBABindingRepaireState?pcbaSn={pcbaSn}&outterSn={outterSn}&bindingState={bindingState}&pcbaState={pcbaState}&outterState={outterState}",
+            BodyStyle = WebMessageBodyStyle.Bare,
+    RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        bool UpdatePCBABindingRepaireState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
+
+        [OperationContract]
         [SwaggerWcfPath("CheckPcbaState", "CheckPcbaState")]
         [WebInvoke(Method = "GET", UriTemplate = "CheckPcbaState?snPcba={snPcba}&snOutter={snOutter}",
            BodyStyle = WebMessageBodyStyle.Bare,
