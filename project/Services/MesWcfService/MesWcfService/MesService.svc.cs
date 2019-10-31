@@ -167,25 +167,34 @@ namespace MesWcfService
         [SwaggerWcfResponse("0X00", "IS_NOT_MATCH")]
         [SwaggerWcfResponse("0X01", "IS_MATCH")]
         [SwaggerWcfResponse("0X02", "ERROR_NULL_PRODUCT_TYPENO")]
-        [SwaggerWcfResponse("0X03", "ERROR_NULL_MATERIAL_PN")]
+        [SwaggerWcfResponse("0X03", "ERROR_NULL_MATERIAL_PN")]//已去掉，多余
         [SwaggerWcfResponse("0X04", "ERROR_NULL_ACTUAL_MATERIAL_PN")]
         [SwaggerWcfResponse("0X05", "ERROR_BOTH_MATERIAL_PN_IS_NOT_MATCH")]
         [SwaggerWcfResponse("0X06", "ERROR_LAST_MATERIAL_PN_IS_NOT_USED_UP")]
         [SwaggerWcfResponse("0X07", "STATUS_CURRENT_MATERIAL_AMOUNT_END_OF_USE")]
-        public string CheckMaterialMatch(string productTypeNo,string materialPN,string actualMaterialPN,string materialCode)
+        public string CheckMaterialMatch(string productTypeNo,string actualMaterialPN,string materialCode)
         {
-            LogHelper.Log.Info("物料防错 "+productTypeNo+" "+materialPN+" "+actualMaterialPN+" "+materialCode);
+            LogHelper.Log.Info("物料防错 "+productTypeNo+" "+actualMaterialPN+" "+materialCode);
             if (string.IsNullOrEmpty(productTypeNo))
                 return MaterialStatistics.ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.ERROR_NULL_PRODUCT_TYPENO);
-            if (string.IsNullOrEmpty(materialPN))
-                return MaterialStatistics.ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.ERROR_NULL_MATERIAL_PN);
             if (string.IsNullOrEmpty(actualMaterialPN))
                 return MaterialStatistics.ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.ERROR_NULL_ACTUAL_MATERIAL_PN);
-            if (materialPN != actualMaterialPN)
-                return MaterialStatistics.ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.ERROR_BOTH_MATERIAL_PN_IS_NOT_MATCH);
-
-            checkMaterialMatchQueue.Enqueue(new string[] { productTypeNo,materialPN, materialCode });
+            var materialPNDataSet = SelectMaterialPNOfProductTypeNo(productTypeNo);
+            if (materialPNDataSet.Tables.Count > 0)
+            {
+                var dataRowList = materialPNDataSet.Tables[0].Select($"material_code = '{actualMaterialPN}'");
+                if(dataRowList.Length < 1)
+                    return MaterialStatistics.ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.ERROR_BOTH_MATERIAL_PN_IS_NOT_MATCH);
+            }
+            checkMaterialMatchQueue.Enqueue(new string[] { productTypeNo, actualMaterialPN, materialCode });
             return MaterialStatistics.CheckMaterialMatch(checkMaterialMatchQueue);
+        }
+
+        private DataSet SelectMaterialPNOfProductTypeNo(string productTypeNo)
+        {
+            var selectPn = $"select {DbTable.F_PRODUCT_MATERIAL.MATERIAL_CODE} from {DbTable.F_PRODUCT_MATERIAL_NAME} " +
+                $"where {DbTable.F_PRODUCT_MATERIAL.TYPE_NO} = '{productTypeNo}'";
+            return SQLServer.ExecuteDataSet(selectPn);
         }
 
         #endregion

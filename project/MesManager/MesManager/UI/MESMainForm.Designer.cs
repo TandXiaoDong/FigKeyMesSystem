@@ -41,10 +41,12 @@
             this.mainReportData = new Telerik.WinControls.UI.RadTileElement();
             this.mainTestStandData = new Telerik.WinControls.UI.RadTileElement();
             this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
+            this.btn_stand_config = new Telerik.WinControls.UI.RadButton();
             ((System.ComponentModel.ISupportInitialize)(this.radPanorama1)).BeginInit();
             this.radPanorama1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btn_user_manger)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_user_login)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_stand_config)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,6 +54,7 @@
             // 
             this.radPanorama1.AutoArrangeNewTiles = false;
             this.radPanorama1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(49)))));
+            this.radPanorama1.Controls.Add(this.btn_stand_config);
             this.radPanorama1.Controls.Add(this.ledControl1);
             this.radPanorama1.Controls.Add(this.btn_user_manger);
             this.radPanorama1.Controls.Add(this.btn_user_login);
@@ -63,7 +66,7 @@
             this.radPanorama1.PanelImageSize = new System.Drawing.Size(1024, 768);
             this.radPanorama1.RowsCount = 2;
             this.radPanorama1.ShowGroups = true;
-            this.radPanorama1.Size = new System.Drawing.Size(1288, 1054);
+            this.radPanorama1.Size = new System.Drawing.Size(1296, 1084);
             this.radPanorama1.TabIndex = 1;
             this.radPanorama1.ThemeName = "ControlDefault";
             ((Telerik.WinControls.UI.RadPanoramaElement)(this.radPanorama1.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(23)))), ((int)(((byte)(117)))));
@@ -90,6 +93,7 @@
             this.btn_user_manger.Size = new System.Drawing.Size(120, 48);
             this.btn_user_manger.TabIndex = 2;
             this.btn_user_manger.Text = "用户管理";
+            this.btn_user_manger.ThemeName = "Breeze";
             // 
             // btn_user_login
             // 
@@ -101,6 +105,7 @@
             this.btn_user_login.Size = new System.Drawing.Size(120, 48);
             this.btn_user_login.TabIndex = 1;
             this.btn_user_login.Text = "用户登录";
+            this.btn_user_login.ThemeName = "Breeze";
             // 
             // toolsGroup
             // 
@@ -240,12 +245,24 @@
             this.mainTestStandData.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
             this.mainTestStandData.UseCompatibleTextRendering = false;
             // 
+            // btn_stand_config
+            // 
+            this.btn_stand_config.BackColor = System.Drawing.Color.Navy;
+            this.btn_stand_config.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_stand_config.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btn_stand_config.Location = new System.Drawing.Point(12, 880);
+            this.btn_stand_config.Name = "btn_stand_config";
+            this.btn_stand_config.Size = new System.Drawing.Size(120, 48);
+            this.btn_stand_config.TabIndex = 4;
+            this.btn_stand_config.Text = "机台配置";
+            this.btn_stand_config.ThemeName = "Breeze";
+            // 
             // MESMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1288, 1054);
+            this.ClientSize = new System.Drawing.Size(1296, 1084);
             this.Controls.Add(this.radPanorama1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -260,6 +277,7 @@
             this.radPanorama1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btn_user_manger)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_user_login)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_stand_config)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -279,5 +297,6 @@
         private Telerik.WinControls.UI.RadButton btn_user_manger;
         private LEDLib.LEDControl ledControl1;
         private Telerik.WinControls.Themes.BreezeTheme breezeTheme1;
+        private Telerik.WinControls.UI.RadButton btn_stand_config;
     }
 }

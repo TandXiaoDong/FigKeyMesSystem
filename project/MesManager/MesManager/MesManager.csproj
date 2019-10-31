@@ -254,6 +254,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AnalysisMaterialCode.cs" />
+    <Compile Include="Common\InitStandConfig.cs" />
+    <Compile Include="Common\PorterRate.cs" />
     <Compile Include="Connected Services\MesServiceTest\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -275,6 +277,7 @@
     <Compile Include="DB\Order.cs" />
     <Compile Include="DB\OrderItem.cs" />
     <Compile Include="DB\SQLServer.cs" />
+    <Compile Include="CommonEnum\PorterRateEnum.cs" />
     <Compile Include="FigKeyLog.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -293,6 +296,15 @@
     <Compile Include="MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\AirtageConfig.cs" />
+    <Compile Include="Model\BurnConfig.cs" />
+    <Compile Include="Model\CommConfig.cs" />
+    <Compile Include="Model\ProductCheckConfig.cs" />
+    <Compile Include="Model\ProductTestConfig.cs" />
+    <Compile Include="Model\SensibilityConfig.cs" />
+    <Compile Include="Model\ShellConfig.cs" />
+    <Compile Include="Model\StandCommon.cs" />
+    <Compile Include="Model\StentConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -432,6 +444,12 @@
     <Compile Include="UI\SNCenter.Designer.cs">
       <DependentUpon>SNCenter.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\StandConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\StandConfig.Designer.cs">
+      <DependentUpon>StandConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\StatisticalAnalysis.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -555,6 +573,9 @@
     <EmbeddedResource Include="UI\SNCenter.resx">
       <DependentUpon>SNCenter.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\StandConfig.resx">
+      <DependentUpon>StandConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\StatisticalAnalysis.resx">
       <DependentUpon>StatisticalAnalysis.cs</DependentUpon>
     </EmbeddedResource>
@@ -619,6 +640,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\MesManager.Common.PorterRate.datasource" />
     <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <None Include="Properties\Settings.settings">
@@ -734,5 +756,6 @@
       <Name>WindowsFormTelerik</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

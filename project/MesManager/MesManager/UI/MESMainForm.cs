@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using CommonUtils.Logger;
+using MesManager.Common;
+using System.IO;
 
 namespace MesManager.UI
 {
@@ -19,6 +21,7 @@ namespace MesManager.UI
         public static string currentUser;//0-admin,2-操作员
         public static int currentUsetType;
         private MesService.MesServiceClient serviceClient;
+        private MesServiceTest.MesServiceClient serviceClientTest;
         private bool IsFirstState = true;
         public static bool IsCompleted;
         public MESMainForm()
@@ -34,6 +37,7 @@ namespace MesManager.UI
         {
             //this.pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
             serviceClient = new MesService.MesServiceClient();
+            serviceClientTest = new MesServiceTest.MesServiceClient();
             TestCommunication();
             IsFirstState = false;
             IsCompleted = true;
@@ -42,6 +46,7 @@ namespace MesManager.UI
 
         public void InitMain()
         {
+            InitStandConfig.InitDirectory();
             PrepareTitleBar();
             EventHandlers();
         }
@@ -97,6 +102,7 @@ namespace MesManager.UI
             this.btn_user_manger.Click += Btn_user_manger_Click;
             this.btn_user_login.Click += Btn_user_login_Click;
             this.ledControl1.Click += LedControl1_Click;
+            this.btn_stand_config.Click += Btn_stand_config_Click;
         }
 
         private void LedControl1_Click(object sender, EventArgs e)
@@ -200,6 +206,20 @@ namespace MesManager.UI
             }
             UserManager userManager = new UserManager();
             userManager.ShowDialog();
+        }
+
+        private void Btn_stand_config_Click(object sender, EventArgs e)
+        {
+            //机台配置
+            if (!IsLoginAuthon())
+                return;
+            if (currentUsetType != 0)
+            {
+                MessageBox.Show("您没有此操作权限！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            StandConfig standConfig = new StandConfig();
+            standConfig.ShowDialog();
         }
 
         private void MainStatisticalAnalysis_Click(object sender, EventArgs e)

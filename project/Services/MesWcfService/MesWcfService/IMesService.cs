@@ -101,13 +101,12 @@ namespace MesWcfService
         #region 【接口】物料号防错
         [OperationContract]
         [SwaggerWcfPath("CheckMaterialMatch", "检查物料码是否匹配，0-不匹配；1-匹配")]
-        [WebInvoke(Method = "GET", UriTemplate = "CheckMaterialMatch?productTypeNo={productTypeNo}&" +
-            "materialPN={materialPN}&actualMaterialPn={actualMaterialPn}&materialCode={materialCode}", 
+        [WebInvoke(Method = "GET", UriTemplate = "CheckMaterialMatch?productTypeNo={productTypeNo}" +
+            "&actualMaterialPn={actualMaterialPn}&materialCode={materialCode}", 
             BodyStyle = WebMessageBodyStyle.Bare,
             RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         string CheckMaterialMatch(
             [SwaggerWcfParameter(Description = "产品型号")]string productTypeNo,
-            [SwaggerWcfParameter(Description = "防错的物料号")]string materialPN,
             [SwaggerWcfParameter(Description = "实际扫码的物料号")]string actualMaterialPn,
             [SwaggerWcfParameter(Description = "完整物料编码")]string materialCode);
         #endregion
