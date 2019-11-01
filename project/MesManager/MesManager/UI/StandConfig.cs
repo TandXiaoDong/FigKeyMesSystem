@@ -46,7 +46,7 @@ namespace MesManager.UI
 
         private void EventHandler()
         {
-            this.tool_saveCurrentTab.Click += Tool_saveCurrentTab_Click;
+            //this.tool_saveCurrentTab.Click += Tool_saveCurrentTab_Click;
             this.FormClosed += StandConfig_FormClosed;
         }
 
@@ -54,6 +54,7 @@ namespace MesManager.UI
         {
             //关闭时自动保存
             //SaveBurnStandConfig();
+            
         }
 
         private void Tool_saveCurrentTab_Click(object sender, EventArgs e)
@@ -807,5 +808,6 @@ namespace MesManager.UI
             this.tb_productCheck_testSerial.Text = productCheckConfig.TestSerial;
         }
         #endregion
+
     }
 }

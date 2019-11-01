@@ -51,8 +51,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menu_exportCondition.ComboBoxElement)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -61,9 +61,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 715);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 717);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1272, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1276, 22);
             this.statusStrip1.TabIndex = 10;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -159,7 +159,7 @@
             // 
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
-            this.radGridView1.Size = new System.Drawing.Size(1272, 679);
+            this.radGridView1.Size = new System.Drawing.Size(1276, 681);
             this.radGridView1.TabIndex = 14;
             this.radGridView1.ThemeName = "Breeze";
             // 
@@ -201,13 +201,6 @@
             this.menu_exportCondition.PositionOffset = new System.Drawing.SizeF(0F, 6F);
             this.menu_exportCondition.Text = "radMenuComboItem1";
             // 
-            // BasicConfig
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(1272, 737);
-            // 
             // radMenu1
             // 
             this.radMenu1.BackColor = System.Drawing.Color.Transparent;
@@ -223,8 +216,16 @@
             this.menu_export});
             this.radMenu1.Location = new System.Drawing.Point(0, 0);
             this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(1272, 36);
+            this.radMenu1.Size = new System.Drawing.Size(1276, 36);
             this.radMenu1.TabIndex = 9;
+            this.radMenu1.ThemeName = "ControlDefault";
+            // 
+            // BasicConfig
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.SteelBlue;
+            this.ClientSize = new System.Drawing.Size(1276, 739);
             this.Controls.Add(this.radGridView1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.radMenu1);
@@ -237,6 +238,7 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "产品管理";
+            this.ThemeName = "Material";
             this.Load += new System.EventHandler(this.BasicConfig_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
