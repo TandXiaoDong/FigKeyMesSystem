@@ -720,6 +720,8 @@
     <None Include="Resources\add.png" />
     <None Include="Resources\bullet_delete.png" />
     <None Include="Resources\delete.png" />
+    <None Include="Resources\OpenDoc_32x32.png" />
+    <None Include="Resources\OpenDoc_16x16.png" />
     <Content Include="功能描述.txt" />
     <Content Include="完善.txt" />
     <Content Include="新增.txt" />

@@ -8,14 +8,14 @@ namespace MesManager.Model
 {
     class StandCommon
     {
-        public const string TurnStationConfigPath           = "E:\\StationConfig\\烧录工站\\";
-        public const string TurnStationFWName = "FW\\";
-        public const string SensibilityStationConfigPath    = "E:\\StationConfig\\灵敏度测试工站\\";
-        public const string ShellStationConfigPath          = "E:\\StationConfig\\外壳装配工站\\";
-        public const string AirtageStationConfigPath        = "E:\\StationConfig\\气密测试工站\\";
-        public const string StentStationConfigPath          = "E:\\StationConfig\\支架装配工站\\";
-        public const string ProductFinishStationConfigPath  = "E:\\StationConfig\\成品测试工站\\";
-        public const string CheckProductStationConfigPath   = "E:\\StationConfig\\抽检工站\\";
+        public const string TurnStationConfigPath           = "F:\\StationConfig\\烧录工站\\";
+        public const string TurnStationFWName               = "FW\\";
+        public const string SensibilityStationConfigPath    = "F:\\StationConfig\\灵敏度测试工站\\";
+        public const string ShellStationConfigPath          = "F:\\StationConfig\\外壳装配工站\\";
+        public const string AirtageStationConfigPath        = "F:\\StationConfig\\气密测试工站\\";
+        public const string StentStationConfigPath          = "F:\\StationConfig\\支架装配工站\\";
+        public const string ProductFinishStationConfigPath  = "F:\\StationConfig\\成品测试工站\\";
+        public const string CheckProductStationConfigPath   = "F:\\StationConfig\\抽检工站\\";
 
         //不完整文件名称
         public const string TurnStationIniName = "烧录工站_";
@@ -27,8 +27,8 @@ namespace MesManager.Model
         public const string CheckProductStationIniName = "抽检工站_";
 
         //公用配置
-        public const string PCBABarCodeLengthKey = "新设置PCB条码长度位数";
-        public const string ShellBarCodeLengthKey = "新设置外壳条码长度位数";
+        public const string PCBABarCodeLengthKey = "设置PCB条码长度位数";
+        public const string ShellBarCodeLengthKey = "设置外壳条码长度位数";
         public const string CaseBarCodeLengthKey = "箱子条码长度";
         public const string PackageCaseAmountKey = "包装箱数量";
 

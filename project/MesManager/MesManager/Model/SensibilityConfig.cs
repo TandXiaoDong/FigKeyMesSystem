@@ -26,7 +26,7 @@ namespace MesManager.Model
         public const string ReceiveCanIDKey = "诊断Receive_CAN_ID";
         public const string CyclyCanIDKey = "周期CAN_ID";
         public const string RfCanIDKey = "RF_CAN_ID";
-        public const string ProductSerialKey = "产品序列";
+        public const string ProductSerialKey = "测试序列";
 
         public string PLCAddress { get; set; }
 

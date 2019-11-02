@@ -9,9 +9,15 @@ namespace MesManager.Model
     class CommConfig
     {
         public const string DeafaultConfigRoot = "config\\";
-
-        //烧录配置文件
-        public const string BurnConfigIniName = "burn.ini";
-        public const string BurnConfigPathKey = "burnPath";
+        public const string TestStandSerialNumber = "serialConfig.ini";
+        public const string BurnStationSection = "烧录工站";
+        public const string SensibilityStationSection = "灵敏度测试工站";
+        public const string ShellStationSection = "外壳装配工站";
+        public const string AirtageStationSection = "气密测试工站";
+        public const string StentStationSection = "支架装配工站";
+        public const string ProductFinishStationSection = "成品测试工站";
+        public const string CheckProductStationSection = "抽检工站";
+        public const string SerialKey = "serial_";
+        public const string CountKey = "count";
     }
 }

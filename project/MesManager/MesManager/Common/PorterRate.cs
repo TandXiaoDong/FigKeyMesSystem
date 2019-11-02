@@ -29,9 +29,14 @@ namespace MesManager.Common
             return porterRateList;
         }
 
-        private static string PorterEnumToString(string porterRate)
+        public static string PorterEnumToString(string porterRate)
         {
             return porterRate.Substring(porterRate.LastIndexOf('_') + 1);
+        }
+
+        public static string PorterStringToEnum(string porterRate)
+        {
+            return "porter_" + porterRate;
         }
     }
 }

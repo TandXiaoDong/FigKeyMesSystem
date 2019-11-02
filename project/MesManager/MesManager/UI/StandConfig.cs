@@ -26,6 +26,15 @@ namespace MesManager.UI
         private StentConfig stentConfig;
         private ProductTestConfig productTestConfig;
         private ProductCheckConfig productCheckConfig;
+        private bool IsSavePrivateConfig;
+        Dictionary<int, string> directoryBurn = new Dictionary<int, string>();
+        Dictionary<int, string> directorySensibility = new Dictionary<int, string>();
+        Dictionary<int, string> directoryAirtage = new Dictionary<int, string>();
+        Dictionary<int, string> directoryShell = new Dictionary<int, string>();
+        Dictionary<int, string> directoryStent = new Dictionary<int, string>();
+        Dictionary<int, string> directoryProductTest = new Dictionary<int, string>();
+        Dictionary<int, string> directoryProductCheck = new Dictionary<int, string>();
+        List<BurnConfig> burnConfigList = new List<BurnConfig>();
 
         private MesServiceTest.MesServiceClient serviceClientTest;
         private MesService.MesServiceClient serviceClient;
@@ -39,6 +48,7 @@ namespace MesManager.UI
         private void StandConfig_Load(object sender, EventArgs e)
         {
             Init();
+            ReadDefaultConfig();
             ReadStandConfig();
             RefreshUI();
             EventHandler();
@@ -46,23 +56,170 @@ namespace MesManager.UI
 
         private void EventHandler()
         {
-            //this.tool_saveCurrentTab.Click += Tool_saveCurrentTab_Click;
+            this.btn_common_refresh.Click += Btn_common_refresh_Click;
+            this.btn_burn_refresh.Click += Btn_burn_refresh_Click;
+            this.btn_sensibility_refresh.Click += Btn_sensibility_refresh_Click;
+            this.btn_shell_refresh.Click += Btn_shell_refresh_Click;
+            this.btn_stent_refresh.Click += Btn_stent_refresh_Click;
+            this.btn_airtage_refresh.Click += Btn_airtage_refresh_Click;
+            this.btn_productTest_refresh.Click += Btn_productTest_refresh_Click;
+            this.btn_productCheck_refresh.Click += Btn_productCheck_refresh_Click;
+
+            this.btn_common_save.Click += Btn_common_save_Click;
+            this.btn_burn_save.Click += Btn_burn_save_Click;
+            this.btn_sensilibity_save.Click += Btn_sensilibity_save_Click;
+            this.btn_shell_save.Click += Btn_shell_save_Click;
+            this.btn_stent_save.Click += Btn_stent_save_Click;
+            this.btn_airtage_save.Click += Btn_airtage_save_Click;
+            this.btn_productCheck_save.Click += Btn_productCheck_save_Click;
+            this.btn_productTest_save.Click += Btn_productTest_save_Click;
+
+            this.lbx_burn_openFile.Click += Lbx_burn_openFile_Click;
+
             this.FormClosed += StandConfig_FormClosed;
         }
 
-        private void StandConfig_FormClosed(object sender, FormClosedEventArgs e)
+        private void Lbx_burn_openFile_Click(object sender, EventArgs e)
         {
-            //关闭时自动保存
-            //SaveBurnStandConfig();
-            
+            FileContent fileContent = FileSelect.GetSelectFileContent("(*.*)|*.*","选择文件");
+            this.tb_burn_programePath.Text = fileContent.FileName;
+            this.tb_burn_programeName.Text = fileContent.FileSafeName;
         }
 
-        private void Tool_saveCurrentTab_Click(object sender, EventArgs e)
+        #region 保存配置
+        private void Btn_productTest_save_Click(object sender, EventArgs e)
         {
-            //all
-            CheckConfigParams();
-            SaveStandConfig();
-            MessageBox.Show("保存成功！","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            if (MessageBox.Show("确认要保存修改的配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            CheckProductTestConfigParams();
+            SaveProductTestConfig();
+            CheckCommonConfigParams();
+            SaveCommonStandConfig();
+        }
+
+        private void Btn_productCheck_save_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确认要保存修改的配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            CheckProductCheckConfigParams();
+            SaveProductCheckConfig();
+            CheckCommonConfigParams();
+            SaveCommonStandConfig();
+        }
+
+        private void Btn_airtage_save_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确认要保存修改的配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            CheckAirtageConfigParams();
+            SaveAirtageStandConfig();
+            CheckCommonConfigParams();
+            SaveCommonStandConfig();
+        }
+
+        private void Btn_stent_save_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确认要保存修改的配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            CheckStentConfigParams();
+            SaveStentStandConfig();
+            CheckCommonConfigParams();
+            SaveCommonStandConfig();
+        }
+
+        private void Btn_shell_save_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确认要保存修改的配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            CheckShellConfigParams();
+            SaveShellStandConfig();
+            CheckCommonConfigParams();
+            SaveCommonStandConfig();
+        }
+
+        private void Btn_sensilibity_save_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确认要保存修改的配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            CheckSensibilityConfigParams();
+            SaveSensibilityStandConfig();
+            CheckCommonConfigParams();
+            SaveCommonStandConfig();
+        }
+
+        private void Btn_burn_save_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确认要保存修改的配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            CheckBurnConfigParams();
+            SaveBurnStandConfig();
+            CheckCommonConfigParams();
+            SaveCommonStandConfig();
+        }
+
+        private void Btn_common_save_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确认要保存修改的配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            CheckCommonConfigParams();
+            SaveCommonStandConfig();
+        }
+        #endregion
+
+        #region 读取配置
+        private void Btn_productCheck_refresh_Click(object sender, EventArgs e)
+        {
+            ReadProductCheckStandConfig();
+            RefreshUIProductCheckStation();
+        }
+
+        private void Btn_productTest_refresh_Click(object sender, EventArgs e)
+        {
+            ReadProductTestStandConfig();
+            RefreshUIProductTestStation();
+        }
+
+        private void Btn_airtage_refresh_Click(object sender, EventArgs e)
+        {
+            ReadAirtageStandConfig();
+            RefreshUIAirtageStation();
+        }
+
+        private void Btn_stent_refresh_Click(object sender, EventArgs e)
+        {
+            ReadStentStandConfig();
+            RefreshUIStentStation();
+        }
+
+        private void Btn_shell_refresh_Click(object sender, EventArgs e)
+        {
+            ReadShellStandConfig();
+            RefreshUIShellStation();
+        }
+
+        private void Btn_sensibility_refresh_Click(object sender, EventArgs e)
+        {
+            ReadSensibilityStandConfig();
+            RefreshUISensibilityStation();
+        }
+
+        private void Btn_burn_refresh_Click(object sender, EventArgs e)
+        {
+            ReadBurnStandConfig();
+            RefreshUIBurnStation();
+        }
+
+        private void Btn_common_refresh_Click(object sender, EventArgs e)
+        {
+            ReadCommonStandConfig();
+            RefreshUICommonConfig();
+        }
+        #endregion
+
+        private void StandConfig_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //关闭时自动保存所有
+            //SaveBurnStandConfig();
         }
 
         private void Init()
@@ -93,6 +250,140 @@ namespace MesManager.UI
             //初始化波特率
             this.cb_burn_porterRate.DataSource = PorterRate.PorterRateDataSource();
             this.tb_sen_porterRate.DataSource = PorterRate.PorterRateDataSource();
+            this.tb_productCheck_porterRate.DataSource = PorterRate.PorterRateDataSource();
+            this.tb_product_porterRate.DataSource = PorterRate.PorterRateDataSource();
+        }
+
+        private void ReadDefaultConfig()
+        {
+            List<string> testSerialList;
+            var serialPath = AppDomain.CurrentDomain.BaseDirectory +CommConfig.DeafaultConfigRoot + CommConfig.TestStandSerialNumber;
+            if (!File.Exists(serialPath))
+            {
+                using (File.Create(serialPath))
+                {
+                }
+                //创建文件模板
+                int count = 2;
+                //烧录
+                for (int i = 0; i < count; i++)
+                {
+                    INIFile.SetValue(CommConfig.BurnStationSection,CommConfig.SerialKey+i,"turntestserial_"+i,serialPath);
+                }
+                INIFile.SetValue(CommConfig.BurnStationSection,CommConfig.CountKey,count.ToString(),serialPath);
+                //灵敏度
+                for (int i = 0; i < count; i++)
+                {
+                    INIFile.SetValue(CommConfig.SensibilityStationSection, CommConfig.SerialKey + i, "sensibilitytestserial_" + i, serialPath);
+                }
+                INIFile.SetValue(CommConfig.SensibilityStationSection, CommConfig.CountKey, count.ToString(), serialPath);
+                //外壳装配
+                for (int i = 0; i < count; i++)
+                {
+                    INIFile.SetValue(CommConfig.ShellStationSection, CommConfig.SerialKey + i, "shell testserial_" + i, serialPath);
+                }
+                INIFile.SetValue(CommConfig.ShellStationSection, CommConfig.CountKey, count.ToString(), serialPath);
+                //气密
+                for (int i = 0; i < count; i++)
+                {
+                    INIFile.SetValue(CommConfig.AirtageStationSection, CommConfig.SerialKey + i, "airtagetestserial_" + i, serialPath);
+                }
+                INIFile.SetValue(CommConfig.AirtageStationSection, CommConfig.CountKey, count.ToString(), serialPath);
+                //支架装配
+                for (int i = 0; i < count; i++)
+                {
+                    INIFile.SetValue(CommConfig.StentStationSection, CommConfig.SerialKey + i, "stenttestserial_" + i, serialPath);
+                }
+                INIFile.SetValue(CommConfig.StentStationSection, CommConfig.CountKey, count.ToString(), serialPath);
+                //成品测试
+                for (int i = 0; i < count; i++)
+                {
+                    INIFile.SetValue(CommConfig.ProductFinishStationSection, CommConfig.SerialKey + i, "producttestserial_" + i, serialPath);
+                }
+                INIFile.SetValue(CommConfig.ProductFinishStationSection, CommConfig.CountKey, count.ToString(), serialPath);
+                //成品抽检
+                for (int i = 0; i < count; i++)
+                {
+                    INIFile.SetValue(CommConfig.CheckProductStationSection, CommConfig.SerialKey + i, "productchecktestserial_" + i, serialPath);
+                }
+                INIFile.SetValue(CommConfig.CheckProductStationSection, CommConfig.CountKey, count.ToString(), serialPath);
+            }
+            //read file content
+            int serialCount;
+            //读取烧录序列
+            testSerialList = new List<string>();
+            int.TryParse(INIFile.GetValue(CommConfig.BurnStationSection,CommConfig.CountKey,serialPath),out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                BurnConfig burnConfig = new BurnConfig();
+                var serialValue = INIFile.GetValue(CommConfig.BurnStationSection,CommConfig.SerialKey+i,serialPath);
+                burnConfig.ProductSerialPath = serialPath;
+                burnConfig.SerialNumber = GetProductTestSerial(serialValue);
+                testSerialList.Add(burnConfig.SerialNumber);
+                burnConfigList.Add(burnConfig);
+            }
+            this.cb_burn_serialNumber.DataSource = testSerialList;
+
+            //读取灵敏度序列
+            testSerialList = new List<string>();
+            int.TryParse(INIFile.GetValue(CommConfig.SensibilityStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                var serialValue = INIFile.GetValue(CommConfig.SensibilityStationSection, CommConfig.SerialKey + i, serialPath);
+                testSerialList.Add(serialValue);
+                directorySensibility.Add(i,serialValue);
+            }
+            this.cb_sen_serialNumber.DataSource = testSerialList;
+            //读取外壳装配序列
+            testSerialList = new List<string>();
+            int.TryParse(INIFile.GetValue(CommConfig.ShellStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                var serialValue = INIFile.GetValue(CommConfig.ShellStationSection, CommConfig.SerialKey + i, serialPath);
+                testSerialList.Add(serialValue);
+                directoryShell.Add(i, serialValue);
+            }
+            this.cb_shell_testSerial.DataSource = testSerialList;
+            //读取气密序列
+            testSerialList = new List<string>();
+            int.TryParse(INIFile.GetValue(CommConfig.AirtageStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                var serialValue = INIFile.GetValue(CommConfig.AirtageStationSection, CommConfig.SerialKey + i, serialPath);
+                testSerialList.Add(serialValue);
+                directoryAirtage.Add(i, serialValue);
+            }
+            this.tb_airtage_testSerial.DataSource = testSerialList;
+            //读取支架装配序列
+            testSerialList = new List<string>();
+            int.TryParse(INIFile.GetValue(CommConfig.StentStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                var serialValue = INIFile.GetValue(CommConfig.StentStationSection, CommConfig.SerialKey + i, serialPath);
+                testSerialList.Add(serialValue);
+                directoryStent.Add(i, serialValue);
+            }
+            this.cb_stent_testSerial.DataSource = testSerialList;
+            //读取成品测试序列
+            testSerialList = new List<string>();
+            int.TryParse(INIFile.GetValue(CommConfig.ProductFinishStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                var serialValue = INIFile.GetValue(CommConfig.ProductFinishStationSection, CommConfig.SerialKey + i, serialPath);
+                testSerialList.Add(serialValue);
+                directoryProductTest.Add(i, serialValue);
+            }
+            this.cb_product_testSerial.DataSource = testSerialList;
+            //读取成品抽检序列
+            testSerialList = new List<string>();
+            int.TryParse(INIFile.GetValue(CommConfig.CheckProductStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                var serialValue = INIFile.GetValue(CommConfig.CheckProductStationSection, CommConfig.SerialKey + i, serialPath);
+                testSerialList.Add(serialValue);
+                directoryProductCheck.Add(i, serialValue);
+            }
+            this.tb_productCheck_testSerial.DataSource = testSerialList;
         }
 
         #region read stand config 
@@ -139,6 +430,7 @@ namespace MesManager.UI
             burnConfig.ProgramePath = INIFile.GetValue(standCommon.ProductTypeNo, BurnConfig.ProgramePathKey, burnSavePath);
             burnConfig.ProgrameName = INIFile.GetValue(standCommon.ProductTypeNo,BurnConfig.ProgrameNameKey,burnSavePath);
             burnConfig.SerialNumber = INIFile.GetValue(standCommon.ProductTypeNo, BurnConfig.SerialNumberKey, burnSavePath);
+            burnConfig.SerialNumber = GetProductTestSerial(burnConfig.SerialNumber);//更加路径返回序列名
             //读取灵敏度配置
         }
 
@@ -320,6 +612,8 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.ProgramePathKey, burnConfig.ProgramePath, burnSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.ProgrameNameKey, burnConfig.ProgrameName, burnSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.SerialNumberKey, burnConfig.SerialNumber, burnSavePath);
+            MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            IsSavePrivateConfig = true;
         }
 
         /// <summary>
@@ -389,6 +683,12 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, productCheckSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, productCheckSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, productCheckSavePath);
+            if (IsSavePrivateConfig)
+            {
+                IsSavePrivateConfig = false;
+                return;
+            }
+            MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void SaveSensibilityStandConfig()
@@ -415,6 +715,8 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.CyclyCanIDKey, sensibilityConfig.CyclyCanID, senSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.RfCanIDKey, sensibilityConfig.RfCanID, senSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductSerialKey, sensibilityConfig.ProductSerial, senSavePath);
+            MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            IsSavePrivateConfig = true;
         }
 
         private void SaveShellStandConfig()
@@ -428,6 +730,8 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.SmallScrewSetTimeKey, shellConfig.SmallScrewSetTime, shellSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.LargeScrewSetTimeKey, shellConfig.LargeScrewSetTime, shellSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.TestSerialNumberKey, shellConfig.TestSerialNumber, shellSavePath);
+            MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            IsSavePrivateConfig = true;
         }
 
         private void SaveAirtageStandConfig()
@@ -447,6 +751,8 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.TestConditionValueKey, airtageConfig.TestConditionValue, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.ReferenceConditionValueKey, airtageConfig.ReferenceConditionValue, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.TestSerialKey, airtageConfig.TestSerial, airtageSavePath);
+            MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            IsSavePrivateConfig = true;
         }
 
         private void SaveStentStandConfig()
@@ -456,6 +762,8 @@ namespace MesManager.UI
             var stentSavePath = stentInitPath + stentFileName;
             INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.LocalAddressConMesKey, stentConfig.LocalAddressConMes, stentSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.TestSerialKey, stentConfig.TestSerial, stentSavePath);
+            MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            IsSavePrivateConfig = true;
         }
 
         private void SaveProductTestConfig()
@@ -483,6 +791,8 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.CycleCanIDKey, productTestConfig.CycleCanID, productSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.RF_CAN_IDKey, productTestConfig.RF_CAN_ID, productSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.TestSerialKey, productTestConfig.TestSerial, productSavePath);
+            MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            IsSavePrivateConfig = true;
         }
 
         private void SaveProductCheckConfig()
@@ -509,6 +819,8 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.CycleCanIDKey, productCheckConfig.CycleCanID, productCheckSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.RF_CAN_IDKey, productCheckConfig.RF_CAN_ID, productCheckSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.TestSerialKey, productCheckConfig.TestSerial, productCheckSavePath);
+            MessageBox.Show("保存成功！","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            IsSavePrivateConfig = true;
         }
         #endregion
 
@@ -534,7 +846,9 @@ namespace MesManager.UI
             burnConfig.AvometerAddress = this.tb_burn_avometer.Text;
             burnConfig.AutoSweepCodeCom = this.tb_burn_autoSweepCode.Text;
             burnConfig.Burner = this.tb_burn_burner.Text;
-            burnConfig.PorterRate = this.cb_burn_porterRate.Text;
+            PorterRateEnum porterRateEnum;
+            Enum.TryParse(PorterRate.PorterStringToEnum(this.cb_burn_porterRate.Text),out porterRateEnum);
+            burnConfig.PorterRate = (int)porterRateEnum + "";
             burnConfig.CanId = this.tb_burn_canID.Text;
             burnConfig.ProductId = this.tb_burn_productID.Text;
             burnConfig.FirstVoltageMax = this.tb_burn_firstVoltageMax.Text;
@@ -546,7 +860,7 @@ namespace MesManager.UI
             burnConfig.PartNumber = this.tb_burn_partNumber.Text;
             burnConfig.ProgramePath = this.tb_burn_programePath.Text;
             burnConfig.ProgrameName = this.tb_burn_programeName.Text;
-            burnConfig.SerialNumber = this.cb_burn_serialNumber.Text;
+            burnConfig.SerialNumber = GetBurnSerial(this.cb_burn_serialNumber.Text).ProductSerialPath;
         }
 
         private void CheckCommonConfigParams()
@@ -572,7 +886,9 @@ namespace MesManager.UI
             sensibilityConfig.DormantElectricMin = this.tb_sen_dormantElectricMin.Text;
             sensibilityConfig.DormantElectricMax = this.tb_sen_dormantElectricMax.Text;
             sensibilityConfig.BootLoader = this.tb_sen_boootloader.Text;
-            sensibilityConfig.PorterRate = this.tb_sen_porterRate.Text;
+            PorterRateEnum porterRateEnum;
+            Enum.TryParse(PorterRate.PorterStringToEnum(this.tb_sen_porterRate.Text), out porterRateEnum);
+            sensibilityConfig.PorterRate = (int)porterRateEnum + "";
             sensibilityConfig.SendCanID = this.tb_sen_sendCanID.Text;
             sensibilityConfig.ProductSerial = this.cb_sen_serialNumber.Text;
             sensibilityConfig.ReceiveCanID = this.tb_sen_receiveCanID.Text;
@@ -628,7 +944,9 @@ namespace MesManager.UI
             productTestConfig.DormantElectricMin = this.tb_product_dormantElectricMin.Text;
             productTestConfig.DormantElectricMax = this.tb_product_dormantElectricMax.Text;
             productTestConfig.BootLoader = this.tb_prouct_bootLoader.Text;
-            productTestConfig.PorterRate = this.tb_product_porterRate.Text;
+            PorterRateEnum porterRateEnum;
+            Enum.TryParse(PorterRate.PorterStringToEnum(this.tb_product_porterRate.Text), out porterRateEnum);
+            productTestConfig.PorterRate = (int)porterRateEnum + "";
             productTestConfig.SendCanID = this.tb_product_sendCanID.Text;
             productTestConfig.ReceiveCanID = this.tb_product_receiveCanID.Text;
             productTestConfig.CycleCanID = this.tb_product_cyclyCanID.Text;
@@ -651,7 +969,9 @@ namespace MesManager.UI
             productCheckConfig.DormantElectricMin = this.tb_productCheck_dormantElectricMin.Text;
             productCheckConfig.DormantElectricMax = this.tb_productCheck_dormantElectricMax.Text;
             productCheckConfig.BootLoader = this.tb_productCheck_bootLoader.Text;
-            productCheckConfig.PorterRate = this.tb_productCheck_porterRate.Text;
+            PorterRateEnum porterRateEnum;
+            Enum.TryParse(PorterRate.PorterStringToEnum(this.tb_productCheck_porterRate.Text), out porterRateEnum);
+            productCheckConfig.PorterRate = (int)porterRateEnum + "";
             productCheckConfig.SendCanID = this.tb_productCheck_sendCanID.Text;
             productCheckConfig.ReceiveCanID = this.tb_productCheck_receiveCanID.Text;
             productCheckConfig.CycleCanID = this.tb_productCheck_cycleCanID.Text;
@@ -682,7 +1002,9 @@ namespace MesManager.UI
             this.tb_burn_avometer.Text = burnConfig.AvometerAddress;
             this.tb_burn_autoSweepCode.Text = burnConfig.AutoSweepCodeCom;
             this.tb_burn_burner.Text = burnConfig.Burner;
-            this.cb_burn_porterRate.Text = burnConfig.PorterRate;
+            PorterRateEnum porterRateEnum;
+            Enum.TryParse(burnConfig.PorterRate,out porterRateEnum);
+            this.cb_burn_porterRate.Text = PorterRate.PorterEnumToString(porterRateEnum.ToString());
             this.tb_burn_canID.Text = burnConfig.CanId;
             this.tb_burn_productID.Text = burnConfig.ProductId;
             this.tb_burn_firstVoltageMax.Text = burnConfig.FirstVoltageMax;
@@ -720,7 +1042,9 @@ namespace MesManager.UI
             this.tb_sen_dormantElectricMin.Text = sensibilityConfig.DormantElectricMin;
             this.tb_sen_dormantElectricMax.Text = sensibilityConfig.DormantElectricMax;
             this.tb_sen_boootloader.Text = sensibilityConfig.BootLoader;
-            this.tb_sen_porterRate.Text = sensibilityConfig.PorterRate;
+            PorterRateEnum porterRateEnum;
+            Enum.TryParse(sensibilityConfig.PorterRate, out porterRateEnum);
+            this.tb_sen_porterRate.Text = PorterRate.PorterEnumToString(porterRateEnum.ToString());
             this.tb_sen_sendCanID.Text = sensibilityConfig.SendCanID;
             this.cb_sen_serialNumber.Text = sensibilityConfig.ProductSerial;
             this.tb_sen_sendCanID.Text = sensibilityConfig.SendCanID;
@@ -777,7 +1101,9 @@ namespace MesManager.UI
             this.tb_product_dormantElectricMin.Text = productTestConfig.DormantElectricMin;
             this.tb_product_dormantElectricMax.Text = productTestConfig.DormantElectricMax;
             this.tb_prouct_bootLoader.Text = productTestConfig.BootLoader;
-            this.tb_product_porterRate.Text = productTestConfig.PorterRate;
+            PorterRateEnum porterRateEnum;
+            Enum.TryParse(productTestConfig.PorterRate, out porterRateEnum);
+            this.tb_product_porterRate.Text = PorterRate.PorterEnumToString(porterRateEnum.ToString());
             this.tb_product_sendCanID.Text = productTestConfig.SendCanID;
             this.tb_product_receiveCanID.Text = productTestConfig.ReceiveCanID;
             this.tb_product_cyclyCanID.Text = productTestConfig.CycleCanID;
@@ -800,7 +1126,9 @@ namespace MesManager.UI
             this.tb_productCheck_dormantElectricMin.Text = productCheckConfig.DormantElectricMin;
             this.tb_productCheck_dormantElectricMax.Text = productCheckConfig.DormantElectricMax;
             this.tb_productCheck_bootLoader.Text = productCheckConfig.BootLoader;
-            this.tb_productCheck_porterRate.Text = productCheckConfig.PorterRate;
+            PorterRateEnum porterRateEnum;
+            Enum.TryParse(productCheckConfig.PorterRate, out porterRateEnum);
+            this.tb_productCheck_porterRate.Text = PorterRate.PorterEnumToString(porterRateEnum.ToString());
             this.tb_productCheck_sendCanID.Text = productCheckConfig.SendCanID;
             this.tb_productCheck_receiveCanID.Text = productCheckConfig.ReceiveCanID;
             this.tb_productCheck_cycleCanID.Text = productTestConfig.CycleCanID;
@@ -809,5 +1137,19 @@ namespace MesManager.UI
         }
         #endregion
 
+        private string GetProductTestSerial(string serialPath)
+        {
+            if (!serialPath.Contains("\\") && !serialPath.Contains("\\\\"))
+            {
+                LogHelper.Log.Error("【产品序列路径不合法】");
+                return "";
+            }
+            return serialPath.Substring(serialPath.LastIndexOf('\\') + 1);
+        }
+
+        private BurnConfig GetBurnSerial(string serialName)
+        {
+            return burnConfigList.Find(m => m.SerialNumber == serialName);
+        }
     }
 }
