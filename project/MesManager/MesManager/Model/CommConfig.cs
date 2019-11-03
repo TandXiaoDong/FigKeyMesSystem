@@ -17,7 +17,8 @@ namespace MesManager.Model
         public const string StentStationSection = "支架装配工站";
         public const string ProductFinishStationSection = "成品测试工站";
         public const string CheckProductStationSection = "抽检工站";
-        public const string SerialKey = "serial_";
+        public const string SerialNumberKey = "serialNumber_";
+        public const string SerialVoltageKey = "serialVoltage_";
         public const string CountKey = "count";
     }
 }

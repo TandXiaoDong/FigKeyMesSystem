@@ -58,7 +58,7 @@ namespace MesManager.UI
             //else if (this.cb_userType.SelectedIndex == 2)
             //    userType = "3";
             if (this.cb_userType.SelectedIndex == 0)//操作员
-                userType = "2";
+                userType = "3";
 
             if (string.IsNullOrEmpty(username))
             {

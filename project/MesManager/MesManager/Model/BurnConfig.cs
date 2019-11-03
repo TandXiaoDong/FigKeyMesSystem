@@ -21,7 +21,8 @@ namespace MesManager.Model
         public const string HardWareVersionKey = "硬件版本";
         public const string SoftWareVersionKey = "软件版本";
         public const string PartNumberKey = "零件号";
-        public const string ProgramePathKey = "烧录程序路径";
+        public const string ProgrameMapPathKey = "烧录程序路径";
+        public const string ProgrameActualPathKey = "烧录程序本地路径";
         public const string ProgrameNameKey = "烧录程序名称";
         public const string PorterRateKey = "配置波特率";
         public const string CanIdKey = "配置CAN ID";
@@ -71,7 +72,15 @@ namespace MesManager.Model
 
         public string PartNumber { get; set; }
 
-        public string ProgramePath { get; set; }
+        /// <summary>
+        /// 烧录程序实际路径（本地）
+        /// </summary>
+        public string ProgrameActualPath { get; set; }
+
+        /// <summary>
+        /// 烧录程序映射路径
+        /// </summary>
+        public string ProgrameMapPath { get; set; }
 
         public string ProgrameName { get; set; }
 

@@ -267,32 +267,85 @@ namespace MesWcfService
         string UpdatePackageStorage(string productTypeNo, int capacity);
         #endregion
 
+        #region 【接口】 查询PCBA信息//此登录接口文档有问题
         [OperationContract]
-        [SwaggerWcfPath("QueryPCBAMes", "查询PCBA")]
-        [WebInvoke(Method = "GET", UriTemplate = "QueryPCBAMes?pcbaSN={pcbaSN}", BodyStyle = WebMessageBodyStyle.Bare,
-     RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        DataSet QueryPCBAMes(string pcbaSN);
+        DataSet QueryPCBAMes(string pcbasn);
+        #endregion
 
+        #region【接口】 更新PCBA状态
         [OperationContract]
         [SwaggerWcfPath("UpdatePcbaBindingState", "更新PCBA绑定状态")]
         [WebInvoke(Method = "GET", UriTemplate = "UpdatePcbaBindingState?pcbaSn={pcbaSn}&outterSn={outterSn}&bindingState={bindingState}&pcbaState={pcbaState}&outterState={outterState}", 
             BodyStyle = WebMessageBodyStyle.Bare,
     RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         bool UpdatePcbaBindingState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
+        #endregion
 
+        #region【接口】 更新PCBA修复状态
         [OperationContract]
         [SwaggerWcfPath("UpdatePCBABindingRepaireState", "更新PCBA绑定状态")]
         [WebInvoke(Method = "GET", UriTemplate = "UpdatePCBABindingRepaireState?pcbaSn={pcbaSn}&outterSn={outterSn}&bindingState={bindingState}&pcbaState={pcbaState}&outterState={outterState}",
             BodyStyle = WebMessageBodyStyle.Bare,
     RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         bool UpdatePCBABindingRepaireState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
+        #endregion
 
+        #region 【接口】 检查PCBA状态
         [OperationContract]
         [SwaggerWcfPath("CheckPcbaState", "CheckPcbaState")]
         [WebInvoke(Method = "GET", UriTemplate = "CheckPcbaState?snPcba={snPcba}&snOutter={snOutter}",
            BodyStyle = WebMessageBodyStyle.Bare,
    RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         string[] CheckPcbaState(string snPcba, string snOutter);
+        #endregion
+
+        #region 【接口】 用户登录
+        [OperationContract]
+        [SwaggerWcfPath("Login", "用户登录")]
+        [WebInvoke(Method = "GET", UriTemplate = "Login?username={username}&password={password}",
+           BodyStyle = WebMessageBodyStyle.Bare,
+   RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        string[] Login(string username, string password);
+        #endregion
+
+        #region 【接口】 获取用户信息
+        [OperationContract]
+        [SwaggerWcfPath("GetUserInfo", "获取用户信息")]
+        [WebInvoke(Method = "GET", UriTemplate = "GetUserInfo?username={username}",
+           BodyStyle = WebMessageBodyStyle.Bare,
+   RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        string[] GetUserInfo(string username);
+        #endregion
+
+        #region 【接口】 新用户注册
+        [OperationContract]
+        [SwaggerWcfPath("Register", "注册")]
+        [WebInvoke(Method = "GET", UriTemplate = "Register?username={username}&pwd={pwd}&userType={userType}",
+           BodyStyle = WebMessageBodyStyle.Bare,
+   RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        string[] Register(
+            [SwaggerWcfParameter(Description = "用户名")]string username, 
+            [SwaggerWcfParameter(Description = "用户密码")]string pwd,
+            [SwaggerWcfParameter(Description = "用户类型0-superAdmin,1-admin,2-operator,3-teamLeader,4-worker")]int userType);
+        #endregion
+
+        #region 【接口】 修改用户密码
+        [OperationContract]
+        [SwaggerWcfPath("ModifyUserPassword", "ModifyUserPassword")]
+        [WebInvoke(Method = "GET", UriTemplate = "ModifyUserPassword?username={username}&pwd={pwd}",
+           BodyStyle = WebMessageBodyStyle.Bare,
+   RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        string[] ModifyUserPassword(string username, string pwd);
+        #endregion
+
+        #region 【接口】 删除用户
+        [OperationContract]
+        [SwaggerWcfPath("DeleteUser", "DeleteUser")]
+        [WebInvoke(Method = "GET", UriTemplate = "DeleteUser?username={username}",
+           BodyStyle = WebMessageBodyStyle.Bare,
+   RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        string[] DeleteUser(string username);
+        #endregion
     }
 
     // 使用下面示例中说明的数据约定将复合类型添加到服务操作。

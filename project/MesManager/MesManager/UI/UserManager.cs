@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using MesManager.Control;
+using MesManager.CommonEnum;
 
 namespace MesManager.UI
 {
@@ -56,13 +57,15 @@ namespace MesManager.UI
                 var username = dt.Rows[i][0].ToString();
                 var userrole = dt.Rows[i][1].ToString();
                 var updateDate = dt.Rows[i][3].ToString();
-                if (userrole == "0")
+                if (userrole == ((int)UserTypeEnum.superAdmin).ToString())
+                    userrole = "超级管理员";
+                else if (userrole == ((int)UserTypeEnum.admin).ToString())
                     userrole = "管理员";
-                else if (userrole == "1")
-                    userrole = "班组长";
-                else if (userrole == "2")
+                else if (userrole == ((int)UserTypeEnum.controler).ToString())
                     userrole = "操作员";
-                else if (userrole == "3")
+                else if (userrole == ((int)UserTypeEnum.teamLeader).ToString())
+                    userrole = "班组长";
+                else if (userrole == ((int)UserTypeEnum.worker).ToString())
                     userrole = "工人";
                 DataRow dr = dataSource.NewRow();
                 dr[USER_ID] = i + 1;

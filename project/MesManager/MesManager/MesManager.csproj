@@ -253,9 +253,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonEnum\UserTypeEnum.cs" />
     <Compile Include="Common\AnalysisMaterialCode.cs" />
     <Compile Include="Common\InitStandConfig.cs" />
     <Compile Include="Common\PorterRate.cs" />
+    <Compile Include="Common\ScrollLeftAndRight.cs" />
     <Compile Include="Connected Services\MesServiceTest\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -109,7 +109,10 @@
             // 
             this.cb_userType.FormattingEnabled = true;
             this.cb_userType.Items.AddRange(new object[] {
-            "操作员"});
+            "管理员",
+            "操作员",
+            "班组长",
+            "工人"});
             this.cb_userType.Location = new System.Drawing.Point(119, 25);
             this.cb_userType.Name = "cb_userType";
             this.cb_userType.Size = new System.Drawing.Size(163, 20);

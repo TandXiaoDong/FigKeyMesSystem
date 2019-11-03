@@ -46,6 +46,11 @@ namespace MesWcfService
         private int materialLength = 20;
         private static string pcbaSN;//查询PCBA时记录SN
 
+        private string GetDateTimeNow()
+        {
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        }
+
         #region 测试通讯
         [SwaggerWcfTag("MesServcie 服务")]
         public string TestCommunication(string value)
@@ -62,6 +67,214 @@ namespace MesWcfService
         }
         #endregion
 
+        #region 用户信息接口
+
+        #region 用户登录
+        [SwaggerWcfTag("MesServcie 服务")]
+        [SwaggerWcfResponse("0X00", "FAIL_USER_NAME_ERROR")]//用户名不存在或错误
+        [SwaggerWcfResponse("0X01", "FAIL_USER_PASSWORD_ERROR")]//用户密码不存在或错误
+        [SwaggerWcfResponse("0X02", "STATUS_SUCCESSFUL")]//登录成功
+        [SwaggerWcfResponse("0X03", "FAIL_ERROR")]//捕获未知异常
+        [SwaggerWcfResponse("代码解释", "array[0]=状态代码，array[1]=角色(CODE=0X02)")]
+        public string[] Login(string username, string password)
+        {
+            string[] userResult = new string[2];
+            try
+            {
+                string[] userInfo = GetUserInfo(username);
+                if (userInfo[0] != "0X01")
+                {
+                    //用户不存在
+                    LogHelper.Log.Info($"用户名{username}不存在，验证失败！");
+                    userResult[0] = "0X00";//FAIL_USER_NAME_ERROR
+                    return userResult;
+                }
+                else
+                {
+                    //用户存在
+                    //验证登录密码
+                    var selectSQL = $"SELECT {DbTable.F_User.ROLE_NAME} FROM {DbTable.F_USER_NAME} WHERE " +
+                        $"{DbTable.F_User.USER_NAME} = '{username}' AND " +
+                        $"{DbTable.F_User.PASS_WORD} = '{password}'";
+                    DataTable dtRes = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                    if (dtRes.Rows.Count < 1)
+                    {
+                        //密码验证失败
+                        LogHelper.Log.Info($"用户{username}密码验证失败！");
+                        userResult[0] = "0X01";//FAIL_USER_PASSWORD_ERROR
+                        return userResult;
+                    }
+                    else
+                    {
+                        //通过验证
+                        LogHelper.Log.Info(username + " 登录进入 " + DateTime.Now);
+                        userResult[0] = "0X02";
+                        userResult[1] = dtRes.Rows[0][0].ToString();
+                        return userResult;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error("用户登录异常..." + ex.Message);
+                userResult[0] = "0X03";
+                return userResult;
+            }
+        }
+        #endregion
+
+        #region 查询用户信息
+        [SwaggerWcfTag("MesServcie 服务")]
+        [SwaggerWcfResponse("0X00", "FAIL_QUERY")]//查询失败，传入用户名不存在
+        [SwaggerWcfResponse("0X01", "查询成功")]//
+        [SwaggerWcfResponse("代码解释", "array[0]=状态码，CODE=0X01时，array[1]=角色，array[2]=用户密码")]
+        public string[] GetUserInfo(string username)
+        {
+            string[] userResult = new string[3];
+            var selectSQL = $"SELECT {DbTable.F_User.ROLE_NAME},{DbTable.F_User.PASS_WORD}" +
+                $" FROM {DbTable.F_USER_NAME} " +
+                     $"WHERE {DbTable.F_User.USER_NAME} = '{username}'";
+            var ds = SQLServer.ExecuteDataSet(selectSQL);
+            if (ds.Tables.Count > 0)
+            {
+                var dt = ds.Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    userResult[0] = "0X01";
+                    userResult[1] = ds.Tables[0].Rows[0][0].ToString();
+                    userResult[2] = ds.Tables[0].Rows[0][1].ToString();
+                    return userResult;
+                }
+            }
+            userResult[0] = "0X00";
+            return userResult;
+        }
+        #endregion
+
+        #region 查询所有用户
+        [SwaggerWcfTag("MesServcie 服务")]
+        private DataSet GetAllUserInfo()
+        {
+            string sqlString = $"SELECT {DbTable.F_User.USER_NAME}," +
+                    $"{DbTable.F_User.ROLE_NAME}," +
+                    $"{DbTable.F_User.STATUS}," +
+                    $"{DbTable.F_User.UPDATE_DATE} " +
+                    $"FROM {DbTable.F_USER_NAME} ";
+            return SQLServer.ExecuteDataSet(sqlString);
+        }
+        #endregion
+
+        #region 注册
+        [SwaggerWcfTag("MesServcie 服务")]
+        [SwaggerWcfResponse("0X00", "FAIL_ERROR_SQL")]
+        [SwaggerWcfResponse("0X01", "STATUS_SUCCESS")]//注册成功
+        [SwaggerWcfResponse("0X02", "FAIL_USER_EXIST")]//用户已经存在，请勿重复注册
+        [SwaggerWcfResponse("0X03", "FAIL_ERROR")]
+        public string[] Register(string username, string pwd, int userType)
+        {
+            string[] registerResult = new string[1];
+            try
+            {
+                string[] queryResult = GetUserInfo(username);
+                if (queryResult[0] == "0X01")
+                {
+                    LogHelper.Log.Info("【用户已存在】"+username);
+                    registerResult[0] = "0X02";
+                    return registerResult;
+                }
+                else
+                {
+                    //用户不存在，可以注册
+                    string dateTimeNow = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    string insertString = $"INSERT INTO {DbTable.F_USER_NAME}" +
+                        $"({DbTable.F_User.USER_NAME}," +
+                        $"{DbTable.F_User.PASS_WORD} ," +
+                        $"{DbTable.F_User.UPDATE_DATE} ," +
+                        $"{DbTable.F_User.ROLE_NAME}) " +
+                        $"VALUES('{username}', '{pwd}', '{dateTimeNow}','{userType}')";
+                    int executeResult = SQLServer.ExecuteNonQuery(insertString);
+                    if (executeResult < 1)
+                    {
+                        registerResult[0] = "0X00";
+                        LogHelper.Log.Error("【注册用户】失败"+insertString);
+                        return registerResult;
+                    }
+                    registerResult[0] = "0X01";
+                    return registerResult;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error("注册失败..." + ex.Message);
+                registerResult[0] = "0X03";
+                return registerResult;
+            }
+        }
+        #endregion
+
+        #region 修改密码
+        [SwaggerWcfTag("MesServcie 服务")]
+        [SwaggerWcfResponse("0X00", "FAIL_USER_NOT_EXIST")]//要修改的用户不存在
+        [SwaggerWcfResponse("0X01", "STATUS_SUCCESS")]//修改密码成功
+        [SwaggerWcfResponse("0X02", "FAIL_MODIFY")]//修改密码失败
+        public string[] ModifyUserPassword(string username, string pwd)
+        {
+            string[] userResult = GetUserInfo(username);
+            string[] statusResult = new string[2];
+            if (userResult[0] == "0X01")
+            {
+                //用户存在
+                var updateSQL = $"UPDATE {DbTable.F_USER_NAME} SET " +
+                            $"{DbTable.F_User.PASS_WORD} = '{pwd}'," +
+                            $"{DbTable.F_User.UPDATE_DATE} = '{GetDateTimeNow()}' " +
+                            $"WHERE {DbTable.F_User.USER_NAME} = '{username}'";
+                var row = SQLServer.ExecuteNonQuery(updateSQL);
+                if(row > 0)
+                {
+                    statusResult[0] = "0X01";
+                    return statusResult;
+                }
+                statusResult[0] = "0X02";
+                return statusResult;
+            }
+            else
+            {
+                //用户不存在
+                statusResult[0] = "0X00";
+                return statusResult;
+            }
+        }
+        #endregion
+
+        #region 删除用户
+        [SwaggerWcfTag("MesServcie 服务")]
+        [SwaggerWcfResponse("0X00", "FAIL_USER_NOT_EXIST")]//要删除的用户不存在
+        [SwaggerWcfResponse("0X01", "STATUS_SUCCESS")]//删除成功
+        [SwaggerWcfResponse("0X02", "FAIL_DELETE")]//删除失败
+        public string[] DeleteUser(string username)
+        {
+            string[] statusResult = new string[1];
+            var userResult = GetUserInfo(username);
+            if (userResult[0] != "0X01")
+            {
+                statusResult[0] = "0X00";
+                return statusResult;
+            }
+            var deleteSQL = $"DELETE FROM {DbTable.F_USER_NAME} WHERE {DbTable.F_User.USER_NAME} = '{username}'";
+            var row = SQLServer.ExecuteNonQuery(deleteSQL);
+            if (row > 0)
+            {
+                //删除成功
+                statusResult[0] = "0X01";
+                return statusResult;
+            }
+            statusResult[0] = "0X02";
+            return statusResult;
+        }
+        #endregion
+
+        #endregion
+
         #region 更新测试结果
         /*
          * 测试结果要记录进站时间与出站时间
@@ -71,7 +284,7 @@ namespace MesWcfService
          * 1）新增接口记录第一个工站开始的时间，更新进站日期
          * 2）传入测试数据结果的接口用于更新出站时间
          * 3）第1个工站之后的所有工站的进站时间为该工站查询上一工站返回结果为PASS的时间
-         */ 
+         */
         [SwaggerWcfTag("MesServcie 服务")]
         [SwaggerWcfResponse("0X00", "STATUS_SUCCESS")]
         [SwaggerWcfResponse("0X01", "ERROR_FAIL")]
@@ -580,7 +793,7 @@ namespace MesWcfService
             return false;
         }
 
-        [SwaggerWcfTag("MesService 服务")]
+        [SwaggerWcfTag("MesServcie 服务")]
         public bool UpdatePCBABindingRepaireState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState)
         {
             /*

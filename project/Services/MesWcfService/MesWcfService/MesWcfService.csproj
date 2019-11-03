@@ -80,6 +80,7 @@
     <Compile Include="Common\CheckMaterialCode.cs" />
     <Compile Include="Common\MaterialCodeMsg.cs" />
     <Compile Include="Common\ProductProcess.cs" />
+    <Compile Include="Common\UserEnum.cs" />
     <Compile Include="DB\DbTable.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
