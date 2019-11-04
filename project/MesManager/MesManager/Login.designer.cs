@@ -32,21 +32,24 @@ namespace MesManager
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.lbx_username = new Telerik.WinControls.UI.RadLabel();
-            this.tbx_username = new System.Windows.Forms.ComboBox();
             this.lbx_pwd = new Telerik.WinControls.UI.RadLabel();
-            this.tbx_pwd = new System.Windows.Forms.TextBox();
             this.cb_memberpwd = new Telerik.WinControls.UI.RadCheckBox();
             this.lbx_ToFindPwd = new System.Windows.Forms.LinkLabel();
             this.btn_login = new Telerik.WinControls.UI.RadButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lbx_register = new System.Windows.Forms.Label();
             this.btn_cancel = new Telerik.WinControls.UI.RadButton();
+            this.tbx_username = new Telerik.WinControls.UI.RadTextBox();
+            this.materialTheme1 = new Telerik.WinControls.Themes.MaterialTheme();
+            this.tbx_pwd = new Telerik.WinControls.UI.RadTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_username)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_pwd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cb_memberpwd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_login)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbx_username)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbx_pwd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,47 +58,29 @@ namespace MesManager
             this.lbx_username.BackColor = System.Drawing.Color.Transparent;
             this.lbx_username.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_username.ForeColor = System.Drawing.Color.White;
-            this.lbx_username.Location = new System.Drawing.Point(39, 155);
+            this.lbx_username.Location = new System.Drawing.Point(39, 172);
             this.lbx_username.Name = "lbx_username";
-            this.lbx_username.Size = new System.Drawing.Size(56, 24);
+            this.lbx_username.Size = new System.Drawing.Size(72, 24);
             this.lbx_username.TabIndex = 14;
-            this.lbx_username.Text = "用户名";
-            // 
-            // tbx_username
-            // 
-            this.tbx_username.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_username.FormattingEnabled = true;
-            this.tbx_username.Location = new System.Drawing.Point(110, 153);
-            this.tbx_username.Name = "tbx_username";
-            this.tbx_username.Size = new System.Drawing.Size(259, 29);
-            this.tbx_username.TabIndex = 21;
+            this.lbx_username.Text = "用户名：";
             // 
             // lbx_pwd
             // 
             this.lbx_pwd.BackColor = System.Drawing.Color.Transparent;
             this.lbx_pwd.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_pwd.ForeColor = System.Drawing.Color.White;
-            this.lbx_pwd.Location = new System.Drawing.Point(39, 206);
+            this.lbx_pwd.Location = new System.Drawing.Point(42, 253);
             this.lbx_pwd.Name = "lbx_pwd";
-            this.lbx_pwd.Size = new System.Drawing.Size(53, 24);
+            this.lbx_pwd.Size = new System.Drawing.Size(69, 24);
             this.lbx_pwd.TabIndex = 15;
-            this.lbx_pwd.Text = "密   码";
-            // 
-            // tbx_pwd
-            // 
-            this.tbx_pwd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_pwd.Location = new System.Drawing.Point(110, 206);
-            this.tbx_pwd.Name = "tbx_pwd";
-            this.tbx_pwd.PasswordChar = '*';
-            this.tbx_pwd.Size = new System.Drawing.Size(259, 29);
-            this.tbx_pwd.TabIndex = 20;
+            this.lbx_pwd.Text = "密   码：";
             // 
             // cb_memberpwd
             // 
             this.cb_memberpwd.BackColor = System.Drawing.Color.Transparent;
             this.cb_memberpwd.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_memberpwd.ForeColor = System.Drawing.Color.White;
-            this.cb_memberpwd.Location = new System.Drawing.Point(110, 248);
+            this.cb_memberpwd.Location = new System.Drawing.Point(110, 298);
             this.cb_memberpwd.Name = "cb_memberpwd";
             this.cb_memberpwd.Size = new System.Drawing.Size(77, 21);
             this.cb_memberpwd.TabIndex = 16;
@@ -107,7 +92,7 @@ namespace MesManager
             this.lbx_ToFindPwd.BackColor = System.Drawing.Color.Transparent;
             this.lbx_ToFindPwd.ForeColor = System.Drawing.Color.GhostWhite;
             this.lbx_ToFindPwd.LinkColor = System.Drawing.Color.Cyan;
-            this.lbx_ToFindPwd.Location = new System.Drawing.Point(284, 246);
+            this.lbx_ToFindPwd.Location = new System.Drawing.Point(284, 296);
             this.lbx_ToFindPwd.Name = "lbx_ToFindPwd";
             this.lbx_ToFindPwd.Size = new System.Drawing.Size(85, 21);
             this.lbx_ToFindPwd.TabIndex = 17;
@@ -120,7 +105,7 @@ namespace MesManager
             this.btn_login.BackColor = System.Drawing.Color.MediumSlateBlue;
             this.btn_login.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_login.ForeColor = System.Drawing.Color.White;
-            this.btn_login.Location = new System.Drawing.Point(110, 313);
+            this.btn_login.Location = new System.Drawing.Point(110, 365);
             this.btn_login.Name = "btn_login";
             // 
             // 
@@ -140,7 +125,7 @@ namespace MesManager
             this.pictureBox1.Image = global::MesManager.Properties.Resources.万通公司LOG426x90;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(427, 90);
+            this.pictureBox1.Size = new System.Drawing.Size(426, 90);
             this.pictureBox1.TabIndex = 23;
             this.pictureBox1.TabStop = false;
             // 
@@ -161,7 +146,7 @@ namespace MesManager
             this.btn_cancel.BackColor = System.Drawing.Color.MediumSlateBlue;
             this.btn_cancel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancel.ForeColor = System.Drawing.Color.White;
-            this.btn_cancel.Location = new System.Drawing.Point(266, 313);
+            this.btn_cancel.Location = new System.Drawing.Point(266, 365);
             this.btn_cancel.Name = "btn_cancel";
             // 
             // 
@@ -174,20 +159,38 @@ namespace MesManager
             this.btn_cancel.TabIndex = 25;
             this.btn_cancel.Text = "取  消";
             // 
+            // tbx_username
+            // 
+            this.tbx_username.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_username.Location = new System.Drawing.Point(110, 155);
+            this.tbx_username.Name = "tbx_username";
+            this.tbx_username.Size = new System.Drawing.Size(259, 41);
+            this.tbx_username.TabIndex = 26;
+            this.tbx_username.ThemeName = "Material";
+            // 
+            // tbx_pwd
+            // 
+            this.tbx_pwd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_pwd.Location = new System.Drawing.Point(110, 236);
+            this.tbx_pwd.Name = "tbx_pwd";
+            this.tbx_pwd.Size = new System.Drawing.Size(259, 41);
+            this.tbx_pwd.TabIndex = 27;
+            this.tbx_pwd.ThemeName = "Material";
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(427, 407);
+            this.ClientSize = new System.Drawing.Size(426, 439);
+            this.Controls.Add(this.tbx_pwd);
+            this.Controls.Add(this.tbx_username);
             this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.lbx_register);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbx_username);
-            this.Controls.Add(this.tbx_username);
             this.Controls.Add(this.lbx_pwd);
-            this.Controls.Add(this.tbx_pwd);
             this.Controls.Add(this.cb_memberpwd);
             this.Controls.Add(this.lbx_ToFindPwd);
             this.Controls.Add(this.btn_login);
@@ -208,6 +211,8 @@ namespace MesManager
             ((System.ComponentModel.ISupportInitialize)(this.btn_login)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbx_username)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbx_pwd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -217,14 +222,15 @@ namespace MesManager
         #endregion
 
         private Telerik.WinControls.UI.RadLabel lbx_username;
-        private ComboBox tbx_username;
         private Telerik.WinControls.UI.RadLabel lbx_pwd;
-        private TextBox tbx_pwd;
         private Telerik.WinControls.UI.RadCheckBox cb_memberpwd;
         private LinkLabel lbx_ToFindPwd;
         private Telerik.WinControls.UI.RadButton btn_login;
         private PictureBox pictureBox1;
         private Label lbx_register;
         private Telerik.WinControls.UI.RadButton btn_cancel;
+        private Telerik.WinControls.UI.RadTextBox tbx_username;
+        private Telerik.WinControls.Themes.MaterialTheme materialTheme1;
+        private Telerik.WinControls.UI.RadTextBox tbx_pwd;
     }
 }

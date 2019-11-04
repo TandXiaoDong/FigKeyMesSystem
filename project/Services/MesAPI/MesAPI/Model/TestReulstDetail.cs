@@ -44,6 +44,8 @@ namespace MesAPI.Model
 
         public const string Product_Work_Electric_Test = "工作电流";
         public const string Product_DormantElect = "休眠电流";
+        public const string Product_Inspect_Result = "目检结果";
+        public const string Product_InspectItem = "目检";
 
         public const string Order = "序号";
         public const string PcbaSN = "PCBA_SN";

@@ -19,6 +19,7 @@ using MesAPI.Model;
 using System.Data.SqlClient;
 using MesAPI.Common;
 using System.Data.Common;
+using CommonUtils.DEncrypt;
 
 namespace MesAPI
 {
@@ -151,10 +152,21 @@ namespace MesAPI
         /// <returns></returns>
         public DataSet GetUserInfo(string username)
         {
-            var selectSQL = $"SELECT {DbTable.F_User.ROLE_NAME},{DbTable.F_User.PASS_WORD}" +
+            var selectSQL = $"SELECT {DbTable.F_User.ROLE_NAME},{DbTable.F_User.PASS_WORD},{DbTable.F_User.USER_ID} " +
                 $" FROM {DbTable.F_USER_NAME} " +
                      $"WHERE {DbTable.F_User.USER_NAME} = '{username}'";
             return SQLServer.ExecuteDataSet(selectSQL);
+        }
+
+        public string GetUserID(string username)
+        {
+            var selectSQL = $"SELECT {DbTable.F_User.USER_ID} " +
+                $" FROM {DbTable.F_USER_NAME} " +
+                     $"WHERE {DbTable.F_User.USER_NAME} = '{username}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+                return dt.Rows[0][0].ToString();
+            return "";
         }
         #endregion
 
@@ -166,7 +178,8 @@ namespace MesAPI
         /// <returns></returns>
         public DataSet GetAllUserInfo()
         {
-            string sqlString = $"SELECT {DbTable.F_User.USER_NAME}," +
+            string sqlString = $"SELECT " +
+                    $"{DbTable.F_User.USER_NAME}," +
                     $"{DbTable.F_User.ROLE_NAME}," +
                     $"{DbTable.F_User.STATUS}," +
                     $"{DbTable.F_User.UPDATE_DATE} " +
@@ -184,7 +197,7 @@ namespace MesAPI
         /// <param name="phone"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public RegisterResult Register(string username, string pwd, string phone, string email, int userType)
+        public RegisterResult Register(string username, string pwd, int userType)
         {
             try
             {
@@ -197,15 +210,15 @@ namespace MesAPI
                 else
                 {
                     //用户不存在，可以注册
+                    var userID = MD5OTool.Encrypt(username+pwd);
                     string dateTimeNow = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     string insertString = $"INSERT INTO {DbTable.F_USER_NAME}" +
                         $"({DbTable.F_User.USER_NAME}," +
                         $"{DbTable.F_User.PASS_WORD} ," +
-                        $"{DbTable.F_User.PHONE}," +
-                        $"{DbTable.F_User.EMAIL} ," +
                         $"{DbTable.F_User.UPDATE_DATE} ," +
-                        $"{DbTable.F_User.ROLE_NAME}) " +
-                        $"VALUES('{username}', '{pwd}', '{phone}', '{email}', '{dateTimeNow}','{userType}')";
+                        $"{DbTable.F_User.ROLE_NAME}," +
+                        $"{DbTable.F_User.USER_ID}) " +
+                        $"VALUES('{username}', '{pwd}', '{dateTimeNow}','{userType}','{userID}')";
                     int executeResult = SQLServer.ExecuteNonQuery(insertString);
                     if (executeResult < 1)
                     {
@@ -223,12 +236,13 @@ namespace MesAPI
         #endregion
 
         #region 修改密码
-        public int ModifyUserPassword(string username, string pwd)
+        public int ModifyUserPassword(string userID,string username, string pwd)
         {
             var updateSQL = $"UPDATE {DbTable.F_USER_NAME} SET " +
                 $"{DbTable.F_User.PASS_WORD} = '{pwd}'," +
+                $"{DbTable.F_User.USER_NAME} = '{username}'," +
                 $"{DbTable.F_User.UPDATE_DATE} = '{GetDateTimeNow()}' " +
-                $"WHERE {DbTable.F_User.USER_NAME} = '{username}'";
+                $"WHERE {DbTable.F_User.USER_ID} = '{userID}'";
             return SQLServer.ExecuteNonQuery(updateSQL);
         }
         #endregion
@@ -250,10 +264,12 @@ namespace MesAPI
         /// </summary>
         /// <param name="dctData"></param>
         /// <returns>成功返回1，失败返回0+空格+序号+键+空格+值</returns>
-        public int InsertStation(List<Station> stationList)
+        public List<Station> InsertStation(List<Station> stationList)
         {
+            List<Station> updateResult = new List<Station>();
             foreach (var station in stationList)
             {
+                Station stationResult = new Station();
                 if (!IsExistStation(station))
                 {
                     //不存在，插入
@@ -262,14 +278,23 @@ namespace MesAPI
                         $"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_ORDER}," +
                         $"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_NAME}," +
                         $"{DbTable.F_TECHNOLOGICAL_PROCESS.USER_NAME}," +
-                        $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_STATE}) " +
-                    $"VALUES('{station.ProcessName}','{station.StationID}','{station.StationName}','{station.UserName}','{station.ProcessState}')";
-                    LogHelper.Log.Info(insertSQL);
-                    if (SQLServer.ExecuteNonQuery(insertSQL) < 1)
-                        return 0;
+                        $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_STATE}," +
+                        $"{DbTable.F_TECHNOLOGICAL_PROCESS.UPDATE_DATE}) " +
+                    $"VALUES('{station.ProcessName}','{station.StationID}','{station.StationName}','{station.UserName}','{station.ProcessState}','{station.UpdateDate}')";
+                    LogHelper.Log.Info("【工艺更新】插入新数据"+insertSQL);
+                    stationResult.Result = SQLServer.ExecuteNonQuery(insertSQL);
                 }
+                else
+                {
+                    LogHelper.Log.Info("【工艺更新】更新数据");
+                    //stationResult.Result = UpdateProcessOrder(station.ProcessName,station.StationName,int.Parse(station.StationID),station.UserName);
+                }
+
+                stationResult.StationID = station.StationID;
+                stationResult.StationName = station.StationName;
+                updateResult.Add(stationResult);
             }
-            return 1;
+            return updateResult;
         }
 
         /// <summary>
@@ -318,6 +343,7 @@ namespace MesAPI
                 return 0;
             string deleteSQL = $"DELETE FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} WHERE " +
                 $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{processName}'";
+            LogHelper.Log.Info("【删除工艺数据】"+deleteSQL);
             return SQLServer.ExecuteNonQuery(deleteSQL);
         }
 
@@ -328,10 +354,10 @@ namespace MesAPI
         /// <returns></returns>
         private bool IsExistStation(Station station)
         {
-            string selectSQL = $"SELECT * FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} WHERE " +
+            string selectSQL = $"SELECT * FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} " +
+                $"WHERE " +
                 $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{station.ProcessName}' AND " +
-                $"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_NAME} = '{station.StationName}' AND " +
-                $"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_ORDER} = '{station.StationID}'";
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_NAME} = '{station.StationName}' ";
             DataTable dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             if (dt.Rows.Count > 0)
             {
@@ -346,6 +372,19 @@ namespace MesAPI
                 $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_STATE} = '{state}' WHERE " +
                 $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{processName}'";
             LogHelper.Log.Info(updateSQL);
+            return SQLServer.ExecuteNonQuery(updateSQL);
+        }
+
+        public int UpdateProcessOrder(string process,string station,int id,string user)
+        {
+            var updateSQL = $"UPDATE {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} SET " +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_ORDER} = '{id}'," +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.USER_NAME} = '{user}'" +
+                $"WHERE " +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{process}' " +
+                $"AND " +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_NAME} = '{station}' ";
+            LogHelper.Log.Info("【更新工艺序号】"+updateSQL);
             return SQLServer.ExecuteNonQuery(updateSQL);
         }
 
@@ -592,6 +631,7 @@ namespace MesAPI
             }
             return testResultsList;
         }
+
         public DataSet SelectTestResultDetail(string querySN)
         {
             //更新当前工站名称
@@ -719,6 +759,7 @@ namespace MesAPI
                     dr[STATION_PRODUCT + TestResultItemContent.TestResultValue_product] = testResultProduct.TestResultValue;
                     dr[STATION_PRODUCT + TestResultItemContent.Product_Work_Electric_Test] = SelectTestItemValue(pcbsn, productsn, STATION_PRODUCT, TestResultItemContent.Product_Work_Electric_Test);
                     dr[STATION_PRODUCT + TestResultItemContent.Product_DormantElect] = SelectTestItemValue(pcbsn, productsn, STATION_PRODUCT, TestResultItemContent.Product_DormantElect);
+                    dr[STATION_PRODUCT + TestResultItemContent.Product_Inspect_Result] = SelectTestItemValue(pcbsn, productsn, STATION_PRODUCT, TestResultItemContent.Product_InspectItem);
                     #endregion
 
                     dt.Rows.Add(dr);
@@ -728,6 +769,7 @@ namespace MesAPI
             }
             return dataSet;
         }
+
         private static TestReulstDetail SelectTestResultOfSN(string pcbasn,string productsn,string stationName)
         {
             TestReulstDetail testResult = new TestReulstDetail();
@@ -780,6 +822,7 @@ namespace MesAPI
             }
             return testResult;
         }
+
         private static DataTable InitTestResultDataTable(bool IsShowFinalResult)
         {
             DataTable dt = new DataTable();
@@ -859,6 +902,8 @@ namespace MesAPI
             dt.Columns.Add(STATION_PRODUCT + TestResultItemContent.UserTeamLeader_product);
             dt.Columns.Add(STATION_PRODUCT + TestResultItemContent.Product_Work_Electric_Test);
             dt.Columns.Add(STATION_PRODUCT + TestResultItemContent.Product_DormantElect);
+            dt.Columns.Add(STATION_PRODUCT + TestResultItemContent.Product_Inspect_Result);
+
             return dt;
         }
         //查询测试项值与结果
@@ -1202,6 +1247,19 @@ namespace MesAPI
 
             DataSet ds = new DataSet();
             var dt = InitTestResultDataTable(true);
+            AddTestLogDetail(STATION_TURN,queryFilter,startTime,endTime,dt);
+            AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt);
+            AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt);
+            AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt);
+            AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt);
+            AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt);
+            LogHelper.Log.Info("【查询过站历史完成】");
+            ds.Tables.Add(dt);
+            return ds;
+        }
+
+        private void AddTestLogDetail(string station,string queryFilter, string startTime, string endTime,DataTable dt)
+        {
             var selectTestResultSQL = "";
             if (queryFilter == "")
             {
@@ -1220,6 +1278,7 @@ namespace MesAPI
                             $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
                             $"AND " +
                             $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
+                            $"AND {DbTable.F_Test_Result.STATION_NAME} = '{station}'" +
                             $"ORDER BY " +
                             $"{DbTable.F_Test_Result.UPDATE_DATE} " +
                             $"DESC";
@@ -1244,13 +1303,15 @@ namespace MesAPI
                             $"AND " +
                             $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
                             $"AND " +
+                            $"{DbTable.F_Test_Result.STATION_NAME} = '{station}' " +
+                            $"AND " +
                             $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' " +
                             $"OR " +
                             $"{DbTable.F_Test_Result.SN} = '{productSN}' " +
                             $"OR " +
                             $"{DbTable.F_Test_Result.STATION_NAME} = '{queryFilter}'";
             }
-            LogHelper.Log.Info("【开始查询过站历史】"+selectTestResultSQL);
+            LogHelper.Log.Info("【开始查询过站历史】" + selectTestResultSQL);
             var dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
             if (dtResult.Rows.Count > 0)
             {
@@ -1283,12 +1344,12 @@ namespace MesAPI
                         dr[STATION_TURN + TestResultItemContent.StationOutDate_turn] = stationOutDate;
                         dr[STATION_TURN + TestResultItemContent.UserTeamLeader_turn] = teamLeader;
                         dr[STATION_TURN + TestResultItemContent.TestResultValue_turn] = testResult;
-                        dr[STATION_TURN + TestResultItemContent.Turn_TurnItem] = SelectTestItemValue(pcbaSN, productSN, STATION_TURN, TestResultItemContent.Turn_TurnItem,joinDateTime);
+                        dr[STATION_TURN + TestResultItemContent.Turn_TurnItem] = SelectTestItemValue(pcbaSN, productSN, STATION_TURN, TestResultItemContent.Turn_TurnItem, joinDateTime);
                         dr[STATION_TURN + TestResultItemContent.Turn_Voltage_12V_Item] = SelectTestItemValue(pcbaSN, productSN, STATION_TURN, TestResultItemContent.Turn_Voltage_12V_Item, joinDateTime);
                         dr[STATION_TURN + TestResultItemContent.Turn_Voltage_5V_Item] = SelectTestItemValue(pcbaSN, productSN, STATION_TURN, TestResultItemContent.Turn_Voltage_5V_Item, joinDateTime);
                         dr[STATION_TURN + TestResultItemContent.Turn_Voltage_33_1V_Item] = SelectTestItemValue(pcbaSN, productSN, STATION_TURN, TestResultItemContent.Turn_Voltage_33_1V_Item, joinDateTime);
                         dr[STATION_TURN + TestResultItemContent.Turn_Voltage_33_2V_Item] = SelectTestItemValue(pcbaSN, productSN, STATION_TURN, TestResultItemContent.Turn_Voltage_33_2V_Item, joinDateTime);
-                        dr[STATION_TURN + TestResultItemContent.Turn_SoftVersion] = SelectTestItemValue(pcbaSN, productSN, STATION_TURN, TestResultItemContent.Turn_SoftVersion,joinDateTime);
+                        dr[STATION_TURN + TestResultItemContent.Turn_SoftVersion] = SelectTestItemValue(pcbaSN, productSN, STATION_TURN, TestResultItemContent.Turn_SoftVersion, joinDateTime);
                     }
                     #endregion
 
@@ -1300,14 +1361,14 @@ namespace MesAPI
                         dr[STATION_SENSIBLITY + TestResultItemContent.UserTeamLeader_sen] = teamLeader;
                         dr[STATION_SENSIBLITY + TestResultItemContent.TestResultValue_sen] = testResult;
 
-                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_Work_Electric_Test] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_Work_Electric_Test,joinDateTime);
-                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_PartNumber] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_PartNumber,joinDateTime);
-                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_HardWareVersion] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_HardWareVersion,joinDateTime);
-                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_SoftVersion] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_SoftVersion,joinDateTime);
-                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_ECUID] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_ECUID,joinDateTime);
-                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_BootloaderVersion] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_BootloaderVersion,joinDateTime);
-                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_RadioFreq] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_RadioFreq,joinDateTime);
-                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_DormantElect] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_DormantElect,joinDateTime);
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_Work_Electric_Test] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_Work_Electric_Test, joinDateTime);
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_PartNumber] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_PartNumber, joinDateTime);
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_HardWareVersion] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_HardWareVersion, joinDateTime);
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_SoftVersion] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_SoftVersion, joinDateTime);
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_ECUID] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_ECUID, joinDateTime);
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_BootloaderVersion] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_BootloaderVersion, joinDateTime);
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_RadioFreq] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_RadioFreq, joinDateTime);
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_DormantElect] = SelectTestItemValue(pcbaSN, productSN, STATION_SENSIBLITY, TestResultItemContent.Sen_DormantElect, joinDateTime);
                     }
                     #endregion
 
@@ -1318,7 +1379,7 @@ namespace MesAPI
                         dr[STATION_SHELL + TestResultItemContent.StationOutDate_shell] = stationOutDate;
                         dr[STATION_SHELL + TestResultItemContent.UserTeamLeader_shell] = teamLeader;
                         dr[STATION_SHELL + TestResultItemContent.TestResultValue_shell] = testResult;
-                        dr[STATION_SHELL + TestResultItemContent.Shell_FrontCover] = SelectTestItemValue(pcbaSN, productSN, STATION_SHELL, TestResultItemContent.Shell_FrontCover,joinDateTime);
+                        dr[STATION_SHELL + TestResultItemContent.Shell_FrontCover] = SelectTestItemValue(pcbaSN, productSN, STATION_SHELL, TestResultItemContent.Shell_FrontCover, joinDateTime);
                         dr[STATION_SHELL + TestResultItemContent.Shell_BackCover] = SelectTestItemValue(pcbaSN, productSN, STATION_SHELL, TestResultItemContent.Shell_BackCover, joinDateTime);
                         dr[STATION_SHELL + TestResultItemContent.Shell_PCBScrew1] = SelectTestItemValue(pcbaSN, productSN, STATION_SHELL, TestResultItemContent.Shell_PCBScrew1, joinDateTime);
                         dr[STATION_SHELL + TestResultItemContent.Shell_PCBScrew2] = SelectTestItemValue(pcbaSN, productSN, STATION_SHELL, TestResultItemContent.Shell_PCBScrew2, joinDateTime);
@@ -1338,7 +1399,7 @@ namespace MesAPI
                         dr[STATION_AIR + TestResultItemContent.StationOutDate_air] = stationOutDate;
                         dr[STATION_AIR + TestResultItemContent.UserTeamLeader_air] = teamLeader;
                         dr[STATION_AIR + TestResultItemContent.TestResultValue_air] = testResult;
-                        dr[STATION_AIR + TestResultItemContent.Air_AirtightTest] = SelectTestItemValue(pcbaSN, productSN, STATION_AIR, TestResultItemContent.Air_AirtightTest,joinDateTime);
+                        dr[STATION_AIR + TestResultItemContent.Air_AirtightTest] = SelectTestItemValue(pcbaSN, productSN, STATION_AIR, TestResultItemContent.Air_AirtightTest, joinDateTime);
                     }
                     #endregion
 
@@ -1349,11 +1410,11 @@ namespace MesAPI
                         dr[STATION_STENT + TestResultItemContent.StationOutDate_stent] = stationOutDate;
                         dr[STATION_STENT + TestResultItemContent.UserTeamLeader_stent] = teamLeader;
                         dr[STATION_STENT + TestResultItemContent.TestResultValue_stent] = testResult;
-                        dr[STATION_STENT + TestResultItemContent.Stent_Screw1] = SelectTestItemValue(pcbaSN, productSN, STATION_STENT, TestResultItemContent.Stent_Screw1,joinDateTime);
-                        dr[STATION_STENT + TestResultItemContent.Stent_Screw2] = SelectTestItemValue(pcbaSN, productSN, STATION_STENT, TestResultItemContent.Stent_Screw1,joinDateTime);
-                        dr[STATION_STENT + TestResultItemContent.Stent_Stent] = SelectTestItemValue(pcbaSN, productSN, STATION_STENT, TestResultItemContent.Stent_Stent,joinDateTime);
-                        dr[STATION_STENT + TestResultItemContent.Stent_LeftStent] = SelectTestItemValue(pcbaSN, productSN, STATION_STENT, TestResultItemContent.Stent_LeftStent,joinDateTime);
-                        dr[STATION_STENT + TestResultItemContent.Stent_RightStent] = SelectTestItemValue(pcbaSN, productSN, STATION_STENT, TestResultItemContent.Stent_RightStent,joinDateTime);
+                        dr[STATION_STENT + TestResultItemContent.Stent_Screw1] = SelectTestItemValue(pcbaSN, productSN, STATION_STENT, TestResultItemContent.Stent_Screw1, joinDateTime);
+                        dr[STATION_STENT + TestResultItemContent.Stent_Screw2] = SelectTestItemValue(pcbaSN, productSN, STATION_STENT, TestResultItemContent.Stent_Screw1, joinDateTime);
+                        dr[STATION_STENT + TestResultItemContent.Stent_Stent] = SelectTestItemValue(pcbaSN, productSN, STATION_STENT, TestResultItemContent.Stent_Stent, joinDateTime);
+                        dr[STATION_STENT + TestResultItemContent.Stent_LeftStent] = SelectTestItemValue(pcbaSN, productSN, STATION_STENT, TestResultItemContent.Stent_LeftStent, joinDateTime);
+                        dr[STATION_STENT + TestResultItemContent.Stent_RightStent] = SelectTestItemValue(pcbaSN, productSN, STATION_STENT, TestResultItemContent.Stent_RightStent, joinDateTime);
                     }
                     #endregion
 
@@ -1364,18 +1425,15 @@ namespace MesAPI
                         dr[STATION_PRODUCT + TestResultItemContent.StationOutDate_product] = stationOutDate;
                         dr[STATION_PRODUCT + TestResultItemContent.UserTeamLeader_product] = teamLeader;
                         dr[STATION_PRODUCT + TestResultItemContent.TestResultValue_product] = testResult;
-                        dr[STATION_PRODUCT + TestResultItemContent.Product_Work_Electric_Test] = SelectTestItemValue(pcbaSN, productSN, STATION_PRODUCT, TestResultItemContent.Product_Work_Electric_Test,joinDateTime);
-                        dr[STATION_PRODUCT + TestResultItemContent.Product_DormantElect] = SelectTestItemValue(pcbaSN, productSN, STATION_PRODUCT, TestResultItemContent.Product_DormantElect,joinDateTime);
+                        dr[STATION_PRODUCT + TestResultItemContent.Product_Work_Electric_Test] = SelectTestItemValue(pcbaSN, productSN, STATION_PRODUCT, TestResultItemContent.Product_Work_Electric_Test, joinDateTime);
+                        dr[STATION_PRODUCT + TestResultItemContent.Product_DormantElect] = SelectTestItemValue(pcbaSN, productSN, STATION_PRODUCT, TestResultItemContent.Product_DormantElect, joinDateTime);
                     }
                     #endregion
 
                     dt.Rows.Add(dr);
                     count++;
                 }
-                LogHelper.Log.Info("【查询过站历史完成】");
-                ds.Tables.Add(dt);
             }
-            return ds;
         }
 
         public string DeleteTestLogData(string queryCondition,string startTime,string endTime)
@@ -2530,6 +2588,13 @@ namespace MesAPI
         {
             var deleteSQL = $"DELETE FROM {DbTable.F_PRODUCT_PACKAGE_STORAGE_NAME} WHERE " +
                 $"{DbTable.F_PRODUCT_PACKAGE_STORAGE.PRODUCT_TYPE_NO} = '{productTypeNo}'";
+            int row = SQLServer.ExecuteNonQuery(deleteSQL);
+            if (row > 0)
+            {
+                //删除工艺
+                deleteSQL = $"DELETE FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} WHERE " +
+                    $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{productTypeNo}'";
+            }
             return SQLServer.ExecuteNonQuery(deleteSQL);
         }
 
@@ -2899,6 +2964,7 @@ namespace MesAPI
         }
         #endregion
 
+        #region query function
         public DataSet SelectTypeNoList()
         {
             var selectSQL = $"SELECT {DbTable.F_PRODUCT_PACKAGE_STORAGE.PRODUCT_TYPE_NO} " +
@@ -2932,5 +2998,6 @@ namespace MesAPI
                 $"{DbTable.F_BINDING_PCBA.PRODUCT_TYPE_NO} = 'A03' where {DbTable.F_BINDING_PCBA.SN_PCBA} = '017 B19922002104'";
             return SQLServer.ExecuteNonQuery(updateSQL).ToString();
         }
+        #endregion
     }
 }

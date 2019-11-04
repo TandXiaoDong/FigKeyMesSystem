@@ -137,10 +137,10 @@
             this.dw_pcba.Controls.Add(this.btn_exit);
             this.dw_pcba.Controls.Add(this.btn_cancelBinding);
             this.dw_pcba.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dw_pcba.Location = new System.Drawing.Point(4, 54);
+            this.dw_pcba.Location = new System.Drawing.Point(5, 27);
             this.dw_pcba.Name = "dw_pcba";
             this.dw_pcba.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dw_pcba.Size = new System.Drawing.Size(788, 560);
+            this.dw_pcba.Size = new System.Drawing.Size(786, 586);
             this.dw_pcba.Text = "PCBA解除绑定";
             // 
             // btn_repaireComplete
@@ -161,7 +161,7 @@
             // 
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
-            this.radGridView1.Size = new System.Drawing.Size(788, 459);
+            this.radGridView1.Size = new System.Drawing.Size(786, 459);
             this.radGridView1.TabIndex = 9;
             this.radGridView1.ThemeName = "Breeze";
             // 
@@ -174,7 +174,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(788, 56);
+            this.panel2.Size = new System.Drawing.Size(786, 56);
             this.panel2.TabIndex = 8;
             // 
             // radLabel7
@@ -256,7 +256,7 @@
             this.documentTabStrip1.Size = new System.Drawing.Size(796, 618);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
-            this.documentTabStrip1.ThemeName = "Material";
+            this.documentTabStrip1.ThemeName = "Breeze";
             // 
             // dw_materialOver
             // 
@@ -264,10 +264,10 @@
             this.dw_materialOver.Controls.Add(this.groupBox1);
             this.dw_materialOver.Controls.Add(this.groupBox2);
             this.dw_materialOver.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dw_materialOver.Location = new System.Drawing.Point(4, 54);
+            this.dw_materialOver.Location = new System.Drawing.Point(5, 27);
             this.dw_materialOver.Name = "dw_materialOver";
             this.dw_materialOver.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dw_materialOver.Size = new System.Drawing.Size(788, 560);
+            this.dw_materialOver.Size = new System.Drawing.Size(786, 586);
             this.dw_materialOver.Text = "物料结单";
             // 
             // groupBox1
@@ -278,7 +278,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(0, 84);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(788, 476);
+            this.groupBox1.Size = new System.Drawing.Size(786, 502);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "结单记录";
@@ -306,7 +306,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 19);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(782, 454);
+            this.panel1.Size = new System.Drawing.Size(780, 480);
             this.panel1.TabIndex = 5;
             // 
             // btn_query
@@ -494,7 +494,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.White;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(788, 84);
+            this.groupBox2.Size = new System.Drawing.Size(786, 84);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "异常类别";

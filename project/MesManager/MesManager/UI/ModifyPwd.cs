@@ -12,10 +12,15 @@ namespace MesManager.UI
     public partial class ModifyPwd : Telerik.WinControls.UI.RadForm
     {
         private MesService.MesServiceClient serviceClient;
-        public ModifyPwd(string username)
+        private string userName;
+        private string userID;
+
+        public ModifyPwd(string userID,string username)
         {
             InitializeComponent();
             this.tb_user.Text = username;
+            this.userName = username;
+            this.userID = userID;
             this.StartPosition = FormStartPosition.CenterParent;
             this.MaximizeBox = false;
         }
@@ -52,13 +57,18 @@ namespace MesManager.UI
                 return;
             }
             var dt = (await serviceClient.GetUserInfoAsync(username)).Tables[0];
-            if (dt.Rows.Count < 1)
+            if (dt.Rows.Count > 0)
             {
-                MessageBox.Show("用户名不存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                //用户已存在
+                //用户不能是已经存在的其他用户名
+                if (username != userName)
+                {
+                    MessageBox.Show("该用户名已存在，请重新输入用户名！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
             //验证旧密码
-            MesService.LoginResult loginResult = await serviceClient.LoginAsync(username,oldPwd);
+            MesService.LoginResult loginResult = await serviceClient.LoginAsync(userName,oldPwd);
             if (loginResult != MesService.LoginResult.SUCCESS)
             {
                 MessageBox.Show("旧密码错误！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -70,7 +80,7 @@ namespace MesManager.UI
                 return;
             }
 
-            var res = await serviceClient.ModifyUserPasswordAsync(username, confirmPwd);
+            var res = await serviceClient.ModifyUserPasswordAsync(userID,username, confirmPwd);
             if (res == 1)
             {
                 MessageBox.Show("修改成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);

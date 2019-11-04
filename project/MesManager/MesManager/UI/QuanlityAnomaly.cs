@@ -106,6 +106,8 @@ namespace MesManager.UI
             {
                 //没有权限，设置不可修改
                 this.btn_apply.Enabled = false;
+                this.btn_repaireComplete.Enabled = false;
+                this.btn_cancelBinding.Enabled = false;
             }
         }
 

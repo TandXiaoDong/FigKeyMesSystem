@@ -15,7 +15,19 @@ namespace MesManager.Common
         private static MesServiceTest.MesServiceClient serviceClientTest;
         private static List<string> burnProductDirList = new List<string>();
 
-        public static void InitDirectory()
+        public enum StandConfigType
+        {
+            burn,
+            sensibility,
+            shell,
+            airtage,
+            stent,
+            productTest,
+            productCheck
+        }
+
+
+        public static void InitDirectory(StandConfigType configType)
         {
             serviceClientTest = new MesServiceTest.MesServiceClient();
             var globalConfigPath = AppDomain.CurrentDomain.BaseDirectory + CommConfig.DeafaultConfigRoot;
@@ -27,24 +39,33 @@ namespace MesManager.Common
                 LogHelper.Log.Info("【InitStandConfig】未查询到所有产品");
             var defaultRoot = ConfigurationManager.AppSettings["standConfigRoot"].ToString();
             QueryCurrentStandProductDirectory(defaultRoot);
-            foreach (var productType in processList)
-            {
-                var burnProductType = defaultRoot + StandCommon.TurnStationConfigPath + productType + "\\" + StandCommon.TurnStationFWName;
-                var sensibilityProductType = defaultRoot + StandCommon.SensibilityStationConfigPath + productType;
-                var shellProductType = defaultRoot + StandCommon.ShellStationConfigPath + productType;
-                var airtageProductType = defaultRoot + StandCommon.AirtageStationConfigPath + productType;
-                var stentProductType = defaultRoot + StandCommon.StentStationConfigPath + productType;
-                var productTestProductType = defaultRoot + StandCommon.ProductFinishStationConfigPath + productType;
-                var productCheckProductType = defaultRoot + StandCommon.CheckProductStationConfigPath + productType;
+            var currentProcess = serviceClientTest.SelectCurrentTProcess();
 
+            if (currentProcess == "" || currentProcess == "NULL")
+                return;
+            //创建当前工艺文件夹
+            var burnProductType = defaultRoot + StandCommon.TurnStationConfigPath + currentProcess + "\\" + StandCommon.TurnStationFWName;
+            var sensibilityProductType = defaultRoot + StandCommon.SensibilityStationConfigPath + currentProcess;
+            var shellProductType = defaultRoot + StandCommon.ShellStationConfigPath + currentProcess;
+            var airtageProductType = defaultRoot + StandCommon.AirtageStationConfigPath + currentProcess;
+            var stentProductType = defaultRoot + StandCommon.StentStationConfigPath + currentProcess;
+            var productTestProductType = defaultRoot + StandCommon.ProductFinishStationConfigPath + currentProcess;
+            var productCheckProductType = defaultRoot + StandCommon.CheckProductStationConfigPath + currentProcess;
+
+            if(configType == StandConfigType.burn)
                 CreateNewDirectory(burnProductType);
+            else if(configType == StandConfigType.sensibility)
                 CreateNewDirectory(sensibilityProductType);
+            else if(configType == StandConfigType.shell)
                 CreateNewDirectory(shellProductType);
+            else if(configType == StandConfigType.airtage)
                 CreateNewDirectory(airtageProductType);
+            else if(configType == StandConfigType.stent)
                 CreateNewDirectory(stentProductType);
+            else if(configType == StandConfigType.productTest)
                 CreateNewDirectory(productTestProductType);
-                CreateNewDirectory(defaultRoot + StandCommon.CheckProductStationConfigPath + productType);
-            }
+            else if(configType == StandConfigType.productCheck)
+                CreateNewDirectory(defaultRoot + StandCommon.CheckProductStationConfigPath + currentProcess);
         }
 
         private static void CreateNewDirectory(string dir)
@@ -81,6 +102,8 @@ namespace MesManager.Common
 
         private static void DeleteNotExistProductPath(string[] productList,string standPath)
         {
+            if (!Directory.Exists(standPath))
+                return;
             DirectoryInfo directoryInfo = new DirectoryInfo(standPath);
             DirectoryInfo[] dirInfo = directoryInfo.GetDirectories();
             FileInfo[] fileInfos = directoryInfo.GetFiles();
@@ -88,7 +111,7 @@ namespace MesManager.Common
             {
                 if (!productList.Contains(dir.Name))
                 {
-                    Directory.Delete(dir.FullName);
+                    Directory.Delete(dir.FullName,true);
                 }
             }
             foreach (var file in fileInfos)

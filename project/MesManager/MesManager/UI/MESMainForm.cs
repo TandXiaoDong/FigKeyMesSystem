@@ -46,7 +46,7 @@ namespace MesManager.UI
 
         public void InitMain()
         {
-            InitStandConfig.InitDirectory();
+            //InitStandConfig.InitDirectory();
             PrepareTitleBar();
             EventHandlers();
         }

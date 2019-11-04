@@ -18,7 +18,9 @@ namespace MesWcfService.MessageQueue.RemoteClient
             ERROR_FAIL = 1,
             ERROR_SN_IS_NULL = 2,
             ERROR_STATION_IS_NULL = 3,
-            ERROR_FIRST_STATION = 4
+            ERROR_FIRST_STATION = 4,
+            ERROR_RESULT_IS_NULL = 5,
+            ERROR_JOINT_TIME_IS_NULL =6
         }
 
         private static string ConvertTestResultCode(UpdateTestResultEnum rCode)
@@ -48,58 +50,38 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var teamLeader = array[4].Trim();
             var admin = array[5].Trim();
             var joinDateTime = array[6].Trim();
+            LogHelper.Log.Info("【更新出站记录】");
             if (sn == "")
-                return ConvertTestResultCode(UpdateTestResultEnum.ERROR_SN_IS_NULL);
-            if (station == "")
-                return ConvertTestResultCode(UpdateTestResultEnum.ERROR_STATION_IS_NULL);
-
-            if (IsFirstStation(typeNo,station))
             {
-                //传入工站为第一个工站，插入数据，更新该工站的进站时间
-                LogHelper.Log.Info("【传入工站为第一个工站,插入进站记录】");
-                if (result == "")//进站
-                {
-                    //未插入进站记录
-                    LogHelper.Log.Info("【第一个工位-未插入进站记录-开始插入进站记录】");
-                    var row = InsertTestResult(sn, typeNo, station);
-                    if (row > 0)
-                    {
-                        return ConvertTestResultCode(UpdateTestResultEnum.STATUS_SUCCESS);
-                    }
-                    else
-                    {
-                        return ConvertTestResultCode(UpdateTestResultEnum.ERROR_FAIL);
-                    }
-                }
-                else
-                {
-                    //已插入进站记录
-                    //更新出站时间
-                    LogHelper.Log.Info("【第一个工位-已插入进站记录-更新出站记录】");
-                    var row = UpdateTestResult(sn, typeNo, station, result, teamLeader, admin, joinDateTime);
-                    if (row > 0)
-                    {
-                        return ConvertTestResultCode(UpdateTestResultEnum.STATUS_SUCCESS);
-                    }
-                    else
-                    {
-                        return ConvertTestResultCode(UpdateTestResultEnum.ERROR_FAIL);
-                    }
-                }
+                LogHelper.Log.Info("【更新出站结果】ERROR_SN_IS_NULL=0X02");
+                return ConvertTestResultCode(UpdateTestResultEnum.ERROR_SN_IS_NULL);
+            }
+            if (station == "")
+            {
+                LogHelper.Log.Info("【更新出站结果】ERROR_STATION_IS_NULL=0X03");
+                return ConvertTestResultCode(UpdateTestResultEnum.ERROR_STATION_IS_NULL);
+            }
+            if (result == "")
+            {
+                LogHelper.Log.Info("【更新出站结果】ERROR_RESULT_IS_NULL=0X05");
+                return ConvertTestResultCode(UpdateTestResultEnum.ERROR_RESULT_IS_NULL);
+            }
+            if (joinDateTime == "")
+            {
+                LogHelper.Log.Info("【更新出站结果】ERROR_JOINT_TIME_IS_NULL=0X06");
+                return ConvertTestResultCode(UpdateTestResultEnum.ERROR_JOINT_TIME_IS_NULL);
+            }
+
+            var row = UpdateTestResult(sn, typeNo, station, result, teamLeader, admin, joinDateTime);
+            if (row > 0)
+            {
+                LogHelper.Log.Info("【更新出站结果】STATUS_SUCCESS=0X00");
+                return ConvertTestResultCode(UpdateTestResultEnum.STATUS_SUCCESS);
             }
             else
             {
-                //传入工站为第一个工站之后的工站，更新测试结果与出站时间
-                LogHelper.Log.Info("【传入工位不为第一个工位-更新出站记录】");
-                var row = UpdateTestResult(sn,typeNo,station,result,teamLeader,admin, joinDateTime);
-                if (row > 0)
-                {
-                    return ConvertTestResultCode(UpdateTestResultEnum.STATUS_SUCCESS);
-                }
-                else
-                {
-                    return ConvertTestResultCode(UpdateTestResultEnum.ERROR_FAIL);
-                }
+                LogHelper.Log.Info("【更新出站结果】ERROR_FAIL=0X01");
+                return ConvertTestResultCode(UpdateTestResultEnum.ERROR_FAIL);
             }
         }
 
@@ -108,9 +90,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
         /// </summary>
         /// <param name="stationInArray"></param>
         /// <returns></returns>
-        private static int InsertTestResult(string sn,string typeNo,string station)
+        private static int InsertTestResult(string sn,string processName,string station)
         {
-            var processName = new MesService().SelectCurrentTProcess();
             var insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_NAME}(" +
                         $"{DbTable.F_Test_Result.SN}," +
                         $"{DbTable.F_Test_Result.TYPE_NO}," +
@@ -118,9 +99,10 @@ namespace MesWcfService.MessageQueue.RemoteClient
                         $"{DbTable.F_Test_Result.PROCESS_NAME}," +
                         $"{DbTable.F_Test_Result.UPDATE_DATE}," +
                         $"{DbTable.F_Test_Result.STATION_IN_DATE}) " +
-                        $"VALUES('{sn}','{typeNo}','{station}','{processName}'," +
+                        $"VALUES('{sn}','{processName}','{station}','{processName}'," +
                         $"'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'," +
                         $"'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
+            LogHelper.Log.Info("【插入进站记录】"+insertSQL);
             return SQLServer.ExecuteNonQuery(insertSQL);
         }
 
@@ -182,7 +164,29 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 //根据当前工艺与站位，查询其上一站位
                 //查询当前工艺流程
                 MesService mesService = new MesService();
+                //判断是不是第一个工站
                 var processName = mesService.SelectCurrentTProcess();
+                LogHelper.Log.Info("【查询工艺结果】"+processName);
+                if (IsFirstStation(processName, currentStation))
+                {
+                    //插入进站记录
+                    int row = InsertTestResult(sn, processName, currentStation);
+                    if (row > 0)
+                    {
+                        LogHelper.Log.Info("【插入进站记录-第一站】成功");
+                    }
+                    else
+                    {
+                        LogHelper.Log.Info("【插入进站记录-第一站】失败");
+                    }
+                    //默认返回结果为PASS
+                    LogHelper.Log.Info("【第一站-查询结果】PASS");
+                    queryResult = new string[3];
+                    queryResult[0] = sn;
+                    queryResult[1] = currentStation;
+                    queryResult[2] = "PASS";
+                    return queryResult;
+                }
                 string selectOrderSQL = $"SELECT {DbTable.F_TECHNOLOGICAL_PROCESS.STATION_ORDER} " +
                     $"FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} " +
                     $"WHERE {DbTable.F_TECHNOLOGICAL_PROCESS.STATION_NAME} = '{currentStation}' AND " +
@@ -259,6 +263,18 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     LogHelper.Log.Info("【第二次SN查询】"+selectSQL);
                     if (dt.Rows.Count < 1)
                     {
+                        //当PCBA未完成绑定时，两次查询均会失败
+                        //如果工艺流程不包含外壳装配或支架装配工站，可默认通过
+                        var stationList = new MesService().SelectStationList(processName);
+                        if (!stationList.Contains("外壳装配工站") && !stationList.Contains("支架装配工站"))
+                        {
+                            queryResult = new string[3];
+                            queryResult[0] = sn;
+                            queryResult[1] = lastStation;
+                            queryResult[2] = "PASS";
+                            return queryResult;
+                        }
+                        //包含绑定工站，即是绑定失败等原因
                         queryResult = new string[1];
                         queryResult[0] = "QUERY_NONE";
                         return queryResult;
@@ -273,7 +289,15 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 if (testRes.Trim().ToLower() == "pass")
                 {
                     LogHelper.Log.Info("【查询结果为PASS，插入进站记录】");
-                    InsertTestResult(sn,productTypeNo,currentStation);
+                    int row = InsertTestResult(sn,processName,currentStation);
+                    if (row > 0)
+                    {
+                        LogHelper.Log.Info("【插入进站记录】成功");
+                    }
+                    else
+                    {
+                        LogHelper.Log.Info("【插入进站记录】失败");
+                    }
                 }
                 else
                 {

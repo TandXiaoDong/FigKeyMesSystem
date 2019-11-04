@@ -104,6 +104,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{productTest.TestSerial}】的供电电压为{productTest.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
+            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productTest);
             CheckProductTestConfigParams();
             SaveProductTestConfig();
             CheckCommonConfigParams();
@@ -125,6 +126,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{productCheck.TestSerial}】的供电电压为{productCheck.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
+            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productCheck);
             CheckProductCheckConfigParams();
             SaveProductCheckConfig();
             CheckCommonConfigParams();
@@ -146,6 +148,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{airtage.TestSerial}】的供电电压为{airtage.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
+            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.airtage);
             CheckAirtageConfigParams();
             SaveAirtageStandConfig();
             CheckCommonConfigParams();
@@ -167,6 +170,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{stent.TestSerial}】的供电电压为{stent.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
+            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.stent);
             CheckStentConfigParams();
             SaveStentStandConfig();
             CheckCommonConfigParams();
@@ -188,6 +192,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{shell.TestSerialNumber}】的供电电压为{shell.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
+            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.shell);
             CheckShellConfigParams();
             SaveShellStandConfig();
             CheckCommonConfigParams();
@@ -209,6 +214,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{sen.ProductSerial}】的供电电压为{sen.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
+            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.sensibility);
             CheckSensibilityConfigParams();
             SaveSensibilityStandConfig();
             CheckCommonConfigParams();
@@ -230,6 +236,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{burn.SerialNumber}】的供电电压为{burn.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
+            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.burn);
             CheckBurnConfigParams();
             SaveBurnStandConfig();
             CheckCommonConfigParams();
@@ -802,73 +809,109 @@ namespace MesManager.UI
         /// </summary>
         private void SaveCommonStandConfig()
         {
+            bool IsBurn = true, IsSen = true, IsAir = true, IsStent = true,IsShell =  true, IsPtest = true, IsPcheck = true;
             //烧录文件保存通用配置
             var burnInitPath = defaultRoot + StandCommon.TurnStationConfigPath + standCommon.ProductTypeNo + "\\";
             var burnFileName = StandCommon.TurnStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var burnSavePath = burnInitPath + burnFileName;
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, burnSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, burnSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, burnSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, burnSavePath);
-
+            if (File.Exists(burnSavePath))
+            {
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, burnSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, burnSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, burnSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, burnSavePath);
+            }
+            else
+            {
+                IsBurn = false;
+            }
             //灵敏度文件保存通用配置
             var senInitPath = defaultRoot + StandCommon.SensibilityStationConfigPath + standCommon.ProductTypeNo + "\\";
             var senFileName = StandCommon.SensibilityStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var senSavePath = senInitPath + senFileName;
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, senSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, senSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, senSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, senSavePath);
+            if (File.Exists(senSavePath))
+            {
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, senSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, senSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, senSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, senSavePath);
+            }
+            else
+                IsSen = false;
 
             //外壳装配文件保存通用配置
             var shellInitPath = defaultRoot + StandCommon.ShellStationConfigPath + standCommon.ProductTypeNo + "\\";
             var shellFileName = StandCommon.ShellStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var shellSavePath = shellInitPath + shellFileName;
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, shellSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, shellSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, shellSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, shellSavePath);
-
+            if (File.Exists(shellSavePath))
+            {
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, shellSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, shellSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, shellSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, shellSavePath);
+            }
+            else
+                IsShell = false;
             //气密文件保存通用配置
             var airtageInitPath = defaultRoot + StandCommon.AirtageStationConfigPath + standCommon.ProductTypeNo + "\\";
             var airtageFileName = StandCommon.AirtageStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var airtageSavePath = airtageInitPath + airtageFileName;
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, airtageSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, airtageSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, airtageSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, airtageSavePath);
-
+            if (File.Exists(airtageFileName))
+            {
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, airtageSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, airtageSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, airtageSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, airtageSavePath);
+            }
+            else
+                IsAir = false;
             //支架装配文件保存通用配置
             var stentInitPath = defaultRoot + StandCommon.StentStationConfigPath + standCommon.ProductTypeNo + "\\";
             var stentFileName = StandCommon.StentStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var stentSavePath = stentInitPath + stentFileName;
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, stentSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, stentSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, stentSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, stentSavePath);
+            if (File.Exists(stentSavePath))
+            {
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, stentSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, stentSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, stentSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, stentSavePath);
+            }
+            else
+                IsStent = false;
 
             //成品测试文件保存通用配置
             var productTestInitPath = defaultRoot + StandCommon.ProductFinishStationConfigPath + standCommon.ProductTypeNo + "\\";
             var productTestFileName = StandCommon.ProductFinishStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var productTestSavePath = productTestInitPath + productTestFileName;
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, productTestSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, productTestSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, productTestSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, productTestSavePath);
-
+            if (File.Exists(productTestSavePath))
+            {
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, productTestSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, productTestSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, productTestSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, productTestSavePath);
+            }
+            else
+                IsPtest = false;
             //成品抽检文件保存通用配置
             var productCheckInitPath = defaultRoot + StandCommon.CheckProductStationConfigPath + standCommon.ProductTypeNo + "\\";
             var productCheckFileName = StandCommon.CheckProductStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var productCheckSavePath = productCheckInitPath + productCheckFileName;
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, productCheckSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, productCheckSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, productCheckSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, productCheckSavePath);
+            if (File.Exists(productCheckSavePath))
+            {
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, productCheckSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, productCheckSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, standCommon.CaseBarCodeLength, productCheckSavePath);
+                INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, standCommon.PackageCaseAmount, productCheckSavePath);
+            }
+            else
+                IsPcheck = false;
             if (IsSavePrivateConfig)
             {
                 IsSavePrivateConfig = false;
                 return;
             }
+            if (!IsBurn && !IsSen && !IsAir && !IsShell && !IsStent && !IsPtest && !IsPcheck)
+                return;
             MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

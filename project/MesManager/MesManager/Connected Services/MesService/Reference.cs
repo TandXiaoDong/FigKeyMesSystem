@@ -66,10 +66,16 @@ namespace MesManager.MesService {
         private int ProcessStateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int StationIDField;
+        private int ResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StationIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string StationNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UpdateDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UserNameField;
@@ -111,12 +117,25 @@ namespace MesManager.MesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int StationID {
+        public int Result {
+            get {
+                return this.ResultField;
+            }
+            set {
+                if ((this.ResultField.Equals(value) != true)) {
+                    this.ResultField = value;
+                    this.RaisePropertyChanged("Result");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StationID {
             get {
                 return this.StationIDField;
             }
             set {
-                if ((this.StationIDField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.StationIDField, value) != true)) {
                     this.StationIDField = value;
                     this.RaisePropertyChanged("StationID");
                 }
@@ -132,6 +151,19 @@ namespace MesManager.MesService {
                 if ((object.ReferenceEquals(this.StationNameField, value) != true)) {
                     this.StationNameField = value;
                     this.RaisePropertyChanged("StationName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UpdateDate {
+            get {
+                return this.UpdateDateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UpdateDateField, value) != true)) {
+                    this.UpdateDateField = value;
+                    this.RaisePropertyChanged("UpdateDate");
                 }
             }
         }
@@ -355,6 +387,12 @@ namespace MesManager.MesService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/GetUserInfo", ReplyAction="http://tempuri.org/IMesService/GetUserInfoResponse")]
         System.Threading.Tasks.Task<System.Data.DataSet> GetUserInfoAsync(string username);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/GetUserID", ReplyAction="http://tempuri.org/IMesService/GetUserIDResponse")]
+        string GetUserID(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/GetUserID", ReplyAction="http://tempuri.org/IMesService/GetUserIDResponse")]
+        System.Threading.Tasks.Task<string> GetUserIDAsync(string username);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/GetAllUserInfo", ReplyAction="http://tempuri.org/IMesService/GetAllUserInfoResponse")]
         System.Data.DataSet GetAllUserInfo();
         
@@ -362,16 +400,16 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<System.Data.DataSet> GetAllUserInfoAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/Register", ReplyAction="http://tempuri.org/IMesService/RegisterResponse")]
-        MesManager.MesService.RegisterResult Register(string username, string pwd, string phone, string email, int userType);
+        MesManager.MesService.RegisterResult Register(string username, string pwd, int userType);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/Register", ReplyAction="http://tempuri.org/IMesService/RegisterResponse")]
-        System.Threading.Tasks.Task<MesManager.MesService.RegisterResult> RegisterAsync(string username, string pwd, string phone, string email, int userType);
+        System.Threading.Tasks.Task<MesManager.MesService.RegisterResult> RegisterAsync(string username, string pwd, int userType);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/ModifyUserPassword", ReplyAction="http://tempuri.org/IMesService/ModifyUserPasswordResponse")]
-        int ModifyUserPassword(string username, string pwd);
+        int ModifyUserPassword(string userID, string username, string pwd);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/ModifyUserPassword", ReplyAction="http://tempuri.org/IMesService/ModifyUserPasswordResponse")]
-        System.Threading.Tasks.Task<int> ModifyUserPasswordAsync(string username, string pwd);
+        System.Threading.Tasks.Task<int> ModifyUserPasswordAsync(string userID, string username, string pwd);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteUser", ReplyAction="http://tempuri.org/IMesService/DeleteUserResponse")]
         int DeleteUser(string username);
@@ -404,16 +442,22 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<int> DeleteAllStationAsync(string processName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/InsertStation", ReplyAction="http://tempuri.org/IMesService/InsertStationResponse")]
-        int InsertStation(MesManager.MesService.Station[] stationList);
+        MesManager.MesService.Station[] InsertStation(MesManager.MesService.Station[] stationList);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/InsertStation", ReplyAction="http://tempuri.org/IMesService/InsertStationResponse")]
-        System.Threading.Tasks.Task<int> InsertStationAsync(MesManager.MesService.Station[] stationList);
+        System.Threading.Tasks.Task<MesManager.MesService.Station[]> InsertStationAsync(MesManager.MesService.Station[] stationList);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SetCurrentProcess", ReplyAction="http://tempuri.org/IMesService/SetCurrentProcessResponse")]
         int SetCurrentProcess(string processName, int state);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SetCurrentProcess", ReplyAction="http://tempuri.org/IMesService/SetCurrentProcessResponse")]
         System.Threading.Tasks.Task<int> SetCurrentProcessAsync(string processName, int state);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateProcessOrder", ReplyAction="http://tempuri.org/IMesService/UpdateProcessOrderResponse")]
+        int UpdateProcessOrder(string process, string station, int id, string user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateProcessOrder", ReplyAction="http://tempuri.org/IMesService/UpdateProcessOrderResponse")]
+        System.Threading.Tasks.Task<int> UpdateProcessOrderAsync(string process, string station, int id, string user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteAllTypeStation", ReplyAction="http://tempuri.org/IMesService/DeleteAllTypeStationResponse")]
         int DeleteAllTypeStation();
@@ -749,6 +793,14 @@ namespace MesManager.MesService {
             return base.Channel.GetUserInfoAsync(username);
         }
         
+        public string GetUserID(string username) {
+            return base.Channel.GetUserID(username);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetUserIDAsync(string username) {
+            return base.Channel.GetUserIDAsync(username);
+        }
+        
         public System.Data.DataSet GetAllUserInfo() {
             return base.Channel.GetAllUserInfo();
         }
@@ -757,20 +809,20 @@ namespace MesManager.MesService {
             return base.Channel.GetAllUserInfoAsync();
         }
         
-        public MesManager.MesService.RegisterResult Register(string username, string pwd, string phone, string email, int userType) {
-            return base.Channel.Register(username, pwd, phone, email, userType);
+        public MesManager.MesService.RegisterResult Register(string username, string pwd, int userType) {
+            return base.Channel.Register(username, pwd, userType);
         }
         
-        public System.Threading.Tasks.Task<MesManager.MesService.RegisterResult> RegisterAsync(string username, string pwd, string phone, string email, int userType) {
-            return base.Channel.RegisterAsync(username, pwd, phone, email, userType);
+        public System.Threading.Tasks.Task<MesManager.MesService.RegisterResult> RegisterAsync(string username, string pwd, int userType) {
+            return base.Channel.RegisterAsync(username, pwd, userType);
         }
         
-        public int ModifyUserPassword(string username, string pwd) {
-            return base.Channel.ModifyUserPassword(username, pwd);
+        public int ModifyUserPassword(string userID, string username, string pwd) {
+            return base.Channel.ModifyUserPassword(userID, username, pwd);
         }
         
-        public System.Threading.Tasks.Task<int> ModifyUserPasswordAsync(string username, string pwd) {
-            return base.Channel.ModifyUserPasswordAsync(username, pwd);
+        public System.Threading.Tasks.Task<int> ModifyUserPasswordAsync(string userID, string username, string pwd) {
+            return base.Channel.ModifyUserPasswordAsync(userID, username, pwd);
         }
         
         public int DeleteUser(string username) {
@@ -813,11 +865,11 @@ namespace MesManager.MesService {
             return base.Channel.DeleteAllStationAsync(processName);
         }
         
-        public int InsertStation(MesManager.MesService.Station[] stationList) {
+        public MesManager.MesService.Station[] InsertStation(MesManager.MesService.Station[] stationList) {
             return base.Channel.InsertStation(stationList);
         }
         
-        public System.Threading.Tasks.Task<int> InsertStationAsync(MesManager.MesService.Station[] stationList) {
+        public System.Threading.Tasks.Task<MesManager.MesService.Station[]> InsertStationAsync(MesManager.MesService.Station[] stationList) {
             return base.Channel.InsertStationAsync(stationList);
         }
         
@@ -827,6 +879,14 @@ namespace MesManager.MesService {
         
         public System.Threading.Tasks.Task<int> SetCurrentProcessAsync(string processName, int state) {
             return base.Channel.SetCurrentProcessAsync(processName, state);
+        }
+        
+        public int UpdateProcessOrder(string process, string station, int id, string user) {
+            return base.Channel.UpdateProcessOrder(process, station, id, user);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdateProcessOrderAsync(string process, string station, int id, string user) {
+            return base.Channel.UpdateProcessOrderAsync(process, station, id, user);
         }
         
         public int DeleteAllTypeStation() {

@@ -125,11 +125,11 @@ namespace MesManager.UI
 
         private void EventHandlers()
         {
-            menu_refresh.Click += Menu_refresh_Click;
-            menu_grid.Click += Menu_grid_Click;
-            menu_clear_db.Click += Menu_clear_db_Click;
-            menu_del.Click += Menu_del_Click;
-            menu_add.Click += Menu_add_Click;
+            this.menu_refresh.Click += Menu_refresh_Click;
+            this.menu_grid.Click += Menu_grid_Click;
+            this.menu_clear_db.Click += Menu_clear_db_Click;
+            this.menu_del.Click += Menu_del_Click;
+            this.menu_add.Click += Menu_add_Click;
             this.menu_export.Click += Menu_export_Click;
 
             this.radGridView1.CellBeginEdit += RadGridView1_CellBeginEdit;

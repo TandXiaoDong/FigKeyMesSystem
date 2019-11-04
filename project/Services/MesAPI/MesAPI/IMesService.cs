@@ -32,13 +32,16 @@ namespace MesAPI
         DataSet GetUserInfo(string username);
 
         [OperationContract]
+        string GetUserID(string username);
+
+        [OperationContract]
         DataSet GetAllUserInfo();
 
         [OperationContract]
-        RegisterResult Register(string username, string pwd, string phone, string email, int userType);
+        RegisterResult Register(string username, string pwd, int userType);
 
         [OperationContract]
-        int ModifyUserPassword(string username,string pwd);
+        int ModifyUserPassword(string userID,string username,string pwd);
 
         [OperationContract]
         int DeleteUser(string username);
@@ -57,10 +60,13 @@ namespace MesAPI
         int DeleteAllStation(string processName);
 
         [OperationContract]
-        int InsertStation(List<Station> stationList);
+        List<Station> InsertStation(List<Station> stationList);
 
         [OperationContract]
         int SetCurrentProcess(string processName, int state);
+
+        [OperationContract]
+        int UpdateProcessOrder(string process, string station, int id,string user);
 
         //站位接口
         [OperationContract]

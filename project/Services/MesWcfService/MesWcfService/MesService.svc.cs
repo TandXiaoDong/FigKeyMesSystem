@@ -291,6 +291,8 @@ namespace MesWcfService
         [SwaggerWcfResponse("0X02", "ERROR_SN_IS_NULL")]
         [SwaggerWcfResponse("0X03", "ERROR_STATION_IS_NULL")]
         [SwaggerWcfResponse("0X04", "ERROR_FIRST_STATION")]
+        [SwaggerWcfResponse("0X05", "ERROR_RESULT_IS_NULL")]
+        [SwaggerWcfResponse("0X06", "ERROR_JOINT_TIME_IS_NULL")]
         [SwaggerWcfResponse(HttpStatusCode.Unused)]
         public string UpdateTestResultData(string sn, string typeNo, string station,string result,string teamLeader, string admin,string joinDateTime)
         {
@@ -689,6 +691,7 @@ namespace MesWcfService
                 $"{DbTable.F_BINDING_PCBA.SN_PCBA} like '%{sn}%' " +
                 $"or " +
                 $"{DbTable.F_BINDING_PCBA.SN_OUTTER} like '%{sn}%'";
+            //LogHelper.Log.Info("【查询PCBA】"+selectSQL);
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("序号");

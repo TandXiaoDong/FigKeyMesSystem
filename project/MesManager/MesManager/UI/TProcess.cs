@@ -10,6 +10,7 @@ using MesManager.Control;
 using CommonUtils.Logger;
 using Telerik.WinControls.UI;
 using NetronLight;
+using MesManager.Common;
 
 namespace MesManager.UI
 {
@@ -17,7 +18,7 @@ namespace MesManager.UI
     {
         private MesService.MesServiceClient serviceClient;
         private MesServiceTest.MesServiceClient serviceClientTest;
-        private DataTable stationData;
+        private DataTable stationData,stationDataTemp;
         private List<string> stationListTemp;
         private string keyStation;        //记录修改前的编码
         private string curRowStationName;//记录鼠标右键选中行编码
@@ -25,6 +26,7 @@ namespace MesManager.UI
         private const string DATA_STATION_NAME = "工序名称";
         private const string DATA_USER_NAME = "操作用户";
         private const string DATA_UPDATE_DATE = "更新日期";
+        private string currentSelectProcess;
 
         public TProcess()
         {
@@ -35,10 +37,13 @@ namespace MesManager.UI
         {
             Init();
             EventHandlers();
-            RefreshProcessData();
+            UpdateProcesList();
+            SelectStationList(this.currentSelectProcess);
+            this.currentSelectProcess = serviceClientTest.SelectCurrentTProcess();
+            this.cb_processItem.SelectedIndex = this.cb_processItem.Items.IndexOf(this.currentSelectProcess);
+            this.cb_curprocess.SelectedIndex = this.cb_curprocess.Items.IndexOf(this.currentSelectProcess);
             RefreshControl();
         }
-
 
         private void Init()
         {
@@ -97,7 +102,9 @@ namespace MesManager.UI
             this.menu_del.Click += Menu_del_Click;
             this.menu_add.Click += Menu_add_Click;
             this.menu_commit.Click += Menu_commit_Click;
-            //this.menu_up_insert.Click += Menu_up_insert_Click;
+            this.menu_insertDown.Click += Menu_insertDown_Click;
+            this.menu_insertUp.Click += Menu_insertUp_Click;
+            this.menu_cancel.Click += Menu_cancel_Click;
             this.cb_processItem.SelectedIndexChanged += Cb_processItem_SelectedIndexChanged;
 
             this.radGridView1.CellBeginEdit += RadGridView1_CellBeginEdit;
@@ -106,20 +113,21 @@ namespace MesManager.UI
             this.btn_setprocess.Click += Btn_setprocess_Click;
         }
 
-        private void Menu_up_insert_Click(object sender, EventArgs e)
+        private void Menu_cancel_Click(object sender, EventArgs e)
         {
-            //向上插入行
-            var curIndex = this.radGridView1.CurrentRow.Index;
-            if (this.radGridView1.Rows.Count < 1)
-            {
-                this.radGridView1.Rows.AddNew();
-                return;
-            }
-            foreach (GridViewRowInfo rInfo in this.radGridView1.Rows)
-            {
-                this.radGridView1.Rows.Insert(curIndex, rInfo);
-                break;
-            }
+            SelectStationList(this.cb_processItem.Text);
+        }
+
+        private void Menu_insertUp_Click(object sender, EventArgs e)
+        {
+            var currentIndex = this.radGridView1.CurrentRow.Index;
+            InsertRow(currentIndex);
+        }
+
+        private void Menu_insertDown_Click(object sender, EventArgs e)
+        {
+            var currentIndex = this.radGridView1.CurrentRow.Index;
+            InsertRow(currentIndex + 1);
         }
 
         private void Btn_setprocess_Click(object sender, EventArgs e)
@@ -136,7 +144,8 @@ namespace MesManager.UI
                 this.radGridView1.Rows.AddNew();
                 return;
             }
-            SelectStationList(this.cb_processItem.Text.Trim());
+            this.currentSelectProcess = this.cb_processItem.Text;
+            SelectStationList(this.currentSelectProcess);
         }
 
         private void ClearGridView()
@@ -162,13 +171,13 @@ namespace MesManager.UI
             }
             else
             {
-                if (MessageBox.Show("确认要删除当前行记录？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                if (MessageBox.Show($"确认要删除【{stationName}】工站？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     int row = await serviceClient.DeleteStationAsync(cb_processItem.Text.Trim(), stationName);
                     if (row > 0)
                     {
                         //查询删除成功
-                        RefreshProcessData();
+                        SelectStationList(this.currentSelectProcess);
                     }
                     else
                     {
@@ -185,6 +194,8 @@ namespace MesManager.UI
             if (MessageBox.Show($"确定要清空工艺【{this.cb_processItem.Text}】的所有数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.Cancel)
                 return;
             await serviceClient.DeleteAllStationAsync(this.cb_processItem.Text.Trim());
+
+            InitCurrentProcessItem();
             SelectStationList(this.cb_processItem.Text.Trim());
         }
 
@@ -224,7 +235,7 @@ namespace MesManager.UI
 
         private void RadGridView1_CellBeginEdit(object sender, GridViewCellCancelEventArgs e)
         {
-            var key = this.radGridView1.CurrentRow.Cells[1].Value;
+            var key = this.radGridView1.CurrentRow.Cells[1].Value;//station
             var index = this.radGridView1.RowCount;
             var rIndex = this.radGridView1.CurrentRow.Index;
             if (key == null)//行不存在
@@ -246,14 +257,11 @@ namespace MesManager.UI
 
         private void Menu_refresh_Click(object sender, EventArgs e)
         {
-            RefreshProcessData();
-        }
-
-        private void RefreshProcessData()
-        {
             UpdateProcesList();
-            SelectStationList(this.cb_processItem.Text.Trim());
-            stationListTemp.Clear();
+            SelectStationList(this.currentSelectProcess);
+            this.currentSelectProcess = serviceClientTest.SelectCurrentTProcess();
+            this.cb_processItem.SelectedIndex = this.cb_processItem.Items.IndexOf(this.currentSelectProcess);
+            this.cb_curprocess.SelectedIndex = this.cb_curprocess.Items.IndexOf(this.currentSelectProcess);
         }
 
         private void Menu_commit_Click(object sender, EventArgs e)
@@ -279,8 +287,20 @@ namespace MesManager.UI
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
                     DataRow dr = stationData.NewRow();
-                    dr[DATA_ORDER] = dataTable.Rows[i][0].ToString();
-                    dr[DATA_STATION_NAME] = dataTable.Rows[i][1].ToString();
+                    var originID = dataTable.Rows[i][0].ToString();
+                    var stationName = dataTable.Rows[i][1].ToString();
+                    if (originID == (i + 1).ToString())
+                    {
+                        dr[DATA_ORDER] = originID;
+                    }
+                    else
+                    {
+                        //修改ID
+                        var row = serviceClient.UpdateProcessOrder(processName,stationName,i + 1,MESMainForm.currentUser);
+                        SelectStationList(processName);
+                        return;
+                    }
+                    dr[DATA_STATION_NAME] = stationName;
                     dr[DATA_USER_NAME] = dataTable.Rows[i][2].ToString();
                     dr[DATA_UPDATE_DATE] = dataTable.Rows[i][3].ToString();
                     stationData.Rows.Add(dr);
@@ -301,12 +321,12 @@ namespace MesManager.UI
             this.radGridView1.Columns[0].ReadOnly = true;
             this.radGridView1.Columns[2].ReadOnly = true;
             this.radGridView1.Columns[3].ReadOnly = true;
+            stationDataTemp = stationData.Copy();
         }
 
         private void UpdateProcesList()
         {
             this.cb_processItem.Items.Clear();
-            this.cb_curprocess.Items.Clear();
             DataSet dataSet = serviceClient.SelectTypeNoList();
             DataTable dataTable = dataSet.Tables[0];
             stationData.Clear();
@@ -316,62 +336,86 @@ namespace MesManager.UI
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
                     this.cb_processItem.Items.Add(dataTable.Rows[i][0]);
-                    this.cb_curprocess.Items.Add(dataTable.Rows[i][0]);
                 }
                 if (!cb_processItem.Items.Contains(this.cb_processItem.Text))
                     cb_processItem.Text = "";
             }
-            this.cb_curprocess.Text = serviceClientTest.SelectCurrentTProcess();
-            this.cb_processItem.Text = this.cb_curprocess.Text;
+            InitCurrentProcessItem();
         }
 
-        async private void CommitStationMesService()
+        private void InitCurrentProcessItem()
         {
+            this.cb_curprocess.Items.Clear();
+            var processList = serviceClientTest.SelectAllTProcess();
+            foreach (var process in processList)
+            {
+                this.cb_curprocess.Items.Add(process);
+            }
+            this.currentSelectProcess = serviceClientTest.SelectCurrentTProcess();
+            this.cb_curprocess.SelectedIndex = this.cb_curprocess.Items.IndexOf(this.currentSelectProcess);
+        }
+
+        private void CommitStationMesService()
+        {
+            bool IsSuccess = true;
             try
             {
-                int row = radGridView1.RowCount;
-                MesService.Station[] stationsArray = new MesService.Station[row];
-                //将新增数据
-                for (int i = 0; i < row; i++)
+                //将数据提交
+                if (this.cb_processItem.Text == "")
+                {
+                    MessageBox.Show("请选择需要修改的工艺！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    return;
+                }
+                //MesService.Station[] stationList = new MesService.Station[this.radGridView1.RowCount];
+                List<MesService.Station> stationsList = new List<MesService.Station>();
+                var currentProcess = serviceClientTest.SelectCurrentTProcess();
+                int processState = 0;
+                if (currentProcess == this.cb_processItem.Text)
+                    processState = 1;
+                int i = 0;
+                foreach (var rowInfo in this.radGridView1.Rows)
                 {
                     MesService.Station station = new MesService.Station();
-                    var ID = radGridView1.Rows[i].Cells[0].Value.ToString().Trim();
-                    var stationName = radGridView1.Rows[i].Cells[1].Value.ToString().Trim();
-                    if (!string.IsNullOrEmpty(stationName))
+                    station.ProcessName = this.cb_processItem.Text;
+                    station.StationID = rowInfo.Cells[0].Value.ToString();
+                    station.StationName = rowInfo.Cells[1].Value.ToString();
+                    if (station.StationName == "")
+                        continue;
+                    var userName = rowInfo.Cells[2].Value.ToString();
+                    if (userName == "")
+                        userName = MESMainForm.currentUser;
+                    station.UserName = userName;
+                    station.ProcessState = processState;
+                    var processDate = rowInfo.Cells[3].Value.ToString();
+                    if (processDate == "")
+                        processDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");//新增
+                    else
                     {
-                        station.ProcessName = this.cb_processItem.Text.Trim();
-                        station.StationID = int.Parse(ID);
-                        station.StationName = stationName;
-                        if (cb_curprocess.Text == cb_processItem.Text)
+                        //修改
+                        DataRow[] dataRows = stationDataTemp.Select($"{DATA_STATION_NAME} = '{station.StationName}'");
+                        if (dataRows.Length < 1)
                         {
-                            station.ProcessState = 1;
+                            processDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         }
-                        else
-                        {
-                            station.ProcessState = 0;
-                        }
-                        station.UserName = MESMainForm.currentUser;
-                        stationsArray[i] = station;
+                    }
+                    station.UpdateDate = processDate;
+                    stationsList.Add(station);
+                    i++;
+                }
+                int delRow = serviceClient.DeleteAllStation(this.cb_processItem.Text);
+                MesService.Station[] updateResult = serviceClient.InsertStation(stationsList.ToArray());
+                foreach (var station in updateResult)
+                {
+                    if (station.Result < 1)
+                    {
+                        IsSuccess = false;
+                        MessageBox.Show($"【{station.StationName}】更新失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
-                //修改数据
-                if (stationListTemp.Count > 0)
-                {
-                    foreach (var station in stationListTemp)
-                    {
-                        await serviceClient.DeleteStationAsync(this.cb_processItem.Text.Trim(),station);
-                    }
-                }
-                int res = await serviceClient.InsertStationAsync(stationsArray);
-                if (res == 1)
-                {
-                    RefreshProcessData();
+                if (IsSuccess)
                     MessageBox.Show("更新成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show($"更新失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                InitCurrentProcessItem();
+                SelectStationList(this.cb_processItem.Text);
             }
             catch (Exception ex)
             {
@@ -408,7 +452,9 @@ namespace MesManager.UI
                     await serviceClient.SetCurrentProcessAsync(process.ToString(), 0);
                 }
             }
-            RefreshProcessData();
+            this.currentSelectProcess = serviceClientTest.SelectCurrentTProcess();
+            this.cb_curprocess.Text = this.currentSelectProcess;
+            this.cb_processItem.Text = this.currentSelectProcess;
         }
 
         /// <summary>
@@ -472,6 +518,23 @@ namespace MesManager.UI
             {
                 LogHelper.Log.Error(ex.Message);
             }
+        }
+
+        private void InsertRow(int insertIndex)
+        {
+            //从小排序
+            var count = stationData.Rows.Count;
+            DataRow dr = stationData.NewRow();
+            dr[DATA_ORDER] = insertIndex + 1;
+            dr[DATA_STATION_NAME] = "";
+            stationData.Rows.InsertAt(dr,insertIndex);
+            count = stationData.Rows.Count;
+            //从新遍历集合 排序
+            for (int i = 0; i < stationData.Rows.Count; i++)
+            {
+                stationData.Rows[i][0] = i + 1;
+            }
+            this.radGridView1.DataSource = stationData;
         }
     }
 }

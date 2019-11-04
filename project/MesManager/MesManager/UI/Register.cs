@@ -44,21 +44,13 @@ namespace MesManager.UI
             var username = this.tb_username.Text.Trim();
             var userpwd = this.tb_pwd.Text.Trim();
             var userRpwd = this.tb_repwd.Text.Trim();
-            var userType = this.cb_userType.Text.Trim();
+            var userType = this.cb_userType.SelectedIndex + 1;
 
-            if (string.IsNullOrEmpty(userType))
+            if (string.IsNullOrEmpty(userType.ToString()))
             {
                 MessageBox.Show("用户类型不能为空！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            //if (this.cb_userType.SelectedIndex == 0)//班组长
-            //    userType = "1";
-            //else if (this.cb_userType.SelectedIndex == 1)//操作员
-            //    userType = "2";
-            //else if (this.cb_userType.SelectedIndex == 2)
-            //    userType = "3";
-            if (this.cb_userType.SelectedIndex == 0)//操作员
-                userType = "3";
 
             if (string.IsNullOrEmpty(username))
             {
@@ -96,7 +88,7 @@ namespace MesManager.UI
                 MessageBox.Show("密码必须包含数字、字母", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            MesService.RegisterResult registerResult = await serviceClient.RegisterAsync(username,userpwd,"","",int.Parse(userType));
+            MesService.RegisterResult registerResult = await serviceClient.RegisterAsync(username,userpwd, userType);
             if (registerResult == MesService.RegisterResult.REGISTER_SUCCESS)
             {
                 //注册成功

@@ -366,9 +366,7 @@ namespace MesManager
 
         private void Menu_produce_config_Click(object sender, EventArgs e)
         {
-            Station setProduce = new Station();
-            setProduce.StartPosition = FormStartPosition.CenterParent;
-            setProduce.ShowDialog();
+            
         }
 
         private void Menu_set_station_Click(object sender, EventArgs e)

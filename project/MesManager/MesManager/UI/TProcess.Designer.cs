@@ -30,12 +30,6 @@
         {
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TProcess));
-            this.menu_add = new Telerik.WinControls.UI.RadMenuItem();
-            this.menu_del = new Telerik.WinControls.UI.RadMenuItem();
-            this.menu_commit = new Telerik.WinControls.UI.RadMenuItem();
-            this.menu_refresh = new Telerik.WinControls.UI.RadMenuItem();
-            this.menu_grid = new Telerik.WinControls.UI.RadMenuItem();
-            this.menu_clear_db = new Telerik.WinControls.UI.RadMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.cb_processItem = new System.Windows.Forms.ComboBox();
@@ -51,7 +45,16 @@
             this.groupbox_graph = new System.Windows.Forms.GroupBox();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
             this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
+            this.menu_insertDown = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
+            this.menu_add = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_insertUp = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_del = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_commit = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_refresh = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_grid = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_clear_db = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_cancel = new Telerik.WinControls.UI.RadMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).BeginInit();
@@ -63,54 +66,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
-            // 
-            // menu_add
-            // 
-            this.menu_add.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.menu_add.Image = global::MesManager.Properties.Resources.bullet_add;
-            this.menu_add.Name = "menu_add";
-            this.menu_add.Text = "新增工站";
-            this.menu_add.UseCompatibleTextRendering = false;
-            // 
-            // menu_del
-            // 
-            this.menu_del.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.menu_del.Image = global::MesManager.Properties.Resources.bullet_delete;
-            this.menu_del.Name = "menu_del";
-            this.menu_del.Text = "删除";
-            this.menu_del.UseCompatibleTextRendering = false;
-            // 
-            // menu_commit
-            // 
-            this.menu_commit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.menu_commit.Image = global::MesManager.Properties.Resources.upload_for_cloud;
-            this.menu_commit.Name = "menu_commit";
-            this.menu_commit.Text = "修改";
-            this.menu_commit.UseCompatibleTextRendering = false;
-            // 
-            // menu_refresh
-            // 
-            this.menu_refresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.menu_refresh.Image = global::MesManager.Properties.Resources.update;
-            this.menu_refresh.Name = "menu_refresh";
-            this.menu_refresh.Text = "刷新";
-            this.menu_refresh.UseCompatibleTextRendering = false;
-            // 
-            // menu_grid
-            // 
-            this.menu_grid.ForeColor = System.Drawing.Color.White;
-            this.menu_grid.Image = global::MesManager.Properties.Resources.ClearGrid;
-            this.menu_grid.Name = "menu_grid";
-            this.menu_grid.Text = "清空显示";
-            this.menu_grid.UseCompatibleTextRendering = false;
-            // 
-            // menu_clear_db
-            // 
-            this.menu_clear_db.ForeColor = System.Drawing.Color.White;
-            this.menu_clear_db.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
-            this.menu_clear_db.Name = "menu_clear_db";
-            this.menu_clear_db.Text = "清空数据";
-            this.menu_clear_db.UseCompatibleTextRendering = false;
             // 
             // panel1
             // 
@@ -257,12 +212,22 @@
             this.radGridView1.TabIndex = 38;
             this.radGridView1.ThemeName = "Breeze";
             // 
+            // menu_insertDown
+            // 
+            this.menu_insertDown.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.menu_insertDown.Image = global::MesManager.Properties.Resources.arrow_down;
+            this.menu_insertDown.Name = "menu_insertDown";
+            this.menu_insertDown.Text = "向下插入工站";
+            // 
             // radMenu1
             // 
             this.radMenu1.BackColor = System.Drawing.Color.Transparent;
             this.radMenu1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.menu_add,
+            this.menu_insertUp,
+            this.menu_insertDown,
+            this.menu_cancel,
             this.menu_del,
             this.menu_commit,
             this.menu_refresh,
@@ -272,6 +237,68 @@
             this.radMenu1.Name = "radMenu1";
             this.radMenu1.Size = new System.Drawing.Size(1272, 36);
             this.radMenu1.TabIndex = 18;
+            // 
+            // menu_add
+            // 
+            this.menu_add.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.menu_add.Image = global::MesManager.Properties.Resources.bullet_add;
+            this.menu_add.Name = "menu_add";
+            this.menu_add.Text = "新增工站";
+            this.menu_add.UseCompatibleTextRendering = false;
+            // 
+            // menu_insertUp
+            // 
+            this.menu_insertUp.ForeColor = System.Drawing.Color.White;
+            this.menu_insertUp.Image = ((System.Drawing.Image)(resources.GetObject("menu_insertUp.Image")));
+            this.menu_insertUp.Name = "menu_insertUp";
+            this.menu_insertUp.Text = "向上插入工站";
+            // 
+            // menu_del
+            // 
+            this.menu_del.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.menu_del.Image = global::MesManager.Properties.Resources.delete;
+            this.menu_del.Name = "menu_del";
+            this.menu_del.Text = "删除工站";
+            this.menu_del.UseCompatibleTextRendering = false;
+            // 
+            // menu_commit
+            // 
+            this.menu_commit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.menu_commit.Image = global::MesManager.Properties.Resources.upload_for_cloud;
+            this.menu_commit.Name = "menu_commit";
+            this.menu_commit.Text = "修改";
+            this.menu_commit.UseCompatibleTextRendering = false;
+            // 
+            // menu_refresh
+            // 
+            this.menu_refresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.menu_refresh.Image = global::MesManager.Properties.Resources.update;
+            this.menu_refresh.Name = "menu_refresh";
+            this.menu_refresh.Text = "刷新";
+            this.menu_refresh.UseCompatibleTextRendering = false;
+            // 
+            // menu_grid
+            // 
+            this.menu_grid.ForeColor = System.Drawing.Color.White;
+            this.menu_grid.Image = global::MesManager.Properties.Resources.ClearGrid;
+            this.menu_grid.Name = "menu_grid";
+            this.menu_grid.Text = "清空显示";
+            this.menu_grid.UseCompatibleTextRendering = false;
+            // 
+            // menu_clear_db
+            // 
+            this.menu_clear_db.ForeColor = System.Drawing.Color.White;
+            this.menu_clear_db.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.menu_clear_db.Name = "menu_clear_db";
+            this.menu_clear_db.Text = "清空数据";
+            this.menu_clear_db.UseCompatibleTextRendering = false;
+            // 
+            // menu_cancel
+            // 
+            this.menu_cancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.menu_cancel.Image = global::MesManager.Properties.Resources.cancel;
+            this.menu_cancel.Name = "menu_cancel";
+            this.menu_cancel.Text = "取消插入";
             // 
             // TProcess
             // 
@@ -333,5 +360,8 @@
         private Telerik.WinControls.UI.RadLabel radLabel1;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement1;
         private Telerik.WinControls.UI.RadLabelElement status_username;
+        private Telerik.WinControls.UI.RadMenuItem menu_insertUp;
+        private Telerik.WinControls.UI.RadMenuItem menu_insertDown;
+        private Telerik.WinControls.UI.RadMenuItem menu_cancel;
     }
 }

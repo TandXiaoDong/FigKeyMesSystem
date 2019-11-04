@@ -26,6 +26,7 @@ namespace MesWcfService.DB
 
         public class F_User
         {
+            public const string USER_ID         = "[userID]";
             public const string USER_NAME       = "[username]";
             public const string PASS_WORD       = "[password]";
             public const string PHONE           = "[phone]";

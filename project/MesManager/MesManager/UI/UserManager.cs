@@ -134,7 +134,8 @@ namespace MesManager.UI
                 MessageBox.Show("请选择要修改的用户！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            ModifyPwd modifyPwd = new ModifyPwd(username.ToString());
+            var userID = serviceClient.GetUserID(username.ToString());
+            ModifyPwd modifyPwd = new ModifyPwd(userID,username.ToString());
             modifyPwd.ShowDialog();
         }
     }

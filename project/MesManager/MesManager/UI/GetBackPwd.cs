@@ -63,7 +63,8 @@ namespace MesManager.UI
             {
                 MessageBox.Show("两次密码不一致！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            var res = await serviceClient.ModifyUserPasswordAsync(username,confirmPwd);
+            var userID = await serviceClient.GetUserIDAsync(username);
+            var res = await serviceClient.ModifyUserPasswordAsync(userID,username,confirmPwd);
             if (res == 1)
             {
                 MessageBox.Show("修改成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);

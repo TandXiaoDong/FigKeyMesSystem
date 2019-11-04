@@ -27,6 +27,12 @@
   <wsdl:message name="IMesService_GetUserInfo_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUserInfoResponse" />
   </wsdl:message>
+  <wsdl:message name="IMesService_GetUserID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserID" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_GetUserID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserIDResponse" />
+  </wsdl:message>
   <wsdl:message name="IMesService_GetAllUserInfo_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAllUserInfo" />
   </wsdl:message>
@@ -86,6 +92,12 @@
   </wsdl:message>
   <wsdl:message name="IMesService_SetCurrentProcess_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetCurrentProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateProcessOrder_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProcessOrder" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateProcessOrder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProcessOrderResponse" />
   </wsdl:message>
   <wsdl:message name="IMesService_DeleteAllTypeStation_InputMessage">
     <wsdl:part name="parameters" element="tns:DeleteAllTypeStation" />
@@ -382,6 +394,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/GetUserInfo" message="tns:IMesService_GetUserInfo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/GetUserInfoResponse" message="tns:IMesService_GetUserInfo_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/GetUserID" message="tns:IMesService_GetUserID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/GetUserIDResponse" message="tns:IMesService_GetUserID_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetAllUserInfo">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/GetAllUserInfo" message="tns:IMesService_GetAllUserInfo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/GetAllUserInfoResponse" message="tns:IMesService_GetAllUserInfo_OutputMessage" />
@@ -421,6 +437,10 @@
     <wsdl:operation name="SetCurrentProcess">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SetCurrentProcess" message="tns:IMesService_SetCurrentProcess_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SetCurrentProcessResponse" message="tns:IMesService_SetCurrentProcess_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProcessOrder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/UpdateProcessOrder" message="tns:IMesService_UpdateProcessOrder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/UpdateProcessOrderResponse" message="tns:IMesService_UpdateProcessOrder_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="DeleteAllTypeStation">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteAllTypeStation" message="tns:IMesService_DeleteAllTypeStation_InputMessage" />
@@ -640,6 +660,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserID">
+      <soap:operation soapAction="http://tempuri.org/IMesService/GetUserID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAllUserInfo">
       <soap:operation soapAction="http://tempuri.org/IMesService/GetAllUserInfo" style="document" />
       <wsdl:input>
@@ -723,6 +752,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetCurrentProcess">
       <soap:operation soapAction="http://tempuri.org/IMesService/SetCurrentProcess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProcessOrder">
+      <soap:operation soapAction="http://tempuri.org/IMesService/UpdateProcessOrder" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

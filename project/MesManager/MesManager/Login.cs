@@ -251,15 +251,16 @@ namespace MesManager
             }
             return true;
         }
+
         async private void Init()
         {
+            this.tbx_pwd.PasswordChar = '*';
             mesService = new MesService.MesServiceClient();
             if (!TestCommunication())
                 return;
             //设置单行
             //tbx_username.Multiline = false;
             tbx_pwd.Multiline = false;
-            tbx_username.Items.Clear();
             DataSet ds = await mesService.GetAllUserInfoAsync();
             if (ds == null)
             {
@@ -267,14 +268,23 @@ namespace MesManager
                 return;
             }
             var dt = ds.Tables[0];
-            for (int i = 0; i < dt.Rows.Count; i++)
+            if (dt.Rows.Count > 0)
             {
-                tbx_username.Items.Add(dt.Rows[i][0].ToString());
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    //tbx_username.Items.Add(dt.Rows[i][0].ToString());
+                }
             }
-            tbx_username.Text = "Admin";
+            else
+            {
+                //添加默认用户
+                mesService.Register("superAdminMES", "superAdminMES", 0);
+            }
+            tbx_username.Text = "";
             configPath = AppDomain.CurrentDomain.BaseDirectory+INI_CONFIG_NAME;
             ReadLastCfg();
         }
+
         private void ReadLastCfg()
         {
             try

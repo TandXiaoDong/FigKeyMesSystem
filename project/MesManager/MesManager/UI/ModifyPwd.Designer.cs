@@ -76,9 +76,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 13);
+            this.label1.Size = new System.Drawing.Size(111, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "【修改密码】";
+            this.label1.Text = "【修改用户信息】";
             // 
             // pictureBox1
             // 
@@ -203,7 +203,7 @@
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
-            this.Text = "修改密码";
+            this.Text = "修改用户";
             this.Load += new System.EventHandler(this.ModifyPwd_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
