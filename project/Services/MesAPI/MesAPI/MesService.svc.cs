@@ -1249,7 +1249,7 @@ namespace MesAPI
             var dt = InitTestResultDataTable(true);
             AddTestLogDetail(STATION_TURN,queryFilter,startTime,endTime,dt);
             AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt);
-            AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt);
+            AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt);
             AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt);
             AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt);
             AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt);
@@ -2541,6 +2541,7 @@ namespace MesAPI
                 return SQLServer.ExecuteNonQuery(insertSQL);
             }
         }
+
         public int UpdateProductContinairCapacity(string productTypeNo, string amount,string username,string describle)
         {
             string updateSQL = $"UPDATE {DbTable.F_PRODUCT_PACKAGE_STORAGE_NAME} SET " +
@@ -2559,6 +2560,7 @@ namespace MesAPI
             }
             return SQLServer.ExecuteNonQuery(updateSQL); ;
         }
+
         public DataSet SelectProductContinairCapacity(string productTypeNo)
         {
             string selectSQL = "";
@@ -2863,10 +2865,13 @@ namespace MesAPI
         #region 物料库存
         public MaterialStockEnum ModifyMaterialStock(string materialCode,int stock,string describle,string admin)
         {
-            var selectSQL = $"SELECT * FROM {DbTable.F_MATERIAL_NAME} " +
+            var selectSQL = $"SELECT {DbTable.F_Material.MATERIAL_STOCK},{DbTable.F_Material.MATERIAL_AMOUNTED} " +
+                $"FROM {DbTable.F_MATERIAL_NAME} " +
                 $"WHERE " +
                 $"{DbTable.F_Material.MATERIAL_CODE} = '{materialCode}' ";
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            var amountedStock = int.Parse(dt.Rows[0][1].ToString());
+
             if (dt.Rows.Count > 0)
             {
                 //物料存在
@@ -2881,7 +2886,12 @@ namespace MesAPI
                 if (dt.Rows.Count < 1)
                 {
                     //该库存为修改库存
-                    //更新
+                    //更新前判断修改数量是否合法
+                    if (stock < 1)
+                        return MaterialStockEnum.STATUS_NOT_ZERO_STOCK;
+                    else if (stock < amountedStock)
+                        return MaterialStockEnum.STATUS_STOCK_NOT_SMALLER_AMOUNTED;
+
                     var updateSQL = $"UPDATE {DbTable.F_MATERIAL_NAME} SET " +
                         $"{DbTable.F_Material.MATERIAL_STOCK} = '{stock}'," +
                         $"{DbTable.F_Material.MATERIAL_DESCRIBLE} = '{describle}'," +
@@ -2999,5 +3009,91 @@ namespace MesAPI
             return SQLServer.ExecuteNonQuery(updateSQL).ToString();
         }
         #endregion
+
+        /// <summary>
+        /// 修改产品型号时，更新所有有记录的产品型号
+        /// </summary>
+        /// <param name="oldTypeNo"></param>
+        /// <param name="newTypeNo"></param>
+        public void UpdateAllProductTypeNo(string oldTypeNo,string newTypeNo)
+        {
+            var updateSQL = $"UPDATE {DbTable.F_MATERIAL_STATISTICS_NAME} SET " +
+                $"{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO} = '{newTypeNo}' " +
+                $"WHERE " +
+                $"{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO} = '{oldTypeNo}'";
+            var row = SQLServer.ExecuteNonQuery(updateSQL);
+            LogHelper.Log.Info("【产品型号】F_MATERIAL_STATISTICS_NAME更新数量=" + row);
+
+            updateSQL = $"UPDATE {DbTable.F_PASS_RATE_STATISTICS_NAME} SET " +
+                $"{DbTable.F_Pass_Rate_Statistics.TYPE_NO} = '{newTypeNo}' " +
+                $"WHERE " +
+                $"{DbTable.F_Pass_Rate_Statistics.TYPE_NO} = '{oldTypeNo}'";
+            row = SQLServer.ExecuteNonQuery(updateSQL);
+            LogHelper.Log.Info("【产品型号】F_PASS_RATE_STATISTICS_NAME更新数量=" + row);
+
+            updateSQL = $"UPDATE {DbTable.F_PRODUCT_CHECK_RECORD_NAME} SET " +
+                $"{DbTable.F_Product_Check_Record.TYPE_NO} = '{newTypeNo}' " +
+                $"WHERE " +
+                $"{DbTable.F_Product_Check_Record.TYPE_NO} = '{oldTypeNo}'";
+            row = SQLServer.ExecuteNonQuery(updateSQL);
+            LogHelper.Log.Info("【产品型号】F_PRODUCT_CHECK_RECORD_NAME 更新数量=" + row);
+
+            updateSQL = $"UPDATE {DbTable.F_PRODUCT_MATERIAL_NAME} SET " +
+                $"{DbTable.F_PRODUCT_MATERIAL.TYPE_NO} = '{newTypeNo}' " +
+                $"WHERE " +
+                $"{DbTable.F_PRODUCT_MATERIAL.TYPE_NO} = '{oldTypeNo}'";
+            row = SQLServer.ExecuteNonQuery(updateSQL);
+            LogHelper.Log.Info("【产品型号】F_PRODUCT_MATERIAL_NAME 更新数量=" + row);
+
+
+            updateSQL = $"UPDATE {DbTable.F_PRODUCT_PACKAGE_NAME} SET " +
+                $"{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} = '{newTypeNo}' " +
+                $"WHERE " +
+                $"{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} = '{oldTypeNo}'";
+            row = SQLServer.ExecuteNonQuery(updateSQL);
+            LogHelper.Log.Info("【产品型号】F_PRODUCT_PACKAGE_NAME 更新数量=" + row);
+
+            updateSQL = $"UPDATE {DbTable.F_PRODUCT_PACKAGE_STORAGE_NAME} SET " +
+                $"{DbTable.F_PRODUCT_PACKAGE_STORAGE.PRODUCT_TYPE_NO} = '{newTypeNo}' " +
+                $"WHERE " +
+                $"{DbTable.F_PRODUCT_PACKAGE_STORAGE.PRODUCT_TYPE_NO} = '{oldTypeNo}'";
+            row = SQLServer.ExecuteNonQuery(updateSQL);
+            LogHelper.Log.Info("【产品型号】F_PRODUCT_PACKAGE_STORAGE_NAME 更新数量=" + row);
+
+            updateSQL = $"UPDATE {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} SET " +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{newTypeNo}' " +
+                $"WHERE " +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{oldTypeNo}'";
+            row = SQLServer.ExecuteNonQuery(updateSQL);
+            LogHelper.Log.Info("【产品型号】F_TECHNOLOGICAL_PROCESS_NAME 更新数量=" + row);
+
+            updateSQL = $"UPDATE {DbTable.F_TEST_LIMIT_CONFIG_NAME} SET " +
+                $"{DbTable.F_TEST_LIMIT_CONFIG.TYPE_NO} = '{newTypeNo}' " +
+                $"WHERE " +
+                $"{DbTable.F_TEST_LIMIT_CONFIG.TYPE_NO} = '{oldTypeNo}'";
+            row = SQLServer.ExecuteNonQuery(updateSQL);
+            LogHelper.Log.Info("【产品型号】F_TEST_LIMIT_CONFIG_NAME 更新数量=" + row);
+
+            updateSQL = $"UPDATE {DbTable.F_TEST_LOG_DATA_NAME} SET " +
+                $"{DbTable.F_TEST_LOG_DATA.TYPE_NO} = '{newTypeNo}' " +
+                $"WHERE " +
+                $"{DbTable.F_TEST_LOG_DATA.TYPE_NO} = '{oldTypeNo}'";
+            row = SQLServer.ExecuteNonQuery(updateSQL);
+            LogHelper.Log.Info("【产品型号】F_TEST_LOG_DATA_NAME 更新数量=" + row);
+
+            updateSQL = $"UPDATE {DbTable.F_TEST_PROGRAME_VERSION_NAME} SET " +
+                $"{DbTable.F_TEST_PROGRAME_VERSION.TYPE_NO} = '{newTypeNo}' " +
+                $"WHERE " +
+                $"{DbTable.F_TEST_PROGRAME_VERSION.TYPE_NO} = '{oldTypeNo}'";
+            row = SQLServer.ExecuteNonQuery(updateSQL);
+            LogHelper.Log.Info("【产品型号】F_TEST_PROGRAME_VERSION_NAME 更新数量=" + row);
+
+            updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_NAME} SET " +
+                $"{DbTable.F_Test_Result.TYPE_NO} = '{newTypeNo}' " +
+                $"WHERE " +
+                $"{DbTable.F_Test_Result.TYPE_NO} = '{oldTypeNo}'";
+            row = SQLServer.ExecuteNonQuery(updateSQL);
+            LogHelper.Log.Info("【产品型号】F_TEST_RESULT_NAME 更新数量=" + row);
+        }
     }
 }

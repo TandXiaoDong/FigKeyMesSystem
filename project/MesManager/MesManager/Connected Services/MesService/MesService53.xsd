@@ -1231,4 +1231,17 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="UpdateAllProductTypeNo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="oldTypeNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newTypeNo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateAllProductTypeNoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

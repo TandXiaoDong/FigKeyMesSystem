@@ -228,5 +228,8 @@ namespace MesAPI
 
         [OperationContract]
         string UpdateInsern(string sn);
+
+        [OperationContract]
+        void UpdateAllProductTypeNo(string oldTypeNo, string newTypeNo);
     }
 }

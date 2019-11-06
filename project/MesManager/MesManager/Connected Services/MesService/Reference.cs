@@ -363,6 +363,12 @@ namespace MesManager.MesService {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         ERROR_MATERIAL_IS_NOT_EXIST = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        STATUS_NOT_ZERO_STOCK = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        STATUS_STOCK_NOT_SMALLER_AMOUNTED = 5,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -740,6 +746,12 @@ namespace MesManager.MesService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateInsern", ReplyAction="http://tempuri.org/IMesService/UpdateInsernResponse")]
         System.Threading.Tasks.Task<string> UpdateInsernAsync(string sn);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateAllProductTypeNo", ReplyAction="http://tempuri.org/IMesService/UpdateAllProductTypeNoResponse")]
+        void UpdateAllProductTypeNo(string oldTypeNo, string newTypeNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateAllProductTypeNo", ReplyAction="http://tempuri.org/IMesService/UpdateAllProductTypeNoResponse")]
+        System.Threading.Tasks.Task UpdateAllProductTypeNoAsync(string oldTypeNo, string newTypeNo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1263,6 +1275,14 @@ namespace MesManager.MesService {
         
         public System.Threading.Tasks.Task<string> UpdateInsernAsync(string sn) {
             return base.Channel.UpdateInsernAsync(sn);
+        }
+        
+        public void UpdateAllProductTypeNo(string oldTypeNo, string newTypeNo) {
+            base.Channel.UpdateAllProductTypeNo(oldTypeNo, newTypeNo);
+        }
+        
+        public System.Threading.Tasks.Task UpdateAllProductTypeNoAsync(string oldTypeNo, string newTypeNo) {
+            return base.Channel.UpdateAllProductTypeNoAsync(oldTypeNo, newTypeNo);
         }
     }
 }

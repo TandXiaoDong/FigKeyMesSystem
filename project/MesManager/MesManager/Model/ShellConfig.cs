@@ -14,6 +14,14 @@ namespace MesManager.Model
         public const string SmallScrewSetTimeKey = "小螺丝枪不计数时间设定";
         public const string LargeScrewSetTimeKey = "大螺丝枪不计数时间设定";
         public const string TestSerialNumberKey = "测试序列";
+        public const string FrontCoverKey = "前盖";
+        public const string BackCoverKey = "后盖";
+        public const string PCBScrewKey = "PCB螺丝";
+        public const string ShellScrewKey = "外壳螺丝";
+        public const string TopCoverKey = "上盖";
+        public const string ShellKey = "外壳";
+        public const string SealRingWireKey = "密封圈和线束";
+        public const string BubbleCottonKey = "泡棉";
 
         /// <summary>
         /// 测试序列绝对路径,获取的实际值
@@ -40,5 +48,21 @@ namespace MesManager.Model
         public string SmallScrewSetTime { get; set; }
 
         public string LargeScrewSetTime { get; set; }
+
+        public string FrontCover { get; set; }
+
+        public string BackCover { get; set; }
+
+        public string PCBScrew { get; set; }
+
+        public string ShellScrew { get; set; }
+
+        public string TopCover { get; set; }
+
+        public string Shell { get; set; }
+
+        public string SealRingWire { get; set; }
+
+        public string BubbleCotton { get; set; }
     }
 }

@@ -104,7 +104,8 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{productTest.TestSerial}】的供电电压为{productTest.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productTest);
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productTest))
+                return;
             CheckProductTestConfigParams();
             SaveProductTestConfig();
             CheckCommonConfigParams();
@@ -126,7 +127,8 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{productCheck.TestSerial}】的供电电压为{productCheck.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productCheck);
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productCheck))
+                return;
             CheckProductCheckConfigParams();
             SaveProductCheckConfig();
             CheckCommonConfigParams();
@@ -148,7 +150,8 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{airtage.TestSerial}】的供电电压为{airtage.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.airtage);
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.airtage))
+                return;
             CheckAirtageConfigParams();
             SaveAirtageStandConfig();
             CheckCommonConfigParams();
@@ -170,7 +173,8 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{stent.TestSerial}】的供电电压为{stent.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.stent);
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.stent))
+                return;
             CheckStentConfigParams();
             SaveStentStandConfig();
             CheckCommonConfigParams();
@@ -192,7 +196,8 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{shell.TestSerialNumber}】的供电电压为{shell.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.shell);
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.shell))
+                return;
             CheckShellConfigParams();
             SaveShellStandConfig();
             CheckCommonConfigParams();
@@ -214,7 +219,8 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{sen.ProductSerial}】的供电电压为{sen.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.sensibility);
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.sensibility))
+                return;
             CheckSensibilityConfigParams();
             SaveSensibilityStandConfig();
             CheckCommonConfigParams();
@@ -236,7 +242,8 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{burn.SerialNumber}】的供电电压为{burn.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.burn);
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.burn))
+                return;
             CheckBurnConfigParams();
             SaveBurnStandConfig();
             CheckCommonConfigParams();
@@ -338,6 +345,9 @@ namespace MesManager.UI
             this.tb_sen_porterRate.DataSource = PorterRate.PorterRateDataSource();
             this.tb_productCheck_porterRate.DataSource = PorterRate.PorterRateDataSource();
             this.tb_product_porterRate.DataSource = PorterRate.PorterRateDataSource();
+            //初始化压力/泄露单位
+            this.tb_airtage_spread.DataSource = AirtageTestItem.AirtageSpreadUnitItem();
+            this.tb_airtage_pressureUnit.DataSource = AirtageTestItem.AirtagePressureUnitItem();
         }
 
         private void ReadDefaultConfig()
@@ -617,14 +627,67 @@ namespace MesManager.UI
 
         private void ReadCommonStandConfig()
         {
-            var burnInitPath = defaultRoot + StandCommon.TurnStationConfigPath + standCommon.ProductTypeNo + "\\";
-            var burnFileName = StandCommon.TurnStationIniName + standCommon.ProductTypeNo + "_config.ini";
-            var burnSavePath = burnInitPath + burnFileName;
+            var initPath = defaultRoot + StandCommon.TurnStationConfigPath + standCommon.ProductTypeNo + "\\";
+            var fileName = StandCommon.TurnStationIniName + standCommon.ProductTypeNo + "_config.ini";
+            var savePath = initPath + fileName;
             //读取烧录工站通用配置
-            standCommon.PCBABarCodeLength = INIFile.GetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, burnSavePath);
-            standCommon.CaseBarCodeLength = INIFile.GetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, burnSavePath);
-            standCommon.ShellBarCodeLength = INIFile.GetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, burnSavePath);
-            standCommon.PackageCaseAmount = INIFile.GetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, burnSavePath);
+            ReadCommonConfig(savePath);
+            if (standCommon.PCBABarCodeLength == "" && standCommon.CaseBarCodeLength == "" && standCommon.ShellBarCodeLength == "" && standCommon.PackageCaseAmount == "")
+            {
+                initPath = defaultRoot + StandCommon.SensibilityStationConfigPath + standCommon.ProductTypeNo + "\\";
+                fileName = StandCommon.SensibilityStationIniName + standCommon.ProductTypeNo + "_config.ini";
+                savePath = initPath + fileName;
+                //读取灵敏度通用配置
+                ReadCommonConfig(savePath);
+            }
+            if (standCommon.PCBABarCodeLength == "" && standCommon.CaseBarCodeLength == "" && standCommon.ShellBarCodeLength == "" && standCommon.PackageCaseAmount == "")
+            {
+                //读取外壳通用配置
+                initPath = defaultRoot + StandCommon.ShellStationConfigPath + standCommon.ProductTypeNo + "\\";
+                fileName = StandCommon.ShellStationIniName + standCommon.ProductTypeNo + "_config.ini";
+                savePath = initPath + fileName;
+                ReadCommonConfig(savePath);
+            }
+            if (standCommon.PCBABarCodeLength == "" && standCommon.CaseBarCodeLength == "" && standCommon.ShellBarCodeLength == "" && standCommon.PackageCaseAmount == "")
+            {
+                //读取气密通用配置
+                initPath = defaultRoot + StandCommon.AirtageStationConfigPath + standCommon.ProductTypeNo + "\\";
+                fileName = StandCommon.AirtageStationIniName + standCommon.ProductTypeNo + "_config.ini";
+                savePath = initPath + fileName;
+                ReadCommonConfig(savePath);
+            }
+            if (standCommon.PCBABarCodeLength == "" && standCommon.CaseBarCodeLength == "" && standCommon.ShellBarCodeLength == "" && standCommon.PackageCaseAmount == "")
+            {
+                //读取支架通用配置
+                initPath = defaultRoot + StandCommon.StentStationConfigPath + standCommon.ProductTypeNo + "\\";
+                fileName = StandCommon.StentStationIniName + standCommon.ProductTypeNo + "_config.ini";
+                savePath = initPath + fileName;
+                ReadCommonConfig(savePath);
+            }
+            if (standCommon.PCBABarCodeLength == "" && standCommon.CaseBarCodeLength == "" && standCommon.ShellBarCodeLength == "" && standCommon.PackageCaseAmount == "")
+            {
+                //读取成品测试通用配置
+                initPath = defaultRoot + StandCommon.ProductFinishStationConfigPath + standCommon.ProductTypeNo + "\\";
+                fileName = StandCommon.ProductFinishStationIniName + standCommon.ProductTypeNo + "_config.ini";
+                savePath = initPath + fileName;
+                ReadCommonConfig(savePath);
+            }
+            if (standCommon.PCBABarCodeLength == "" && standCommon.CaseBarCodeLength == "" && standCommon.ShellBarCodeLength == "" && standCommon.PackageCaseAmount == "")
+            {
+                //读取成品抽检通用配置
+                initPath = defaultRoot + StandCommon.CheckProductStationConfigPath + standCommon.ProductTypeNo + "\\";
+                fileName = StandCommon.CheckProductStationIniName + standCommon.ProductTypeNo + "_config.ini";
+                savePath = initPath + fileName;
+                ReadCommonConfig(savePath);
+            }
+        }
+
+        private void ReadCommonConfig(string savePath)
+        {
+            standCommon.PCBABarCodeLength = INIFile.GetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, savePath);
+            standCommon.CaseBarCodeLength = INIFile.GetValue(standCommon.ProductTypeNo, StandCommon.CaseBarCodeLengthKey, savePath);
+            standCommon.ShellBarCodeLength = INIFile.GetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, savePath);
+            standCommon.PackageCaseAmount = INIFile.GetValue(standCommon.ProductTypeNo, StandCommon.PackageCaseAmountKey, savePath);
         }
 
         private void ReadSensibilityStandConfig()
@@ -664,6 +727,14 @@ namespace MesManager.UI
             shellConfig.PLCAddress = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.PLCAddressKey, shellSavePath);
             shellConfig.SmallScrewSetTime = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.SmallScrewSetTimeKey, shellSavePath);
             shellConfig.LargeScrewSetTime = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.LargeScrewSetTimeKey, shellSavePath);
+            shellConfig.FrontCover = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.FrontCoverKey,shellSavePath);
+            shellConfig.BackCover = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.BackCoverKey, shellSavePath);
+            shellConfig.PCBScrew = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.PCBScrewKey, shellSavePath);
+            shellConfig.ShellScrew = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.ShellScrewKey, shellSavePath);
+            shellConfig.TopCover = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.TopCoverKey, shellSavePath);
+            shellConfig.Shell = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.ShellKey, shellSavePath);
+            shellConfig.SealRingWire = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.SealRingWireKey, shellSavePath);
+            shellConfig.BubbleCotton = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.BubbleCottonKey, shellSavePath);
             shellConfig.TestSerialNumber = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.TestSerialNumberKey, shellSavePath);
             shellConfig.TestSerialNumber = GetProductTestSerial(shellConfig.TestSerialNumber);
         }
@@ -674,18 +745,18 @@ namespace MesManager.UI
             var airtageFileName = StandCommon.AirtageStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var airtageSavePath = airtageInitPath + airtageFileName;
             airtageConfig.LocalAddressConMes = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LocalAddressConMesKey, airtageSavePath);
-            airtageConfig.AirTester = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LocalAddressConMesKey, airtageSavePath);
-            airtageConfig.InflateAirTime = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LocalAddressConMesKey, airtageSavePath);
-            airtageConfig.StableTime = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LocalAddressConMesKey, airtageSavePath);
-            airtageConfig.PressureUnit = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LocalAddressConMesKey, airtageSavePath);
-            airtageConfig.SpreadUnit = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LocalAddressConMesKey, airtageSavePath);
-            airtageConfig.MaxInflate = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LocalAddressConMesKey, airtageSavePath);
-            airtageConfig.MinInflate = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LocalAddressConMesKey, airtageSavePath);
-            airtageConfig.TestConditionValue = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LocalAddressConMesKey, airtageSavePath);
-            airtageConfig.ReferenceConditionValue = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LocalAddressConMesKey, airtageSavePath);
-            airtageConfig.TestSerial = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LocalAddressConMesKey, airtageSavePath);
+            airtageConfig.AirTester = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.AirTesterKey, airtageSavePath);
+            airtageConfig.InflateAirTime = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.InflateAirTimeKey, airtageSavePath);
+            airtageConfig.StableTime = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.StableTimeKey, airtageSavePath);
+            airtageConfig.PressureUnit = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.PressureUnitKey, airtageSavePath);
+            airtageConfig.SpreadUnit = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.SpreadUnitKey, airtageSavePath);
+            airtageConfig.MaxInflate = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.MaxInflateKey, airtageSavePath);
+            airtageConfig.MinInflate = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.MinInflateKey, airtageSavePath);
+            airtageConfig.TestConditionValue = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestConditionValueKey, airtageSavePath);
+            airtageConfig.ReferenceConditionValue = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.ReferenceConditionValueKey, airtageSavePath);
             airtageConfig.TestTime = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestTimeKey, airtageSavePath);
-            airtageConfig.TestTime = GetProductTestSerial(airtageConfig.TestTime);
+            airtageConfig.TestSerial = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestSerialKey, airtageSavePath);
+            airtageConfig.TestSerial = GetProductTestSerial(airtageConfig.TestSerial);
         }
 
         private void ReadStentStandConfig()
@@ -694,6 +765,12 @@ namespace MesManager.UI
             var stentFileName = StandCommon.StentStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var stentSavePath = stentInitPath + stentFileName;
             stentConfig.LocalAddressConMes = INIFile.GetValue(standCommon.ProductTypeNo, StentConfig.LocalAddressConMesKey, stentSavePath);
+            stentConfig.LeftStent = INIFile.GetValue(standCommon.ProductTypeNo, StentConfig.LeftStentKey, stentSavePath);
+            stentConfig.RightStent = INIFile.GetValue(standCommon.ProductTypeNo, StentConfig.RightStentKey, stentSavePath);
+            stentConfig.UnionStent = INIFile.GetValue(standCommon.ProductTypeNo, StentConfig.UnionStentKey, stentSavePath);
+            stentConfig.Stent = INIFile.GetValue(standCommon.ProductTypeNo, StentConfig.StentKey, stentSavePath);
+            stentConfig.StentScrew = INIFile.GetValue(standCommon.ProductTypeNo, StentConfig.StentSrcrewKey, stentSavePath);
+            stentConfig.StentNut = INIFile.GetValue(standCommon.ProductTypeNo, StentConfig.StentNutKey, stentSavePath);
             stentConfig.TestSerial = INIFile.GetValue(standCommon.ProductTypeNo, StentConfig.TestSerialKey, stentSavePath);
             stentConfig.TestSerial = GetProductTestSerial(stentConfig.TestSerial);
         }
@@ -856,7 +933,7 @@ namespace MesManager.UI
             var airtageInitPath = defaultRoot + StandCommon.AirtageStationConfigPath + standCommon.ProductTypeNo + "\\";
             var airtageFileName = StandCommon.AirtageStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var airtageSavePath = airtageInitPath + airtageFileName;
-            if (File.Exists(airtageFileName))
+            if (File.Exists(airtageSavePath))
             {
                 INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.PCBABarCodeLengthKey, standCommon.PCBABarCodeLength, airtageSavePath);
                 INIFile.SetValue(standCommon.ProductTypeNo, StandCommon.ShellBarCodeLengthKey, standCommon.ShellBarCodeLength, airtageSavePath);
@@ -953,6 +1030,14 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.PLCAddressKey, shellConfig.PLCAddress, shellSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.SmallScrewSetTimeKey, shellConfig.SmallScrewSetTime, shellSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.LargeScrewSetTimeKey, shellConfig.LargeScrewSetTime, shellSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.FrontCoverKey, shellConfig.FrontCover, shellSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.BackCoverKey, shellConfig.BackCover, shellSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.PCBScrewKey, shellConfig.PCBScrew, shellSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.ShellScrewKey, shellConfig.ShellScrew, shellSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.TopCoverKey, shellConfig.TopCover, shellSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.ShellKey, shellConfig.Shell, shellSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.SealRingWireKey, shellConfig.SealRingWire, shellSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.BubbleCottonKey, shellConfig.BubbleCotton, shellSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.TestSerialNumberKey, shellConfig.TestSerialNumber, shellSavePath);
             MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             IsSavePrivateConfig = true;
@@ -985,6 +1070,12 @@ namespace MesManager.UI
             var stentFileName = StandCommon.StentStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var stentSavePath = stentInitPath + stentFileName;
             INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.LocalAddressConMesKey, stentConfig.LocalAddressConMes, stentSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.LeftStentKey, stentConfig.LeftStent, stentSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.RightStentKey, stentConfig.RightStent, stentSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.UnionStentKey, stentConfig.UnionStent, stentSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.StentKey, stentConfig.Stent, stentSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.StentSrcrewKey, stentConfig.StentScrew, stentSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.StentNutKey, stentConfig.StentNut, stentSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.TestSerialKey, stentConfig.TestSerial, stentSavePath);
             MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             IsSavePrivateConfig = true;
@@ -1134,6 +1225,14 @@ namespace MesManager.UI
             shellConfig.PLCAddress = this.tb_shell_plcAddress.Text;
             shellConfig.SmallScrewSetTime = this.tb_shell_smallScrewSetTime.Text;
             shellConfig.LargeScrewSetTime = this.tb_shell_largeScrewSetTime.Text;
+            shellConfig.FrontCover = this.tb_shell_frontCover.Text;
+            shellConfig.BackCover = this.tb_shell_backCover.Text;
+            shellConfig.PCBScrew = this.tb_shell_pcbScrew.Text;
+            shellConfig.ShellScrew = this.tb_shell_shellScrew.Text;
+            shellConfig.TopCover = this.tb_shell_topCover.Text;
+            shellConfig.Shell = this.tb_shell_shell.Text;
+            shellConfig.SealRingWire = this.tb_shell_sealRingWire.Text;
+            shellConfig.BubbleCotton = this.tb_shell_bubbleCotton.Text;
             var shell = GetShellConfig(this.cb_shell_testSerial.Text);
             if (shell == null)
                 return;
@@ -1147,8 +1246,12 @@ namespace MesManager.UI
             airtageConfig.InflateAirTime = this.tb_airtage_inflateTime.Text;
             airtageConfig.StableTime = this.tb_airtage_stableTime.Text;
             airtageConfig.TestTime = this.tb_airtage_testTime.Text;
-            airtageConfig.PressureUnit = this.tb_airtage_pressureUnit.Text;
-            airtageConfig.SpreadUnit = this.tb_airtage_spread.Text;
+            AirtageSpreadUnitEnum spreadUnitEnum;
+            Enum.TryParse(this.tb_airtage_spread.Text.Replace("/", "_"),out spreadUnitEnum);
+            airtageConfig.SpreadUnit = (int)spreadUnitEnum + "";
+            AirtagePressureUnitEnum pressureUnitEnum;
+            Enum.TryParse(this.tb_airtage_pressureUnit.Text,out pressureUnitEnum);
+            airtageConfig.PressureUnit = (int)pressureUnitEnum + "";
             airtageConfig.MaxInflate = this.tb_airtage_maxInflate.Text;
             airtageConfig.MinInflate = this.tb_airtage_minFlate.Text;
             airtageConfig.TestConditionValue = this.tb_airtage_testConditionValue.Text;
@@ -1162,6 +1265,12 @@ namespace MesManager.UI
         private void CheckStentConfigParams()
         {
             stentConfig.LocalAddressConMes = this.tb_stent_localIPConMes.Text;
+            stentConfig.LeftStent = this.tb_stent_leftStent.Text;
+            stentConfig.RightStent = this.tb_stent_rightStent.Text;
+            stentConfig.UnionStent = this.tb_stent_unionStent.Text;
+            stentConfig.Stent = this.tb_stent_stent.Text;
+            stentConfig.StentScrew = this.tb_stent_stentScrew.Text;
+            stentConfig.StentNut = this.tb_stent_stentNut.Text;
             var stent = GetStentConfig(this.cb_stent_testSerial.Text);
             if (stent == null)
                 return;
@@ -1307,6 +1416,14 @@ namespace MesManager.UI
             this.tb_shell_smallScrewSetTime.Text = shellConfig.SmallScrewSetTime ;
             this.tb_shell_largeScrewSetTime.Text = shellConfig.LargeScrewSetTime;
             this.cb_shell_testSerial.Text = shellConfig.TestSerialNumber;
+            this.tb_shell_frontCover.Text = shellConfig.FrontCover;
+            this.tb_shell_backCover.Text = shellConfig.BackCover;
+            this.tb_shell_pcbScrew.Text = shellConfig.PCBScrew;
+            this.tb_shell_shellScrew.Text = shellConfig.ShellScrew;
+            this.tb_shell_topCover.Text = shellConfig.TopCover;
+            this.tb_shell_shell.Text = shellConfig.Shell;
+            this.tb_shell_sealRingWire.Text = shellConfig.SealRingWire;
+            this.tb_shell_bubbleCotton.Text = shellConfig.BubbleCotton;
         }
 
         private void RefreshUIAirtageStation()
@@ -1316,8 +1433,12 @@ namespace MesManager.UI
             this.tb_airtage_inflateTime.Text = airtageConfig.InflateAirTime;
             this.tb_airtage_stableTime.Text = airtageConfig.StableTime;
             this.tb_airtage_testTime.Text = airtageConfig.TestTime;
-            this.tb_airtage_pressureUnit.Text = airtageConfig.PressureUnit;
-            this.tb_airtage_spread.Text = airtageConfig.SpreadUnit;
+            AirtagePressureUnitEnum pressureUnitEnum;
+            Enum.TryParse(airtageConfig.PressureUnit,out pressureUnitEnum);
+            this.tb_airtage_pressureUnit.Text = pressureUnitEnum.ToString();
+            AirtageSpreadUnitEnum spreadUnitEnum;
+            Enum.TryParse(airtageConfig.SpreadUnit,out spreadUnitEnum);
+            this.tb_airtage_spread.Text = spreadUnitEnum.ToString().Replace("_","/");
             this.tb_airtage_maxInflate.Text = airtageConfig.MaxInflate;
             this.tb_airtage_minFlate.Text = airtageConfig.MinInflate;
             this.tb_airtage_testConditionValue.Text = airtageConfig.TestConditionValue;
@@ -1329,6 +1450,12 @@ namespace MesManager.UI
         {
             this.tb_stent_localIPConMes.Text = stentConfig.LocalAddressConMes;
             this.cb_stent_testSerial.Text = stentConfig.TestSerial;
+            this.tb_stent_leftStent.Text = stentConfig.LeftStent;
+            this.tb_stent_rightStent.Text = stentConfig.RightStent;
+            this.tb_stent_unionStent.Text = stentConfig.UnionStent;
+            this.tb_stent_stent.Text = stentConfig.Stent;
+            this.tb_stent_stentScrew.Text = stentConfig.StentScrew;
+            this.tb_stent_stentNut.Text = stentConfig.StentNut;
         }
 
         private void RefreshUIProductTestStation()

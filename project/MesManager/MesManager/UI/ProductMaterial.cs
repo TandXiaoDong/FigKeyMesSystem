@@ -242,11 +242,12 @@ namespace MesManager.UI
             var materialRid = this.radGridViewStock.CurrentRow.Cells[3].Value;
             if (materialStock == null)
                 return;
-            ProductMaterial productMaterial = new ProductMaterial();
             if (materialStock.ToString() != keyOldMaterialStock || describle.ToString() != keyOldMaterialDescrible)
             {
+                ProductMaterial productMaterial = new ProductMaterial();
+                var materialCode = serviceClient.GetMaterialCode(materialRid.ToString());
+                productMaterial.keyMaterialCode = materialCode;
                 productMaterial.keyOldMaterialStock = materialStock.ToString();
-                productMaterial.keyMaterialCode = serviceClient.GetMaterialCode(materialRid.ToString());
                 productMaterial.keyOldMaterialDescrible = describle.ToString();
                 this.pmStockList.Add(productMaterial);
             }
@@ -553,10 +554,13 @@ namespace MesManager.UI
             if (pmStockList.Count < 1)
                 return;
             bool updateRes = true;
+            List<string> materialCodeTemp = new List<string>();
+            List<string> materialCodeTemp2 = new List<string>();
             foreach (var productMaterial in pmStockList)
             {
                 int modifyStock;
                 int.TryParse(productMaterial.keyOldMaterialStock.Trim(), out modifyStock);
+                //更新库存前防错：修改库存必须大于0小于实际用的数量
                 MesService.MaterialStockEnum materialStockEnum = serviceClient.ModifyMaterialStock(productMaterial.keyMaterialCode,
                     modifyStock, productMaterial.keyOldMaterialDescrible, MESMainForm.currentUser);
                 if (materialStockEnum == MesService.MaterialStockEnum.STATUS_FAIL)
@@ -569,8 +573,30 @@ namespace MesManager.UI
                     updateRes = false;
                     MessageBox.Show("物料编码错误！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+                else if (materialStockEnum == MesService.MaterialStockEnum.STATUS_NOT_ZERO_STOCK)
+                {
+                    updateRes = false;
+                    
+                    if (!materialCodeTemp.Contains(productMaterial.keyMaterialCode))
+                    {
+                        MessageBox.Show("修改库存必须大于0！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        materialCodeTemp.Add(productMaterial.keyMaterialCode);
+                    }
+                }
+                else if (materialStockEnum == MesService.MaterialStockEnum.STATUS_STOCK_NOT_SMALLER_AMOUNTED)
+                {
+                    updateRes = false;
+                    if (!materialCodeTemp2.Contains(productMaterial.keyMaterialCode))
+                    {
+                        MessageBox.Show($"【{productMaterial.keyMaterialCode}】修改库存未大于实际使用数量！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        materialCodeTemp2.Add(productMaterial.keyMaterialCode);
+                    }
+                }
             }
-            if(updateRes)
+            pmStockList.Clear();
+            materialCodeTemp2.Clear();
+            materialCodeTemp.Clear();
+            if (updateRes)
                 MessageBox.Show("修改成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             BindingMaterialStock("");
         }

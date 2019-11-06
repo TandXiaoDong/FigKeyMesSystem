@@ -62,6 +62,8 @@
       <xs:enumeration value="STATUS_NONE_MODIFY" />
       <xs:enumeration value="STATUS_FAIL" />
       <xs:enumeration value="ERROR_MATERIAL_IS_NOT_EXIST" />
+      <xs:enumeration value="STATUS_NOT_ZERO_STOCK" />
+      <xs:enumeration value="STATUS_STOCK_NOT_SMALLER_AMOUNTED" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="MaterialStockEnum" nillable="true" type="tns:MaterialStockEnum" />

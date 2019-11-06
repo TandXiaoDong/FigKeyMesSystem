@@ -253,7 +253,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonEnum\AirtageUnitEnum.cs" />
     <Compile Include="CommonEnum\UserTypeEnum.cs" />
+    <Compile Include="Common\AirtageTestItem.cs" />
     <Compile Include="Common\AnalysisMaterialCode.cs" />
     <Compile Include="Common\InitStandConfig.cs" />
     <Compile Include="Common\PorterRate.cs" />
@@ -723,7 +725,6 @@
     <None Include="Resources\arrow_down.png" />
     <None Include="Resources\cancel.png" />
     <Content Include="功能描述.txt" />
-    <Content Include="完善.txt" />
     <Content Include="新增.txt" />
     <Content Include="新需求.txt" />
     <Content Include="说明.txt" />

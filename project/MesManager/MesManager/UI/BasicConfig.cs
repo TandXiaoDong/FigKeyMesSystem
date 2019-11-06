@@ -26,10 +26,12 @@ namespace MesManager.UI
         private MesServiceTest.MesServiceClient serviceClientTest;
         private DataTable typeNoData,materialData;
         private List<string> modifyTypeNoTemp;
+        private List<BasicConfig> modifyProductTypeNoList;
         private List<BasicConfig> materialCodeTemp;//存储用户修改的物料编码
         private string modifyMaterialPn;
         private string modifyMaterialDescible;
-        private string keyTypeNo;
+        private string keyOldTypeNo;
+        private string keyNewTypeNo;
         private string keyMaterialCode;//记录修改前的编码
         private string keyDescrible;
         private string keyMaterialName;
@@ -81,6 +83,7 @@ namespace MesManager.UI
             serviceClient = new MesService.MesServiceClient();
             serviceClientTest = new MesServiceTest.MesServiceClient();
             modifyTypeNoTemp = new List<string>();
+            modifyProductTypeNoList = new List<BasicConfig>();
             materialCodeTemp = new List<BasicConfig>();
             DataGridViewCommon.SetRadGridViewProperty(this.radGridView1,true);
             this.radGridView1.AllowRowHeaderContextMenu = false;
@@ -271,9 +274,16 @@ namespace MesManager.UI
             var kdescrible = this.radGridView1.CurrentRow.Cells[5].Value;
             if (key == null || kdescrible == null || keyName == null)//行不存在
                 return;
-            if (keyTypeNo != key.ToString() || keyDescrible != kdescrible.ToString() || keyProductStorage != keyName.ToString())
+            if (keyOldTypeNo != key.ToString() || keyDescrible != kdescrible.ToString() || keyProductStorage != keyName.ToString())
             {
-                modifyTypeNoTemp.Add(this.keyTypeNo);
+                modifyTypeNoTemp.Add(this.keyOldTypeNo);
+                if (keyOldTypeNo != key.ToString())
+                {
+                    BasicConfig basicConfig = new BasicConfig();
+                    basicConfig.keyOldTypeNo = keyOldTypeNo;
+                    basicConfig.keyNewTypeNo = key.ToString();
+                    modifyProductTypeNoList.Add(basicConfig);
+                }
             }
         }
 
@@ -285,7 +295,7 @@ namespace MesManager.UI
             if (key == null && key_describle == null || key_name == null)//行不存在
                 return;
 
-            this.keyTypeNo = key.ToString();
+            this.keyOldTypeNo = key.ToString();
             this.keyDescrible = key_describle.ToString();
             this.keyProductStorage = key_name.ToString();
         }
@@ -396,6 +406,7 @@ namespace MesManager.UI
             this.radGridView1.Columns[1].ReadOnly = true;
             materialCodeTemp.Clear();
             modifyTypeNoTemp.Clear();
+            modifyProductTypeNoList.Clear();
         }
 
         async private void CommitTypeNoMesService()
@@ -433,6 +444,11 @@ namespace MesManager.UI
                 }
                 MessageBox.Show("更新成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 RefreshData();
+                //将其他产品型号替换成新的型号
+                foreach (var basic in this.modifyProductTypeNoList)
+                {
+                    serviceClient.UpdateAllProductTypeNo(basic.keyOldTypeNo,basic.keyNewTypeNo);
+                }
             }
             catch (Exception ex)
             {

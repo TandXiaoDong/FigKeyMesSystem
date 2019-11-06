@@ -265,8 +265,9 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     {
                         //当PCBA未完成绑定时，两次查询均会失败
                         //如果工艺流程不包含外壳装配或支架装配工站，可默认通过
+                        //灵敏度 / 烧录为第一个站，且外壳装配坏掉跳站：未完成绑定
                         var stationList = new MesService().SelectStationList(processName);
-                        if (!stationList.Contains("外壳装配工站") && !stationList.Contains("支架装配工站"))
+                        if (!stationList.Contains("外壳装配工站"))
                         {
                             queryResult = new string[3];
                             queryResult[0] = sn;

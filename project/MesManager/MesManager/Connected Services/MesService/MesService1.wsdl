@@ -381,6 +381,12 @@
   <wsdl:message name="IMesService_UpdateInsern_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateInsernResponse" />
   </wsdl:message>
+  <wsdl:message name="IMesService_UpdateAllProductTypeNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAllProductTypeNo" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdateAllProductTypeNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAllProductTypeNoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IMesService">
     <wsdl:operation name="TestCommunication">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/TestCommunication" message="tns:IMesService_TestCommunication_InputMessage" />
@@ -629,6 +635,10 @@
     <wsdl:operation name="UpdateInsern">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/UpdateInsern" message="tns:IMesService_UpdateInsern_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/UpdateInsernResponse" message="tns:IMesService_UpdateInsern_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAllProductTypeNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/UpdateAllProductTypeNo" message="tns:IMesService_UpdateAllProductTypeNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/UpdateAllProductTypeNoResponse" message="tns:IMesService_UpdateAllProductTypeNo_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMesService" type="tns:IMesService">
@@ -1184,6 +1194,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateInsern">
       <soap:operation soapAction="http://tempuri.org/IMesService/UpdateInsern" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAllProductTypeNo">
+      <soap:operation soapAction="http://tempuri.org/IMesService/UpdateAllProductTypeNo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -49,12 +49,12 @@
             this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
             this.menu_add = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_insertUp = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_cancel = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_del = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_commit = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_refresh = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_grid = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_clear_db = new Telerik.WinControls.UI.RadMenuItem();
-            this.menu_cancel = new Telerik.WinControls.UI.RadMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).BeginInit();
@@ -253,6 +253,13 @@
             this.menu_insertUp.Name = "menu_insertUp";
             this.menu_insertUp.Text = "向上插入工站";
             // 
+            // menu_cancel
+            // 
+            this.menu_cancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.menu_cancel.Image = global::MesManager.Properties.Resources.cancel;
+            this.menu_cancel.Name = "menu_cancel";
+            this.menu_cancel.Text = "取消插入";
+            // 
             // menu_del
             // 
             this.menu_del.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
@@ -292,13 +299,6 @@
             this.menu_clear_db.Name = "menu_clear_db";
             this.menu_clear_db.Text = "清空数据";
             this.menu_clear_db.UseCompatibleTextRendering = false;
-            // 
-            // menu_cancel
-            // 
-            this.menu_cancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.menu_cancel.Image = global::MesManager.Properties.Resources.cancel;
-            this.menu_cancel.Name = "menu_cancel";
-            this.menu_cancel.Text = "取消插入";
             // 
             // TProcess
             // 

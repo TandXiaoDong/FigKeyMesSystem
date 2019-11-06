@@ -7,6 +7,7 @@ using System.IO;
 using MesManager.Model;
 using CommonUtils.Logger;
 using System.Configuration;
+using System.Windows.Forms;
 
 namespace MesManager.Common
 {
@@ -27,7 +28,7 @@ namespace MesManager.Common
         }
 
 
-        public static void InitDirectory(StandConfigType configType)
+        public static bool InitDirectory(StandConfigType configType)
         {
             serviceClientTest = new MesServiceTest.MesServiceClient();
             var globalConfigPath = AppDomain.CurrentDomain.BaseDirectory + CommConfig.DeafaultConfigRoot;
@@ -42,7 +43,10 @@ namespace MesManager.Common
             var currentProcess = serviceClientTest.SelectCurrentTProcess();
 
             if (currentProcess == "" || currentProcess == "NULL")
-                return;
+            {
+                MessageBox.Show("请先设置工艺流程！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return false;
+            }
             //创建当前工艺文件夹
             var burnProductType = defaultRoot + StandCommon.TurnStationConfigPath + currentProcess + "\\" + StandCommon.TurnStationFWName;
             var sensibilityProductType = defaultRoot + StandCommon.SensibilityStationConfigPath + currentProcess;
@@ -66,11 +70,11 @@ namespace MesManager.Common
                 CreateNewDirectory(productTestProductType);
             else if(configType == StandConfigType.productCheck)
                 CreateNewDirectory(defaultRoot + StandCommon.CheckProductStationConfigPath + currentProcess);
+            return true;
         }
 
         private static void CreateNewDirectory(string dir)
         {
-
             if (!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);

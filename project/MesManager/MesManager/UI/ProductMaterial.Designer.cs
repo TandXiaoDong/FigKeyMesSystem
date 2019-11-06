@@ -40,19 +40,20 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductMaterial));
             this.radDock1 = new Telerik.WinControls.UI.Docking.RadDock();
             this.dw_stockManager = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.radGridViewStock = new Telerik.WinControls.UI.RadGridView();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.tool_stockManager_add = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.tool_stock_queryCondition = new System.Windows.Forms.ToolStripComboBox();
-            this.tool_stockManager_query = new System.Windows.Forms.ToolStripButton();
             this.tool_stockManager_deleteSignal = new System.Windows.Forms.ToolStripButton();
             this.tool_stockManager_update = new System.Windows.Forms.ToolStripButton();
             this.tool_stockManager_ClearGrid = new System.Windows.Forms.ToolStripButton();
             this.tool_stockManager_ClearDB = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.tool_stock_queryCondition = new System.Windows.Forms.ToolStripComboBox();
+            this.tool_stockManager_query = new System.Windows.Forms.ToolStripButton();
             this.documentContainer1 = new Telerik.WinControls.UI.Docking.DocumentContainer();
             this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
             this.dw_materialBind = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.radGridViewStock = new Telerik.WinControls.UI.RadGridView();
+            this.radGridViewBind = new Telerik.WinControls.UI.RadGridView();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.tool_bind_add = new System.Windows.Forms.ToolStripButton();
             this.tool_bind_delete = new System.Windows.Forms.ToolStripButton();
@@ -62,21 +63,20 @@
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.tool_bind_queryCondition = new System.Windows.Forms.ToolStripComboBox();
             this.tool_bind_query = new System.Windows.Forms.ToolStripButton();
-            this.radGridViewBind = new Telerik.WinControls.UI.RadGridView();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
             this.dw_stockManager.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewStock.MasterTemplate)).BeginInit();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).BeginInit();
             this.documentContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
             this.documentTabStrip1.SuspendLayout();
             this.dw_materialBind.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewStock)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewStock.MasterTemplate)).BeginInit();
-            this.toolStrip3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewBind)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewBind.MasterTemplate)).BeginInit();
+            this.toolStrip3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,6 +110,20 @@
             this.dw_stockManager.Size = new System.Drawing.Size(1262, 690);
             this.dw_stockManager.Text = "库存管理";
             // 
+            // radGridViewStock
+            // 
+            this.radGridViewStock.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radGridViewStock.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radGridViewStock.Location = new System.Drawing.Point(0, 29);
+            // 
+            // 
+            // 
+            this.radGridViewStock.MasterTemplate.ViewDefinition = tableViewDefinition1;
+            this.radGridViewStock.Name = "radGridViewStock";
+            this.radGridViewStock.Size = new System.Drawing.Size(1262, 661);
+            this.radGridViewStock.TabIndex = 19;
+            this.radGridViewStock.ThemeName = "Breeze";
+            // 
             // toolStrip2
             // 
             this.toolStrip2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
@@ -136,28 +150,6 @@
             this.tool_stockManager_add.Name = "tool_stockManager_add";
             this.tool_stockManager_add.Size = new System.Drawing.Size(62, 26);
             this.tool_stockManager_add.Text = "新增";
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(115, 26);
-            this.toolStripLabel2.Text = "物料编码(RID):";
-            // 
-            // tool_stock_queryCondition
-            // 
-            this.tool_stock_queryCondition.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tool_stock_queryCondition.Name = "tool_stock_queryCondition";
-            this.tool_stock_queryCondition.Size = new System.Drawing.Size(150, 29);
-            // 
-            // tool_stockManager_query
-            // 
-            this.tool_stockManager_query.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tool_stockManager_query.Image = global::MesManager.Properties.Resources.Search_16x16;
-            this.tool_stockManager_query.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_stockManager_query.Name = "tool_stockManager_query";
-            this.tool_stockManager_query.Size = new System.Drawing.Size(62, 26);
-            this.tool_stockManager_query.Text = "查询";
             // 
             // tool_stockManager_deleteSignal
             // 
@@ -194,6 +186,28 @@
             this.tool_stockManager_ClearDB.Name = "tool_stockManager_ClearDB";
             this.tool_stockManager_ClearDB.Size = new System.Drawing.Size(94, 26);
             this.tool_stockManager_ClearDB.Text = "清空数据";
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(115, 26);
+            this.toolStripLabel2.Text = "物料编码(RID):";
+            // 
+            // tool_stock_queryCondition
+            // 
+            this.tool_stock_queryCondition.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tool_stock_queryCondition.Name = "tool_stock_queryCondition";
+            this.tool_stock_queryCondition.Size = new System.Drawing.Size(150, 29);
+            // 
+            // tool_stockManager_query
+            // 
+            this.tool_stockManager_query.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tool_stockManager_query.Image = global::MesManager.Properties.Resources.Search_16x16;
+            this.tool_stockManager_query.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_stockManager_query.Name = "tool_stockManager_query";
+            this.tool_stockManager_query.Size = new System.Drawing.Size(62, 26);
+            this.tool_stockManager_query.Text = "查询";
             // 
             // documentContainer1
             // 
@@ -234,19 +248,53 @@
             this.dw_materialBind.Size = new System.Drawing.Size(1262, 690);
             this.dw_materialBind.Text = "物料绑定";
             // 
-            // radGridViewStock
+            // radGridViewBind
             // 
-            this.radGridViewStock.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridViewStock.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radGridViewStock.Location = new System.Drawing.Point(0, 29);
+            this.radGridViewBind.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(191)))), ((int)(((byte)(255)))));
+            this.radGridViewBind.Cursor = System.Windows.Forms.Cursors.Default;
+            this.radGridViewBind.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radGridViewBind.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            this.radGridViewBind.ForeColor = System.Drawing.Color.Black;
+            this.radGridViewBind.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.radGridViewBind.Location = new System.Drawing.Point(0, 29);
             // 
             // 
             // 
-            this.radGridViewStock.MasterTemplate.ViewDefinition = tableViewDefinition1;
-            this.radGridViewStock.Name = "radGridViewStock";
-            this.radGridViewStock.Size = new System.Drawing.Size(1262, 661);
-            this.radGridViewStock.TabIndex = 19;
-            this.radGridViewStock.ThemeName = "Breeze";
+            gridViewTextBoxColumn1.EnableExpressionEditor = false;
+            gridViewTextBoxColumn1.HeaderText = "序号";
+            gridViewTextBoxColumn1.Name = "rdvc_order";
+            gridViewComboBoxColumn1.EnableExpressionEditor = false;
+            gridViewComboBoxColumn1.HeaderText = "产品型号";
+            gridViewComboBoxColumn1.Name = "rdvc_typeNo";
+            gridViewTextBoxColumn2.EnableExpressionEditor = false;
+            gridViewTextBoxColumn2.HeaderText = "物料号";
+            gridViewTextBoxColumn2.Name = "rdvc_materialPN";
+            gridViewTextBoxColumn3.EnableExpressionEditor = false;
+            gridViewTextBoxColumn3.HeaderText = "物料名称";
+            gridViewTextBoxColumn3.Name = "dbv_material_name";
+            gridViewTextBoxColumn4.EnableExpressionEditor = false;
+            gridViewTextBoxColumn4.HeaderText = "描述";
+            gridViewTextBoxColumn4.Name = "rdvc_describle";
+            gridViewTextBoxColumn5.EnableExpressionEditor = false;
+            gridViewTextBoxColumn5.HeaderText = "操作用户";
+            gridViewTextBoxColumn5.Name = "rdbc_user";
+            gridViewTextBoxColumn6.EnableExpressionEditor = false;
+            gridViewTextBoxColumn6.HeaderText = "更新日期";
+            gridViewTextBoxColumn6.Name = "rdbc_date";
+            this.radGridViewBind.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
+            gridViewTextBoxColumn1,
+            gridViewComboBoxColumn1,
+            gridViewTextBoxColumn2,
+            gridViewTextBoxColumn3,
+            gridViewTextBoxColumn4,
+            gridViewTextBoxColumn5,
+            gridViewTextBoxColumn6});
+            this.radGridViewBind.MasterTemplate.ViewDefinition = tableViewDefinition2;
+            this.radGridViewBind.Name = "radGridViewBind";
+            this.radGridViewBind.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.radGridViewBind.Size = new System.Drawing.Size(1262, 661);
+            this.radGridViewBind.TabIndex = 19;
+            this.radGridViewBind.ThemeName = "Breeze";
             // 
             // toolStrip3
             // 
@@ -333,54 +381,6 @@
             this.tool_bind_query.Size = new System.Drawing.Size(62, 26);
             this.tool_bind_query.Text = "查询";
             // 
-            // radGridViewBind
-            // 
-            this.radGridViewBind.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(191)))), ((int)(((byte)(255)))));
-            this.radGridViewBind.Cursor = System.Windows.Forms.Cursors.Default;
-            this.radGridViewBind.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridViewBind.Font = new System.Drawing.Font("Segoe UI", 11.25F);
-            this.radGridViewBind.ForeColor = System.Drawing.Color.Black;
-            this.radGridViewBind.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radGridViewBind.Location = new System.Drawing.Point(0, 29);
-            // 
-            // 
-            // 
-            gridViewTextBoxColumn1.EnableExpressionEditor = false;
-            gridViewTextBoxColumn1.HeaderText = "序号";
-            gridViewTextBoxColumn1.Name = "rdvc_order";
-            gridViewComboBoxColumn1.EnableExpressionEditor = false;
-            gridViewComboBoxColumn1.HeaderText = "产品型号";
-            gridViewComboBoxColumn1.Name = "rdvc_typeNo";
-            gridViewTextBoxColumn2.EnableExpressionEditor = false;
-            gridViewTextBoxColumn2.HeaderText = "物料号";
-            gridViewTextBoxColumn2.Name = "rdvc_materialPN";
-            gridViewTextBoxColumn3.EnableExpressionEditor = false;
-            gridViewTextBoxColumn3.HeaderText = "物料名称";
-            gridViewTextBoxColumn3.Name = "dbv_material_name";
-            gridViewTextBoxColumn4.EnableExpressionEditor = false;
-            gridViewTextBoxColumn4.HeaderText = "描述";
-            gridViewTextBoxColumn4.Name = "rdvc_describle";
-            gridViewTextBoxColumn5.EnableExpressionEditor = false;
-            gridViewTextBoxColumn5.HeaderText = "操作用户";
-            gridViewTextBoxColumn5.Name = "rdbc_user";
-            gridViewTextBoxColumn6.EnableExpressionEditor = false;
-            gridViewTextBoxColumn6.HeaderText = "更新日期";
-            gridViewTextBoxColumn6.Name = "rdbc_date";
-            this.radGridViewBind.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
-            gridViewTextBoxColumn1,
-            gridViewComboBoxColumn1,
-            gridViewTextBoxColumn2,
-            gridViewTextBoxColumn3,
-            gridViewTextBoxColumn4,
-            gridViewTextBoxColumn5,
-            gridViewTextBoxColumn6});
-            this.radGridViewBind.MasterTemplate.ViewDefinition = tableViewDefinition2;
-            this.radGridViewBind.Name = "radGridViewBind";
-            this.radGridViewBind.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.radGridViewBind.Size = new System.Drawing.Size(1262, 661);
-            this.radGridViewBind.TabIndex = 19;
-            this.radGridViewBind.ThemeName = "Breeze";
-            // 
             // ProductMaterial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -401,6 +401,8 @@
             this.radDock1.ResumeLayout(false);
             this.dw_stockManager.ResumeLayout(false);
             this.dw_stockManager.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewStock.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewStock)).EndInit();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).EndInit();
@@ -409,12 +411,10 @@
             this.documentTabStrip1.ResumeLayout(false);
             this.dw_materialBind.ResumeLayout(false);
             this.dw_materialBind.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewStock.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewStock)).EndInit();
-            this.toolStrip3.ResumeLayout(false);
-            this.toolStrip3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewBind.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewBind)).EndInit();
+            this.toolStrip3.ResumeLayout(false);
+            this.toolStrip3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

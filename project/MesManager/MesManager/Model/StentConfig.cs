@@ -10,6 +10,12 @@ namespace MesManager.Model
     {
         public const string LocalAddressConMesKey = "本机地址（连接MES）";
         public const string TestSerialKey = "测试序列";
+        public const string LeftStentKey = "左支架";
+        public const string RightStentKey = "右支架";
+        public const string StentKey = "支架";
+        public const string UnionStentKey = "连体支架";
+        public const string StentSrcrewKey = "支架螺丝";
+        public const string StentNutKey = "支架螺母";
 
         /// <summary>
         /// 测试序列绝对路径,获取的实际值
@@ -28,5 +34,17 @@ namespace MesManager.Model
         public string SupplyVoltage { get; set; }
 
         public string LocalAddressConMes { get; set; }
+
+        public string LeftStent { get; set; }
+
+        public string RightStent { get; set; }
+
+        public string Stent { get; set; }
+
+        public string UnionStent { get; set; }
+
+        public string StentScrew { get; set; }
+
+        public string StentNut { get; set; }
     }
 }
