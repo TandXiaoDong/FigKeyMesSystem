@@ -231,5 +231,8 @@ namespace MesAPI
 
         [OperationContract]
         void UpdateAllProductTypeNo(string oldTypeNo, string newTypeNo);
+
+        [OperationContract]
+        int DeleteProcess(string processName);
     }
 }

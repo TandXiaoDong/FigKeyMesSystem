@@ -386,7 +386,6 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var queryRes = dt.Rows[0][0].ToString();
             return "0X" + Convert.ToString(int.Parse(queryRes),16).PadLeft(2, '0');
         }
-
         public static string UpdateMaterialStatistics(Queue<string[]> queue)
         {
             //更新物料统计：插入/更新
@@ -435,6 +434,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                         if (iuRes > 0 && isRes > 0)
                         {
                             //更新物料使用数量成功
+                            LogHelper.Log.Info($"【物料计数统计-插入成功】materialCode={materialCode} pcbaSN={pcbaSN}");
                             return ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.STATUS_USCCESS);
                         }
                         else
@@ -462,7 +462,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 if (uRes > 0 && sRes > 0 && mRes > 0)
                 {
                     //更新物料使用数量成功
-                    LogHelper.Log.Info("【物料计数统计更新成功】");
+                    LogHelper.Log.Info($"【物料计数统计-更新成功】materialCode={materialCode} pcbaSN={pcbaSN}");
                     return ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.STATUS_USCCESS);
                 }
                 return ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.STATUS_FAIL);

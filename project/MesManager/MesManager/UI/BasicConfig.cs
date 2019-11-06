@@ -231,19 +231,22 @@ namespace MesManager.UI
         async private void Menu_del_Click(object sender, EventArgs e)
         {
             //删除当前行
-            var stationName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
-            if (string.IsNullOrEmpty(stationName))
+            var typeNo = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
+            if (string.IsNullOrEmpty(typeNo))
             {
                 this.radGridView1.CurrentRow.Delete();
             }
             else
             {
-                if (MessageBox.Show("确认要删除当前行记录？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                if (MessageBox.Show($"确认要删除产品【{typeNo}】？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
-                    var typeNo = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
                     int row = await serviceClient.DeleteProductContinairCapacityAsync(typeNo);
+                    LogHelper.Log.Info($"【删除产品】产品名称={typeNo}影响行数={row} 操作用户={MESMainForm.currentUser}");
                     if (row > 0)
                     {
+                        //删除产品后，同时将工艺删除
+                        row = await serviceClient.DeleteProcessAsync(typeNo);
+                        LogHelper.Log.Info($"【删除工艺】工艺名称={typeNo}影响行数={row} 操作用户={MESMainForm.currentUser}");
                         RefreshData();
                     }
                 }

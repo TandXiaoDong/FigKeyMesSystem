@@ -617,7 +617,7 @@
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.documentWindow4;
+            this.radDock1.ActiveWindow = this.documentWindow7;
             this.radDock1.CausesValidation = false;
             this.radDock1.Controls.Add(this.documentContainer2);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -659,7 +659,7 @@
             // 
             this.lbx_airtage_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_airtage_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_airtage_tip.Location = new System.Drawing.Point(808, 280);
+            this.lbx_airtage_tip.Location = new System.Drawing.Point(793, 285);
             this.lbx_airtage_tip.Name = "lbx_airtage_tip";
             this.lbx_airtage_tip.Size = new System.Drawing.Size(283, 21);
             this.lbx_airtage_tip.TabIndex = 42;
@@ -984,7 +984,7 @@
             // 
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 3;
+            this.documentTabStrip1.SelectedIndex = 7;
             this.documentTabStrip1.Size = new System.Drawing.Size(1278, 747);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
@@ -1121,7 +1121,7 @@
             // 
             this.lbx_burn_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_burn_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_burn_tip.Location = new System.Drawing.Point(1037, 287);
+            this.lbx_burn_tip.Location = new System.Drawing.Point(1015, 289);
             this.lbx_burn_tip.Name = "lbx_burn_tip";
             this.lbx_burn_tip.Size = new System.Drawing.Size(189, 71);
             this.lbx_burn_tip.TabIndex = 42;
@@ -1132,7 +1132,7 @@
             // 
             this.lbx_burn_sign.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_burn_sign.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_burn_sign.Location = new System.Drawing.Point(1037, 260);
+            this.lbx_burn_sign.Location = new System.Drawing.Point(1015, 262);
             this.lbx_burn_sign.Name = "lbx_burn_sign";
             this.lbx_burn_sign.Size = new System.Drawing.Size(55, 21);
             this.lbx_burn_sign.TabIndex = 41;
@@ -1142,7 +1142,7 @@
             // btn_burn_save
             // 
             this.btn_burn_save.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_burn_save.Location = new System.Drawing.Point(1037, 504);
+            this.btn_burn_save.Location = new System.Drawing.Point(1015, 504);
             this.btn_burn_save.Name = "btn_burn_save";
             this.btn_burn_save.Size = new System.Drawing.Size(225, 36);
             this.btn_burn_save.TabIndex = 39;
@@ -1152,7 +1152,7 @@
             // btn_burn_refresh
             // 
             this.btn_burn_refresh.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_burn_refresh.Location = new System.Drawing.Point(1037, 51);
+            this.btn_burn_refresh.Location = new System.Drawing.Point(1015, 53);
             this.btn_burn_refresh.Name = "btn_burn_refresh";
             this.btn_burn_refresh.Size = new System.Drawing.Size(225, 36);
             this.btn_burn_refresh.TabIndex = 38;
@@ -1166,7 +1166,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(678, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(353, 689);
+            this.panel1.Size = new System.Drawing.Size(320, 689);
             this.panel1.TabIndex = 15;
             // 
             // groupBox4
@@ -1180,7 +1180,7 @@
             this.groupBox4.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox4.Location = new System.Drawing.Point(0, 296);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(353, 393);
+            this.groupBox4.Size = new System.Drawing.Size(320, 393);
             this.groupBox4.TabIndex = 15;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "烧录程序更改";
@@ -1188,7 +1188,7 @@
             // lbx_burn_openFile
             // 
             this.lbx_burn_openFile.Image = global::MesManager.Properties.Resources.OpenDoc_32x32;
-            this.lbx_burn_openFile.Location = new System.Drawing.Point(313, 90);
+            this.lbx_burn_openFile.Location = new System.Drawing.Point(283, 88);
             this.lbx_burn_openFile.Name = "lbx_burn_openFile";
             this.lbx_burn_openFile.Size = new System.Drawing.Size(34, 34);
             this.lbx_burn_openFile.TabIndex = 14;
@@ -1198,7 +1198,7 @@
             // 
             this.tb_burn_programeName.Location = new System.Drawing.Point(15, 208);
             this.tb_burn_programeName.Name = "tb_burn_programeName";
-            this.tb_burn_programeName.Size = new System.Drawing.Size(292, 36);
+            this.tb_burn_programeName.Size = new System.Drawing.Size(262, 36);
             this.tb_burn_programeName.TabIndex = 5;
             this.tb_burn_programeName.ThemeName = "Material";
             // 
@@ -1206,7 +1206,7 @@
             // 
             this.radLabel18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.radLabel18.Location = new System.Drawing.Point(15, 41);
+            this.radLabel18.Location = new System.Drawing.Point(7, 41);
             this.radLabel18.Name = "radLabel18";
             this.radLabel18.Size = new System.Drawing.Size(118, 21);
             this.radLabel18.TabIndex = 2;
@@ -1217,7 +1217,7 @@
             // 
             this.tb_burn_programePath.Location = new System.Drawing.Point(15, 88);
             this.tb_burn_programePath.Name = "tb_burn_programePath";
-            this.tb_burn_programePath.Size = new System.Drawing.Size(292, 36);
+            this.tb_burn_programePath.Size = new System.Drawing.Size(262, 36);
             this.tb_burn_programePath.TabIndex = 3;
             this.tb_burn_programePath.ThemeName = "Material";
             // 
@@ -1225,7 +1225,7 @@
             // 
             this.radLabel19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.radLabel19.Location = new System.Drawing.Point(15, 165);
+            this.radLabel19.Location = new System.Drawing.Point(7, 165);
             this.radLabel19.Name = "radLabel19";
             this.radLabel19.Size = new System.Drawing.Size(118, 21);
             this.radLabel19.TabIndex = 4;
@@ -1244,7 +1244,7 @@
             this.groupBox2.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(353, 296);
+            this.groupBox2.Size = new System.Drawing.Size(320, 296);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "波特率";
@@ -1269,7 +1269,7 @@
             // 
             this.radLabel8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.radLabel8.Location = new System.Drawing.Point(22, 63);
+            this.radLabel8.Location = new System.Drawing.Point(8, 63);
             this.radLabel8.Name = "radLabel8";
             this.radLabel8.Size = new System.Drawing.Size(102, 21);
             this.radLabel8.TabIndex = 2;
@@ -1280,7 +1280,7 @@
             // 
             this.radLabel9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.radLabel9.Location = new System.Drawing.Point(18, 134);
+            this.radLabel9.Location = new System.Drawing.Point(7, 134);
             this.radLabel9.Name = "radLabel9";
             this.radLabel9.Size = new System.Drawing.Size(101, 21);
             this.radLabel9.TabIndex = 4;
@@ -1300,7 +1300,7 @@
             // 
             this.radLabel10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.radLabel10.Location = new System.Drawing.Point(15, 203);
+            this.radLabel10.Location = new System.Drawing.Point(6, 203);
             this.radLabel10.Name = "radLabel10";
             this.radLabel10.Size = new System.Drawing.Size(104, 21);
             this.radLabel10.TabIndex = 6;
@@ -1470,14 +1470,14 @@
             this.cb_burn_serialNumber.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cb_burn_serialNumber.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cb_burn_serialNumber.FormattingEnabled = true;
-            this.cb_burn_serialNumber.Location = new System.Drawing.Point(1037, 188);
+            this.cb_burn_serialNumber.Location = new System.Drawing.Point(1015, 190);
             this.cb_burn_serialNumber.Name = "cb_burn_serialNumber";
             this.cb_burn_serialNumber.Size = new System.Drawing.Size(225, 28);
             this.cb_burn_serialNumber.TabIndex = 10;
             // 
             // radLabel1
             // 
-            this.radLabel1.Location = new System.Drawing.Point(1037, 134);
+            this.radLabel1.Location = new System.Drawing.Point(1015, 136);
             this.radLabel1.Name = "radLabel1";
             this.radLabel1.Size = new System.Drawing.Size(86, 21);
             this.radLabel1.TabIndex = 4;
@@ -1624,7 +1624,7 @@
             // 
             this.lbx_sensibility_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_sensibility_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_sensibility_tip.Location = new System.Drawing.Point(1036, 242);
+            this.lbx_sensibility_tip.Location = new System.Drawing.Point(997, 242);
             this.lbx_sensibility_tip.Name = "lbx_sensibility_tip";
             this.lbx_sensibility_tip.Size = new System.Drawing.Size(189, 71);
             this.lbx_sensibility_tip.TabIndex = 44;
@@ -2079,7 +2079,7 @@
             // 
             this.lbx_shell_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_shell_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_shell_tip.Location = new System.Drawing.Point(930, 280);
+            this.lbx_shell_tip.Location = new System.Drawing.Point(899, 280);
             this.lbx_shell_tip.Name = "lbx_shell_tip";
             this.lbx_shell_tip.Size = new System.Drawing.Size(283, 21);
             this.lbx_shell_tip.TabIndex = 39;
@@ -2237,7 +2237,7 @@
             // 
             this.lbx_stent_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_stent_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_stent_tip.Location = new System.Drawing.Point(928, 318);
+            this.lbx_stent_tip.Location = new System.Drawing.Point(901, 303);
             this.lbx_stent_tip.Name = "lbx_stent_tip";
             this.lbx_stent_tip.Size = new System.Drawing.Size(283, 21);
             this.lbx_stent_tip.TabIndex = 42;
@@ -2248,7 +2248,7 @@
             // 
             this.lbx_stent_sign.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_stent_sign.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_stent_sign.Location = new System.Drawing.Point(912, 280);
+            this.lbx_stent_sign.Location = new System.Drawing.Point(901, 266);
             this.lbx_stent_sign.Name = "lbx_stent_sign";
             this.lbx_stent_sign.Size = new System.Drawing.Size(55, 21);
             this.lbx_stent_sign.TabIndex = 41;
@@ -2258,7 +2258,7 @@
             // btn_stent_save
             // 
             this.btn_stent_save.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_stent_save.Location = new System.Drawing.Point(974, 504);
+            this.btn_stent_save.Location = new System.Drawing.Point(901, 493);
             this.btn_stent_save.Name = "btn_stent_save";
             this.btn_stent_save.Size = new System.Drawing.Size(227, 36);
             this.btn_stent_save.TabIndex = 35;
@@ -2268,7 +2268,7 @@
             // btn_stent_refresh
             // 
             this.btn_stent_refresh.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_stent_refresh.Location = new System.Drawing.Point(974, 38);
+            this.btn_stent_refresh.Location = new System.Drawing.Point(901, 27);
             this.btn_stent_refresh.Name = "btn_stent_refresh";
             this.btn_stent_refresh.Size = new System.Drawing.Size(227, 36);
             this.btn_stent_refresh.TabIndex = 34;
@@ -2280,14 +2280,14 @@
             this.cb_stent_testSerial.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cb_stent_testSerial.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cb_stent_testSerial.FormattingEnabled = true;
-            this.cb_stent_testSerial.Location = new System.Drawing.Point(974, 207);
+            this.cb_stent_testSerial.Location = new System.Drawing.Point(901, 196);
             this.cb_stent_testSerial.Name = "cb_stent_testSerial";
             this.cb_stent_testSerial.Size = new System.Drawing.Size(227, 28);
             this.cb_stent_testSerial.TabIndex = 19;
             // 
             // radLabel65
             // 
-            this.radLabel65.Location = new System.Drawing.Point(897, 165);
+            this.radLabel65.Location = new System.Drawing.Point(901, 148);
             this.radLabel65.Name = "radLabel65";
             this.radLabel65.Size = new System.Drawing.Size(86, 21);
             this.radLabel65.TabIndex = 2;
@@ -2334,7 +2334,7 @@
             // 
             this.lbx_productTest_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_productTest_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_productTest_tip.Location = new System.Drawing.Point(1033, 263);
+            this.lbx_productTest_tip.Location = new System.Drawing.Point(995, 263);
             this.lbx_productTest_tip.Name = "lbx_productTest_tip";
             this.lbx_productTest_tip.Size = new System.Drawing.Size(189, 71);
             this.lbx_productTest_tip.TabIndex = 46;
@@ -2345,7 +2345,7 @@
             // 
             this.lbx_productTest_sign.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_productTest_sign.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_productTest_sign.Location = new System.Drawing.Point(1019, 236);
+            this.lbx_productTest_sign.Location = new System.Drawing.Point(995, 236);
             this.lbx_productTest_sign.Name = "lbx_productTest_sign";
             this.lbx_productTest_sign.Size = new System.Drawing.Size(55, 21);
             this.lbx_productTest_sign.TabIndex = 45;
@@ -2355,7 +2355,7 @@
             // btn_productTest_save
             // 
             this.btn_productTest_save.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_productTest_save.Location = new System.Drawing.Point(1019, 481);
+            this.btn_productTest_save.Location = new System.Drawing.Point(995, 420);
             this.btn_productTest_save.Name = "btn_productTest_save";
             this.btn_productTest_save.Size = new System.Drawing.Size(243, 36);
             this.btn_productTest_save.TabIndex = 33;
@@ -2365,7 +2365,7 @@
             // btn_productTest_refresh
             // 
             this.btn_productTest_refresh.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_productTest_refresh.Location = new System.Drawing.Point(1024, 40);
+            this.btn_productTest_refresh.Location = new System.Drawing.Point(995, 43);
             this.btn_productTest_refresh.Name = "btn_productTest_refresh";
             this.btn_productTest_refresh.Size = new System.Drawing.Size(238, 36);
             this.btn_productTest_refresh.TabIndex = 32;
@@ -2388,7 +2388,7 @@
             this.groupBox10.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox10.Location = new System.Drawing.Point(649, 0);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(364, 689);
+            this.groupBox10.Size = new System.Drawing.Size(340, 689);
             this.groupBox10.TabIndex = 29;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "测试项参数";
@@ -2400,14 +2400,14 @@
             this.tb_product_porterRate.FormattingEnabled = true;
             this.tb_product_porterRate.Location = new System.Drawing.Point(166, 55);
             this.tb_product_porterRate.Name = "tb_product_porterRate";
-            this.tb_product_porterRate.Size = new System.Drawing.Size(192, 28);
+            this.tb_product_porterRate.Size = new System.Drawing.Size(168, 28);
             this.tb_product_porterRate.TabIndex = 22;
             // 
             // tb_product_receiveCanID
             // 
             this.tb_product_receiveCanID.Location = new System.Drawing.Point(166, 161);
             this.tb_product_receiveCanID.Name = "tb_product_receiveCanID";
-            this.tb_product_receiveCanID.Size = new System.Drawing.Size(192, 36);
+            this.tb_product_receiveCanID.Size = new System.Drawing.Size(168, 36);
             this.tb_product_receiveCanID.TabIndex = 17;
             this.tb_product_receiveCanID.ThemeName = "Material";
             // 
@@ -2415,7 +2415,7 @@
             // 
             this.tb_product_sendCanID.Location = new System.Drawing.Point(166, 100);
             this.tb_product_sendCanID.Name = "tb_product_sendCanID";
-            this.tb_product_sendCanID.Size = new System.Drawing.Size(192, 36);
+            this.tb_product_sendCanID.Size = new System.Drawing.Size(168, 36);
             this.tb_product_sendCanID.TabIndex = 15;
             this.tb_product_sendCanID.ThemeName = "Material";
             // 
@@ -2423,7 +2423,7 @@
             // 
             this.tb_product_rfCanID.Location = new System.Drawing.Point(166, 281);
             this.tb_product_rfCanID.Name = "tb_product_rfCanID";
-            this.tb_product_rfCanID.Size = new System.Drawing.Size(192, 36);
+            this.tb_product_rfCanID.Size = new System.Drawing.Size(168, 36);
             this.tb_product_rfCanID.TabIndex = 21;
             this.tb_product_rfCanID.ThemeName = "Material";
             // 
@@ -2440,7 +2440,7 @@
             // 
             this.tb_product_cyclyCanID.Location = new System.Drawing.Point(166, 221);
             this.tb_product_cyclyCanID.Name = "tb_product_cyclyCanID";
-            this.tb_product_cyclyCanID.Size = new System.Drawing.Size(192, 36);
+            this.tb_product_cyclyCanID.Size = new System.Drawing.Size(168, 36);
             this.tb_product_cyclyCanID.TabIndex = 19;
             this.tb_product_cyclyCanID.ThemeName = "Material";
             // 
@@ -2648,14 +2648,14 @@
             this.cb_product_testSerial.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cb_product_testSerial.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cb_product_testSerial.FormattingEnabled = true;
-            this.cb_product_testSerial.Location = new System.Drawing.Point(1024, 169);
+            this.cb_product_testSerial.Location = new System.Drawing.Point(995, 169);
             this.cb_product_testSerial.Name = "cb_product_testSerial";
             this.cb_product_testSerial.Size = new System.Drawing.Size(238, 28);
             this.cb_product_testSerial.TabIndex = 18;
             // 
             // radLabel80
             // 
-            this.radLabel80.Location = new System.Drawing.Point(1019, 113);
+            this.radLabel80.Location = new System.Drawing.Point(995, 115);
             this.radLabel80.Name = "radLabel80";
             this.radLabel80.Size = new System.Drawing.Size(86, 21);
             this.radLabel80.TabIndex = 17;
@@ -2810,7 +2810,7 @@
             // 
             this.lbx_productCheck_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_productCheck_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_productCheck_tip.Location = new System.Drawing.Point(1025, 264);
+            this.lbx_productCheck_tip.Location = new System.Drawing.Point(986, 258);
             this.lbx_productCheck_tip.Name = "lbx_productCheck_tip";
             this.lbx_productCheck_tip.Size = new System.Drawing.Size(189, 71);
             this.lbx_productCheck_tip.TabIndex = 46;
@@ -2821,7 +2821,7 @@
             // 
             this.lbx_productCheck_sign.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_productCheck_sign.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_productCheck_sign.Location = new System.Drawing.Point(1009, 237);
+            this.lbx_productCheck_sign.Location = new System.Drawing.Point(986, 231);
             this.lbx_productCheck_sign.Name = "lbx_productCheck_sign";
             this.lbx_productCheck_sign.Size = new System.Drawing.Size(55, 21);
             this.lbx_productCheck_sign.TabIndex = 45;
@@ -2831,7 +2831,7 @@
             // btn_productCheck_refresh
             // 
             this.btn_productCheck_refresh.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_productCheck_refresh.Location = new System.Drawing.Point(1009, 56);
+            this.btn_productCheck_refresh.Location = new System.Drawing.Point(986, 50);
             this.btn_productCheck_refresh.Name = "btn_productCheck_refresh";
             this.btn_productCheck_refresh.Size = new System.Drawing.Size(253, 36);
             this.btn_productCheck_refresh.TabIndex = 31;
@@ -2841,7 +2841,7 @@
             // btn_productCheck_save
             // 
             this.btn_productCheck_save.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_productCheck_save.Location = new System.Drawing.Point(1009, 469);
+            this.btn_productCheck_save.Location = new System.Drawing.Point(986, 463);
             this.btn_productCheck_save.Name = "btn_productCheck_save";
             this.btn_productCheck_save.Size = new System.Drawing.Size(253, 36);
             this.btn_productCheck_save.TabIndex = 30;
@@ -2862,9 +2862,9 @@
             this.groupBox11.Controls.Add(this.radLabel90);
             this.groupBox11.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox11.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox11.Location = new System.Drawing.Point(639, 0);
+            this.groupBox11.Location = new System.Drawing.Point(619, 0);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(364, 689);
+            this.groupBox11.Size = new System.Drawing.Size(345, 689);
             this.groupBox11.TabIndex = 29;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "测试项参数";
@@ -2876,14 +2876,14 @@
             this.tb_productCheck_porterRate.FormattingEnabled = true;
             this.tb_productCheck_porterRate.Location = new System.Drawing.Point(166, 56);
             this.tb_productCheck_porterRate.Name = "tb_productCheck_porterRate";
-            this.tb_productCheck_porterRate.Size = new System.Drawing.Size(192, 28);
+            this.tb_productCheck_porterRate.Size = new System.Drawing.Size(173, 28);
             this.tb_productCheck_porterRate.TabIndex = 22;
             // 
             // tb_productCheck_rfCanID
             // 
             this.tb_productCheck_rfCanID.Location = new System.Drawing.Point(166, 282);
             this.tb_productCheck_rfCanID.Name = "tb_productCheck_rfCanID";
-            this.tb_productCheck_rfCanID.Size = new System.Drawing.Size(192, 36);
+            this.tb_productCheck_rfCanID.Size = new System.Drawing.Size(173, 36);
             this.tb_productCheck_rfCanID.TabIndex = 21;
             this.tb_productCheck_rfCanID.ThemeName = "Material";
             // 
@@ -2900,7 +2900,7 @@
             // 
             this.tb_productCheck_cycleCanID.Location = new System.Drawing.Point(166, 222);
             this.tb_productCheck_cycleCanID.Name = "tb_productCheck_cycleCanID";
-            this.tb_productCheck_cycleCanID.Size = new System.Drawing.Size(192, 36);
+            this.tb_productCheck_cycleCanID.Size = new System.Drawing.Size(173, 36);
             this.tb_productCheck_cycleCanID.TabIndex = 19;
             this.tb_productCheck_cycleCanID.ThemeName = "Material";
             // 
@@ -2917,7 +2917,7 @@
             // 
             this.tb_productCheck_receiveCanID.Location = new System.Drawing.Point(166, 166);
             this.tb_productCheck_receiveCanID.Name = "tb_productCheck_receiveCanID";
-            this.tb_productCheck_receiveCanID.Size = new System.Drawing.Size(192, 36);
+            this.tb_productCheck_receiveCanID.Size = new System.Drawing.Size(173, 36);
             this.tb_productCheck_receiveCanID.TabIndex = 17;
             this.tb_productCheck_receiveCanID.ThemeName = "Material";
             // 
@@ -2934,7 +2934,7 @@
             // 
             this.tb_productCheck_sendCanID.Location = new System.Drawing.Point(166, 110);
             this.tb_productCheck_sendCanID.Name = "tb_productCheck_sendCanID";
-            this.tb_productCheck_sendCanID.Size = new System.Drawing.Size(192, 36);
+            this.tb_productCheck_sendCanID.Size = new System.Drawing.Size(173, 36);
             this.tb_productCheck_sendCanID.TabIndex = 15;
             this.tb_productCheck_sendCanID.ThemeName = "Material";
             // 
@@ -2978,7 +2978,7 @@
             this.groupBox12.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox12.Location = new System.Drawing.Point(282, 0);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(357, 689);
+            this.groupBox12.Size = new System.Drawing.Size(337, 689);
             this.groupBox12.TabIndex = 28;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "测试项上下限";
@@ -2996,7 +2996,7 @@
             // 
             this.tb_productCheck_dormantElectricMax.Location = new System.Drawing.Point(155, 394);
             this.tb_productCheck_dormantElectricMax.Name = "tb_productCheck_dormantElectricMax";
-            this.tb_productCheck_dormantElectricMax.Size = new System.Drawing.Size(196, 36);
+            this.tb_productCheck_dormantElectricMax.Size = new System.Drawing.Size(176, 36);
             this.tb_productCheck_dormantElectricMax.TabIndex = 25;
             this.tb_productCheck_dormantElectricMax.ThemeName = "Material";
             // 
@@ -3004,7 +3004,7 @@
             // 
             this.tb_productCheck_bootLoader.Location = new System.Drawing.Point(155, 454);
             this.tb_productCheck_bootLoader.Name = "tb_productCheck_bootLoader";
-            this.tb_productCheck_bootLoader.Size = new System.Drawing.Size(196, 36);
+            this.tb_productCheck_bootLoader.Size = new System.Drawing.Size(176, 36);
             this.tb_productCheck_bootLoader.TabIndex = 27;
             this.tb_productCheck_bootLoader.ThemeName = "Material";
             // 
@@ -3030,7 +3030,7 @@
             // 
             this.tb_productCheck_dormantElectricMin.Location = new System.Drawing.Point(155, 336);
             this.tb_productCheck_dormantElectricMin.Name = "tb_productCheck_dormantElectricMin";
-            this.tb_productCheck_dormantElectricMin.Size = new System.Drawing.Size(196, 36);
+            this.tb_productCheck_dormantElectricMin.Size = new System.Drawing.Size(176, 36);
             this.tb_productCheck_dormantElectricMin.TabIndex = 23;
             this.tb_productCheck_dormantElectricMin.ThemeName = "Material";
             // 
@@ -3047,7 +3047,7 @@
             // 
             this.tb_productCheck_softWareVersion.Location = new System.Drawing.Point(155, 282);
             this.tb_productCheck_softWareVersion.Name = "tb_productCheck_softWareVersion";
-            this.tb_productCheck_softWareVersion.Size = new System.Drawing.Size(196, 36);
+            this.tb_productCheck_softWareVersion.Size = new System.Drawing.Size(176, 36);
             this.tb_productCheck_softWareVersion.TabIndex = 21;
             this.tb_productCheck_softWareVersion.ThemeName = "Material";
             // 
@@ -3064,7 +3064,7 @@
             // 
             this.tb_productCheck_hardWareVersion.Location = new System.Drawing.Point(155, 225);
             this.tb_productCheck_hardWareVersion.Name = "tb_productCheck_hardWareVersion";
-            this.tb_productCheck_hardWareVersion.Size = new System.Drawing.Size(196, 36);
+            this.tb_productCheck_hardWareVersion.Size = new System.Drawing.Size(176, 36);
             this.tb_productCheck_hardWareVersion.TabIndex = 19;
             this.tb_productCheck_hardWareVersion.ThemeName = "Material";
             // 
@@ -3081,7 +3081,7 @@
             // 
             this.tb_productCheck_partNumber.Location = new System.Drawing.Point(155, 166);
             this.tb_productCheck_partNumber.Name = "tb_productCheck_partNumber";
-            this.tb_productCheck_partNumber.Size = new System.Drawing.Size(196, 36);
+            this.tb_productCheck_partNumber.Size = new System.Drawing.Size(176, 36);
             this.tb_productCheck_partNumber.TabIndex = 17;
             this.tb_productCheck_partNumber.ThemeName = "Material";
             // 
@@ -3089,7 +3089,7 @@
             // 
             this.tb_productCheck_workElectricMax.Location = new System.Drawing.Point(155, 110);
             this.tb_productCheck_workElectricMax.Name = "tb_productCheck_workElectricMax";
-            this.tb_productCheck_workElectricMax.Size = new System.Drawing.Size(196, 36);
+            this.tb_productCheck_workElectricMax.Size = new System.Drawing.Size(176, 36);
             this.tb_productCheck_workElectricMax.TabIndex = 15;
             this.tb_productCheck_workElectricMax.ThemeName = "Material";
             // 
@@ -3115,7 +3115,7 @@
             // 
             this.tb_productCheck_workElectricMin.Location = new System.Drawing.Point(155, 48);
             this.tb_productCheck_workElectricMin.Name = "tb_productCheck_workElectricMin";
-            this.tb_productCheck_workElectricMin.Size = new System.Drawing.Size(196, 36);
+            this.tb_productCheck_workElectricMin.Size = new System.Drawing.Size(176, 36);
             this.tb_productCheck_workElectricMin.TabIndex = 13;
             this.tb_productCheck_workElectricMin.ThemeName = "Material";
             // 
@@ -3124,7 +3124,7 @@
             this.tb_productCheck_testSerial.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.tb_productCheck_testSerial.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tb_productCheck_testSerial.FormattingEnabled = true;
-            this.tb_productCheck_testSerial.Location = new System.Drawing.Point(1009, 174);
+            this.tb_productCheck_testSerial.Location = new System.Drawing.Point(986, 168);
             this.tb_productCheck_testSerial.Name = "tb_productCheck_testSerial";
             this.tb_productCheck_testSerial.Size = new System.Drawing.Size(253, 28);
             this.tb_productCheck_testSerial.TabIndex = 18;
@@ -3237,7 +3237,7 @@
             // 
             // radLabel106
             // 
-            this.radLabel106.Location = new System.Drawing.Point(1009, 125);
+            this.radLabel106.Location = new System.Drawing.Point(986, 119);
             this.radLabel106.Name = "radLabel106";
             this.radLabel106.Size = new System.Drawing.Size(86, 21);
             this.radLabel106.TabIndex = 17;
@@ -3383,7 +3383,7 @@
             this.groupBox20.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox20.Location = new System.Drawing.Point(329, 0);
             this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(467, 689);
+            this.groupBox20.Size = new System.Drawing.Size(346, 689);
             this.groupBox20.TabIndex = 44;
             this.groupBox20.TabStop = false;
             this.groupBox20.Text = "物料PN";

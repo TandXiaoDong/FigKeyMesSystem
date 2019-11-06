@@ -724,11 +724,7 @@
     <None Include="Resources\arrow_up.png" />
     <None Include="Resources\arrow_down.png" />
     <None Include="Resources\cancel.png" />
-    <Content Include="功能描述.txt" />
-    <Content Include="新增.txt" />
-    <Content Include="新需求.txt" />
-    <Content Include="说明.txt" />
-    <Content Include="需求.txt" />
+    <Content Include="描述.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

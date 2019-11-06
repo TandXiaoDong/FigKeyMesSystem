@@ -6,6 +6,7 @@ using System.ServiceModel.Activation;
 using System.Web;
 using System.Web.Routing;
 using CommonUtils.DB;
+using CommonUtils.Logger;
 using System.Configuration;
 
 namespace MesAPI
@@ -22,12 +23,10 @@ namespace MesAPI
 
         protected void Session_Start(object sender, EventArgs e)
         {
-
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)

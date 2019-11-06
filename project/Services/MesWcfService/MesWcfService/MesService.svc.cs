@@ -44,7 +44,7 @@ namespace MesWcfService
         private Queue<string> selectMaterialSurplusQueue = new Queue<string>();
         private Queue<string> selectProductPackageStorageQueue = new Queue<string>();
         private int materialLength = 20;
-        private static string pcbaSN;//查询PCBA时记录SN
+        //private static string pcbaSN;//查询PCBA时记录SN
 
         private string GetDateTimeNow()
         {
@@ -311,7 +311,7 @@ namespace MesWcfService
         public string[] SelectLastTestResult(string sn,string station)
         {
             string[] array = new string[] { sn,station};
-            pcbaSN = sn;
+            //pcbaSN = sn;
             selectDataQueue.Enqueue(array);
             return TestResult.SelectTestResult(selectDataQueue);
         }
@@ -328,7 +328,7 @@ namespace MesWcfService
         [SwaggerWcfResponse("0X06", "ERROR_USE_AMOUNT_NOT_INT")]
         [SwaggerWcfResponse("0X07", "ERROR_NOT_MATCH_MATERIAL_PN")]
         [SwaggerWcfResponse("0X08", "ERROR_NOT_AMOUNT_STATE")]
-        public string UpdateMaterialStatistics(string typeNo,string stationName,string materialCode,string amounted,string teamLeader,string admin)
+        public string UpdateMaterialStatistics(string typeNo,string stationName,string materialCode,string amounted,string teamLeader,string admin,string pcbaSN)
         {
             if (string.IsNullOrEmpty(typeNo))
                 return MaterialStatistics.ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.ERROR_IS_NULL_TYPNO);
@@ -339,8 +339,21 @@ namespace MesWcfService
             if (!ExamineInputFormat.IsDecimal(amounted))
                 return MaterialStatistics.ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.ERROR_USE_AMOUNT_NOT_INT);
             insertMaterialStatisticsQueue.Enqueue(new string[] { typeNo,stationName,materialCode,amounted,teamLeader,admin,pcbaSN});
+            if (stationName == "外壳装配工站")
+            {
+                LogHelper.Log.Info($"【装配物料更新-外壳装配工站】第{c1}次更新 typeNo={typeNo} stationName={stationName} materialCode={materialCode} amounted={amounted} pcbaSN={pcbaSN}");
+                c1++;
+            }
+            else if (stationName == "支架装配工站")
+            {
+                LogHelper.Log.Info($"【装配物料更新-支架装配工站】第{c2}次更新 typeNo={typeNo} stationName={stationName} materialCode={materialCode} amounted={amounted} pcbaSN={pcbaSN}");
+                c2++;
+            }
+            
             return MaterialStatistics.UpdateMaterialStatistics(insertMaterialStatisticsQueue);
         }
+        static int c1 = 1;
+        static int c2 = 1;
         #endregion
 
         #region 查询物料剩余数量

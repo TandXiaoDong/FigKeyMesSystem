@@ -752,6 +752,12 @@ namespace MesManager.MesService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateAllProductTypeNo", ReplyAction="http://tempuri.org/IMesService/UpdateAllProductTypeNoResponse")]
         System.Threading.Tasks.Task UpdateAllProductTypeNoAsync(string oldTypeNo, string newTypeNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteProcess", ReplyAction="http://tempuri.org/IMesService/DeleteProcessResponse")]
+        int DeleteProcess(string processName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteProcess", ReplyAction="http://tempuri.org/IMesService/DeleteProcessResponse")]
+        System.Threading.Tasks.Task<int> DeleteProcessAsync(string processName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1283,6 +1289,14 @@ namespace MesManager.MesService {
         
         public System.Threading.Tasks.Task UpdateAllProductTypeNoAsync(string oldTypeNo, string newTypeNo) {
             return base.Channel.UpdateAllProductTypeNoAsync(oldTypeNo, newTypeNo);
+        }
+        
+        public int DeleteProcess(string processName) {
+            return base.Channel.DeleteProcess(processName);
+        }
+        
+        public System.Threading.Tasks.Task<int> DeleteProcessAsync(string processName) {
+            return base.Channel.DeleteProcessAsync(processName);
         }
     }
 }

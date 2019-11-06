@@ -20,6 +20,7 @@ using System.Data.SqlClient;
 using MesAPI.Common;
 using System.Data.Common;
 using CommonUtils.DEncrypt;
+using CommonUtils.FileHelper;
 
 namespace MesAPI
 {
@@ -330,6 +331,7 @@ namespace MesAPI
             string deleteSQL = $"DELETE FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} " +
                 $"WHERE {DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{processName}' AND " +
                 $"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_NAME} = '{stationName}'";
+            LogHelper.Log.Info("【删除工艺-工站】"+deleteSQL);
             return SQLServer.ExecuteNonQuery(deleteSQL);
         }
 
@@ -632,6 +634,16 @@ namespace MesAPI
             return testResultsList;
         }
 
+        private int ReadShellCodeLength()
+        {
+            int shellLen = 0;
+            var defaultRoot = ConfigurationManager.AppSettings["shellCodeRoot"].ToString();
+            var process = SelectCurrentTProcess();
+            var configPath = defaultRoot + "\\StationConfig\\外壳装配工站\\" + process + "\\" + "外壳装配工站_" + process + "_config.ini";
+            int.TryParse(INIFile.GetValue(process, "设置外壳条码长度位数", configPath),out shellLen);
+            return shellLen;
+        }
+
         public DataSet SelectTestResultDetail(string querySN)
         {
             //更新当前工站名称
@@ -668,6 +680,13 @@ namespace MesAPI
                     var pcbsn = GetPCBASn(pcbaSN);
                     var productsn = GetProductSn(pcbaSN);
                     dr[TestResultItemContent.Order] = count;
+                    var pcbaLen = ReadShellCodeLength();
+                    if (pcbsn.Length == pcbaLen && productsn == "")
+                    {
+                        //只有外壳
+                        productsn = pcbsn;
+                        pcbsn = "";
+                    }
                     dr[TestResultItemContent.PcbaSN] = pcbsn;
                     dr[TestResultItemContent.ProductSN] = productsn;
                     dr[TestResultItemContent.FinalResultValue] = GetProductTestFinalResult(pcbsn,productsn);
@@ -2590,13 +2609,14 @@ namespace MesAPI
         {
             var deleteSQL = $"DELETE FROM {DbTable.F_PRODUCT_PACKAGE_STORAGE_NAME} WHERE " +
                 $"{DbTable.F_PRODUCT_PACKAGE_STORAGE.PRODUCT_TYPE_NO} = '{productTypeNo}'";
-            int row = SQLServer.ExecuteNonQuery(deleteSQL);
-            if (row > 0)
-            {
-                //删除工艺
-                deleteSQL = $"DELETE FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} WHERE " +
-                    $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{productTypeNo}'";
-            }
+            return SQLServer.ExecuteNonQuery(deleteSQL);
+        }
+
+        public int DeleteProcess(string processName)
+        {
+            //删除工艺
+            var deleteSQL = $"DELETE FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} WHERE " +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{processName}'";
             return SQLServer.ExecuteNonQuery(deleteSQL);
         }
 
@@ -3089,11 +3109,33 @@ namespace MesAPI
             LogHelper.Log.Info("【产品型号】F_TEST_PROGRAME_VERSION_NAME 更新数量=" + row);
 
             updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_NAME} SET " +
-                $"{DbTable.F_Test_Result.TYPE_NO} = '{newTypeNo}' " +
+                $"{DbTable.F_Test_Result.TYPE_NO} = '{newTypeNo}'," +
+                $"{DbTable.F_Test_Result.PROCESS_NAME} = '{newTypeNo}' " +
                 $"WHERE " +
                 $"{DbTable.F_Test_Result.TYPE_NO} = '{oldTypeNo}'";
             row = SQLServer.ExecuteNonQuery(updateSQL);
             LogHelper.Log.Info("【产品型号】F_TEST_RESULT_NAME 更新数量=" + row);
+
+            updateSQL = $"UPDATE {DbTable.F_BINDING_PCBA_NAME} SET " +
+                $"{DbTable.F_BINDING_PCBA.PRODUCT_TYPE_NO} = '{newTypeNo}' " +
+                $"WHERE " +
+                $"{DbTable.F_BINDING_PCBA.PRODUCT_TYPE_NO} = '{oldTypeNo}'";
+            row = SQLServer.ExecuteNonQuery(updateSQL);
+            LogHelper.Log.Info("【产品型号】F_BINDING_PCBA 更新数量=" + row);
+        }
+
+        private string SelectCurrentTProcess()
+        {
+            string selectSQL = $"SELECT DISTINCT {DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} " +
+                $"FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} WHERE {DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_STATE} = '1'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                var currentProcess = dt.Rows[0][0].ToString();
+                return currentProcess;
+            }
+            else
+                return "";
         }
     }
 }

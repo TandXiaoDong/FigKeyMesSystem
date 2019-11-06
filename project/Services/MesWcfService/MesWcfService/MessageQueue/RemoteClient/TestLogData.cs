@@ -160,7 +160,9 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 else if (stationName == SensibilityStation)
                 {
                     if (!SensibilityTestItemList().Contains(testItem))
+                    {
                         return "OK";
+                    }
                 }
                 else if (stationName == ShellStation)
                 {

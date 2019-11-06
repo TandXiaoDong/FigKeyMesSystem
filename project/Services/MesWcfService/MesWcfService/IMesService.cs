@@ -55,7 +55,7 @@ namespace MesWcfService
         [OperationContract]
         [SwaggerWcfPath("UpdateMaterialStatistics", "装配物料统计")]
         [WebInvoke(Method = "GET", UriTemplate = "UpdateMaterialStatistics?typeNo={typeNo}&stationName={stationName}&" +
-            "materialCode={materialCode}&amounted={amounted}&teamLeader={teamLeader}&admin={admin}",
+            "materialCode={materialCode}&amounted={amounted}&teamLeader={teamLeader}&admin={admin}&sn={sn}",
             BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         string UpdateMaterialStatistics(
             [SwaggerWcfParameter(Description = "产品型号")]string typeNo,
@@ -63,7 +63,8 @@ namespace MesWcfService
             [SwaggerWcfParameter(Description = "物料编码")]string materialCode,
             [SwaggerWcfParameter(Description = "使用数量")]string amounted,
             [SwaggerWcfParameter(Description = "班组长")]string teamLeader,
-            [SwaggerWcfParameter(Description = "管理员")]string admin);
+            [SwaggerWcfParameter(Description = "管理员")]string admin,
+            [SwaggerWcfParameter(Description = "传入SN")]string sn);
         #endregion
 
         #region 【接口】物料入库
