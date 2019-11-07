@@ -43,6 +43,8 @@ namespace MesAPI
         private static string STATION_STENT = "支架";
         private static string STATION_PRODUCT = "成品";
 
+        private int logCount = 0;
+
         #region 物料统计字段
         private const string DATA_ORDER = "序号";
         private const string MATERIAL_PN = "物料号";
@@ -636,12 +638,21 @@ namespace MesAPI
 
         private int ReadShellCodeLength()
         {
-            int shellLen = 0;
-            var defaultRoot = ConfigurationManager.AppSettings["shellCodeRoot"].ToString();
-            var process = SelectCurrentTProcess();
-            var configPath = defaultRoot + "\\StationConfig\\外壳装配工站\\" + process + "\\" + "外壳装配工站_" + process + "_config.ini";
-            int.TryParse(INIFile.GetValue(process, "设置外壳条码长度位数", configPath),out shellLen);
-            return shellLen;
+            try
+            {
+                int shellLen = 0;
+                var defaultRoot = ConfigurationManager.AppSettings["shellCodeRoot"].ToString();
+                var process = SelectCurrentTProcess();
+                string configPath = defaultRoot + ":\\StationConfig\\外壳装配工站\\" + process + "\\" + "外壳装配工站_" + process + "_config.ini";
+                LogHelper.Log.Info("【配置文件路径】"+configPath);
+                int.TryParse(INIFile.GetValue(process, "设置外壳条码长度位数", configPath).Trim(), out shellLen);
+                return shellLen;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error("读取配置长度错误！"+ex.Message+ex.StackTrace+"\r\n");
+                return 0;
+            }
         }
 
         public DataSet SelectTestResultDetail(string querySN)
@@ -656,7 +667,7 @@ namespace MesAPI
             DataTable dt = InitTestResultDataTable(true);
             DataSet dataSet = new DataSet();
             List<string> pcbaList = new List<string>();
-            if (querySN != "")
+            if (querySN != "" && querySN != null)
             {
                 pcbaList.Add(querySN.Trim());
             }
@@ -669,6 +680,7 @@ namespace MesAPI
             int count = 1;
             if (pcbaList.Count > 0)
             {
+                var shellLen = ReadShellCodeLength();
                 foreach (var pcbaSN in pcbaList)
                 {
                     //查询外壳编码
@@ -680,21 +692,24 @@ namespace MesAPI
                     var pcbsn = GetPCBASn(pcbaSN);
                     var productsn = GetProductSn(pcbaSN);
                     dr[TestResultItemContent.Order] = count;
-                    var pcbaLen = ReadShellCodeLength();
-                    if (pcbsn.Length == pcbaLen && productsn == "")
+                    if (pcbsn.Length == shellLen && productsn == "")
                     {
                         //只有外壳
-                        productsn = pcbsn;
-                        pcbsn = "";
+                        LogHelper.Log.Info($"【只有外壳】配置外壳长度={shellLen} 实际外壳长度={pcbsn}");
+                        dr[TestResultItemContent.PcbaSN] = productsn;
+                        dr[TestResultItemContent.ProductSN] = pcbsn;
                     }
-                    dr[TestResultItemContent.PcbaSN] = pcbsn;
-                    dr[TestResultItemContent.ProductSN] = productsn;
+                    else
+                    {
+                        dr[TestResultItemContent.PcbaSN] = pcbsn;
+                        dr[TestResultItemContent.ProductSN] = productsn;
+                    }
                     dr[TestResultItemContent.FinalResultValue] = GetProductTestFinalResult(pcbsn,productsn);
 
                     #region 烧录工位信息
                     var testResultTurn = SelectTestResultOfSN(pcbsn,productsn,STATION_TURN);
                     //dr[TestResultItemContent.StationName_turn] = STATION_TURN;
-                    dr[TestResultItemContent.ProductTypeNo] = testResultTurn.ProductTypeNo;
+                    dr[TestResultItemContent.ProductTypeNo] = SelectCurrentTProcess();
                     dr[STATION_TURN + TestResultItemContent.StationInDate_turn] = testResultTurn.StationInDate;
                     dr[STATION_TURN + TestResultItemContent.StationOutDate_turn] = testResultTurn.StationOutDate;
                     dr[STATION_TURN + TestResultItemContent.UserTeamLeader_turn] = testResultTurn.UserTeamLeader;
@@ -1263,7 +1278,6 @@ namespace MesAPI
             STATION_SENSIBLITY = UpdateCurrentStation(STATION_SENSIBLITY);
             STATION_PRODUCT = UpdateCurrentStation(STATION_PRODUCT);
             STATION_AIR = UpdateCurrentStation(STATION_AIR);
-
             DataSet ds = new DataSet();
             var dt = InitTestResultDataTable(true);
             AddTestLogDetail(STATION_TURN,queryFilter,startTime,endTime,dt);
@@ -1334,7 +1348,7 @@ namespace MesAPI
             var dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
             if (dtResult.Rows.Count > 0)
             {
-                var count = 0;
+                var shellLen = ReadShellCodeLength();
                 foreach (DataRow dataRow in dtResult.Rows)
                 {
                     DataRow dr = dt.NewRow();
@@ -1348,10 +1362,21 @@ namespace MesAPI
                     var joinDateTime = dataRow[7].ToString();
                     var pcbaSN = GetPCBASn(pcbaSNTemp);
                     var productSN = GetProductSn(pcbaSNTemp);
-
-                    dr[TestResultItemContent.Order] = count + 1;
-                    dr[TestResultItemContent.PcbaSN] = GetPCBASn(pcbaSN);
-                    dr[TestResultItemContent.ProductSN] = GetProductSn(pcbaSN);
+                    var pcbsn = GetPCBASn(pcbaSN);
+                    var productsn = GetProductSn(pcbaSN);
+                    if (pcbsn.Length == shellLen && productsn == "")
+                    {
+                        //只有外壳
+                        LogHelper.Log.Info($"【只有外壳】配置外壳长度={shellLen} 实际外壳长度={pcbsn}");
+                        dr[TestResultItemContent.PcbaSN] = productsn;
+                        dr[TestResultItemContent.ProductSN] = pcbsn;
+                    }
+                    else
+                    {
+                        dr[TestResultItemContent.PcbaSN] = pcbsn;
+                        dr[TestResultItemContent.ProductSN] = productsn;
+                    }
+                    dr[TestResultItemContent.Order] = logCount + 1;
                     dr[TestResultItemContent.ProductTypeNo] = productTypeNo;
                     dr[TestResultItemContent.FinalResultValue] = GetProductTestFinalResult(pcbaSN, productSN);
 
@@ -1450,7 +1475,7 @@ namespace MesAPI
                     #endregion
 
                     dt.Rows.Add(dr);
-                    count++;
+                    logCount++;
                 }
             }
         }

@@ -204,6 +204,7 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "修改用户";
+            this.ThemeName = "Windows8";
             this.Load += new System.EventHandler(this.ModifyPwd_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

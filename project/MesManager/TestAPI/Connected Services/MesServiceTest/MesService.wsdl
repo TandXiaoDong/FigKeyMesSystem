@@ -2,10 +2,10 @@
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MesService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://192.168.0.110:8086/MesService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://192.168.0.110:8086/MesService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://192.168.0.110:8086/MesService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://192.168.0.110:8086/MesService.svc?xsd=xsd3" />
+      <xsd:import schemaLocation="http://192.168.13.240:8086/MesService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://192.168.13.240:8086/MesService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://192.168.13.240:8086/MesService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://192.168.13.240:8086/MesService.svc?xsd=xsd3" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IMesService_TestCommunication_InputMessage">
@@ -152,11 +152,47 @@
   <wsdl:message name="IMesService_UpdatePcbaBindingState_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdatePcbaBindingStateResponse" />
   </wsdl:message>
+  <wsdl:message name="IMesService_UpdatePCBABindingRepaireState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePCBABindingRepaireState" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_UpdatePCBABindingRepaireState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePCBABindingRepaireStateResponse" />
+  </wsdl:message>
   <wsdl:message name="IMesService_CheckPcbaState_InputMessage">
     <wsdl:part name="parameters" element="tns:CheckPcbaState" />
   </wsdl:message>
   <wsdl:message name="IMesService_CheckPcbaState_OutputMessage">
     <wsdl:part name="parameters" element="tns:CheckPcbaStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_GetUserInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_GetUserInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_Register_InputMessage">
+    <wsdl:part name="parameters" element="tns:Register" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_Register_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_ModifyUserPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyUserPassword" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_ModifyUserPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyUserPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_DeleteUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUser" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_DeleteUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUserResponse" />
   </wsdl:message>
   <wsdl:portType name="IMesService">
     <wsdl:operation name="TestCommunication">
@@ -255,9 +291,33 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/UpdatePcbaBindingState" message="tns:IMesService_UpdatePcbaBindingState_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/UpdatePcbaBindingStateResponse" message="tns:IMesService_UpdatePcbaBindingState_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="UpdatePCBABindingRepaireState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/UpdatePCBABindingRepaireState" message="tns:IMesService_UpdatePCBABindingRepaireState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/UpdatePCBABindingRepaireStateResponse" message="tns:IMesService_UpdatePCBABindingRepaireState_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="CheckPcbaState">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/CheckPcbaState" message="tns:IMesService_CheckPcbaState_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/CheckPcbaStateResponse" message="tns:IMesService_CheckPcbaState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/Login" message="tns:IMesService_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/LoginResponse" message="tns:IMesService_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/GetUserInfo" message="tns:IMesService_GetUserInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/GetUserInfoResponse" message="tns:IMesService_GetUserInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/Register" message="tns:IMesService_Register_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/RegisterResponse" message="tns:IMesService_Register_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyUserPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/ModifyUserPassword" message="tns:IMesService_ModifyUserPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/ModifyUserPasswordResponse" message="tns:IMesService_ModifyUserPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteUser" message="tns:IMesService_DeleteUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/DeleteUserResponse" message="tns:IMesService_DeleteUser_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMesService" type="tns:IMesService">
@@ -478,8 +538,62 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdatePCBABindingRepaireState">
+      <soap:operation soapAction="http://tempuri.org/IMesService/UpdatePCBABindingRepaireState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CheckPcbaState">
       <soap:operation soapAction="http://tempuri.org/IMesService/CheckPcbaState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/IMesService/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <soap:operation soapAction="http://tempuri.org/IMesService/GetUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <soap:operation soapAction="http://tempuri.org/IMesService/Register" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyUserPassword">
+      <soap:operation soapAction="http://tempuri.org/IMesService/ModifyUserPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <soap:operation soapAction="http://tempuri.org/IMesService/DeleteUser" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -490,7 +604,7 @@
   </wsdl:binding>
   <wsdl:service name="MesService">
     <wsdl:port name="BasicHttpBinding_IMesService" binding="tns:BasicHttpBinding_IMesService">
-      <soap:address location="http://192.168.0.110:8086/MesService.svc" />
+      <soap:address location="http://192.168.13.240:8086/MesService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

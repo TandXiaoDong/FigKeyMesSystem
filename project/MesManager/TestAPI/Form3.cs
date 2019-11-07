@@ -31,9 +31,10 @@ namespace TestAPI
             //测试数据
             MesServiceTest.MesServiceClient mesServiceTest = new MesServiceTest.MesServiceClient();
             MesService.MesServiceClient cst = new MesService.MesServiceClient();
-            var res = mesServiceTest.UpdatePackageProductBindingMsg("13","0012","A01","","0","","","");
+            //var res = mesServiceTest.UpdatePackageProductBindingMsg("13","0012","A01","","0","","","");
             //var msg = mesServiceTest.CheckPcbaState("017 B19922001901", "");
-            MessageBox.Show(res[0]+"  "+res[1]);
+            var res = mesServiceTest.BindingPCBA("", "A571E20311K091910027DE00112029", "jorgte", "HTSB20040000");
+            MessageBox.Show(res);
         }
 
         public void LSOSQL()

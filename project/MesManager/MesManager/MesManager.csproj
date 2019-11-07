@@ -655,6 +655,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="测试内容.txt" />
     <None Include="Connected Services\MesServiceTest\configuration91.svcinfo" />
     <None Include="Connected Services\MesServiceTest\configuration.svcinfo" />
     <None Include="Connected Services\MesServiceTest\Reference.svcmap">

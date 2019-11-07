@@ -6,6 +6,7 @@ using CommonUtils.DB;
 using CommonUtils.Logger;
 using MesWcfService.DB;
 using MesWcfService.Common;
+using System.Data;
 
 namespace MesWcfService.MessageQueue.RemoteClient
 {
@@ -23,8 +24,19 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 sn_pcba = SelectPcba(sn_outter);
                 if (sn_pcba == "")
                 {
-                    LogHelper.Log.Info("【PCBA绑定-PCBA编码传入为空，查询PCBA是否与外壳无绑定】");
-                    return "FAIL"; 
+                    LogHelper.Log.Info("【PCBA绑定-PCBA编码传入为空，查询PCBA是否与外壳无绑定】继续查询是否包含外壳工站");
+                    //查询本工艺是否不包含外壳装配工站
+                    var stationDs = SelectStationList(productTypeNo);
+                    if (stationDs.Tables.Count > 0)
+                    {
+                        var dataRowList = stationDs.Tables[0].Select($"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_NAME} = '外壳装配工站'");
+                        if (dataRowList.Length > 0)
+                        {
+                            LogHelper.Log.Info("【PCBA绑定-查询是否包含外壳工站】包含外壳工站，绑定不能继续");
+                            return "FAIL";
+                        }
+                        LogHelper.Log.Info("【PCBA绑定-查询是否包含外壳工站】不包含外壳工站，绑定可以继续");
+                    }
                 }
                 LogHelper.Log.Info("【PCBA绑定-PCBA编码传入为空，查询PCBA是否与外壳已经绑定】pcba="+sn_pcba);
             }
@@ -43,16 +55,28 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 LogHelper.Log.Info("【PCBA绑定-产品型号传入为空】");
                 return "FAIL";
             }
-
-            var upDateSQL = $"UPDATE {DbTable.F_BINDING_PCBA_NAME} SET " +
-                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn_outter}' WHERE " +
-                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn_pcba}'";
-
             if (IsExistPCBA(sn_pcba,sn_outter,materialCode,productTypeNo))
             {
                 //update
-                //暂时不考虑更新外壳编码
-                return "OK";
+                LogHelper.Log.Info("【更新PCBA绑定状态】针对已解绑再次恢复绑定的情况");
+                var upDateSQL = $"UPDATE {DbTable.F_BINDING_PCBA_NAME} SET " +
+                $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '1' " +
+                $"WHERE " +
+                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn_pcba}' " +
+                $"AND " +
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn_outter}'" +
+                $"AND " +
+                $"{DbTable.F_BINDING_PCBA.MATERIAL_CODE} = '{materialCode}'" +
+                $"AND " +
+                $"{DbTable.F_BINDING_PCBA.PRODUCT_TYPE_NO} = '{productTypeNo}'";
+                var row = SQLServer.ExecuteNonQuery(upDateSQL);
+                if (row > 0)
+                {
+                    LogHelper.Log.Info("【PCB恢复绑定】成功");
+                    return "OK";
+                }
+                LogHelper.Log.Info("【PCBA恢复绑定】失败"+upDateSQL);
+                return "FAIL";
             }
             else
             {
@@ -71,13 +95,29 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     $"'{materialCode}','{productTypeNo}','{SelectPcbaState(sn_pcba)}','{SelectShellState(sn_outter)}')";
                 int isRes = SQLServer.ExecuteNonQuery(insertSQL);
                 if (isRes > 0)
+                {
+                    LogHelper.Log.Info("【PCB绑定成功】" + insertSQL);
                     return "OK";
+                }
                 else
                 {
                     LogHelper.Log.Info("【PCB绑定失败】" + insertSQL);
                     return "FAIL";
                 }
             }
+        }
+
+        public static DataSet SelectStationList(string processName)
+        {
+            string selectSQL = $"SELECT " +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_ORDER}," +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_NAME}," +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.USER_NAME}," +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.UPDATE_DATE} " +
+                $"FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} " +
+                $"WHERE {DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{processName}' " +
+                $"ORDER BY {DbTable.F_TECHNOLOGICAL_PROCESS.STATION_ORDER}";
+            return SQLServer.ExecuteDataSet(selectSQL);
         }
 
         private static string SelectPcbaState(string snPCBA)

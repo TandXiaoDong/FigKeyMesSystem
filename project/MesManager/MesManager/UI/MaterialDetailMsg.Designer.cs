@@ -51,7 +51,7 @@
             this.tool_sn_export});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1272, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1276, 27);
             this.toolStrip1.TabIndex = 32;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -89,7 +89,7 @@
             // 
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
-            this.radGridView1.Size = new System.Drawing.Size(1272, 478);
+            this.radGridView1.Size = new System.Drawing.Size(1276, 480);
             this.radGridView1.TabIndex = 33;
             this.radGridView1.ThemeName = "Breeze";
             // 
@@ -98,7 +98,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(1272, 505);
+            this.ClientSize = new System.Drawing.Size(1276, 507);
             this.Controls.Add(this.radGridView1);
             this.Controls.Add(this.toolStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -109,6 +109,7 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "物料使用详情";
+            this.ThemeName = "Windows8";
             this.Load += new System.EventHandler(this.MaterialDetailMsg_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

@@ -34,10 +34,10 @@ namespace TestAPI.MesServiceTest {
         System.Threading.Tasks.Task<string[]> SelectLastTestResultAsync(string sn, string station);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateMaterialStatistics", ReplyAction="http://tempuri.org/IMesService/UpdateMaterialStatisticsResponse")]
-        string UpdateMaterialStatistics(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin);
+        string UpdateMaterialStatistics(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin, string sn);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateMaterialStatistics", ReplyAction="http://tempuri.org/IMesService/UpdateMaterialStatisticsResponse")]
-        System.Threading.Tasks.Task<string> UpdateMaterialStatisticsAsync(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin);
+        System.Threading.Tasks.Task<string> UpdateMaterialStatisticsAsync(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin, string sn);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CheckMaterialPutStorage", ReplyAction="http://tempuri.org/IMesService/CheckMaterialPutStorageResponse")]
         string CheckMaterialPutStorage(string materialCode, string teamLeader, string admin);
@@ -58,10 +58,10 @@ namespace TestAPI.MesServiceTest {
         System.Threading.Tasks.Task<string> CheckMaterialUseStateAsync(string productTypeNo, string materialCode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CheckMaterialMatch", ReplyAction="http://tempuri.org/IMesService/CheckMaterialMatchResponse")]
-        string CheckMaterialMatch(string productTypeNo, string materialPN, string actualMaterialPn, string materialCode);
+        string CheckMaterialMatch(string productTypeNo, string testMaterialPn, string actualMaterialPn, string materialCode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CheckMaterialMatch", ReplyAction="http://tempuri.org/IMesService/CheckMaterialMatchResponse")]
-        System.Threading.Tasks.Task<string> CheckMaterialMatchAsync(string productTypeNo, string materialPN, string actualMaterialPn, string materialCode);
+        System.Threading.Tasks.Task<string> CheckMaterialMatchAsync(string productTypeNo, string testMaterialPn, string actualMaterialPn, string materialCode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePackageProductBindingMsg", ReplyAction="http://tempuri.org/IMesService/UpdatePackageProductBindingMsgResponse")]
         string[] UpdatePackageProductBindingMsg(string outCaseCode, string snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin);
@@ -148,10 +148,10 @@ namespace TestAPI.MesServiceTest {
         System.Threading.Tasks.Task<string> UpdatePackageStorageAsync(string productTypeNo, int capacity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/QueryPCBAMes", ReplyAction="http://tempuri.org/IMesService/QueryPCBAMesResponse")]
-        System.Data.DataSet QueryPCBAMes(string pcbaSN);
+        System.Data.DataSet QueryPCBAMes(string pcbasn);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/QueryPCBAMes", ReplyAction="http://tempuri.org/IMesService/QueryPCBAMesResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> QueryPCBAMesAsync(string pcbaSN);
+        System.Threading.Tasks.Task<System.Data.DataSet> QueryPCBAMesAsync(string pcbasn);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePcbaBindingState", ReplyAction="http://tempuri.org/IMesService/UpdatePcbaBindingStateResponse")]
         bool UpdatePcbaBindingState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
@@ -159,11 +159,47 @@ namespace TestAPI.MesServiceTest {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePcbaBindingState", ReplyAction="http://tempuri.org/IMesService/UpdatePcbaBindingStateResponse")]
         System.Threading.Tasks.Task<bool> UpdatePcbaBindingStateAsync(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePCBABindingRepaireState", ReplyAction="http://tempuri.org/IMesService/UpdatePCBABindingRepaireStateResponse")]
+        bool UpdatePCBABindingRepaireState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePCBABindingRepaireState", ReplyAction="http://tempuri.org/IMesService/UpdatePCBABindingRepaireStateResponse")]
+        System.Threading.Tasks.Task<bool> UpdatePCBABindingRepaireStateAsync(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CheckPcbaState", ReplyAction="http://tempuri.org/IMesService/CheckPcbaStateResponse")]
         string[] CheckPcbaState(string snPcba, string snOutter);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CheckPcbaState", ReplyAction="http://tempuri.org/IMesService/CheckPcbaStateResponse")]
         System.Threading.Tasks.Task<string[]> CheckPcbaStateAsync(string snPcba, string snOutter);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/Login", ReplyAction="http://tempuri.org/IMesService/LoginResponse")]
+        string[] Login(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/Login", ReplyAction="http://tempuri.org/IMesService/LoginResponse")]
+        System.Threading.Tasks.Task<string[]> LoginAsync(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/GetUserInfo", ReplyAction="http://tempuri.org/IMesService/GetUserInfoResponse")]
+        string[] GetUserInfo(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/GetUserInfo", ReplyAction="http://tempuri.org/IMesService/GetUserInfoResponse")]
+        System.Threading.Tasks.Task<string[]> GetUserInfoAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/Register", ReplyAction="http://tempuri.org/IMesService/RegisterResponse")]
+        string[] Register(string username, string pwd, int userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/Register", ReplyAction="http://tempuri.org/IMesService/RegisterResponse")]
+        System.Threading.Tasks.Task<string[]> RegisterAsync(string username, string pwd, int userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/ModifyUserPassword", ReplyAction="http://tempuri.org/IMesService/ModifyUserPasswordResponse")]
+        string[] ModifyUserPassword(string username, string pwd);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/ModifyUserPassword", ReplyAction="http://tempuri.org/IMesService/ModifyUserPasswordResponse")]
+        System.Threading.Tasks.Task<string[]> ModifyUserPasswordAsync(string username, string pwd);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteUser", ReplyAction="http://tempuri.org/IMesService/DeleteUserResponse")]
+        string[] DeleteUser(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteUser", ReplyAction="http://tempuri.org/IMesService/DeleteUserResponse")]
+        System.Threading.Tasks.Task<string[]> DeleteUserAsync(string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -217,12 +253,12 @@ namespace TestAPI.MesServiceTest {
             return base.Channel.SelectLastTestResultAsync(sn, station);
         }
         
-        public string UpdateMaterialStatistics(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin) {
-            return base.Channel.UpdateMaterialStatistics(typeNo, stationName, materialCode, amounted, teamLeader, admin);
+        public string UpdateMaterialStatistics(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin, string sn) {
+            return base.Channel.UpdateMaterialStatistics(typeNo, stationName, materialCode, amounted, teamLeader, admin, sn);
         }
         
-        public System.Threading.Tasks.Task<string> UpdateMaterialStatisticsAsync(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin) {
-            return base.Channel.UpdateMaterialStatisticsAsync(typeNo, stationName, materialCode, amounted, teamLeader, admin);
+        public System.Threading.Tasks.Task<string> UpdateMaterialStatisticsAsync(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin, string sn) {
+            return base.Channel.UpdateMaterialStatisticsAsync(typeNo, stationName, materialCode, amounted, teamLeader, admin, sn);
         }
         
         public string CheckMaterialPutStorage(string materialCode, string teamLeader, string admin) {
@@ -249,12 +285,12 @@ namespace TestAPI.MesServiceTest {
             return base.Channel.CheckMaterialUseStateAsync(productTypeNo, materialCode);
         }
         
-        public string CheckMaterialMatch(string productTypeNo, string materialPN, string actualMaterialPn, string materialCode) {
-            return base.Channel.CheckMaterialMatch(productTypeNo, materialPN, actualMaterialPn, materialCode);
+        public string CheckMaterialMatch(string productTypeNo, string testMaterialPn, string actualMaterialPn, string materialCode) {
+            return base.Channel.CheckMaterialMatch(productTypeNo, testMaterialPn, actualMaterialPn, materialCode);
         }
         
-        public System.Threading.Tasks.Task<string> CheckMaterialMatchAsync(string productTypeNo, string materialPN, string actualMaterialPn, string materialCode) {
-            return base.Channel.CheckMaterialMatchAsync(productTypeNo, materialPN, actualMaterialPn, materialCode);
+        public System.Threading.Tasks.Task<string> CheckMaterialMatchAsync(string productTypeNo, string testMaterialPn, string actualMaterialPn, string materialCode) {
+            return base.Channel.CheckMaterialMatchAsync(productTypeNo, testMaterialPn, actualMaterialPn, materialCode);
         }
         
         public string[] UpdatePackageProductBindingMsg(string outCaseCode, string snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin) {
@@ -369,12 +405,12 @@ namespace TestAPI.MesServiceTest {
             return base.Channel.UpdatePackageStorageAsync(productTypeNo, capacity);
         }
         
-        public System.Data.DataSet QueryPCBAMes(string pcbaSN) {
-            return base.Channel.QueryPCBAMes(pcbaSN);
+        public System.Data.DataSet QueryPCBAMes(string pcbasn) {
+            return base.Channel.QueryPCBAMes(pcbasn);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> QueryPCBAMesAsync(string pcbaSN) {
-            return base.Channel.QueryPCBAMesAsync(pcbaSN);
+        public System.Threading.Tasks.Task<System.Data.DataSet> QueryPCBAMesAsync(string pcbasn) {
+            return base.Channel.QueryPCBAMesAsync(pcbasn);
         }
         
         public bool UpdatePcbaBindingState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState) {
@@ -385,12 +421,60 @@ namespace TestAPI.MesServiceTest {
             return base.Channel.UpdatePcbaBindingStateAsync(pcbaSn, outterSn, bindingState, pcbaState, outterState);
         }
         
+        public bool UpdatePCBABindingRepaireState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState) {
+            return base.Channel.UpdatePCBABindingRepaireState(pcbaSn, outterSn, bindingState, pcbaState, outterState);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdatePCBABindingRepaireStateAsync(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState) {
+            return base.Channel.UpdatePCBABindingRepaireStateAsync(pcbaSn, outterSn, bindingState, pcbaState, outterState);
+        }
+        
         public string[] CheckPcbaState(string snPcba, string snOutter) {
             return base.Channel.CheckPcbaState(snPcba, snOutter);
         }
         
         public System.Threading.Tasks.Task<string[]> CheckPcbaStateAsync(string snPcba, string snOutter) {
             return base.Channel.CheckPcbaStateAsync(snPcba, snOutter);
+        }
+        
+        public string[] Login(string username, string password) {
+            return base.Channel.Login(username, password);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> LoginAsync(string username, string password) {
+            return base.Channel.LoginAsync(username, password);
+        }
+        
+        public string[] GetUserInfo(string username) {
+            return base.Channel.GetUserInfo(username);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetUserInfoAsync(string username) {
+            return base.Channel.GetUserInfoAsync(username);
+        }
+        
+        public string[] Register(string username, string pwd, int userType) {
+            return base.Channel.Register(username, pwd, userType);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> RegisterAsync(string username, string pwd, int userType) {
+            return base.Channel.RegisterAsync(username, pwd, userType);
+        }
+        
+        public string[] ModifyUserPassword(string username, string pwd) {
+            return base.Channel.ModifyUserPassword(username, pwd);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> ModifyUserPasswordAsync(string username, string pwd) {
+            return base.Channel.ModifyUserPasswordAsync(username, pwd);
+        }
+        
+        public string[] DeleteUser(string username) {
+            return base.Channel.DeleteUser(username);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> DeleteUserAsync(string username) {
+            return base.Channel.DeleteUserAsync(username);
         }
     }
 }

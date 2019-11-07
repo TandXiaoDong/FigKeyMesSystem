@@ -88,7 +88,7 @@
             // 
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
-            this.radGridView1.Size = new System.Drawing.Size(613, 447);
+            this.radGridView1.Size = new System.Drawing.Size(617, 449);
             this.radGridView1.TabIndex = 11;
             this.radGridView1.ThemeName = "Breeze";
             // 
@@ -103,7 +103,7 @@
             this.menu_refresh});
             this.radMenu1.Location = new System.Drawing.Point(0, 0);
             this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(613, 36);
+            this.radMenu1.Size = new System.Drawing.Size(617, 36);
             this.radMenu1.TabIndex = 10;
             // 
             // UserManager
@@ -111,7 +111,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(613, 483);
+            this.ClientSize = new System.Drawing.Size(617, 485);
             this.Controls.Add(this.radGridView1);
             this.Controls.Add(this.radMenu1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -121,6 +121,7 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "用户管理";
+            this.ThemeName = "Windows8";
             this.Load += new System.EventHandler(this.UserManager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();

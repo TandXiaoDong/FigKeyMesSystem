@@ -45,6 +45,7 @@
             this.tool_material_exportFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tool_material_export = new System.Windows.Forms.ToolStripButton();
             this.btn_materialSelect = new System.Windows.Forms.ToolStripButton();
+            this.tool_materialClearDB = new System.Windows.Forms.ToolStripButton();
             this.panel_sn = new System.Windows.Forms.Panel();
             this.radGridViewSn = new Telerik.WinControls.UI.RadGridView();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -55,6 +56,7 @@
             this.tool_sn_exportFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tool_sn_export = new System.Windows.Forms.ToolStripButton();
             this.btn_selectOfSn = new System.Windows.Forms.ToolStripButton();
+            this.tool_SNClearDB = new System.Windows.Forms.ToolStripButton();
             this.panel_package = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.radGridViewPackage = new Telerik.WinControls.UI.RadGridView();
@@ -66,6 +68,7 @@
             this.tool_package_exportFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tool_package_export = new System.Windows.Forms.ToolStripButton();
             this.btn_selectOfPackage = new System.Windows.Forms.ToolStripButton();
+            this.tool_packageClearDB = new System.Windows.Forms.ToolStripButton();
             this.panel_productCheck = new System.Windows.Forms.Panel();
             this.radGridViewCheck = new Telerik.WinControls.UI.RadGridView();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -76,6 +79,7 @@
             this.tool_productCheck_exportFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tool_productCheck_export = new System.Windows.Forms.ToolStripButton();
             this.btn_productCheck = new System.Windows.Forms.ToolStripButton();
+            this.tool_productCheckClearDB = new System.Windows.Forms.ToolStripButton();
             this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
             this.menu_sn_result = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_package = new Telerik.WinControls.UI.RadMenuItem();
@@ -92,12 +96,8 @@
             this.tool_quanlity_exportFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tool_quanlity_export = new System.Windows.Forms.ToolStripButton();
             this.btn_quanlity = new System.Windows.Forms.ToolStripButton();
-            this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
-            this.tool_materialClearDB = new System.Windows.Forms.ToolStripButton();
-            this.tool_productCheckClearDB = new System.Windows.Forms.ToolStripButton();
             this.tool_quanlityClearDB = new System.Windows.Forms.ToolStripButton();
-            this.tool_packageClearDB = new System.Windows.Forms.ToolStripButton();
-            this.tool_SNClearDB = new System.Windows.Forms.ToolStripButton();
+            this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
             this.panel_material.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewMaterial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewMaterial.MasterTemplate)).BeginInit();
@@ -230,6 +230,15 @@
             this.btn_materialSelect.Size = new System.Drawing.Size(55, 34);
             this.btn_materialSelect.Text = "查询";
             // 
+            // tool_materialClearDB
+            // 
+            this.tool_materialClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_materialClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_materialClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_materialClearDB.Name = "tool_materialClearDB";
+            this.tool_materialClearDB.Size = new System.Drawing.Size(55, 34);
+            this.tool_materialClearDB.Text = "清除";
+            // 
             // panel_sn
             // 
             this.panel_sn.Controls.Add(this.radGridViewSn);
@@ -328,6 +337,15 @@
             this.btn_selectOfSn.Name = "btn_selectOfSn";
             this.btn_selectOfSn.Size = new System.Drawing.Size(55, 36);
             this.btn_selectOfSn.Text = "查询";
+            // 
+            // tool_SNClearDB
+            // 
+            this.tool_SNClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_SNClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_SNClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_SNClearDB.Name = "tool_SNClearDB";
+            this.tool_SNClearDB.Size = new System.Drawing.Size(55, 36);
+            this.tool_SNClearDB.Text = "清除";
             // 
             // panel_package
             // 
@@ -435,6 +453,15 @@
             this.btn_selectOfPackage.Size = new System.Drawing.Size(55, 39);
             this.btn_selectOfPackage.Text = "查询";
             // 
+            // tool_packageClearDB
+            // 
+            this.tool_packageClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_packageClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_packageClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_packageClearDB.Name = "tool_packageClearDB";
+            this.tool_packageClearDB.Size = new System.Drawing.Size(55, 39);
+            this.tool_packageClearDB.Text = "清除";
+            // 
             // panel_productCheck
             // 
             this.panel_productCheck.Controls.Add(this.radGridViewCheck);
@@ -532,6 +559,15 @@
             this.btn_productCheck.Size = new System.Drawing.Size(55, 37);
             this.btn_productCheck.Text = "查询";
             // 
+            // tool_productCheckClearDB
+            // 
+            this.tool_productCheckClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_productCheckClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_productCheckClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_productCheckClearDB.Name = "tool_productCheckClearDB";
+            this.tool_productCheckClearDB.Size = new System.Drawing.Size(55, 37);
+            this.tool_productCheckClearDB.Text = "清除";
+            // 
             // radMenu1
             // 
             this.radMenu1.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -545,7 +581,7 @@
             this.radMenu1.Location = new System.Drawing.Point(0, 0);
             this.radMenu1.Name = "radMenu1";
             this.radMenu1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.radMenu1.Size = new System.Drawing.Size(1272, 26);
+            this.radMenu1.Size = new System.Drawing.Size(1276, 26);
             this.radMenu1.TabIndex = 26;
             // 
             // menu_sn_result
@@ -689,24 +725,6 @@
             this.btn_quanlity.Size = new System.Drawing.Size(55, 37);
             this.btn_quanlity.Text = "查询";
             // 
-            // tool_materialClearDB
-            // 
-            this.tool_materialClearDB.ForeColor = System.Drawing.Color.White;
-            this.tool_materialClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
-            this.tool_materialClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_materialClearDB.Name = "tool_materialClearDB";
-            this.tool_materialClearDB.Size = new System.Drawing.Size(55, 34);
-            this.tool_materialClearDB.Text = "清除";
-            // 
-            // tool_productCheckClearDB
-            // 
-            this.tool_productCheckClearDB.ForeColor = System.Drawing.Color.White;
-            this.tool_productCheckClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
-            this.tool_productCheckClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_productCheckClearDB.Name = "tool_productCheckClearDB";
-            this.tool_productCheckClearDB.Size = new System.Drawing.Size(55, 37);
-            this.tool_productCheckClearDB.Text = "清除";
-            // 
             // tool_quanlityClearDB
             // 
             this.tool_quanlityClearDB.ForeColor = System.Drawing.Color.White;
@@ -716,30 +734,12 @@
             this.tool_quanlityClearDB.Size = new System.Drawing.Size(55, 37);
             this.tool_quanlityClearDB.Text = "清除";
             // 
-            // tool_packageClearDB
-            // 
-            this.tool_packageClearDB.ForeColor = System.Drawing.Color.White;
-            this.tool_packageClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
-            this.tool_packageClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_packageClearDB.Name = "tool_packageClearDB";
-            this.tool_packageClearDB.Size = new System.Drawing.Size(55, 39);
-            this.tool_packageClearDB.Text = "清除";
-            // 
-            // tool_SNClearDB
-            // 
-            this.tool_SNClearDB.ForeColor = System.Drawing.Color.White;
-            this.tool_SNClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
-            this.tool_SNClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_SNClearDB.Name = "tool_SNClearDB";
-            this.tool_SNClearDB.Size = new System.Drawing.Size(55, 36);
-            this.tool_SNClearDB.Text = "清除";
-            // 
             // SNCenter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(1272, 728);
+            this.ClientSize = new System.Drawing.Size(1276, 730);
             this.Controls.Add(this.panel_quanlity);
             this.Controls.Add(this.panel_productCheck);
             this.Controls.Add(this.panel_package);
@@ -754,6 +754,7 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "追溯管理";
+            this.ThemeName = "Material";
             this.Load += new System.EventHandler(this.SNCenter_Load);
             this.panel_material.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewMaterial.MasterTemplate)).EndInit();

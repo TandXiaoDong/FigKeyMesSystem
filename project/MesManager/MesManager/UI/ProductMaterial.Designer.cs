@@ -94,7 +94,7 @@
             // 
             // 
             this.radDock1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.radDock1.Size = new System.Drawing.Size(1272, 722);
+            this.radDock1.Size = new System.Drawing.Size(1276, 724);
             this.radDock1.TabIndex = 17;
             this.radDock1.TabStop = false;
             this.radDock1.ThemeName = "Breeze";
@@ -107,7 +107,7 @@
             this.dw_stockManager.Location = new System.Drawing.Point(5, 27);
             this.dw_stockManager.Name = "dw_stockManager";
             this.dw_stockManager.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dw_stockManager.Size = new System.Drawing.Size(1262, 690);
+            this.dw_stockManager.Size = new System.Drawing.Size(1266, 692);
             this.dw_stockManager.Text = "库存管理";
             // 
             // radGridViewStock
@@ -120,7 +120,7 @@
             // 
             this.radGridViewStock.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridViewStock.Name = "radGridViewStock";
-            this.radGridViewStock.Size = new System.Drawing.Size(1262, 661);
+            this.radGridViewStock.Size = new System.Drawing.Size(1266, 663);
             this.radGridViewStock.TabIndex = 19;
             this.radGridViewStock.ThemeName = "Breeze";
             // 
@@ -138,7 +138,7 @@
             this.tool_stockManager_query});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1262, 29);
+            this.toolStrip2.Size = new System.Drawing.Size(1266, 29);
             this.toolStrip2.TabIndex = 17;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -232,7 +232,7 @@
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
             this.documentTabStrip1.SelectedIndex = 0;
-            this.documentTabStrip1.Size = new System.Drawing.Size(1272, 722);
+            this.documentTabStrip1.Size = new System.Drawing.Size(1276, 724);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
             this.documentTabStrip1.ThemeName = "Breeze";
@@ -386,7 +386,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(1272, 722);
+            this.ClientSize = new System.Drawing.Size(1276, 724);
             this.Controls.Add(this.radDock1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -396,6 +396,7 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "物料管理";
+            this.ThemeName = "Material";
             this.Load += new System.EventHandler(this.ProductMaterial_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).EndInit();
             this.radDock1.ResumeLayout(false);

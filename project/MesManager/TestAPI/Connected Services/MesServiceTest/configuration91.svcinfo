@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="CKEkXvIeerxbsIHdDH6EvvF1oDE=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="z0bEwuWPbsqaXmn5+6gziG5ZcaA=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_IMesService1">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_IMesService1" contract="MesServiceTest.IMesService" bindingType="basicHttpBinding" address="http://192.168.0.110:8086/MesService.svc" bindingConfiguration="BasicHttpBinding_IMesService1">
+    <endpoint name="BasicHttpBinding_IMesService1" contract="MesServiceTest.IMesService" bindingType="basicHttpBinding" address="http://192.168.13.240:8086/MesService.svc" bindingConfiguration="BasicHttpBinding_IMesService1">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://192.168.0.110:8086/MesService.svc</serializedValue>
+          <serializedValue>http://192.168.13.240:8086/MesService.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

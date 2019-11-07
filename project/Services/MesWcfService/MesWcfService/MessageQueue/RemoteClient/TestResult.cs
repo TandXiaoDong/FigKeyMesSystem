@@ -199,7 +199,9 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     queryResult[0] = "ERR_LAST_STATION_ID";
                     return queryResult;
                 }
-                int lastOrder = int.Parse(dt.Rows[0][0].ToString()) - 1;
+                int currentID = int.Parse(dt.Rows[0][0].ToString());
+                LogHelper.Log.Info("查询当前工站ID="+currentID);
+                int lastOrder = currentID - 1;
                 LogHelper.Log.Info($"【上一站ID】={lastOrder}");
                 selectOrderSQL = $"SELECT {DbTable.F_TECHNOLOGICAL_PROCESS.STATION_NAME} " +
                     $"FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} " +
@@ -264,16 +266,38 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     if (dt.Rows.Count < 1)
                     {
                         //当PCBA未完成绑定时，两次查询均会失败
-                        //如果工艺流程不包含外壳装配或支架装配工站，可默认通过
-                        //灵敏度 / 烧录为第一个站，且外壳装配坏掉跳站：未完成绑定
+                        /*
+                         * 进一步判断
+                         * 1）是否没有外壳装配工站
+                         * 2）没有，则查询烧录工站/灵敏度工站是否 存在的四种情况
+                         * 3）根据其ID+1/+2判断临界点工站ID
+                         * 4）若当前工站的ID=临界点ID 默认通过，同时插入进站记录
+                         * 5）若当前工站的ID>临界点ID 则不通过
+                         */
+                        LogHelper.Log.Info("【第二次SN查询】-无结果，判断是否包含外壳装配工站");
                         var stationList = new MesService().SelectStationList(processName);
                         if (!stationList.Contains("外壳装配工站"))
                         {
-                            queryResult = new string[3];
-                            queryResult[0] = sn;
-                            queryResult[1] = lastStation;
-                            queryResult[2] = "PASS";
-                            return queryResult;
+                            LogHelper.Log.Info("【第二次SN查询】查询结果-不包含外壳装配工站---查询临界点工站ID");
+                            var criticalID = CalCirticalStationID();
+                            if (currentID == criticalID)
+                            {
+                                LogHelper.Log.Info("查询当前工站ID等于临界点ID---默认通过--开始插入进站记录");
+                                int row = InsertTestResult(sn, processName, currentStation);
+                                if (row > 0)
+                                {
+                                    LogHelper.Log.Info("【插入进站记录-】成功");
+                                }
+                                else
+                                {
+                                    LogHelper.Log.Info("【插入进站记录-】失败");
+                                }
+                                queryResult = new string[3];
+                                queryResult[0] = sn;
+                                queryResult[1] = lastStation;
+                                queryResult[2] = "PASS";
+                                return queryResult;
+                            }
                         }
                         //包含绑定工站，即是绑定失败等原因
                         queryResult = new string[1];
@@ -383,6 +407,48 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 {
                     return true;
                 }
+            }
+            return false;
+        }
+
+        private static int CalCirticalStationID()
+        {
+            //计算当前工艺的临界点ID
+            //查询烧录工站是否存在
+            //查询灵敏度工站是否存在
+            int cirticalID = 0;
+            if (IsExistStation("烧录工站"))
+            {
+                //存在烧录工站
+                cirticalID += 1;
+                if (IsExistStation("灵敏度测试工站"))
+                {
+                    cirticalID += 1;
+                }
+            }
+            else
+            {
+                if (IsExistStation("灵敏度测试工站"))
+                {
+                    cirticalID += 1;
+                }
+            }
+            return cirticalID + 1;
+        }
+
+        private static bool IsExistStation(string stationName)
+        {
+            var currentProcess = new MesService().SelectCurrentTProcess();
+            var selectSQL = $"SELECT * FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{currentProcess}' " +
+                $"AND " +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_NAME} = '{stationName}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL);
+            if (dt.Tables.Count > 0)
+            {
+                if (dt.Tables[0].Rows.Count > 0)
+                    return true;
             }
             return false;
         }

@@ -128,7 +128,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(305, 244);
+            this.ClientSize = new System.Drawing.Size(309, 246);
             this.Controls.Add(this.tb_repwd);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btn_cancel);
@@ -144,6 +144,7 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "找回密码";
+            this.ThemeName = "Windows8";
             this.Load += new System.EventHandler(this.GetBackPwd_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tb_pwd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_username)).EndInit();

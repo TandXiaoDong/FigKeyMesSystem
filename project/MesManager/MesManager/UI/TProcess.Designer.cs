@@ -75,7 +75,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 36);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1272, 65);
+            this.panel1.Size = new System.Drawing.Size(1276, 65);
             this.panel1.TabIndex = 19;
             // 
             // radLabel1
@@ -102,7 +102,7 @@
             this.lbx_process.ForeColor = System.Drawing.Color.White;
             this.lbx_process.Location = new System.Drawing.Point(12, 31);
             this.lbx_process.Name = "lbx_process";
-            this.lbx_process.Size = new System.Drawing.Size(59, 13);
+            this.lbx_process.Size = new System.Drawing.Size(64, 17);
             this.lbx_process.TabIndex = 11;
             this.lbx_process.Text = "工艺类别";
             // 
@@ -112,9 +112,9 @@
             this.radStatusStrip1.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.radLabelElement1,
             this.status_username});
-            this.radStatusStrip1.Location = new System.Drawing.Point(0, 664);
+            this.radStatusStrip1.Location = new System.Drawing.Point(0, 666);
             this.radStatusStrip1.Name = "radStatusStrip1";
-            this.radStatusStrip1.Size = new System.Drawing.Size(1272, 24);
+            this.radStatusStrip1.Size = new System.Drawing.Size(1276, 24);
             this.radStatusStrip1.TabIndex = 33;
             // 
             // radLabelElement1
@@ -138,9 +138,9 @@
             this.panel2.BackColor = System.Drawing.Color.SteelBlue;
             this.panel2.Controls.Add(this.groupBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 600);
+            this.panel2.Location = new System.Drawing.Point(0, 602);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1272, 64);
+            this.panel2.Size = new System.Drawing.Size(1276, 64);
             this.panel2.TabIndex = 34;
             // 
             // groupBox1
@@ -152,7 +152,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1272, 64);
+            this.groupBox1.Size = new System.Drawing.Size(1276, 64);
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "工艺设置";
@@ -183,7 +183,7 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(78, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 13);
+            this.label2.Size = new System.Drawing.Size(78, 17);
             this.label2.TabIndex = 9;
             this.label2.Text = "当前工艺：";
             // 
@@ -191,9 +191,9 @@
             // 
             this.groupbox_graph.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupbox_graph.ForeColor = System.Drawing.Color.White;
-            this.groupbox_graph.Location = new System.Drawing.Point(0, 449);
+            this.groupbox_graph.Location = new System.Drawing.Point(0, 451);
             this.groupbox_graph.Name = "groupbox_graph";
-            this.groupbox_graph.Size = new System.Drawing.Size(1272, 151);
+            this.groupbox_graph.Size = new System.Drawing.Size(1276, 151);
             this.groupbox_graph.TabIndex = 35;
             this.groupbox_graph.TabStop = false;
             this.groupbox_graph.Text = "工艺流程图";
@@ -208,7 +208,7 @@
             // 
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
-            this.radGridView1.Size = new System.Drawing.Size(1272, 348);
+            this.radGridView1.Size = new System.Drawing.Size(1276, 350);
             this.radGridView1.TabIndex = 38;
             this.radGridView1.ThemeName = "Breeze";
             // 
@@ -235,7 +235,7 @@
             this.menu_clear_db});
             this.radMenu1.Location = new System.Drawing.Point(0, 0);
             this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(1272, 36);
+            this.radMenu1.Size = new System.Drawing.Size(1276, 36);
             this.radMenu1.TabIndex = 18;
             // 
             // menu_add
@@ -305,7 +305,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(1272, 688);
+            this.ClientSize = new System.Drawing.Size(1276, 690);
             this.Controls.Add(this.radGridView1);
             this.Controls.Add(this.groupbox_graph);
             this.Controls.Add(this.panel2);
@@ -319,6 +319,7 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "工艺流程";
+            this.ThemeName = "Material";
             this.Load += new System.EventHandler(this.TProcess_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

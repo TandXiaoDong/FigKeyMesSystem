@@ -29,37 +29,52 @@
         private void InitializeComponent()
         {
             this.radDock1 = new Telerik.WinControls.UI.Docking.RadDock();
-            this.documentWindow5 = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.lbx_airtage_tip = new Telerik.WinControls.UI.RadLabel();
-            this.lbx_airtage_sign = new Telerik.WinControls.UI.RadLabel();
-            this.btn_airtage_save = new Telerik.WinControls.UI.RadButton();
-            this.btn_airtage_refresh = new Telerik.WinControls.UI.RadButton();
-            this.tb_airtage_testSerial = new System.Windows.Forms.ComboBox();
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.tb_airtage_spread = new System.Windows.Forms.ComboBox();
-            this.tb_airtage_pressureUnit = new System.Windows.Forms.ComboBox();
-            this.radLabel58 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel60 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_airtage_testConditionValue = new Telerik.WinControls.UI.RadTextBox();
-            this.tb_airtage_minFlate = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel61 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel59 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel57 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_airtage_referenceConditionValue = new Telerik.WinControls.UI.RadTextBox();
-            this.tb_airtage_maxInflate = new Telerik.WinControls.UI.RadTextBox();
-            this.tb_airtage_inflateTime = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel56 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel53 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_airtage_testTime = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel54 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel55 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_airtage_stableTime = new Telerik.WinControls.UI.RadTextBox();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.radLabel51 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_airtage_localIPConMes = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel52 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_airtage_tester = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel62 = new Telerik.WinControls.UI.RadLabel();
+            this.documentWindow7 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.lbx_productCheck_tip = new Telerik.WinControls.UI.RadLabel();
+            this.lbx_productCheck_sign = new Telerik.WinControls.UI.RadLabel();
+            this.btn_productCheck_refresh = new Telerik.WinControls.UI.RadButton();
+            this.btn_productCheck_save = new Telerik.WinControls.UI.RadButton();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.tb_productCheck_porterRate = new System.Windows.Forms.ComboBox();
+            this.tb_productCheck_rfCanID = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel78 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_productCheck_cycleCanID = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel82 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_productCheck_receiveCanID = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel88 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_productCheck_sendCanID = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel89 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel90 = new Telerik.WinControls.UI.RadLabel();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.radLabel96 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_productCheck_dormantElectricMax = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_productCheck_bootLoader = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel91 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel92 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_productCheck_dormantElectricMin = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel93 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_productCheck_softWareVersion = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel94 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_productCheck_hardWareVersion = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel95 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_productCheck_partNumber = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_productCheck_workElectricMax = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel97 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel98 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_productCheck_workElectricMin = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_productCheck_testSerial = new System.Windows.Forms.ComboBox();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.radLabel99 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_productCheck_plcAddress = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_productCheck_localAddress = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel100 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_productCheck_controlPower = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel101 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel102 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_productCheck_testBoard = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_productCheck_avometer = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel103 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel106 = new Telerik.WinControls.UI.RadLabel();
             this.documentContainer2 = new Telerik.WinControls.UI.Docking.DocumentContainer();
             this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
             this.documentWindow1 = new Telerik.WinControls.UI.Docking.DocumentWindow();
@@ -167,11 +182,31 @@
             this.tb_sen_plc = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel20 = new Telerik.WinControls.UI.RadLabel();
             this.documentWindow4 = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.lbx_shell_tip = new Telerik.WinControls.UI.RadLabel();
-            this.lbx_shell_sign = new Telerik.WinControls.UI.RadLabel();
-            this.btn_shell_save = new Telerik.WinControls.UI.RadButton();
-            this.cb_shell_testSerial = new System.Windows.Forms.ComboBox();
-            this.btn_shell_refresh = new Telerik.WinControls.UI.RadButton();
+            this.groupBox18 = new System.Windows.Forms.GroupBox();
+            this.radLabel117 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_shell_bubbleCotton = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel116 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_shell_sealRingWire = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel115 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_shell_shell = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel114 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_shell_topCover = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel113 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_shell_shellScrew = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel112 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_shell_pcbScrew = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel111 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_shell_backCover = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel107 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_shell_frontCover = new Telerik.WinControls.UI.RadTextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.radLabel110 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel109 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel47 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel48 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_shell_smallScrewSetTime = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_shell_largeScrewSetTime = new Telerik.WinControls.UI.RadTextBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.tb_shell_plcAddress = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel108 = new Telerik.WinControls.UI.RadLabel();
@@ -180,16 +215,66 @@
             this.radLabel45 = new Telerik.WinControls.UI.RadLabel();
             this.tb_shell_localIPConPLC = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel46 = new Telerik.WinControls.UI.RadLabel();
+            this.lbx_shell_tip = new Telerik.WinControls.UI.RadLabel();
+            this.lbx_shell_sign = new Telerik.WinControls.UI.RadLabel();
+            this.btn_shell_save = new Telerik.WinControls.UI.RadButton();
+            this.cb_shell_testSerial = new System.Windows.Forms.ComboBox();
+            this.btn_shell_refresh = new Telerik.WinControls.UI.RadButton();
             this.radLabel49 = new Telerik.WinControls.UI.RadLabel();
+            this.documentWindow5 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.lbx_airtage_tip = new Telerik.WinControls.UI.RadLabel();
+            this.lbx_airtage_sign = new Telerik.WinControls.UI.RadLabel();
+            this.btn_airtage_save = new Telerik.WinControls.UI.RadButton();
+            this.btn_airtage_refresh = new Telerik.WinControls.UI.RadButton();
+            this.tb_airtage_testSerial = new System.Windows.Forms.ComboBox();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.tb_airtage_spread = new System.Windows.Forms.ComboBox();
+            this.tb_airtage_pressureUnit = new System.Windows.Forms.ComboBox();
+            this.radLabel58 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel60 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_airtage_testConditionValue = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_airtage_minFlate = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel61 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel59 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel57 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_airtage_referenceConditionValue = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_airtage_maxInflate = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_airtage_inflateTime = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel56 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel53 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_airtage_testTime = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel54 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel55 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_airtage_stableTime = new Telerik.WinControls.UI.RadTextBox();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.radLabel51 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_airtage_localIPConMes = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel52 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_airtage_tester = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel62 = new Telerik.WinControls.UI.RadLabel();
             this.documentWindow6 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.groupBox20 = new System.Windows.Forms.GroupBox();
+            this.radLabel105 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_stent_stentScrew = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel63 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel81 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_stent_stent = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_stent_stentNut = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel50 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_stent_unionStent = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel41 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_stent_rightStent = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_stent_leftStent = new Telerik.WinControls.UI.RadTextBox();
+            this.groupBox19 = new System.Windows.Forms.GroupBox();
+            this.radLabel64 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_stent_localIPConMes = new Telerik.WinControls.UI.RadTextBox();
             this.lbx_stent_tip = new Telerik.WinControls.UI.RadLabel();
             this.lbx_stent_sign = new Telerik.WinControls.UI.RadLabel();
             this.btn_stent_save = new Telerik.WinControls.UI.RadButton();
             this.btn_stent_refresh = new Telerik.WinControls.UI.RadButton();
             this.cb_stent_testSerial = new System.Windows.Forms.ComboBox();
             this.radLabel65 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_stent_localIPConMes = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel64 = new Telerik.WinControls.UI.RadLabel();
             this.documentWindow8 = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.lbx_productTest_tip = new Telerik.WinControls.UI.RadLabel();
             this.lbx_productTest_sign = new Telerik.WinControls.UI.RadLabel();
@@ -238,125 +323,56 @@
             this.radLabel70 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel69 = new Telerik.WinControls.UI.RadLabel();
             this.tb_product_autoSweepCode = new Telerik.WinControls.UI.RadTextBox();
-            this.documentWindow7 = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.lbx_productCheck_tip = new Telerik.WinControls.UI.RadLabel();
-            this.lbx_productCheck_sign = new Telerik.WinControls.UI.RadLabel();
-            this.btn_productCheck_refresh = new Telerik.WinControls.UI.RadButton();
-            this.btn_productCheck_save = new Telerik.WinControls.UI.RadButton();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.tb_productCheck_porterRate = new System.Windows.Forms.ComboBox();
-            this.tb_productCheck_rfCanID = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel78 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_productCheck_cycleCanID = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel82 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_productCheck_receiveCanID = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel88 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_productCheck_sendCanID = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel89 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel90 = new Telerik.WinControls.UI.RadLabel();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.radLabel96 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_productCheck_dormantElectricMax = new Telerik.WinControls.UI.RadTextBox();
-            this.tb_productCheck_bootLoader = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel91 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel92 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_productCheck_dormantElectricMin = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel93 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_productCheck_softWareVersion = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel94 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_productCheck_hardWareVersion = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel95 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_productCheck_partNumber = new Telerik.WinControls.UI.RadTextBox();
-            this.tb_productCheck_workElectricMax = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel97 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel98 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_productCheck_workElectricMin = new Telerik.WinControls.UI.RadTextBox();
-            this.tb_productCheck_testSerial = new System.Windows.Forms.ComboBox();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.radLabel99 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_productCheck_plcAddress = new Telerik.WinControls.UI.RadTextBox();
-            this.tb_productCheck_localAddress = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel100 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_productCheck_controlPower = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel101 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel102 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_productCheck_testBoard = new Telerik.WinControls.UI.RadTextBox();
-            this.tb_productCheck_avometer = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel103 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel106 = new Telerik.WinControls.UI.RadLabel();
             this.windows8Theme1 = new Telerik.WinControls.Themes.Windows8Theme();
             this.materialTheme1 = new Telerik.WinControls.Themes.MaterialTheme();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.materialPinkTheme1 = new Telerik.WinControls.Themes.MaterialPinkTheme();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.radLabel110 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel109 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel47 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel48 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_shell_smallScrewSetTime = new Telerik.WinControls.UI.RadTextBox();
-            this.tb_shell_largeScrewSetTime = new Telerik.WinControls.UI.RadTextBox();
-            this.groupBox18 = new System.Windows.Forms.GroupBox();
-            this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.groupBox20 = new System.Windows.Forms.GroupBox();
-            this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_stent_leftStent = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel41 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_stent_rightStent = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel50 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_stent_unionStent = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel81 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_stent_stent = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel105 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_stent_stentScrew = new Telerik.WinControls.UI.RadTextBox();
-            this.tb_stent_stentNut = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel63 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel107 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_shell_frontCover = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel111 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_shell_backCover = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel112 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_shell_pcbScrew = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel113 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_shell_shellScrew = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel114 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_shell_topCover = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel115 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_shell_shell = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel116 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_shell_sealRingWire = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel117 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_shell_bubbleCotton = new Telerik.WinControls.UI.RadTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
-            this.documentWindow5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx_airtage_tip)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx_airtage_sign)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_airtage_save)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_airtage_refresh)).BeginInit();
-            this.groupBox15.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel58)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel60)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_testConditionValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_minFlate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel61)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel59)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel57)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_referenceConditionValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_maxInflate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_inflateTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel56)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel53)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_testTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel54)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel55)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_stableTime)).BeginInit();
-            this.groupBox14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel51)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_localIPConMes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel52)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_tester)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel62)).BeginInit();
+            this.documentWindow7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_productCheck_tip)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_productCheck_sign)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_productCheck_refresh)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_productCheck_save)).BeginInit();
+            this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_rfCanID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel78)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_cycleCanID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel82)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_receiveCanID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel88)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_sendCanID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel89)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel90)).BeginInit();
+            this.groupBox12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel96)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_dormantElectricMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_bootLoader)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel91)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel92)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_dormantElectricMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel93)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_softWareVersion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel94)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_hardWareVersion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel95)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_partNumber)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_workElectricMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel97)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel98)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_workElectricMin)).BeginInit();
+            this.groupBox13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel99)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_plcAddress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_localAddress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel100)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_controlPower)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel101)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel102)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_testBoard)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_avometer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel103)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel106)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer2)).BeginInit();
             this.documentContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
@@ -462,10 +478,31 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_sen_plc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel20)).BeginInit();
             this.documentWindow4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx_shell_tip)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx_shell_sign)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_shell_save)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_shell_refresh)).BeginInit();
+            this.groupBox18.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel117)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_bubbleCotton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel116)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_sealRingWire)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel115)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_shell)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel114)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_topCover)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel113)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_shellScrew)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel112)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_pcbScrew)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel111)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_backCover)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel107)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_frontCover)).BeginInit();
+            this.panel2.SuspendLayout();
+            this.groupBox17.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel110)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel109)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel47)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel48)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_smallScrewSetTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_largeScrewSetTime)).BeginInit();
             this.groupBox16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_shell_plcAddress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel108)).BeginInit();
@@ -474,15 +511,61 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel45)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_shell_localIPConPLC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel46)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_shell_tip)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_shell_sign)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_shell_save)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_shell_refresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel49)).BeginInit();
+            this.documentWindow5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_airtage_tip)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_airtage_sign)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_airtage_save)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_airtage_refresh)).BeginInit();
+            this.groupBox15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel58)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel60)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_testConditionValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_minFlate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel61)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel59)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel57)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_referenceConditionValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_maxInflate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_inflateTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel56)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel53)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_testTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel54)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel55)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_stableTime)).BeginInit();
+            this.groupBox14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel51)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_localIPConMes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel52)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_tester)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel62)).BeginInit();
             this.documentWindow6.SuspendLayout();
+            this.groupBox20.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel105)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_stentScrew)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel63)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel81)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_stent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_stentNut)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel50)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_unionStent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel41)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_rightStent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_leftStent)).BeginInit();
+            this.groupBox19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel64)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_localIPConMes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_stent_tip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_stent_sign)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_stent_save)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_stent_refresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel65)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_localIPConMes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel64)).BeginInit();
             this.documentWindow8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_productTest_tip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_productTest_sign)).BeginInit();
@@ -529,95 +612,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel70)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel69)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_product_autoSweepCode)).BeginInit();
-            this.documentWindow7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx_productCheck_tip)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx_productCheck_sign)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_productCheck_refresh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_productCheck_save)).BeginInit();
-            this.groupBox11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_rfCanID)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel78)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_cycleCanID)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel82)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_receiveCanID)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel88)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_sendCanID)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel89)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel90)).BeginInit();
-            this.groupBox12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel96)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_dormantElectricMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_bootLoader)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel91)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel92)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_dormantElectricMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel93)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_softWareVersion)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel94)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_hardWareVersion)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel95)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_partNumber)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_workElectricMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel97)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel98)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_workElectricMin)).BeginInit();
-            this.groupBox13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel99)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_plcAddress)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_localAddress)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel100)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_controlPower)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel101)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel102)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_testBoard)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_avometer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel103)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel106)).BeginInit();
-            this.panel2.SuspendLayout();
-            this.groupBox17.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel110)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel109)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel47)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel48)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_smallScrewSetTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_largeScrewSetTime)).BeginInit();
-            this.groupBox18.SuspendLayout();
-            this.groupBox19.SuspendLayout();
-            this.groupBox20.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_leftStent)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel41)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_rightStent)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel50)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_unionStent)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel81)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_stent)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel105)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_stentScrew)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_stentNut)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel63)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel107)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_frontCover)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel111)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_backCover)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel112)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_pcbScrew)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel113)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_shellScrew)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel114)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_topCover)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel115)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_shell)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel116)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_sealRingWire)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel117)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_bubbleCotton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.documentWindow7;
+            this.radDock1.ActiveWindow = this.documentWindow1;
             this.radDock1.CausesValidation = false;
             this.radDock1.Controls.Add(this.documentContainer2);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -637,319 +637,462 @@
             this.radDock1.TabStop = false;
             this.radDock1.ThemeName = "Material";
             // 
-            // documentWindow5
+            // documentWindow7
             // 
-            this.documentWindow5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.documentWindow5.Controls.Add(this.lbx_airtage_tip);
-            this.documentWindow5.Controls.Add(this.lbx_airtage_sign);
-            this.documentWindow5.Controls.Add(this.btn_airtage_save);
-            this.documentWindow5.Controls.Add(this.btn_airtage_refresh);
-            this.documentWindow5.Controls.Add(this.tb_airtage_testSerial);
-            this.documentWindow5.Controls.Add(this.groupBox15);
-            this.documentWindow5.Controls.Add(this.groupBox14);
-            this.documentWindow5.Controls.Add(this.radLabel62);
-            this.documentWindow5.Font = new System.Drawing.Font("宋体", 9F);
-            this.documentWindow5.Location = new System.Drawing.Point(4, 54);
-            this.documentWindow5.Name = "documentWindow5";
-            this.documentWindow5.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow5.Size = new System.Drawing.Size(1270, 689);
-            this.documentWindow5.Text = "气密测试工站";
+            this.documentWindow7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.documentWindow7.Controls.Add(this.lbx_productCheck_tip);
+            this.documentWindow7.Controls.Add(this.lbx_productCheck_sign);
+            this.documentWindow7.Controls.Add(this.btn_productCheck_refresh);
+            this.documentWindow7.Controls.Add(this.btn_productCheck_save);
+            this.documentWindow7.Controls.Add(this.groupBox11);
+            this.documentWindow7.Controls.Add(this.groupBox12);
+            this.documentWindow7.Controls.Add(this.tb_productCheck_testSerial);
+            this.documentWindow7.Controls.Add(this.groupBox13);
+            this.documentWindow7.Controls.Add(this.radLabel106);
+            this.documentWindow7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.documentWindow7.Location = new System.Drawing.Point(4, 54);
+            this.documentWindow7.Name = "documentWindow7";
+            this.documentWindow7.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.documentWindow7.Size = new System.Drawing.Size(1270, 689);
+            this.documentWindow7.Text = "质量抽检测试工站";
             // 
-            // lbx_airtage_tip
+            // lbx_productCheck_tip
             // 
-            this.lbx_airtage_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbx_airtage_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_airtage_tip.Location = new System.Drawing.Point(793, 285);
-            this.lbx_airtage_tip.Name = "lbx_airtage_tip";
-            this.lbx_airtage_tip.Size = new System.Drawing.Size(283, 21);
-            this.lbx_airtage_tip.TabIndex = 42;
-            this.lbx_airtage_tip.Text = "A01 产品是12V供电，A02 产品是5V供电";
-            this.lbx_airtage_tip.ThemeName = "Material";
+            this.lbx_productCheck_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbx_productCheck_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.lbx_productCheck_tip.Location = new System.Drawing.Point(986, 258);
+            this.lbx_productCheck_tip.Name = "lbx_productCheck_tip";
+            this.lbx_productCheck_tip.Size = new System.Drawing.Size(189, 71);
+            this.lbx_productCheck_tip.TabIndex = 46;
+            this.lbx_productCheck_tip.Text = "A01 产品是12V供电\r\nA02 产品是5V供电\r\n请仔细区分该产品型号的\r\n供电电压";
+            this.lbx_productCheck_tip.ThemeName = "Material";
             // 
-            // lbx_airtage_sign
+            // lbx_productCheck_sign
             // 
-            this.lbx_airtage_sign.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbx_airtage_sign.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_airtage_sign.Location = new System.Drawing.Point(777, 244);
-            this.lbx_airtage_sign.Name = "lbx_airtage_sign";
-            this.lbx_airtage_sign.Size = new System.Drawing.Size(55, 21);
-            this.lbx_airtage_sign.TabIndex = 41;
-            this.lbx_airtage_sign.Text = "提示：";
-            this.lbx_airtage_sign.ThemeName = "Material";
+            this.lbx_productCheck_sign.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbx_productCheck_sign.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.lbx_productCheck_sign.Location = new System.Drawing.Point(986, 231);
+            this.lbx_productCheck_sign.Name = "lbx_productCheck_sign";
+            this.lbx_productCheck_sign.Size = new System.Drawing.Size(55, 21);
+            this.lbx_productCheck_sign.TabIndex = 45;
+            this.lbx_productCheck_sign.Text = "提示：";
+            this.lbx_productCheck_sign.ThemeName = "Material";
             // 
-            // btn_airtage_save
+            // btn_productCheck_refresh
             // 
-            this.btn_airtage_save.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_airtage_save.Location = new System.Drawing.Point(777, 494);
-            this.btn_airtage_save.Name = "btn_airtage_save";
-            this.btn_airtage_save.Size = new System.Drawing.Size(299, 36);
-            this.btn_airtage_save.TabIndex = 36;
-            this.btn_airtage_save.Text = "保存";
-            this.btn_airtage_save.ThemeName = "Windows8";
+            this.btn_productCheck_refresh.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_productCheck_refresh.Location = new System.Drawing.Point(986, 50);
+            this.btn_productCheck_refresh.Name = "btn_productCheck_refresh";
+            this.btn_productCheck_refresh.Size = new System.Drawing.Size(253, 36);
+            this.btn_productCheck_refresh.TabIndex = 31;
+            this.btn_productCheck_refresh.Text = "刷新";
+            this.btn_productCheck_refresh.ThemeName = "Windows8";
             // 
-            // btn_airtage_refresh
+            // btn_productCheck_save
             // 
-            this.btn_airtage_refresh.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_airtage_refresh.Location = new System.Drawing.Point(777, 57);
-            this.btn_airtage_refresh.Name = "btn_airtage_refresh";
-            this.btn_airtage_refresh.Size = new System.Drawing.Size(299, 36);
-            this.btn_airtage_refresh.TabIndex = 35;
-            this.btn_airtage_refresh.Text = "刷新";
-            this.btn_airtage_refresh.ThemeName = "Windows8";
+            this.btn_productCheck_save.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_productCheck_save.Location = new System.Drawing.Point(986, 463);
+            this.btn_productCheck_save.Name = "btn_productCheck_save";
+            this.btn_productCheck_save.Size = new System.Drawing.Size(253, 36);
+            this.btn_productCheck_save.TabIndex = 30;
+            this.btn_productCheck_save.Text = "保存";
+            this.btn_productCheck_save.ThemeName = "Windows8";
             // 
-            // tb_airtage_testSerial
+            // groupBox11
             // 
-            this.tb_airtage_testSerial.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.tb_airtage_testSerial.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tb_airtage_testSerial.FormattingEnabled = true;
-            this.tb_airtage_testSerial.Location = new System.Drawing.Point(777, 179);
-            this.tb_airtage_testSerial.Name = "tb_airtage_testSerial";
-            this.tb_airtage_testSerial.Size = new System.Drawing.Size(299, 28);
-            this.tb_airtage_testSerial.TabIndex = 28;
+            this.groupBox11.Controls.Add(this.tb_productCheck_porterRate);
+            this.groupBox11.Controls.Add(this.tb_productCheck_rfCanID);
+            this.groupBox11.Controls.Add(this.radLabel78);
+            this.groupBox11.Controls.Add(this.tb_productCheck_cycleCanID);
+            this.groupBox11.Controls.Add(this.radLabel82);
+            this.groupBox11.Controls.Add(this.tb_productCheck_receiveCanID);
+            this.groupBox11.Controls.Add(this.radLabel88);
+            this.groupBox11.Controls.Add(this.tb_productCheck_sendCanID);
+            this.groupBox11.Controls.Add(this.radLabel89);
+            this.groupBox11.Controls.Add(this.radLabel90);
+            this.groupBox11.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox11.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox11.Location = new System.Drawing.Point(619, 0);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(345, 689);
+            this.groupBox11.TabIndex = 29;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "测试项参数";
             // 
-            // groupBox15
+            // tb_productCheck_porterRate
             // 
-            this.groupBox15.Controls.Add(this.tb_airtage_spread);
-            this.groupBox15.Controls.Add(this.tb_airtage_pressureUnit);
-            this.groupBox15.Controls.Add(this.radLabel58);
-            this.groupBox15.Controls.Add(this.radLabel60);
-            this.groupBox15.Controls.Add(this.tb_airtage_testConditionValue);
-            this.groupBox15.Controls.Add(this.tb_airtage_minFlate);
-            this.groupBox15.Controls.Add(this.radLabel61);
-            this.groupBox15.Controls.Add(this.radLabel59);
-            this.groupBox15.Controls.Add(this.radLabel57);
-            this.groupBox15.Controls.Add(this.tb_airtage_referenceConditionValue);
-            this.groupBox15.Controls.Add(this.tb_airtage_maxInflate);
-            this.groupBox15.Controls.Add(this.tb_airtage_inflateTime);
-            this.groupBox15.Controls.Add(this.radLabel56);
-            this.groupBox15.Controls.Add(this.radLabel53);
-            this.groupBox15.Controls.Add(this.tb_airtage_testTime);
-            this.groupBox15.Controls.Add(this.radLabel54);
-            this.groupBox15.Controls.Add(this.radLabel55);
-            this.groupBox15.Controls.Add(this.tb_airtage_stableTime);
-            this.groupBox15.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox15.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox15.Location = new System.Drawing.Point(379, 0);
-            this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(386, 689);
-            this.groupBox15.TabIndex = 27;
-            this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "测试参数";
+            this.tb_productCheck_porterRate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.tb_productCheck_porterRate.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_productCheck_porterRate.FormattingEnabled = true;
+            this.tb_productCheck_porterRate.Location = new System.Drawing.Point(166, 56);
+            this.tb_productCheck_porterRate.Name = "tb_productCheck_porterRate";
+            this.tb_productCheck_porterRate.Size = new System.Drawing.Size(173, 28);
+            this.tb_productCheck_porterRate.TabIndex = 22;
             // 
-            // tb_airtage_spread
+            // tb_productCheck_rfCanID
             // 
-            this.tb_airtage_spread.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.tb_airtage_spread.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tb_airtage_spread.FormattingEnabled = true;
-            this.tb_airtage_spread.Location = new System.Drawing.Point(144, 502);
-            this.tb_airtage_spread.Name = "tb_airtage_spread";
-            this.tb_airtage_spread.Size = new System.Drawing.Size(236, 28);
-            this.tb_airtage_spread.TabIndex = 43;
+            this.tb_productCheck_rfCanID.Location = new System.Drawing.Point(166, 282);
+            this.tb_productCheck_rfCanID.Name = "tb_productCheck_rfCanID";
+            this.tb_productCheck_rfCanID.Size = new System.Drawing.Size(173, 36);
+            this.tb_productCheck_rfCanID.TabIndex = 21;
+            this.tb_productCheck_rfCanID.ThemeName = "Material";
             // 
-            // tb_airtage_pressureUnit
+            // radLabel78
             // 
-            this.tb_airtage_pressureUnit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.tb_airtage_pressureUnit.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tb_airtage_pressureUnit.FormattingEnabled = true;
-            this.tb_airtage_pressureUnit.Location = new System.Drawing.Point(144, 451);
-            this.tb_airtage_pressureUnit.Name = "tb_airtage_pressureUnit";
-            this.tb_airtage_pressureUnit.Size = new System.Drawing.Size(236, 28);
-            this.tb_airtage_pressureUnit.TabIndex = 44;
+            this.radLabel78.Location = new System.Drawing.Point(64, 297);
+            this.radLabel78.Name = "radLabel78";
+            this.radLabel78.Size = new System.Drawing.Size(96, 21);
+            this.radLabel78.TabIndex = 20;
+            this.radLabel78.Text = "RF_CAN_ID：";
+            this.radLabel78.ThemeName = "Material";
             // 
-            // radLabel58
+            // tb_productCheck_cycleCanID
             // 
-            this.radLabel58.Location = new System.Drawing.Point(54, 72);
-            this.radLabel58.Name = "radLabel58";
-            this.radLabel58.Size = new System.Drawing.Size(86, 21);
-            this.radLabel58.TabIndex = 14;
-            this.radLabel58.Text = "最大充气：";
-            this.radLabel58.ThemeName = "Material";
+            this.tb_productCheck_cycleCanID.Location = new System.Drawing.Point(166, 222);
+            this.tb_productCheck_cycleCanID.Name = "tb_productCheck_cycleCanID";
+            this.tb_productCheck_cycleCanID.Size = new System.Drawing.Size(173, 36);
+            this.tb_productCheck_cycleCanID.TabIndex = 19;
+            this.tb_productCheck_cycleCanID.ThemeName = "Material";
             // 
-            // radLabel60
+            // radLabel82
             // 
-            this.radLabel60.Location = new System.Drawing.Point(6, 186);
-            this.radLabel60.Name = "radLabel60";
-            this.radLabel60.Size = new System.Drawing.Size(134, 21);
-            this.radLabel60.TabIndex = 18;
-            this.radLabel60.Text = "测试条件允收值：";
-            this.radLabel60.ThemeName = "Material";
+            this.radLabel82.Location = new System.Drawing.Point(56, 240);
+            this.radLabel82.Name = "radLabel82";
+            this.radLabel82.Size = new System.Drawing.Size(104, 21);
+            this.radLabel82.TabIndex = 18;
+            this.radLabel82.Text = "周期CAN_ID：";
+            this.radLabel82.ThemeName = "Material";
             // 
-            // tb_airtage_testConditionValue
+            // tb_productCheck_receiveCanID
             // 
-            this.tb_airtage_testConditionValue.Location = new System.Drawing.Point(146, 171);
-            this.tb_airtage_testConditionValue.Name = "tb_airtage_testConditionValue";
-            this.tb_airtage_testConditionValue.Size = new System.Drawing.Size(234, 36);
-            this.tb_airtage_testConditionValue.TabIndex = 19;
-            this.tb_airtage_testConditionValue.ThemeName = "Material";
+            this.tb_productCheck_receiveCanID.Location = new System.Drawing.Point(166, 166);
+            this.tb_productCheck_receiveCanID.Name = "tb_productCheck_receiveCanID";
+            this.tb_productCheck_receiveCanID.Size = new System.Drawing.Size(173, 36);
+            this.tb_productCheck_receiveCanID.TabIndex = 17;
+            this.tb_productCheck_receiveCanID.ThemeName = "Material";
             // 
-            // tb_airtage_minFlate
+            // radLabel88
             // 
-            this.tb_airtage_minFlate.Location = new System.Drawing.Point(146, 118);
-            this.tb_airtage_minFlate.Name = "tb_airtage_minFlate";
-            this.tb_airtage_minFlate.Size = new System.Drawing.Size(234, 36);
-            this.tb_airtage_minFlate.TabIndex = 17;
-            this.tb_airtage_minFlate.ThemeName = "Material";
+            this.radLabel88.Location = new System.Drawing.Point(6, 181);
+            this.radLabel88.Name = "radLabel88";
+            this.radLabel88.Size = new System.Drawing.Size(154, 21);
+            this.radLabel88.TabIndex = 16;
+            this.radLabel88.Text = "诊断ReceiveCAN_ID：";
+            this.radLabel88.ThemeName = "Material";
             // 
-            // radLabel61
+            // tb_productCheck_sendCanID
             // 
-            this.radLabel61.Location = new System.Drawing.Point(6, 244);
-            this.radLabel61.Name = "radLabel61";
-            this.radLabel61.Size = new System.Drawing.Size(134, 21);
-            this.radLabel61.TabIndex = 20;
-            this.radLabel61.Text = "参考条件允收值：";
-            this.radLabel61.ThemeName = "Material";
+            this.tb_productCheck_sendCanID.Location = new System.Drawing.Point(166, 110);
+            this.tb_productCheck_sendCanID.Name = "tb_productCheck_sendCanID";
+            this.tb_productCheck_sendCanID.Size = new System.Drawing.Size(173, 36);
+            this.tb_productCheck_sendCanID.TabIndex = 15;
+            this.tb_productCheck_sendCanID.ThemeName = "Material";
             // 
-            // radLabel59
+            // radLabel89
             // 
-            this.radLabel59.Location = new System.Drawing.Point(54, 132);
-            this.radLabel59.Name = "radLabel59";
-            this.radLabel59.Size = new System.Drawing.Size(86, 21);
-            this.radLabel59.TabIndex = 16;
-            this.radLabel59.Text = "最小充气：";
-            this.radLabel59.ThemeName = "Material";
+            this.radLabel89.Location = new System.Drawing.Point(26, 123);
+            this.radLabel89.Name = "radLabel89";
+            this.radLabel89.Size = new System.Drawing.Size(134, 21);
+            this.radLabel89.TabIndex = 14;
+            this.radLabel89.Text = "诊断SendCAN ID：";
+            this.radLabel89.ThemeName = "Material";
             // 
-            // radLabel57
+            // radLabel90
             // 
-            this.radLabel57.Location = new System.Drawing.Point(52, 509);
-            this.radLabel57.Name = "radLabel57";
-            this.radLabel57.Size = new System.Drawing.Size(86, 21);
-            this.radLabel57.TabIndex = 12;
-            this.radLabel57.Text = "泄露单位：";
-            this.radLabel57.ThemeName = "Material";
+            this.radLabel90.Location = new System.Drawing.Point(89, 63);
+            this.radLabel90.Name = "radLabel90";
+            this.radLabel90.Size = new System.Drawing.Size(74, 21);
+            this.radLabel90.TabIndex = 12;
+            this.radLabel90.Text = " 波特率：";
+            this.radLabel90.ThemeName = "Material";
             // 
-            // tb_airtage_referenceConditionValue
+            // groupBox12
             // 
-            this.tb_airtage_referenceConditionValue.Location = new System.Drawing.Point(146, 229);
-            this.tb_airtage_referenceConditionValue.Name = "tb_airtage_referenceConditionValue";
-            this.tb_airtage_referenceConditionValue.Size = new System.Drawing.Size(234, 36);
-            this.tb_airtage_referenceConditionValue.TabIndex = 21;
-            this.tb_airtage_referenceConditionValue.ThemeName = "Material";
+            this.groupBox12.Controls.Add(this.radLabel96);
+            this.groupBox12.Controls.Add(this.tb_productCheck_dormantElectricMax);
+            this.groupBox12.Controls.Add(this.tb_productCheck_bootLoader);
+            this.groupBox12.Controls.Add(this.radLabel91);
+            this.groupBox12.Controls.Add(this.radLabel92);
+            this.groupBox12.Controls.Add(this.tb_productCheck_dormantElectricMin);
+            this.groupBox12.Controls.Add(this.radLabel93);
+            this.groupBox12.Controls.Add(this.tb_productCheck_softWareVersion);
+            this.groupBox12.Controls.Add(this.radLabel94);
+            this.groupBox12.Controls.Add(this.tb_productCheck_hardWareVersion);
+            this.groupBox12.Controls.Add(this.radLabel95);
+            this.groupBox12.Controls.Add(this.tb_productCheck_partNumber);
+            this.groupBox12.Controls.Add(this.tb_productCheck_workElectricMax);
+            this.groupBox12.Controls.Add(this.radLabel97);
+            this.groupBox12.Controls.Add(this.radLabel98);
+            this.groupBox12.Controls.Add(this.tb_productCheck_workElectricMin);
+            this.groupBox12.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox12.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox12.Location = new System.Drawing.Point(282, 0);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(337, 689);
+            this.groupBox12.TabIndex = 28;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "测试项上下限";
             // 
-            // tb_airtage_maxInflate
+            // radLabel96
             // 
-            this.tb_airtage_maxInflate.Location = new System.Drawing.Point(146, 57);
-            this.tb_airtage_maxInflate.Name = "tb_airtage_maxInflate";
-            this.tb_airtage_maxInflate.Size = new System.Drawing.Size(234, 36);
-            this.tb_airtage_maxInflate.TabIndex = 15;
-            this.tb_airtage_maxInflate.ThemeName = "Material";
+            this.radLabel96.Location = new System.Drawing.Point(65, 181);
+            this.radLabel96.Name = "radLabel96";
+            this.radLabel96.Size = new System.Drawing.Size(81, 21);
+            this.radLabel96.TabIndex = 28;
+            this.radLabel96.Text = "   零件号：";
+            this.radLabel96.ThemeName = "Material";
             // 
-            // tb_airtage_inflateTime
+            // tb_productCheck_dormantElectricMax
             // 
-            this.tb_airtage_inflateTime.Location = new System.Drawing.Point(146, 285);
-            this.tb_airtage_inflateTime.Name = "tb_airtage_inflateTime";
-            this.tb_airtage_inflateTime.Size = new System.Drawing.Size(234, 36);
-            this.tb_airtage_inflateTime.TabIndex = 5;
-            this.tb_airtage_inflateTime.ThemeName = "Material";
+            this.tb_productCheck_dormantElectricMax.Location = new System.Drawing.Point(155, 394);
+            this.tb_productCheck_dormantElectricMax.Name = "tb_productCheck_dormantElectricMax";
+            this.tb_productCheck_dormantElectricMax.Size = new System.Drawing.Size(176, 36);
+            this.tb_productCheck_dormantElectricMax.TabIndex = 25;
+            this.tb_productCheck_dormantElectricMax.ThemeName = "Material";
             // 
-            // radLabel56
+            // tb_productCheck_bootLoader
             // 
-            this.radLabel56.Location = new System.Drawing.Point(52, 458);
-            this.radLabel56.Name = "radLabel56";
-            this.radLabel56.Size = new System.Drawing.Size(86, 21);
-            this.radLabel56.TabIndex = 10;
-            this.radLabel56.Text = "压力单位：";
-            this.radLabel56.ThemeName = "Material";
+            this.tb_productCheck_bootLoader.Location = new System.Drawing.Point(155, 454);
+            this.tb_productCheck_bootLoader.Name = "tb_productCheck_bootLoader";
+            this.tb_productCheck_bootLoader.Size = new System.Drawing.Size(176, 36);
+            this.tb_productCheck_bootLoader.TabIndex = 27;
+            this.tb_productCheck_bootLoader.ThemeName = "Material";
             // 
-            // radLabel53
+            // radLabel91
             // 
-            this.radLabel53.Location = new System.Drawing.Point(44, 300);
-            this.radLabel53.Name = "radLabel53";
-            this.radLabel53.Size = new System.Drawing.Size(94, 21);
-            this.radLabel53.TabIndex = 4;
-            this.radLabel53.Text = "  充气时间：";
-            this.radLabel53.ThemeName = "Material";
+            this.radLabel91.Location = new System.Drawing.Point(44, 469);
+            this.radLabel91.Name = "radLabel91";
+            this.radLabel91.Size = new System.Drawing.Size(98, 21);
+            this.radLabel91.TabIndex = 26;
+            this.radLabel91.Text = "BootLoader：";
+            this.radLabel91.ThemeName = "Material";
             // 
-            // tb_airtage_testTime
+            // radLabel92
             // 
-            this.tb_airtage_testTime.Location = new System.Drawing.Point(144, 389);
-            this.tb_airtage_testTime.Name = "tb_airtage_testTime";
-            this.tb_airtage_testTime.Size = new System.Drawing.Size(236, 36);
-            this.tb_airtage_testTime.TabIndex = 9;
-            this.tb_airtage_testTime.ThemeName = "Material";
+            this.radLabel92.Location = new System.Drawing.Point(15, 409);
+            this.radLabel92.Name = "radLabel92";
+            this.radLabel92.Size = new System.Drawing.Size(134, 21);
+            this.radLabel92.TabIndex = 24;
+            this.radLabel92.Text = "休眠电流最大值：";
+            this.radLabel92.ThemeName = "Material";
             // 
-            // radLabel54
+            // tb_productCheck_dormantElectricMin
             // 
-            this.radLabel54.Location = new System.Drawing.Point(52, 352);
-            this.radLabel54.Name = "radLabel54";
-            this.radLabel54.Size = new System.Drawing.Size(86, 21);
-            this.radLabel54.TabIndex = 6;
-            this.radLabel54.Text = "稳定时间：";
-            this.radLabel54.ThemeName = "Material";
+            this.tb_productCheck_dormantElectricMin.Location = new System.Drawing.Point(155, 336);
+            this.tb_productCheck_dormantElectricMin.Name = "tb_productCheck_dormantElectricMin";
+            this.tb_productCheck_dormantElectricMin.Size = new System.Drawing.Size(176, 36);
+            this.tb_productCheck_dormantElectricMin.TabIndex = 23;
+            this.tb_productCheck_dormantElectricMin.ThemeName = "Material";
             // 
-            // radLabel55
+            // radLabel93
             // 
-            this.radLabel55.Location = new System.Drawing.Point(52, 404);
-            this.radLabel55.Name = "radLabel55";
-            this.radLabel55.Size = new System.Drawing.Size(86, 21);
-            this.radLabel55.TabIndex = 8;
-            this.radLabel55.Text = "测试时间：";
-            this.radLabel55.ThemeName = "Material";
+            this.radLabel93.Location = new System.Drawing.Point(15, 351);
+            this.radLabel93.Name = "radLabel93";
+            this.radLabel93.Size = new System.Drawing.Size(134, 21);
+            this.radLabel93.TabIndex = 22;
+            this.radLabel93.Text = "休眠电流最小值：";
+            this.radLabel93.ThemeName = "Material";
             // 
-            // tb_airtage_stableTime
+            // tb_productCheck_softWareVersion
             // 
-            this.tb_airtage_stableTime.Location = new System.Drawing.Point(144, 337);
-            this.tb_airtage_stableTime.Name = "tb_airtage_stableTime";
-            this.tb_airtage_stableTime.Size = new System.Drawing.Size(236, 36);
-            this.tb_airtage_stableTime.TabIndex = 7;
-            this.tb_airtage_stableTime.ThemeName = "Material";
+            this.tb_productCheck_softWareVersion.Location = new System.Drawing.Point(155, 282);
+            this.tb_productCheck_softWareVersion.Name = "tb_productCheck_softWareVersion";
+            this.tb_productCheck_softWareVersion.Size = new System.Drawing.Size(176, 36);
+            this.tb_productCheck_softWareVersion.TabIndex = 21;
+            this.tb_productCheck_softWareVersion.ThemeName = "Material";
             // 
-            // groupBox14
+            // radLabel94
             // 
-            this.groupBox14.Controls.Add(this.radLabel51);
-            this.groupBox14.Controls.Add(this.tb_airtage_localIPConMes);
-            this.groupBox14.Controls.Add(this.radLabel52);
-            this.groupBox14.Controls.Add(this.tb_airtage_tester);
-            this.groupBox14.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox14.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox14.Location = new System.Drawing.Point(0, 0);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(379, 689);
-            this.groupBox14.TabIndex = 26;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "连接";
+            this.radLabel94.Location = new System.Drawing.Point(44, 289);
+            this.radLabel94.Name = "radLabel94";
+            this.radLabel94.Size = new System.Drawing.Size(102, 21);
+            this.radLabel94.TabIndex = 20;
+            this.radLabel94.Text = "软件版本号：";
+            this.radLabel94.ThemeName = "Material";
             // 
-            // radLabel51
+            // tb_productCheck_hardWareVersion
             // 
-            this.radLabel51.Location = new System.Drawing.Point(6, 69);
-            this.radLabel51.Name = "radLabel51";
-            this.radLabel51.Size = new System.Drawing.Size(158, 21);
-            this.radLabel51.TabIndex = 0;
-            this.radLabel51.Text = "本机地址(连接MES)：";
-            this.radLabel51.ThemeName = "Material";
+            this.tb_productCheck_hardWareVersion.Location = new System.Drawing.Point(155, 225);
+            this.tb_productCheck_hardWareVersion.Name = "tb_productCheck_hardWareVersion";
+            this.tb_productCheck_hardWareVersion.Size = new System.Drawing.Size(176, 36);
+            this.tb_productCheck_hardWareVersion.TabIndex = 19;
+            this.tb_productCheck_hardWareVersion.ThemeName = "Material";
             // 
-            // tb_airtage_localIPConMes
+            // radLabel95
             // 
-            this.tb_airtage_localIPConMes.Location = new System.Drawing.Point(170, 57);
-            this.tb_airtage_localIPConMes.Name = "tb_airtage_localIPConMes";
-            this.tb_airtage_localIPConMes.Size = new System.Drawing.Size(203, 36);
-            this.tb_airtage_localIPConMes.TabIndex = 1;
-            this.tb_airtage_localIPConMes.ThemeName = "Material";
+            this.radLabel95.Location = new System.Drawing.Point(47, 240);
+            this.radLabel95.Name = "radLabel95";
+            this.radLabel95.Size = new System.Drawing.Size(102, 21);
+            this.radLabel95.TabIndex = 18;
+            this.radLabel95.Text = "硬件版本号：";
+            this.radLabel95.ThemeName = "Material";
             // 
-            // radLabel52
+            // tb_productCheck_partNumber
             // 
-            this.radLabel52.Location = new System.Drawing.Point(62, 133);
-            this.radLabel52.Name = "radLabel52";
-            this.radLabel52.Size = new System.Drawing.Size(102, 21);
-            this.radLabel52.TabIndex = 2;
-            this.radLabel52.Text = "气密测试仪：";
-            this.radLabel52.ThemeName = "Material";
+            this.tb_productCheck_partNumber.Location = new System.Drawing.Point(155, 166);
+            this.tb_productCheck_partNumber.Name = "tb_productCheck_partNumber";
+            this.tb_productCheck_partNumber.Size = new System.Drawing.Size(176, 36);
+            this.tb_productCheck_partNumber.TabIndex = 17;
+            this.tb_productCheck_partNumber.ThemeName = "Material";
             // 
-            // tb_airtage_tester
+            // tb_productCheck_workElectricMax
             // 
-            this.tb_airtage_tester.Location = new System.Drawing.Point(170, 118);
-            this.tb_airtage_tester.Name = "tb_airtage_tester";
-            this.tb_airtage_tester.Size = new System.Drawing.Size(203, 36);
-            this.tb_airtage_tester.TabIndex = 3;
-            this.tb_airtage_tester.ThemeName = "Material";
+            this.tb_productCheck_workElectricMax.Location = new System.Drawing.Point(155, 110);
+            this.tb_productCheck_workElectricMax.Name = "tb_productCheck_workElectricMax";
+            this.tb_productCheck_workElectricMax.Size = new System.Drawing.Size(176, 36);
+            this.tb_productCheck_workElectricMax.TabIndex = 15;
+            this.tb_productCheck_workElectricMax.ThemeName = "Material";
             // 
-            // radLabel62
+            // radLabel97
             // 
-            this.radLabel62.Location = new System.Drawing.Point(777, 133);
-            this.radLabel62.Name = "radLabel62";
-            this.radLabel62.Size = new System.Drawing.Size(86, 21);
-            this.radLabel62.TabIndex = 22;
-            this.radLabel62.Text = "测试序列：";
-            this.radLabel62.ThemeName = "Material";
+            this.radLabel97.Location = new System.Drawing.Point(15, 123);
+            this.radLabel97.Name = "radLabel97";
+            this.radLabel97.Size = new System.Drawing.Size(134, 21);
+            this.radLabel97.TabIndex = 14;
+            this.radLabel97.Text = "工作电流最大值：";
+            this.radLabel97.ThemeName = "Material";
+            // 
+            // radLabel98
+            // 
+            this.radLabel98.Location = new System.Drawing.Point(15, 63);
+            this.radLabel98.Name = "radLabel98";
+            this.radLabel98.Size = new System.Drawing.Size(134, 21);
+            this.radLabel98.TabIndex = 12;
+            this.radLabel98.Text = "工作电流最小值：";
+            this.radLabel98.ThemeName = "Material";
+            // 
+            // tb_productCheck_workElectricMin
+            // 
+            this.tb_productCheck_workElectricMin.Location = new System.Drawing.Point(155, 48);
+            this.tb_productCheck_workElectricMin.Name = "tb_productCheck_workElectricMin";
+            this.tb_productCheck_workElectricMin.Size = new System.Drawing.Size(176, 36);
+            this.tb_productCheck_workElectricMin.TabIndex = 13;
+            this.tb_productCheck_workElectricMin.ThemeName = "Material";
+            // 
+            // tb_productCheck_testSerial
+            // 
+            this.tb_productCheck_testSerial.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.tb_productCheck_testSerial.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_productCheck_testSerial.FormattingEnabled = true;
+            this.tb_productCheck_testSerial.Location = new System.Drawing.Point(986, 168);
+            this.tb_productCheck_testSerial.Name = "tb_productCheck_testSerial";
+            this.tb_productCheck_testSerial.Size = new System.Drawing.Size(253, 28);
+            this.tb_productCheck_testSerial.TabIndex = 18;
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.radLabel99);
+            this.groupBox13.Controls.Add(this.tb_productCheck_plcAddress);
+            this.groupBox13.Controls.Add(this.tb_productCheck_localAddress);
+            this.groupBox13.Controls.Add(this.radLabel100);
+            this.groupBox13.Controls.Add(this.tb_productCheck_controlPower);
+            this.groupBox13.Controls.Add(this.radLabel101);
+            this.groupBox13.Controls.Add(this.radLabel102);
+            this.groupBox13.Controls.Add(this.tb_productCheck_testBoard);
+            this.groupBox13.Controls.Add(this.tb_productCheck_avometer);
+            this.groupBox13.Controls.Add(this.radLabel103);
+            this.groupBox13.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox13.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox13.Location = new System.Drawing.Point(0, 0);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(282, 689);
+            this.groupBox13.TabIndex = 14;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "仪表地址设置";
+            // 
+            // radLabel99
+            // 
+            this.radLabel99.Location = new System.Drawing.Point(21, 63);
+            this.radLabel99.Name = "radLabel99";
+            this.radLabel99.Size = new System.Drawing.Size(81, 21);
+            this.radLabel99.TabIndex = 12;
+            this.radLabel99.Text = "PLC地址：";
+            this.radLabel99.ThemeName = "Material";
+            // 
+            // tb_productCheck_plcAddress
+            // 
+            this.tb_productCheck_plcAddress.Location = new System.Drawing.Point(108, 48);
+            this.tb_productCheck_plcAddress.Name = "tb_productCheck_plcAddress";
+            this.tb_productCheck_plcAddress.Size = new System.Drawing.Size(168, 36);
+            this.tb_productCheck_plcAddress.TabIndex = 1;
+            this.tb_productCheck_plcAddress.ThemeName = "Material";
+            // 
+            // tb_productCheck_localAddress
+            // 
+            this.tb_productCheck_localAddress.Location = new System.Drawing.Point(108, 108);
+            this.tb_productCheck_localAddress.Name = "tb_productCheck_localAddress";
+            this.tb_productCheck_localAddress.Size = new System.Drawing.Size(168, 36);
+            this.tb_productCheck_localAddress.TabIndex = 3;
+            this.tb_productCheck_localAddress.ThemeName = "MaterialBlueGrey";
+            // 
+            // radLabel100
+            // 
+            this.radLabel100.Location = new System.Drawing.Point(16, 123);
+            this.radLabel100.Name = "radLabel100";
+            this.radLabel100.Size = new System.Drawing.Size(86, 21);
+            this.radLabel100.TabIndex = 2;
+            this.radLabel100.Text = "本机地址：";
+            this.radLabel100.ThemeName = "Material";
+            // 
+            // tb_productCheck_controlPower
+            // 
+            this.tb_productCheck_controlPower.Location = new System.Drawing.Point(108, 282);
+            this.tb_productCheck_controlPower.Name = "tb_productCheck_controlPower";
+            this.tb_productCheck_controlPower.Size = new System.Drawing.Size(168, 36);
+            this.tb_productCheck_controlPower.TabIndex = 11;
+            this.tb_productCheck_controlPower.ThemeName = "Material";
+            // 
+            // radLabel101
+            // 
+            this.radLabel101.Location = new System.Drawing.Point(16, 297);
+            this.radLabel101.Name = "radLabel101";
+            this.radLabel101.Size = new System.Drawing.Size(86, 21);
+            this.radLabel101.TabIndex = 10;
+            this.radLabel101.Text = "程控电源：";
+            this.radLabel101.ThemeName = "Material";
+            // 
+            // radLabel102
+            // 
+            this.radLabel102.Location = new System.Drawing.Point(31, 181);
+            this.radLabel102.Name = "radLabel102";
+            this.radLabel102.Size = new System.Drawing.Size(71, 21);
+            this.radLabel102.TabIndex = 4;
+            this.radLabel102.Text = "万用表：";
+            this.radLabel102.ThemeName = "Material";
+            // 
+            // tb_productCheck_testBoard
+            // 
+            this.tb_productCheck_testBoard.Location = new System.Drawing.Point(108, 225);
+            this.tb_productCheck_testBoard.Name = "tb_productCheck_testBoard";
+            this.tb_productCheck_testBoard.Size = new System.Drawing.Size(168, 36);
+            this.tb_productCheck_testBoard.TabIndex = 9;
+            this.tb_productCheck_testBoard.ThemeName = "Material";
+            // 
+            // tb_productCheck_avometer
+            // 
+            this.tb_productCheck_avometer.Location = new System.Drawing.Point(108, 166);
+            this.tb_productCheck_avometer.Name = "tb_productCheck_avometer";
+            this.tb_productCheck_avometer.Size = new System.Drawing.Size(168, 36);
+            this.tb_productCheck_avometer.TabIndex = 5;
+            this.tb_productCheck_avometer.ThemeName = "Material";
+            // 
+            // radLabel103
+            // 
+            this.radLabel103.Location = new System.Drawing.Point(3, 240);
+            this.radLabel103.Name = "radLabel103";
+            this.radLabel103.Size = new System.Drawing.Size(102, 21);
+            this.radLabel103.TabIndex = 8;
+            this.radLabel103.Text = "万通测试板：";
+            this.radLabel103.ThemeName = "Material";
+            // 
+            // radLabel106
+            // 
+            this.radLabel106.Location = new System.Drawing.Point(986, 119);
+            this.radLabel106.Name = "radLabel106";
+            this.radLabel106.Size = new System.Drawing.Size(86, 21);
+            this.radLabel106.TabIndex = 17;
+            this.radLabel106.Text = "测试序列：";
+            this.radLabel106.ThemeName = "Material";
             // 
             // documentContainer2
             // 
@@ -984,7 +1127,7 @@
             // 
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 7;
+            this.documentTabStrip1.SelectedIndex = 0;
             this.documentTabStrip1.Size = new System.Drawing.Size(1278, 747);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
@@ -1013,7 +1156,7 @@
             // btn_common_refresh
             // 
             this.btn_common_refresh.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_common_refresh.Location = new System.Drawing.Point(535, 183);
+            this.btn_common_refresh.Location = new System.Drawing.Point(567, 361);
             this.btn_common_refresh.Name = "btn_common_refresh";
             this.btn_common_refresh.Size = new System.Drawing.Size(227, 36);
             this.btn_common_refresh.TabIndex = 36;
@@ -1023,7 +1166,7 @@
             // btn_common_save
             // 
             this.btn_common_save.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_common_save.Location = new System.Drawing.Point(535, 258);
+            this.btn_common_save.Location = new System.Drawing.Point(567, 436);
             this.btn_common_save.Name = "btn_common_save";
             this.btn_common_save.Size = new System.Drawing.Size(227, 36);
             this.btn_common_save.TabIndex = 35;
@@ -1032,24 +1175,26 @@
             // 
             // tb_common_packageAmount
             // 
-            this.tb_common_packageAmount.Location = new System.Drawing.Point(247, 268);
+            this.tb_common_packageAmount.Location = new System.Drawing.Point(990, 183);
             this.tb_common_packageAmount.Name = "tb_common_packageAmount";
             this.tb_common_packageAmount.Size = new System.Drawing.Size(213, 36);
             this.tb_common_packageAmount.TabIndex = 7;
             this.tb_common_packageAmount.ThemeName = "Material";
+            this.tb_common_packageAmount.Visible = false;
             // 
             // radLabel44
             // 
-            this.radLabel44.Location = new System.Drawing.Point(135, 283);
+            this.radLabel44.Location = new System.Drawing.Point(878, 198);
             this.radLabel44.Name = "radLabel44";
             this.radLabel44.Size = new System.Drawing.Size(102, 21);
             this.radLabel44.TabIndex = 6;
             this.radLabel44.Text = "包装箱数量：";
             this.radLabel44.ThemeName = "Material";
+            this.radLabel44.Visible = false;
             // 
             // tb_common_caseCodeLen
             // 
-            this.tb_common_caseCodeLen.Location = new System.Drawing.Point(247, 193);
+            this.tb_common_caseCodeLen.Location = new System.Drawing.Point(581, 242);
             this.tb_common_caseCodeLen.Name = "tb_common_caseCodeLen";
             this.tb_common_caseCodeLen.Size = new System.Drawing.Size(213, 36);
             this.tb_common_caseCodeLen.TabIndex = 5;
@@ -1057,7 +1202,7 @@
             // 
             // radLabel43
             // 
-            this.radLabel43.Location = new System.Drawing.Point(119, 208);
+            this.radLabel43.Location = new System.Drawing.Point(453, 257);
             this.radLabel43.Name = "radLabel43";
             this.radLabel43.Size = new System.Drawing.Size(118, 21);
             this.radLabel43.TabIndex = 4;
@@ -1066,7 +1211,7 @@
             // 
             // tb_common_shellCodeLen
             // 
-            this.tb_common_shellCodeLen.Location = new System.Drawing.Point(247, 118);
+            this.tb_common_shellCodeLen.Location = new System.Drawing.Point(581, 167);
             this.tb_common_shellCodeLen.Name = "tb_common_shellCodeLen";
             this.tb_common_shellCodeLen.Size = new System.Drawing.Size(213, 36);
             this.tb_common_shellCodeLen.TabIndex = 3;
@@ -1074,7 +1219,7 @@
             // 
             // radLabel42
             // 
-            this.radLabel42.Location = new System.Drawing.Point(59, 130);
+            this.radLabel42.Location = new System.Drawing.Point(393, 179);
             this.radLabel42.Name = "radLabel42";
             this.radLabel42.Size = new System.Drawing.Size(182, 21);
             this.radLabel42.TabIndex = 2;
@@ -1083,7 +1228,7 @@
             // 
             // tb_common_pcbCodeLen
             // 
-            this.tb_common_pcbCodeLen.Location = new System.Drawing.Point(247, 43);
+            this.tb_common_pcbCodeLen.Location = new System.Drawing.Point(581, 92);
             this.tb_common_pcbCodeLen.Name = "tb_common_pcbCodeLen";
             this.tb_common_pcbCodeLen.Size = new System.Drawing.Size(213, 36);
             this.tb_common_pcbCodeLen.TabIndex = 1;
@@ -1091,7 +1236,7 @@
             // 
             // radLabel40
             // 
-            this.radLabel40.Location = new System.Drawing.Point(59, 58);
+            this.radLabel40.Location = new System.Drawing.Point(393, 107);
             this.radLabel40.Name = "radLabel40";
             this.radLabel40.Size = new System.Drawing.Size(178, 21);
             this.radLabel40.TabIndex = 0;
@@ -2075,57 +2220,249 @@
             this.documentWindow4.Size = new System.Drawing.Size(1270, 689);
             this.documentWindow4.Text = "外壳装配工站";
             // 
-            // lbx_shell_tip
+            // groupBox18
             // 
-            this.lbx_shell_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbx_shell_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_shell_tip.Location = new System.Drawing.Point(899, 280);
-            this.lbx_shell_tip.Name = "lbx_shell_tip";
-            this.lbx_shell_tip.Size = new System.Drawing.Size(283, 21);
-            this.lbx_shell_tip.TabIndex = 39;
-            this.lbx_shell_tip.Text = "A01 产品是12V供电，A02 产品是5V供电";
-            this.lbx_shell_tip.ThemeName = "Material";
+            this.groupBox18.Controls.Add(this.radLabel117);
+            this.groupBox18.Controls.Add(this.tb_shell_bubbleCotton);
+            this.groupBox18.Controls.Add(this.radLabel116);
+            this.groupBox18.Controls.Add(this.tb_shell_sealRingWire);
+            this.groupBox18.Controls.Add(this.radLabel115);
+            this.groupBox18.Controls.Add(this.tb_shell_shell);
+            this.groupBox18.Controls.Add(this.radLabel114);
+            this.groupBox18.Controls.Add(this.tb_shell_topCover);
+            this.groupBox18.Controls.Add(this.radLabel113);
+            this.groupBox18.Controls.Add(this.tb_shell_shellScrew);
+            this.groupBox18.Controls.Add(this.radLabel112);
+            this.groupBox18.Controls.Add(this.tb_shell_pcbScrew);
+            this.groupBox18.Controls.Add(this.radLabel111);
+            this.groupBox18.Controls.Add(this.tb_shell_backCover);
+            this.groupBox18.Controls.Add(this.radLabel107);
+            this.groupBox18.Controls.Add(this.tb_shell_frontCover);
+            this.groupBox18.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox18.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox18.Location = new System.Drawing.Point(501, 0);
+            this.groupBox18.Name = "groupBox18";
+            this.groupBox18.Size = new System.Drawing.Size(392, 689);
+            this.groupBox18.TabIndex = 41;
+            this.groupBox18.TabStop = false;
+            this.groupBox18.Text = "物料PN";
             // 
-            // lbx_shell_sign
+            // radLabel117
             // 
-            this.lbx_shell_sign.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbx_shell_sign.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_shell_sign.Location = new System.Drawing.Point(899, 244);
-            this.lbx_shell_sign.Name = "lbx_shell_sign";
-            this.lbx_shell_sign.Size = new System.Drawing.Size(55, 21);
-            this.lbx_shell_sign.TabIndex = 10;
-            this.lbx_shell_sign.Text = "提示：";
-            this.lbx_shell_sign.ThemeName = "Material";
+            this.radLabel117.Location = new System.Drawing.Point(69, 548);
+            this.radLabel117.Name = "radLabel117";
+            this.radLabel117.Size = new System.Drawing.Size(55, 21);
+            this.radLabel117.TabIndex = 18;
+            this.radLabel117.Text = "泡棉：";
+            this.radLabel117.ThemeName = "Material";
             // 
-            // btn_shell_save
+            // tb_shell_bubbleCotton
             // 
-            this.btn_shell_save.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_shell_save.Location = new System.Drawing.Point(923, 417);
-            this.btn_shell_save.Name = "btn_shell_save";
-            this.btn_shell_save.Size = new System.Drawing.Size(299, 36);
-            this.btn_shell_save.TabIndex = 38;
-            this.btn_shell_save.Text = "保存";
-            this.btn_shell_save.ThemeName = "Windows8";
+            this.tb_shell_bubbleCotton.Location = new System.Drawing.Point(140, 533);
+            this.tb_shell_bubbleCotton.Name = "tb_shell_bubbleCotton";
+            this.tb_shell_bubbleCotton.Size = new System.Drawing.Size(227, 36);
+            this.tb_shell_bubbleCotton.TabIndex = 19;
+            this.tb_shell_bubbleCotton.ThemeName = "Material";
             // 
-            // cb_shell_testSerial
+            // radLabel116
             // 
-            this.cb_shell_testSerial.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cb_shell_testSerial.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cb_shell_testSerial.FormattingEnabled = true;
-            this.cb_shell_testSerial.Location = new System.Drawing.Point(917, 201);
-            this.cb_shell_testSerial.Name = "cb_shell_testSerial";
-            this.cb_shell_testSerial.Size = new System.Drawing.Size(299, 28);
-            this.cb_shell_testSerial.TabIndex = 37;
+            this.radLabel116.Location = new System.Drawing.Point(6, 480);
+            this.radLabel116.Name = "radLabel116";
+            this.radLabel116.Size = new System.Drawing.Size(118, 21);
+            this.radLabel116.TabIndex = 16;
+            this.radLabel116.Text = "密封圈和线束：";
+            this.radLabel116.ThemeName = "Material";
             // 
-            // btn_shell_refresh
+            // tb_shell_sealRingWire
             // 
-            this.btn_shell_refresh.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_shell_refresh.Location = new System.Drawing.Point(923, 69);
-            this.btn_shell_refresh.Name = "btn_shell_refresh";
-            this.btn_shell_refresh.Size = new System.Drawing.Size(299, 36);
-            this.btn_shell_refresh.TabIndex = 36;
-            this.btn_shell_refresh.Text = "刷新";
-            this.btn_shell_refresh.ThemeName = "Windows8";
+            this.tb_shell_sealRingWire.Location = new System.Drawing.Point(140, 465);
+            this.tb_shell_sealRingWire.Name = "tb_shell_sealRingWire";
+            this.tb_shell_sealRingWire.Size = new System.Drawing.Size(227, 36);
+            this.tb_shell_sealRingWire.TabIndex = 17;
+            this.tb_shell_sealRingWire.ThemeName = "Material";
+            // 
+            // radLabel115
+            // 
+            this.radLabel115.Location = new System.Drawing.Point(69, 412);
+            this.radLabel115.Name = "radLabel115";
+            this.radLabel115.Size = new System.Drawing.Size(55, 21);
+            this.radLabel115.TabIndex = 14;
+            this.radLabel115.Text = "外壳：";
+            this.radLabel115.ThemeName = "Material";
+            // 
+            // tb_shell_shell
+            // 
+            this.tb_shell_shell.Location = new System.Drawing.Point(140, 397);
+            this.tb_shell_shell.Name = "tb_shell_shell";
+            this.tb_shell_shell.Size = new System.Drawing.Size(227, 36);
+            this.tb_shell_shell.TabIndex = 15;
+            this.tb_shell_shell.ThemeName = "Material";
+            // 
+            // radLabel114
+            // 
+            this.radLabel114.Location = new System.Drawing.Point(69, 347);
+            this.radLabel114.Name = "radLabel114";
+            this.radLabel114.Size = new System.Drawing.Size(55, 21);
+            this.radLabel114.TabIndex = 12;
+            this.radLabel114.Text = "上盖：";
+            this.radLabel114.ThemeName = "Material";
+            // 
+            // tb_shell_topCover
+            // 
+            this.tb_shell_topCover.Location = new System.Drawing.Point(140, 332);
+            this.tb_shell_topCover.Name = "tb_shell_topCover";
+            this.tb_shell_topCover.Size = new System.Drawing.Size(227, 36);
+            this.tb_shell_topCover.TabIndex = 13;
+            this.tb_shell_topCover.ThemeName = "Material";
+            // 
+            // radLabel113
+            // 
+            this.radLabel113.Location = new System.Drawing.Point(38, 280);
+            this.radLabel113.Name = "radLabel113";
+            this.radLabel113.Size = new System.Drawing.Size(86, 21);
+            this.radLabel113.TabIndex = 10;
+            this.radLabel113.Text = "外壳螺丝：";
+            this.radLabel113.ThemeName = "Material";
+            // 
+            // tb_shell_shellScrew
+            // 
+            this.tb_shell_shellScrew.Location = new System.Drawing.Point(140, 265);
+            this.tb_shell_shellScrew.Name = "tb_shell_shellScrew";
+            this.tb_shell_shellScrew.Size = new System.Drawing.Size(227, 36);
+            this.tb_shell_shellScrew.TabIndex = 11;
+            this.tb_shell_shellScrew.ThemeName = "Material";
+            // 
+            // radLabel112
+            // 
+            this.radLabel112.Location = new System.Drawing.Point(42, 208);
+            this.radLabel112.Name = "radLabel112";
+            this.radLabel112.Size = new System.Drawing.Size(82, 21);
+            this.radLabel112.TabIndex = 8;
+            this.radLabel112.Text = "PCB螺丝：";
+            this.radLabel112.ThemeName = "Material";
+            // 
+            // tb_shell_pcbScrew
+            // 
+            this.tb_shell_pcbScrew.Location = new System.Drawing.Point(140, 201);
+            this.tb_shell_pcbScrew.Name = "tb_shell_pcbScrew";
+            this.tb_shell_pcbScrew.Size = new System.Drawing.Size(227, 36);
+            this.tb_shell_pcbScrew.TabIndex = 9;
+            this.tb_shell_pcbScrew.ThemeName = "Material";
+            // 
+            // radLabel111
+            // 
+            this.radLabel111.Location = new System.Drawing.Point(69, 149);
+            this.radLabel111.Name = "radLabel111";
+            this.radLabel111.Size = new System.Drawing.Size(55, 21);
+            this.radLabel111.TabIndex = 6;
+            this.radLabel111.Text = "后盖：";
+            this.radLabel111.ThemeName = "Material";
+            // 
+            // tb_shell_backCover
+            // 
+            this.tb_shell_backCover.Location = new System.Drawing.Point(140, 134);
+            this.tb_shell_backCover.Name = "tb_shell_backCover";
+            this.tb_shell_backCover.Size = new System.Drawing.Size(227, 36);
+            this.tb_shell_backCover.TabIndex = 7;
+            this.tb_shell_backCover.ThemeName = "Material";
+            // 
+            // radLabel107
+            // 
+            this.radLabel107.Location = new System.Drawing.Point(69, 86);
+            this.radLabel107.Name = "radLabel107";
+            this.radLabel107.Size = new System.Drawing.Size(55, 21);
+            this.radLabel107.TabIndex = 4;
+            this.radLabel107.Text = "前盖：";
+            this.radLabel107.ThemeName = "Material";
+            // 
+            // tb_shell_frontCover
+            // 
+            this.tb_shell_frontCover.Location = new System.Drawing.Point(140, 71);
+            this.tb_shell_frontCover.Name = "tb_shell_frontCover";
+            this.tb_shell_frontCover.Size = new System.Drawing.Size(227, 36);
+            this.tb_shell_frontCover.TabIndex = 5;
+            this.tb_shell_frontCover.ThemeName = "Material";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.groupBox17);
+            this.panel2.Controls.Add(this.groupBox16);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(501, 689);
+            this.panel2.TabIndex = 40;
+            // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.radLabel110);
+            this.groupBox17.Controls.Add(this.radLabel109);
+            this.groupBox17.Controls.Add(this.radLabel47);
+            this.groupBox17.Controls.Add(this.radLabel48);
+            this.groupBox17.Controls.Add(this.tb_shell_smallScrewSetTime);
+            this.groupBox17.Controls.Add(this.tb_shell_largeScrewSetTime);
+            this.groupBox17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox17.Location = new System.Drawing.Point(0, 301);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(501, 388);
+            this.groupBox17.TabIndex = 17;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "时间设定";
+            // 
+            // radLabel110
+            // 
+            this.radLabel110.Location = new System.Drawing.Point(6, 164);
+            this.radLabel110.Name = "radLabel110";
+            this.radLabel110.Size = new System.Drawing.Size(150, 21);
+            this.radLabel110.TabIndex = 9;
+            this.radLabel110.Text = "大螺丝枪时间设定：";
+            this.radLabel110.ThemeName = "Material";
+            // 
+            // radLabel109
+            // 
+            this.radLabel109.Location = new System.Drawing.Point(6, 84);
+            this.radLabel109.Name = "radLabel109";
+            this.radLabel109.Size = new System.Drawing.Size(150, 21);
+            this.radLabel109.TabIndex = 8;
+            this.radLabel109.Text = "小螺丝枪时间设定：";
+            this.radLabel109.ThemeName = "Material";
+            // 
+            // radLabel47
+            // 
+            this.radLabel47.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radLabel47.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.radLabel47.Location = new System.Drawing.Point(6, 111);
+            this.radLabel47.Name = "radLabel47";
+            this.radLabel47.Size = new System.Drawing.Size(490, 21);
+            this.radLabel47.TabIndex = 6;
+            this.radLabel47.Text = "提示：小螺丝枪打OK后规定时间内重复打不计数时间设定（单位Ms）";
+            this.radLabel47.ThemeName = "Material";
+            // 
+            // radLabel48
+            // 
+            this.radLabel48.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.radLabel48.Location = new System.Drawing.Point(6, 200);
+            this.radLabel48.Name = "radLabel48";
+            this.radLabel48.Size = new System.Drawing.Size(490, 21);
+            this.radLabel48.TabIndex = 2;
+            this.radLabel48.Text = "提示：大螺丝枪打OK后规定时间内重复打不计数时间设定（单位Ms）";
+            this.radLabel48.ThemeName = "Material";
+            // 
+            // tb_shell_smallScrewSetTime
+            // 
+            this.tb_shell_smallScrewSetTime.Location = new System.Drawing.Point(170, 69);
+            this.tb_shell_smallScrewSetTime.Name = "tb_shell_smallScrewSetTime";
+            this.tb_shell_smallScrewSetTime.Size = new System.Drawing.Size(314, 36);
+            this.tb_shell_smallScrewSetTime.TabIndex = 7;
+            this.tb_shell_smallScrewSetTime.ThemeName = "Material";
+            // 
+            // tb_shell_largeScrewSetTime
+            // 
+            this.tb_shell_largeScrewSetTime.Location = new System.Drawing.Point(170, 149);
+            this.tb_shell_largeScrewSetTime.Name = "tb_shell_largeScrewSetTime";
+            this.tb_shell_largeScrewSetTime.Size = new System.Drawing.Size(314, 36);
+            this.tb_shell_largeScrewSetTime.TabIndex = 3;
+            this.tb_shell_largeScrewSetTime.ThemeName = "Material";
             // 
             // groupBox16
             // 
@@ -2206,6 +2543,58 @@
             this.radLabel46.Text = "    PLC IP地址：";
             this.radLabel46.ThemeName = "Material";
             // 
+            // lbx_shell_tip
+            // 
+            this.lbx_shell_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbx_shell_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.lbx_shell_tip.Location = new System.Drawing.Point(899, 280);
+            this.lbx_shell_tip.Name = "lbx_shell_tip";
+            this.lbx_shell_tip.Size = new System.Drawing.Size(283, 21);
+            this.lbx_shell_tip.TabIndex = 39;
+            this.lbx_shell_tip.Text = "A01 产品是12V供电，A02 产品是5V供电";
+            this.lbx_shell_tip.ThemeName = "Material";
+            // 
+            // lbx_shell_sign
+            // 
+            this.lbx_shell_sign.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbx_shell_sign.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.lbx_shell_sign.Location = new System.Drawing.Point(899, 244);
+            this.lbx_shell_sign.Name = "lbx_shell_sign";
+            this.lbx_shell_sign.Size = new System.Drawing.Size(55, 21);
+            this.lbx_shell_sign.TabIndex = 10;
+            this.lbx_shell_sign.Text = "提示：";
+            this.lbx_shell_sign.ThemeName = "Material";
+            // 
+            // btn_shell_save
+            // 
+            this.btn_shell_save.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_shell_save.Location = new System.Drawing.Point(923, 417);
+            this.btn_shell_save.Name = "btn_shell_save";
+            this.btn_shell_save.Size = new System.Drawing.Size(299, 36);
+            this.btn_shell_save.TabIndex = 38;
+            this.btn_shell_save.Text = "保存";
+            this.btn_shell_save.ThemeName = "Windows8";
+            // 
+            // cb_shell_testSerial
+            // 
+            this.cb_shell_testSerial.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cb_shell_testSerial.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cb_shell_testSerial.FormattingEnabled = true;
+            this.cb_shell_testSerial.Location = new System.Drawing.Point(917, 201);
+            this.cb_shell_testSerial.Name = "cb_shell_testSerial";
+            this.cb_shell_testSerial.Size = new System.Drawing.Size(299, 28);
+            this.cb_shell_testSerial.TabIndex = 37;
+            // 
+            // btn_shell_refresh
+            // 
+            this.btn_shell_refresh.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_shell_refresh.Location = new System.Drawing.Point(923, 69);
+            this.btn_shell_refresh.Name = "btn_shell_refresh";
+            this.btn_shell_refresh.Size = new System.Drawing.Size(299, 36);
+            this.btn_shell_refresh.TabIndex = 36;
+            this.btn_shell_refresh.Text = "刷新";
+            this.btn_shell_refresh.ThemeName = "Windows8";
+            // 
             // radLabel49
             // 
             this.radLabel49.Location = new System.Drawing.Point(899, 164);
@@ -2214,6 +2603,320 @@
             this.radLabel49.TabIndex = 8;
             this.radLabel49.Text = "测试序列：";
             this.radLabel49.ThemeName = "Material";
+            // 
+            // documentWindow5
+            // 
+            this.documentWindow5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.documentWindow5.Controls.Add(this.lbx_airtage_tip);
+            this.documentWindow5.Controls.Add(this.lbx_airtage_sign);
+            this.documentWindow5.Controls.Add(this.btn_airtage_save);
+            this.documentWindow5.Controls.Add(this.btn_airtage_refresh);
+            this.documentWindow5.Controls.Add(this.tb_airtage_testSerial);
+            this.documentWindow5.Controls.Add(this.groupBox15);
+            this.documentWindow5.Controls.Add(this.groupBox14);
+            this.documentWindow5.Controls.Add(this.radLabel62);
+            this.documentWindow5.Font = new System.Drawing.Font("宋体", 9F);
+            this.documentWindow5.Location = new System.Drawing.Point(4, 54);
+            this.documentWindow5.Name = "documentWindow5";
+            this.documentWindow5.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.documentWindow5.Size = new System.Drawing.Size(1270, 689);
+            this.documentWindow5.Text = "气密测试工站";
+            // 
+            // lbx_airtage_tip
+            // 
+            this.lbx_airtage_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbx_airtage_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.lbx_airtage_tip.Location = new System.Drawing.Point(793, 285);
+            this.lbx_airtage_tip.Name = "lbx_airtage_tip";
+            this.lbx_airtage_tip.Size = new System.Drawing.Size(283, 21);
+            this.lbx_airtage_tip.TabIndex = 42;
+            this.lbx_airtage_tip.Text = "A01 产品是12V供电，A02 产品是5V供电";
+            this.lbx_airtage_tip.ThemeName = "Material";
+            // 
+            // lbx_airtage_sign
+            // 
+            this.lbx_airtage_sign.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbx_airtage_sign.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.lbx_airtage_sign.Location = new System.Drawing.Point(777, 244);
+            this.lbx_airtage_sign.Name = "lbx_airtage_sign";
+            this.lbx_airtage_sign.Size = new System.Drawing.Size(55, 21);
+            this.lbx_airtage_sign.TabIndex = 41;
+            this.lbx_airtage_sign.Text = "提示：";
+            this.lbx_airtage_sign.ThemeName = "Material";
+            // 
+            // btn_airtage_save
+            // 
+            this.btn_airtage_save.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_airtage_save.Location = new System.Drawing.Point(777, 494);
+            this.btn_airtage_save.Name = "btn_airtage_save";
+            this.btn_airtage_save.Size = new System.Drawing.Size(299, 36);
+            this.btn_airtage_save.TabIndex = 36;
+            this.btn_airtage_save.Text = "保存";
+            this.btn_airtage_save.ThemeName = "Windows8";
+            // 
+            // btn_airtage_refresh
+            // 
+            this.btn_airtage_refresh.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_airtage_refresh.Location = new System.Drawing.Point(777, 57);
+            this.btn_airtage_refresh.Name = "btn_airtage_refresh";
+            this.btn_airtage_refresh.Size = new System.Drawing.Size(299, 36);
+            this.btn_airtage_refresh.TabIndex = 35;
+            this.btn_airtage_refresh.Text = "刷新";
+            this.btn_airtage_refresh.ThemeName = "Windows8";
+            // 
+            // tb_airtage_testSerial
+            // 
+            this.tb_airtage_testSerial.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.tb_airtage_testSerial.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_airtage_testSerial.FormattingEnabled = true;
+            this.tb_airtage_testSerial.Location = new System.Drawing.Point(777, 179);
+            this.tb_airtage_testSerial.Name = "tb_airtage_testSerial";
+            this.tb_airtage_testSerial.Size = new System.Drawing.Size(299, 28);
+            this.tb_airtage_testSerial.TabIndex = 28;
+            // 
+            // groupBox15
+            // 
+            this.groupBox15.Controls.Add(this.tb_airtage_spread);
+            this.groupBox15.Controls.Add(this.tb_airtage_pressureUnit);
+            this.groupBox15.Controls.Add(this.radLabel58);
+            this.groupBox15.Controls.Add(this.radLabel60);
+            this.groupBox15.Controls.Add(this.tb_airtage_testConditionValue);
+            this.groupBox15.Controls.Add(this.tb_airtage_minFlate);
+            this.groupBox15.Controls.Add(this.radLabel61);
+            this.groupBox15.Controls.Add(this.radLabel59);
+            this.groupBox15.Controls.Add(this.radLabel57);
+            this.groupBox15.Controls.Add(this.tb_airtage_referenceConditionValue);
+            this.groupBox15.Controls.Add(this.tb_airtage_maxInflate);
+            this.groupBox15.Controls.Add(this.tb_airtage_inflateTime);
+            this.groupBox15.Controls.Add(this.radLabel56);
+            this.groupBox15.Controls.Add(this.radLabel53);
+            this.groupBox15.Controls.Add(this.tb_airtage_testTime);
+            this.groupBox15.Controls.Add(this.radLabel54);
+            this.groupBox15.Controls.Add(this.radLabel55);
+            this.groupBox15.Controls.Add(this.tb_airtage_stableTime);
+            this.groupBox15.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox15.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox15.Location = new System.Drawing.Point(379, 0);
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.Size = new System.Drawing.Size(386, 689);
+            this.groupBox15.TabIndex = 27;
+            this.groupBox15.TabStop = false;
+            this.groupBox15.Text = "测试参数";
+            // 
+            // tb_airtage_spread
+            // 
+            this.tb_airtage_spread.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.tb_airtage_spread.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_airtage_spread.FormattingEnabled = true;
+            this.tb_airtage_spread.Location = new System.Drawing.Point(144, 502);
+            this.tb_airtage_spread.Name = "tb_airtage_spread";
+            this.tb_airtage_spread.Size = new System.Drawing.Size(236, 28);
+            this.tb_airtage_spread.TabIndex = 43;
+            // 
+            // tb_airtage_pressureUnit
+            // 
+            this.tb_airtage_pressureUnit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.tb_airtage_pressureUnit.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_airtage_pressureUnit.FormattingEnabled = true;
+            this.tb_airtage_pressureUnit.Location = new System.Drawing.Point(144, 451);
+            this.tb_airtage_pressureUnit.Name = "tb_airtage_pressureUnit";
+            this.tb_airtage_pressureUnit.Size = new System.Drawing.Size(236, 28);
+            this.tb_airtage_pressureUnit.TabIndex = 44;
+            // 
+            // radLabel58
+            // 
+            this.radLabel58.Location = new System.Drawing.Point(54, 72);
+            this.radLabel58.Name = "radLabel58";
+            this.radLabel58.Size = new System.Drawing.Size(86, 21);
+            this.radLabel58.TabIndex = 14;
+            this.radLabel58.Text = "最大充气：";
+            this.radLabel58.ThemeName = "Material";
+            // 
+            // radLabel60
+            // 
+            this.radLabel60.Location = new System.Drawing.Point(6, 186);
+            this.radLabel60.Name = "radLabel60";
+            this.radLabel60.Size = new System.Drawing.Size(134, 21);
+            this.radLabel60.TabIndex = 18;
+            this.radLabel60.Text = "测试条件允收值：";
+            this.radLabel60.ThemeName = "Material";
+            // 
+            // tb_airtage_testConditionValue
+            // 
+            this.tb_airtage_testConditionValue.Location = new System.Drawing.Point(146, 171);
+            this.tb_airtage_testConditionValue.Name = "tb_airtage_testConditionValue";
+            this.tb_airtage_testConditionValue.Size = new System.Drawing.Size(234, 36);
+            this.tb_airtage_testConditionValue.TabIndex = 19;
+            this.tb_airtage_testConditionValue.ThemeName = "Material";
+            // 
+            // tb_airtage_minFlate
+            // 
+            this.tb_airtage_minFlate.Location = new System.Drawing.Point(146, 118);
+            this.tb_airtage_minFlate.Name = "tb_airtage_minFlate";
+            this.tb_airtage_minFlate.Size = new System.Drawing.Size(234, 36);
+            this.tb_airtage_minFlate.TabIndex = 17;
+            this.tb_airtage_minFlate.ThemeName = "Material";
+            // 
+            // radLabel61
+            // 
+            this.radLabel61.Location = new System.Drawing.Point(6, 244);
+            this.radLabel61.Name = "radLabel61";
+            this.radLabel61.Size = new System.Drawing.Size(134, 21);
+            this.radLabel61.TabIndex = 20;
+            this.radLabel61.Text = "参考条件允收值：";
+            this.radLabel61.ThemeName = "Material";
+            // 
+            // radLabel59
+            // 
+            this.radLabel59.Location = new System.Drawing.Point(54, 132);
+            this.radLabel59.Name = "radLabel59";
+            this.radLabel59.Size = new System.Drawing.Size(86, 21);
+            this.radLabel59.TabIndex = 16;
+            this.radLabel59.Text = "最小充气：";
+            this.radLabel59.ThemeName = "Material";
+            // 
+            // radLabel57
+            // 
+            this.radLabel57.Location = new System.Drawing.Point(52, 509);
+            this.radLabel57.Name = "radLabel57";
+            this.radLabel57.Size = new System.Drawing.Size(86, 21);
+            this.radLabel57.TabIndex = 12;
+            this.radLabel57.Text = "泄露单位：";
+            this.radLabel57.ThemeName = "Material";
+            // 
+            // tb_airtage_referenceConditionValue
+            // 
+            this.tb_airtage_referenceConditionValue.Location = new System.Drawing.Point(146, 229);
+            this.tb_airtage_referenceConditionValue.Name = "tb_airtage_referenceConditionValue";
+            this.tb_airtage_referenceConditionValue.Size = new System.Drawing.Size(234, 36);
+            this.tb_airtage_referenceConditionValue.TabIndex = 21;
+            this.tb_airtage_referenceConditionValue.ThemeName = "Material";
+            // 
+            // tb_airtage_maxInflate
+            // 
+            this.tb_airtage_maxInflate.Location = new System.Drawing.Point(146, 57);
+            this.tb_airtage_maxInflate.Name = "tb_airtage_maxInflate";
+            this.tb_airtage_maxInflate.Size = new System.Drawing.Size(234, 36);
+            this.tb_airtage_maxInflate.TabIndex = 15;
+            this.tb_airtage_maxInflate.ThemeName = "Material";
+            // 
+            // tb_airtage_inflateTime
+            // 
+            this.tb_airtage_inflateTime.Location = new System.Drawing.Point(146, 285);
+            this.tb_airtage_inflateTime.Name = "tb_airtage_inflateTime";
+            this.tb_airtage_inflateTime.Size = new System.Drawing.Size(234, 36);
+            this.tb_airtage_inflateTime.TabIndex = 5;
+            this.tb_airtage_inflateTime.ThemeName = "Material";
+            // 
+            // radLabel56
+            // 
+            this.radLabel56.Location = new System.Drawing.Point(52, 458);
+            this.radLabel56.Name = "radLabel56";
+            this.radLabel56.Size = new System.Drawing.Size(86, 21);
+            this.radLabel56.TabIndex = 10;
+            this.radLabel56.Text = "压力单位：";
+            this.radLabel56.ThemeName = "Material";
+            // 
+            // radLabel53
+            // 
+            this.radLabel53.Location = new System.Drawing.Point(44, 300);
+            this.radLabel53.Name = "radLabel53";
+            this.radLabel53.Size = new System.Drawing.Size(94, 21);
+            this.radLabel53.TabIndex = 4;
+            this.radLabel53.Text = "  充气时间：";
+            this.radLabel53.ThemeName = "Material";
+            // 
+            // tb_airtage_testTime
+            // 
+            this.tb_airtage_testTime.Location = new System.Drawing.Point(144, 389);
+            this.tb_airtage_testTime.Name = "tb_airtage_testTime";
+            this.tb_airtage_testTime.Size = new System.Drawing.Size(236, 36);
+            this.tb_airtage_testTime.TabIndex = 9;
+            this.tb_airtage_testTime.ThemeName = "Material";
+            // 
+            // radLabel54
+            // 
+            this.radLabel54.Location = new System.Drawing.Point(52, 352);
+            this.radLabel54.Name = "radLabel54";
+            this.radLabel54.Size = new System.Drawing.Size(86, 21);
+            this.radLabel54.TabIndex = 6;
+            this.radLabel54.Text = "稳定时间：";
+            this.radLabel54.ThemeName = "Material";
+            // 
+            // radLabel55
+            // 
+            this.radLabel55.Location = new System.Drawing.Point(52, 404);
+            this.radLabel55.Name = "radLabel55";
+            this.radLabel55.Size = new System.Drawing.Size(86, 21);
+            this.radLabel55.TabIndex = 8;
+            this.radLabel55.Text = "测试时间：";
+            this.radLabel55.ThemeName = "Material";
+            // 
+            // tb_airtage_stableTime
+            // 
+            this.tb_airtage_stableTime.Location = new System.Drawing.Point(144, 337);
+            this.tb_airtage_stableTime.Name = "tb_airtage_stableTime";
+            this.tb_airtage_stableTime.Size = new System.Drawing.Size(236, 36);
+            this.tb_airtage_stableTime.TabIndex = 7;
+            this.tb_airtage_stableTime.ThemeName = "Material";
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.radLabel51);
+            this.groupBox14.Controls.Add(this.tb_airtage_localIPConMes);
+            this.groupBox14.Controls.Add(this.radLabel52);
+            this.groupBox14.Controls.Add(this.tb_airtage_tester);
+            this.groupBox14.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox14.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox14.Location = new System.Drawing.Point(0, 0);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(379, 689);
+            this.groupBox14.TabIndex = 26;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "连接";
+            // 
+            // radLabel51
+            // 
+            this.radLabel51.Location = new System.Drawing.Point(6, 69);
+            this.radLabel51.Name = "radLabel51";
+            this.radLabel51.Size = new System.Drawing.Size(158, 21);
+            this.radLabel51.TabIndex = 0;
+            this.radLabel51.Text = "本机地址(连接MES)：";
+            this.radLabel51.ThemeName = "Material";
+            // 
+            // tb_airtage_localIPConMes
+            // 
+            this.tb_airtage_localIPConMes.Location = new System.Drawing.Point(170, 57);
+            this.tb_airtage_localIPConMes.Name = "tb_airtage_localIPConMes";
+            this.tb_airtage_localIPConMes.Size = new System.Drawing.Size(203, 36);
+            this.tb_airtage_localIPConMes.TabIndex = 1;
+            this.tb_airtage_localIPConMes.ThemeName = "Material";
+            // 
+            // radLabel52
+            // 
+            this.radLabel52.Location = new System.Drawing.Point(62, 133);
+            this.radLabel52.Name = "radLabel52";
+            this.radLabel52.Size = new System.Drawing.Size(102, 21);
+            this.radLabel52.TabIndex = 2;
+            this.radLabel52.Text = "气密测试仪：";
+            this.radLabel52.ThemeName = "Material";
+            // 
+            // tb_airtage_tester
+            // 
+            this.tb_airtage_tester.Location = new System.Drawing.Point(170, 118);
+            this.tb_airtage_tester.Name = "tb_airtage_tester";
+            this.tb_airtage_tester.Size = new System.Drawing.Size(203, 36);
+            this.tb_airtage_tester.TabIndex = 3;
+            this.tb_airtage_tester.ThemeName = "Material";
+            // 
+            // radLabel62
+            // 
+            this.radLabel62.Location = new System.Drawing.Point(777, 133);
+            this.radLabel62.Name = "radLabel62";
+            this.radLabel62.Size = new System.Drawing.Size(86, 21);
+            this.radLabel62.TabIndex = 22;
+            this.radLabel62.Text = "测试序列：";
+            this.radLabel62.ThemeName = "Material";
             // 
             // documentWindow6
             // 
@@ -2232,6 +2935,161 @@
             this.documentWindow6.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
             this.documentWindow6.Size = new System.Drawing.Size(1270, 689);
             this.documentWindow6.Text = "支架装配工站";
+            // 
+            // groupBox20
+            // 
+            this.groupBox20.Controls.Add(this.radLabel105);
+            this.groupBox20.Controls.Add(this.tb_stent_stentScrew);
+            this.groupBox20.Controls.Add(this.radLabel63);
+            this.groupBox20.Controls.Add(this.radLabel81);
+            this.groupBox20.Controls.Add(this.tb_stent_stent);
+            this.groupBox20.Controls.Add(this.tb_stent_stentNut);
+            this.groupBox20.Controls.Add(this.radLabel50);
+            this.groupBox20.Controls.Add(this.tb_stent_unionStent);
+            this.groupBox20.Controls.Add(this.radLabel41);
+            this.groupBox20.Controls.Add(this.tb_stent_rightStent);
+            this.groupBox20.Controls.Add(this.radLabel2);
+            this.groupBox20.Controls.Add(this.tb_stent_leftStent);
+            this.groupBox20.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox20.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox20.Location = new System.Drawing.Point(329, 0);
+            this.groupBox20.Name = "groupBox20";
+            this.groupBox20.Size = new System.Drawing.Size(346, 689);
+            this.groupBox20.TabIndex = 44;
+            this.groupBox20.TabStop = false;
+            this.groupBox20.Text = "物料PN";
+            // 
+            // radLabel105
+            // 
+            this.radLabel105.Location = new System.Drawing.Point(2, 413);
+            this.radLabel105.Name = "radLabel105";
+            this.radLabel105.Size = new System.Drawing.Size(86, 21);
+            this.radLabel105.TabIndex = 12;
+            this.radLabel105.Text = "支架螺丝：";
+            this.radLabel105.ThemeName = "Material";
+            // 
+            // tb_stent_stentScrew
+            // 
+            this.tb_stent_stentScrew.Location = new System.Drawing.Point(108, 398);
+            this.tb_stent_stentScrew.Name = "tb_stent_stentScrew";
+            this.tb_stent_stentScrew.Size = new System.Drawing.Size(227, 36);
+            this.tb_stent_stentScrew.TabIndex = 13;
+            this.tb_stent_stentScrew.ThemeName = "Material";
+            // 
+            // radLabel63
+            // 
+            this.radLabel63.Location = new System.Drawing.Point(2, 480);
+            this.radLabel63.Name = "radLabel63";
+            this.radLabel63.Size = new System.Drawing.Size(86, 21);
+            this.radLabel63.TabIndex = 8;
+            this.radLabel63.Text = "支架螺母：";
+            this.radLabel63.ThemeName = "Material";
+            // 
+            // radLabel81
+            // 
+            this.radLabel81.Location = new System.Drawing.Point(33, 348);
+            this.radLabel81.Name = "radLabel81";
+            this.radLabel81.Size = new System.Drawing.Size(55, 21);
+            this.radLabel81.TabIndex = 10;
+            this.radLabel81.Text = "支架：";
+            this.radLabel81.ThemeName = "Material";
+            // 
+            // tb_stent_stent
+            // 
+            this.tb_stent_stent.Location = new System.Drawing.Point(108, 333);
+            this.tb_stent_stent.Name = "tb_stent_stent";
+            this.tb_stent_stent.Size = new System.Drawing.Size(227, 36);
+            this.tb_stent_stent.TabIndex = 11;
+            this.tb_stent_stent.ThemeName = "Material";
+            // 
+            // tb_stent_stentNut
+            // 
+            this.tb_stent_stentNut.Location = new System.Drawing.Point(108, 465);
+            this.tb_stent_stentNut.Name = "tb_stent_stentNut";
+            this.tb_stent_stentNut.Size = new System.Drawing.Size(227, 36);
+            this.tb_stent_stentNut.TabIndex = 9;
+            this.tb_stent_stentNut.ThemeName = "Material";
+            // 
+            // radLabel50
+            // 
+            this.radLabel50.Location = new System.Drawing.Point(6, 280);
+            this.radLabel50.Name = "radLabel50";
+            this.radLabel50.Size = new System.Drawing.Size(86, 21);
+            this.radLabel50.TabIndex = 6;
+            this.radLabel50.Text = "连体支架：";
+            this.radLabel50.ThemeName = "Material";
+            // 
+            // tb_stent_unionStent
+            // 
+            this.tb_stent_unionStent.Location = new System.Drawing.Point(108, 266);
+            this.tb_stent_unionStent.Name = "tb_stent_unionStent";
+            this.tb_stent_unionStent.Size = new System.Drawing.Size(227, 36);
+            this.tb_stent_unionStent.TabIndex = 7;
+            this.tb_stent_unionStent.ThemeName = "Material";
+            // 
+            // radLabel41
+            // 
+            this.radLabel41.Location = new System.Drawing.Point(21, 207);
+            this.radLabel41.Name = "radLabel41";
+            this.radLabel41.Size = new System.Drawing.Size(71, 21);
+            this.radLabel41.TabIndex = 4;
+            this.radLabel41.Text = "右支架：";
+            this.radLabel41.ThemeName = "Material";
+            // 
+            // tb_stent_rightStent
+            // 
+            this.tb_stent_rightStent.Location = new System.Drawing.Point(108, 192);
+            this.tb_stent_rightStent.Name = "tb_stent_rightStent";
+            this.tb_stent_rightStent.Size = new System.Drawing.Size(227, 36);
+            this.tb_stent_rightStent.TabIndex = 5;
+            this.tb_stent_rightStent.ThemeName = "Material";
+            // 
+            // radLabel2
+            // 
+            this.radLabel2.Location = new System.Drawing.Point(21, 129);
+            this.radLabel2.Name = "radLabel2";
+            this.radLabel2.Size = new System.Drawing.Size(71, 21);
+            this.radLabel2.TabIndex = 2;
+            this.radLabel2.Text = "左支架：";
+            this.radLabel2.ThemeName = "Material";
+            // 
+            // tb_stent_leftStent
+            // 
+            this.tb_stent_leftStent.Location = new System.Drawing.Point(108, 116);
+            this.tb_stent_leftStent.Name = "tb_stent_leftStent";
+            this.tb_stent_leftStent.Size = new System.Drawing.Size(227, 36);
+            this.tb_stent_leftStent.TabIndex = 3;
+            this.tb_stent_leftStent.ThemeName = "Material";
+            // 
+            // groupBox19
+            // 
+            this.groupBox19.Controls.Add(this.radLabel64);
+            this.groupBox19.Controls.Add(this.tb_stent_localIPConMes);
+            this.groupBox19.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox19.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox19.Location = new System.Drawing.Point(0, 0);
+            this.groupBox19.Name = "groupBox19";
+            this.groupBox19.Size = new System.Drawing.Size(329, 689);
+            this.groupBox19.TabIndex = 43;
+            this.groupBox19.TabStop = false;
+            this.groupBox19.Text = "地址";
+            // 
+            // radLabel64
+            // 
+            this.radLabel64.Location = new System.Drawing.Point(8, 64);
+            this.radLabel64.Name = "radLabel64";
+            this.radLabel64.Size = new System.Drawing.Size(179, 21);
+            this.radLabel64.TabIndex = 0;
+            this.radLabel64.Text = "本机地址（连接MES）：";
+            this.radLabel64.ThemeName = "Material";
+            // 
+            // tb_stent_localIPConMes
+            // 
+            this.tb_stent_localIPConMes.Location = new System.Drawing.Point(81, 114);
+            this.tb_stent_localIPConMes.Name = "tb_stent_localIPConMes";
+            this.tb_stent_localIPConMes.Size = new System.Drawing.Size(227, 36);
+            this.tb_stent_localIPConMes.TabIndex = 1;
+            this.tb_stent_localIPConMes.ThemeName = "Material";
             // 
             // lbx_stent_tip
             // 
@@ -2293,23 +3151,6 @@
             this.radLabel65.TabIndex = 2;
             this.radLabel65.Text = "测试序列：";
             this.radLabel65.ThemeName = "Material";
-            // 
-            // tb_stent_localIPConMes
-            // 
-            this.tb_stent_localIPConMes.Location = new System.Drawing.Point(81, 114);
-            this.tb_stent_localIPConMes.Name = "tb_stent_localIPConMes";
-            this.tb_stent_localIPConMes.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_localIPConMes.TabIndex = 1;
-            this.tb_stent_localIPConMes.ThemeName = "Material";
-            // 
-            // radLabel64
-            // 
-            this.radLabel64.Location = new System.Drawing.Point(8, 64);
-            this.radLabel64.Name = "radLabel64";
-            this.radLabel64.Size = new System.Drawing.Size(179, 21);
-            this.radLabel64.TabIndex = 0;
-            this.radLabel64.Text = "本机地址（连接MES）：";
-            this.radLabel64.ThemeName = "Material";
             // 
             // documentWindow8
             // 
@@ -2787,845 +3628,6 @@
             this.tb_product_autoSweepCode.TabIndex = 7;
             this.tb_product_autoSweepCode.ThemeName = "Material";
             // 
-            // documentWindow7
-            // 
-            this.documentWindow7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.documentWindow7.Controls.Add(this.lbx_productCheck_tip);
-            this.documentWindow7.Controls.Add(this.lbx_productCheck_sign);
-            this.documentWindow7.Controls.Add(this.btn_productCheck_refresh);
-            this.documentWindow7.Controls.Add(this.btn_productCheck_save);
-            this.documentWindow7.Controls.Add(this.groupBox11);
-            this.documentWindow7.Controls.Add(this.groupBox12);
-            this.documentWindow7.Controls.Add(this.tb_productCheck_testSerial);
-            this.documentWindow7.Controls.Add(this.groupBox13);
-            this.documentWindow7.Controls.Add(this.radLabel106);
-            this.documentWindow7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.documentWindow7.Location = new System.Drawing.Point(4, 54);
-            this.documentWindow7.Name = "documentWindow7";
-            this.documentWindow7.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow7.Size = new System.Drawing.Size(1270, 689);
-            this.documentWindow7.Text = "质量抽检测试工站";
-            // 
-            // lbx_productCheck_tip
-            // 
-            this.lbx_productCheck_tip.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbx_productCheck_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_productCheck_tip.Location = new System.Drawing.Point(986, 258);
-            this.lbx_productCheck_tip.Name = "lbx_productCheck_tip";
-            this.lbx_productCheck_tip.Size = new System.Drawing.Size(189, 71);
-            this.lbx_productCheck_tip.TabIndex = 46;
-            this.lbx_productCheck_tip.Text = "A01 产品是12V供电\r\nA02 产品是5V供电\r\n请仔细区分该产品型号的\r\n供电电压";
-            this.lbx_productCheck_tip.ThemeName = "Material";
-            // 
-            // lbx_productCheck_sign
-            // 
-            this.lbx_productCheck_sign.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbx_productCheck_sign.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbx_productCheck_sign.Location = new System.Drawing.Point(986, 231);
-            this.lbx_productCheck_sign.Name = "lbx_productCheck_sign";
-            this.lbx_productCheck_sign.Size = new System.Drawing.Size(55, 21);
-            this.lbx_productCheck_sign.TabIndex = 45;
-            this.lbx_productCheck_sign.Text = "提示：";
-            this.lbx_productCheck_sign.ThemeName = "Material";
-            // 
-            // btn_productCheck_refresh
-            // 
-            this.btn_productCheck_refresh.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_productCheck_refresh.Location = new System.Drawing.Point(986, 50);
-            this.btn_productCheck_refresh.Name = "btn_productCheck_refresh";
-            this.btn_productCheck_refresh.Size = new System.Drawing.Size(253, 36);
-            this.btn_productCheck_refresh.TabIndex = 31;
-            this.btn_productCheck_refresh.Text = "刷新";
-            this.btn_productCheck_refresh.ThemeName = "Windows8";
-            // 
-            // btn_productCheck_save
-            // 
-            this.btn_productCheck_save.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_productCheck_save.Location = new System.Drawing.Point(986, 463);
-            this.btn_productCheck_save.Name = "btn_productCheck_save";
-            this.btn_productCheck_save.Size = new System.Drawing.Size(253, 36);
-            this.btn_productCheck_save.TabIndex = 30;
-            this.btn_productCheck_save.Text = "保存";
-            this.btn_productCheck_save.ThemeName = "Windows8";
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.tb_productCheck_porterRate);
-            this.groupBox11.Controls.Add(this.tb_productCheck_rfCanID);
-            this.groupBox11.Controls.Add(this.radLabel78);
-            this.groupBox11.Controls.Add(this.tb_productCheck_cycleCanID);
-            this.groupBox11.Controls.Add(this.radLabel82);
-            this.groupBox11.Controls.Add(this.tb_productCheck_receiveCanID);
-            this.groupBox11.Controls.Add(this.radLabel88);
-            this.groupBox11.Controls.Add(this.tb_productCheck_sendCanID);
-            this.groupBox11.Controls.Add(this.radLabel89);
-            this.groupBox11.Controls.Add(this.radLabel90);
-            this.groupBox11.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox11.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox11.Location = new System.Drawing.Point(619, 0);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(345, 689);
-            this.groupBox11.TabIndex = 29;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "测试项参数";
-            // 
-            // tb_productCheck_porterRate
-            // 
-            this.tb_productCheck_porterRate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.tb_productCheck_porterRate.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tb_productCheck_porterRate.FormattingEnabled = true;
-            this.tb_productCheck_porterRate.Location = new System.Drawing.Point(166, 56);
-            this.tb_productCheck_porterRate.Name = "tb_productCheck_porterRate";
-            this.tb_productCheck_porterRate.Size = new System.Drawing.Size(173, 28);
-            this.tb_productCheck_porterRate.TabIndex = 22;
-            // 
-            // tb_productCheck_rfCanID
-            // 
-            this.tb_productCheck_rfCanID.Location = new System.Drawing.Point(166, 282);
-            this.tb_productCheck_rfCanID.Name = "tb_productCheck_rfCanID";
-            this.tb_productCheck_rfCanID.Size = new System.Drawing.Size(173, 36);
-            this.tb_productCheck_rfCanID.TabIndex = 21;
-            this.tb_productCheck_rfCanID.ThemeName = "Material";
-            // 
-            // radLabel78
-            // 
-            this.radLabel78.Location = new System.Drawing.Point(64, 297);
-            this.radLabel78.Name = "radLabel78";
-            this.radLabel78.Size = new System.Drawing.Size(96, 21);
-            this.radLabel78.TabIndex = 20;
-            this.radLabel78.Text = "RF_CAN_ID：";
-            this.radLabel78.ThemeName = "Material";
-            // 
-            // tb_productCheck_cycleCanID
-            // 
-            this.tb_productCheck_cycleCanID.Location = new System.Drawing.Point(166, 222);
-            this.tb_productCheck_cycleCanID.Name = "tb_productCheck_cycleCanID";
-            this.tb_productCheck_cycleCanID.Size = new System.Drawing.Size(173, 36);
-            this.tb_productCheck_cycleCanID.TabIndex = 19;
-            this.tb_productCheck_cycleCanID.ThemeName = "Material";
-            // 
-            // radLabel82
-            // 
-            this.radLabel82.Location = new System.Drawing.Point(56, 240);
-            this.radLabel82.Name = "radLabel82";
-            this.radLabel82.Size = new System.Drawing.Size(104, 21);
-            this.radLabel82.TabIndex = 18;
-            this.radLabel82.Text = "周期CAN_ID：";
-            this.radLabel82.ThemeName = "Material";
-            // 
-            // tb_productCheck_receiveCanID
-            // 
-            this.tb_productCheck_receiveCanID.Location = new System.Drawing.Point(166, 166);
-            this.tb_productCheck_receiveCanID.Name = "tb_productCheck_receiveCanID";
-            this.tb_productCheck_receiveCanID.Size = new System.Drawing.Size(173, 36);
-            this.tb_productCheck_receiveCanID.TabIndex = 17;
-            this.tb_productCheck_receiveCanID.ThemeName = "Material";
-            // 
-            // radLabel88
-            // 
-            this.radLabel88.Location = new System.Drawing.Point(6, 181);
-            this.radLabel88.Name = "radLabel88";
-            this.radLabel88.Size = new System.Drawing.Size(154, 21);
-            this.radLabel88.TabIndex = 16;
-            this.radLabel88.Text = "诊断ReceiveCAN_ID：";
-            this.radLabel88.ThemeName = "Material";
-            // 
-            // tb_productCheck_sendCanID
-            // 
-            this.tb_productCheck_sendCanID.Location = new System.Drawing.Point(166, 110);
-            this.tb_productCheck_sendCanID.Name = "tb_productCheck_sendCanID";
-            this.tb_productCheck_sendCanID.Size = new System.Drawing.Size(173, 36);
-            this.tb_productCheck_sendCanID.TabIndex = 15;
-            this.tb_productCheck_sendCanID.ThemeName = "Material";
-            // 
-            // radLabel89
-            // 
-            this.radLabel89.Location = new System.Drawing.Point(26, 123);
-            this.radLabel89.Name = "radLabel89";
-            this.radLabel89.Size = new System.Drawing.Size(134, 21);
-            this.radLabel89.TabIndex = 14;
-            this.radLabel89.Text = "诊断SendCAN ID：";
-            this.radLabel89.ThemeName = "Material";
-            // 
-            // radLabel90
-            // 
-            this.radLabel90.Location = new System.Drawing.Point(89, 63);
-            this.radLabel90.Name = "radLabel90";
-            this.radLabel90.Size = new System.Drawing.Size(74, 21);
-            this.radLabel90.TabIndex = 12;
-            this.radLabel90.Text = " 波特率：";
-            this.radLabel90.ThemeName = "Material";
-            // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.radLabel96);
-            this.groupBox12.Controls.Add(this.tb_productCheck_dormantElectricMax);
-            this.groupBox12.Controls.Add(this.tb_productCheck_bootLoader);
-            this.groupBox12.Controls.Add(this.radLabel91);
-            this.groupBox12.Controls.Add(this.radLabel92);
-            this.groupBox12.Controls.Add(this.tb_productCheck_dormantElectricMin);
-            this.groupBox12.Controls.Add(this.radLabel93);
-            this.groupBox12.Controls.Add(this.tb_productCheck_softWareVersion);
-            this.groupBox12.Controls.Add(this.radLabel94);
-            this.groupBox12.Controls.Add(this.tb_productCheck_hardWareVersion);
-            this.groupBox12.Controls.Add(this.radLabel95);
-            this.groupBox12.Controls.Add(this.tb_productCheck_partNumber);
-            this.groupBox12.Controls.Add(this.tb_productCheck_workElectricMax);
-            this.groupBox12.Controls.Add(this.radLabel97);
-            this.groupBox12.Controls.Add(this.radLabel98);
-            this.groupBox12.Controls.Add(this.tb_productCheck_workElectricMin);
-            this.groupBox12.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox12.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox12.Location = new System.Drawing.Point(282, 0);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(337, 689);
-            this.groupBox12.TabIndex = 28;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "测试项上下限";
-            // 
-            // radLabel96
-            // 
-            this.radLabel96.Location = new System.Drawing.Point(65, 181);
-            this.radLabel96.Name = "radLabel96";
-            this.radLabel96.Size = new System.Drawing.Size(81, 21);
-            this.radLabel96.TabIndex = 28;
-            this.radLabel96.Text = "   零件号：";
-            this.radLabel96.ThemeName = "Material";
-            // 
-            // tb_productCheck_dormantElectricMax
-            // 
-            this.tb_productCheck_dormantElectricMax.Location = new System.Drawing.Point(155, 394);
-            this.tb_productCheck_dormantElectricMax.Name = "tb_productCheck_dormantElectricMax";
-            this.tb_productCheck_dormantElectricMax.Size = new System.Drawing.Size(176, 36);
-            this.tb_productCheck_dormantElectricMax.TabIndex = 25;
-            this.tb_productCheck_dormantElectricMax.ThemeName = "Material";
-            // 
-            // tb_productCheck_bootLoader
-            // 
-            this.tb_productCheck_bootLoader.Location = new System.Drawing.Point(155, 454);
-            this.tb_productCheck_bootLoader.Name = "tb_productCheck_bootLoader";
-            this.tb_productCheck_bootLoader.Size = new System.Drawing.Size(176, 36);
-            this.tb_productCheck_bootLoader.TabIndex = 27;
-            this.tb_productCheck_bootLoader.ThemeName = "Material";
-            // 
-            // radLabel91
-            // 
-            this.radLabel91.Location = new System.Drawing.Point(44, 469);
-            this.radLabel91.Name = "radLabel91";
-            this.radLabel91.Size = new System.Drawing.Size(98, 21);
-            this.radLabel91.TabIndex = 26;
-            this.radLabel91.Text = "BootLoader：";
-            this.radLabel91.ThemeName = "Material";
-            // 
-            // radLabel92
-            // 
-            this.radLabel92.Location = new System.Drawing.Point(15, 409);
-            this.radLabel92.Name = "radLabel92";
-            this.radLabel92.Size = new System.Drawing.Size(134, 21);
-            this.radLabel92.TabIndex = 24;
-            this.radLabel92.Text = "休眠电流最大值：";
-            this.radLabel92.ThemeName = "Material";
-            // 
-            // tb_productCheck_dormantElectricMin
-            // 
-            this.tb_productCheck_dormantElectricMin.Location = new System.Drawing.Point(155, 336);
-            this.tb_productCheck_dormantElectricMin.Name = "tb_productCheck_dormantElectricMin";
-            this.tb_productCheck_dormantElectricMin.Size = new System.Drawing.Size(176, 36);
-            this.tb_productCheck_dormantElectricMin.TabIndex = 23;
-            this.tb_productCheck_dormantElectricMin.ThemeName = "Material";
-            // 
-            // radLabel93
-            // 
-            this.radLabel93.Location = new System.Drawing.Point(15, 351);
-            this.radLabel93.Name = "radLabel93";
-            this.radLabel93.Size = new System.Drawing.Size(134, 21);
-            this.radLabel93.TabIndex = 22;
-            this.radLabel93.Text = "休眠电流最小值：";
-            this.radLabel93.ThemeName = "Material";
-            // 
-            // tb_productCheck_softWareVersion
-            // 
-            this.tb_productCheck_softWareVersion.Location = new System.Drawing.Point(155, 282);
-            this.tb_productCheck_softWareVersion.Name = "tb_productCheck_softWareVersion";
-            this.tb_productCheck_softWareVersion.Size = new System.Drawing.Size(176, 36);
-            this.tb_productCheck_softWareVersion.TabIndex = 21;
-            this.tb_productCheck_softWareVersion.ThemeName = "Material";
-            // 
-            // radLabel94
-            // 
-            this.radLabel94.Location = new System.Drawing.Point(44, 289);
-            this.radLabel94.Name = "radLabel94";
-            this.radLabel94.Size = new System.Drawing.Size(102, 21);
-            this.radLabel94.TabIndex = 20;
-            this.radLabel94.Text = "软件版本号：";
-            this.radLabel94.ThemeName = "Material";
-            // 
-            // tb_productCheck_hardWareVersion
-            // 
-            this.tb_productCheck_hardWareVersion.Location = new System.Drawing.Point(155, 225);
-            this.tb_productCheck_hardWareVersion.Name = "tb_productCheck_hardWareVersion";
-            this.tb_productCheck_hardWareVersion.Size = new System.Drawing.Size(176, 36);
-            this.tb_productCheck_hardWareVersion.TabIndex = 19;
-            this.tb_productCheck_hardWareVersion.ThemeName = "Material";
-            // 
-            // radLabel95
-            // 
-            this.radLabel95.Location = new System.Drawing.Point(47, 240);
-            this.radLabel95.Name = "radLabel95";
-            this.radLabel95.Size = new System.Drawing.Size(102, 21);
-            this.radLabel95.TabIndex = 18;
-            this.radLabel95.Text = "硬件版本号：";
-            this.radLabel95.ThemeName = "Material";
-            // 
-            // tb_productCheck_partNumber
-            // 
-            this.tb_productCheck_partNumber.Location = new System.Drawing.Point(155, 166);
-            this.tb_productCheck_partNumber.Name = "tb_productCheck_partNumber";
-            this.tb_productCheck_partNumber.Size = new System.Drawing.Size(176, 36);
-            this.tb_productCheck_partNumber.TabIndex = 17;
-            this.tb_productCheck_partNumber.ThemeName = "Material";
-            // 
-            // tb_productCheck_workElectricMax
-            // 
-            this.tb_productCheck_workElectricMax.Location = new System.Drawing.Point(155, 110);
-            this.tb_productCheck_workElectricMax.Name = "tb_productCheck_workElectricMax";
-            this.tb_productCheck_workElectricMax.Size = new System.Drawing.Size(176, 36);
-            this.tb_productCheck_workElectricMax.TabIndex = 15;
-            this.tb_productCheck_workElectricMax.ThemeName = "Material";
-            // 
-            // radLabel97
-            // 
-            this.radLabel97.Location = new System.Drawing.Point(15, 123);
-            this.radLabel97.Name = "radLabel97";
-            this.radLabel97.Size = new System.Drawing.Size(134, 21);
-            this.radLabel97.TabIndex = 14;
-            this.radLabel97.Text = "工作电流最大值：";
-            this.radLabel97.ThemeName = "Material";
-            // 
-            // radLabel98
-            // 
-            this.radLabel98.Location = new System.Drawing.Point(15, 63);
-            this.radLabel98.Name = "radLabel98";
-            this.radLabel98.Size = new System.Drawing.Size(134, 21);
-            this.radLabel98.TabIndex = 12;
-            this.radLabel98.Text = "工作电流最小值：";
-            this.radLabel98.ThemeName = "Material";
-            // 
-            // tb_productCheck_workElectricMin
-            // 
-            this.tb_productCheck_workElectricMin.Location = new System.Drawing.Point(155, 48);
-            this.tb_productCheck_workElectricMin.Name = "tb_productCheck_workElectricMin";
-            this.tb_productCheck_workElectricMin.Size = new System.Drawing.Size(176, 36);
-            this.tb_productCheck_workElectricMin.TabIndex = 13;
-            this.tb_productCheck_workElectricMin.ThemeName = "Material";
-            // 
-            // tb_productCheck_testSerial
-            // 
-            this.tb_productCheck_testSerial.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.tb_productCheck_testSerial.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tb_productCheck_testSerial.FormattingEnabled = true;
-            this.tb_productCheck_testSerial.Location = new System.Drawing.Point(986, 168);
-            this.tb_productCheck_testSerial.Name = "tb_productCheck_testSerial";
-            this.tb_productCheck_testSerial.Size = new System.Drawing.Size(253, 28);
-            this.tb_productCheck_testSerial.TabIndex = 18;
-            // 
-            // groupBox13
-            // 
-            this.groupBox13.Controls.Add(this.radLabel99);
-            this.groupBox13.Controls.Add(this.tb_productCheck_plcAddress);
-            this.groupBox13.Controls.Add(this.tb_productCheck_localAddress);
-            this.groupBox13.Controls.Add(this.radLabel100);
-            this.groupBox13.Controls.Add(this.tb_productCheck_controlPower);
-            this.groupBox13.Controls.Add(this.radLabel101);
-            this.groupBox13.Controls.Add(this.radLabel102);
-            this.groupBox13.Controls.Add(this.tb_productCheck_testBoard);
-            this.groupBox13.Controls.Add(this.tb_productCheck_avometer);
-            this.groupBox13.Controls.Add(this.radLabel103);
-            this.groupBox13.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox13.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox13.Location = new System.Drawing.Point(0, 0);
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(282, 689);
-            this.groupBox13.TabIndex = 14;
-            this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "仪表地址设置";
-            // 
-            // radLabel99
-            // 
-            this.radLabel99.Location = new System.Drawing.Point(21, 63);
-            this.radLabel99.Name = "radLabel99";
-            this.radLabel99.Size = new System.Drawing.Size(81, 21);
-            this.radLabel99.TabIndex = 12;
-            this.radLabel99.Text = "PLC地址：";
-            this.radLabel99.ThemeName = "Material";
-            // 
-            // tb_productCheck_plcAddress
-            // 
-            this.tb_productCheck_plcAddress.Location = new System.Drawing.Point(108, 48);
-            this.tb_productCheck_plcAddress.Name = "tb_productCheck_plcAddress";
-            this.tb_productCheck_plcAddress.Size = new System.Drawing.Size(168, 36);
-            this.tb_productCheck_plcAddress.TabIndex = 1;
-            this.tb_productCheck_plcAddress.ThemeName = "Material";
-            // 
-            // tb_productCheck_localAddress
-            // 
-            this.tb_productCheck_localAddress.Location = new System.Drawing.Point(108, 108);
-            this.tb_productCheck_localAddress.Name = "tb_productCheck_localAddress";
-            this.tb_productCheck_localAddress.Size = new System.Drawing.Size(168, 36);
-            this.tb_productCheck_localAddress.TabIndex = 3;
-            this.tb_productCheck_localAddress.ThemeName = "MaterialBlueGrey";
-            // 
-            // radLabel100
-            // 
-            this.radLabel100.Location = new System.Drawing.Point(16, 123);
-            this.radLabel100.Name = "radLabel100";
-            this.radLabel100.Size = new System.Drawing.Size(86, 21);
-            this.radLabel100.TabIndex = 2;
-            this.radLabel100.Text = "本机地址：";
-            this.radLabel100.ThemeName = "Material";
-            // 
-            // tb_productCheck_controlPower
-            // 
-            this.tb_productCheck_controlPower.Location = new System.Drawing.Point(108, 282);
-            this.tb_productCheck_controlPower.Name = "tb_productCheck_controlPower";
-            this.tb_productCheck_controlPower.Size = new System.Drawing.Size(168, 36);
-            this.tb_productCheck_controlPower.TabIndex = 11;
-            this.tb_productCheck_controlPower.ThemeName = "Material";
-            // 
-            // radLabel101
-            // 
-            this.radLabel101.Location = new System.Drawing.Point(16, 297);
-            this.radLabel101.Name = "radLabel101";
-            this.radLabel101.Size = new System.Drawing.Size(86, 21);
-            this.radLabel101.TabIndex = 10;
-            this.radLabel101.Text = "程控电源：";
-            this.radLabel101.ThemeName = "Material";
-            // 
-            // radLabel102
-            // 
-            this.radLabel102.Location = new System.Drawing.Point(31, 181);
-            this.radLabel102.Name = "radLabel102";
-            this.radLabel102.Size = new System.Drawing.Size(71, 21);
-            this.radLabel102.TabIndex = 4;
-            this.radLabel102.Text = "万用表：";
-            this.radLabel102.ThemeName = "Material";
-            // 
-            // tb_productCheck_testBoard
-            // 
-            this.tb_productCheck_testBoard.Location = new System.Drawing.Point(108, 225);
-            this.tb_productCheck_testBoard.Name = "tb_productCheck_testBoard";
-            this.tb_productCheck_testBoard.Size = new System.Drawing.Size(168, 36);
-            this.tb_productCheck_testBoard.TabIndex = 9;
-            this.tb_productCheck_testBoard.ThemeName = "Material";
-            // 
-            // tb_productCheck_avometer
-            // 
-            this.tb_productCheck_avometer.Location = new System.Drawing.Point(108, 166);
-            this.tb_productCheck_avometer.Name = "tb_productCheck_avometer";
-            this.tb_productCheck_avometer.Size = new System.Drawing.Size(168, 36);
-            this.tb_productCheck_avometer.TabIndex = 5;
-            this.tb_productCheck_avometer.ThemeName = "Material";
-            // 
-            // radLabel103
-            // 
-            this.radLabel103.Location = new System.Drawing.Point(3, 240);
-            this.radLabel103.Name = "radLabel103";
-            this.radLabel103.Size = new System.Drawing.Size(102, 21);
-            this.radLabel103.TabIndex = 8;
-            this.radLabel103.Text = "万通测试板：";
-            this.radLabel103.ThemeName = "Material";
-            // 
-            // radLabel106
-            // 
-            this.radLabel106.Location = new System.Drawing.Point(986, 119);
-            this.radLabel106.Name = "radLabel106";
-            this.radLabel106.Size = new System.Drawing.Size(86, 21);
-            this.radLabel106.TabIndex = 17;
-            this.radLabel106.Text = "测试序列：";
-            this.radLabel106.ThemeName = "Material";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.groupBox17);
-            this.panel2.Controls.Add(this.groupBox16);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(501, 689);
-            this.panel2.TabIndex = 40;
-            // 
-            // groupBox17
-            // 
-            this.groupBox17.Controls.Add(this.radLabel110);
-            this.groupBox17.Controls.Add(this.radLabel109);
-            this.groupBox17.Controls.Add(this.radLabel47);
-            this.groupBox17.Controls.Add(this.radLabel48);
-            this.groupBox17.Controls.Add(this.tb_shell_smallScrewSetTime);
-            this.groupBox17.Controls.Add(this.tb_shell_largeScrewSetTime);
-            this.groupBox17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox17.Location = new System.Drawing.Point(0, 301);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(501, 388);
-            this.groupBox17.TabIndex = 17;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "时间设定";
-            // 
-            // radLabel110
-            // 
-            this.radLabel110.Location = new System.Drawing.Point(6, 164);
-            this.radLabel110.Name = "radLabel110";
-            this.radLabel110.Size = new System.Drawing.Size(150, 21);
-            this.radLabel110.TabIndex = 9;
-            this.radLabel110.Text = "大螺丝枪时间设定：";
-            this.radLabel110.ThemeName = "Material";
-            // 
-            // radLabel109
-            // 
-            this.radLabel109.Location = new System.Drawing.Point(6, 84);
-            this.radLabel109.Name = "radLabel109";
-            this.radLabel109.Size = new System.Drawing.Size(150, 21);
-            this.radLabel109.TabIndex = 8;
-            this.radLabel109.Text = "小螺丝枪时间设定：";
-            this.radLabel109.ThemeName = "Material";
-            // 
-            // radLabel47
-            // 
-            this.radLabel47.Font = new System.Drawing.Font("Roboto", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radLabel47.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.radLabel47.Location = new System.Drawing.Point(6, 111);
-            this.radLabel47.Name = "radLabel47";
-            this.radLabel47.Size = new System.Drawing.Size(490, 21);
-            this.radLabel47.TabIndex = 6;
-            this.radLabel47.Text = "提示：小螺丝枪打OK后规定时间内重复打不计数时间设定（单位Ms）";
-            this.radLabel47.ThemeName = "Material";
-            // 
-            // radLabel48
-            // 
-            this.radLabel48.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.radLabel48.Location = new System.Drawing.Point(6, 200);
-            this.radLabel48.Name = "radLabel48";
-            this.radLabel48.Size = new System.Drawing.Size(490, 21);
-            this.radLabel48.TabIndex = 2;
-            this.radLabel48.Text = "提示：大螺丝枪打OK后规定时间内重复打不计数时间设定（单位Ms）";
-            this.radLabel48.ThemeName = "Material";
-            // 
-            // tb_shell_smallScrewSetTime
-            // 
-            this.tb_shell_smallScrewSetTime.Location = new System.Drawing.Point(170, 69);
-            this.tb_shell_smallScrewSetTime.Name = "tb_shell_smallScrewSetTime";
-            this.tb_shell_smallScrewSetTime.Size = new System.Drawing.Size(314, 36);
-            this.tb_shell_smallScrewSetTime.TabIndex = 7;
-            this.tb_shell_smallScrewSetTime.ThemeName = "Material";
-            // 
-            // tb_shell_largeScrewSetTime
-            // 
-            this.tb_shell_largeScrewSetTime.Location = new System.Drawing.Point(170, 149);
-            this.tb_shell_largeScrewSetTime.Name = "tb_shell_largeScrewSetTime";
-            this.tb_shell_largeScrewSetTime.Size = new System.Drawing.Size(314, 36);
-            this.tb_shell_largeScrewSetTime.TabIndex = 3;
-            this.tb_shell_largeScrewSetTime.ThemeName = "Material";
-            // 
-            // groupBox18
-            // 
-            this.groupBox18.Controls.Add(this.radLabel117);
-            this.groupBox18.Controls.Add(this.tb_shell_bubbleCotton);
-            this.groupBox18.Controls.Add(this.radLabel116);
-            this.groupBox18.Controls.Add(this.tb_shell_sealRingWire);
-            this.groupBox18.Controls.Add(this.radLabel115);
-            this.groupBox18.Controls.Add(this.tb_shell_shell);
-            this.groupBox18.Controls.Add(this.radLabel114);
-            this.groupBox18.Controls.Add(this.tb_shell_topCover);
-            this.groupBox18.Controls.Add(this.radLabel113);
-            this.groupBox18.Controls.Add(this.tb_shell_shellScrew);
-            this.groupBox18.Controls.Add(this.radLabel112);
-            this.groupBox18.Controls.Add(this.tb_shell_pcbScrew);
-            this.groupBox18.Controls.Add(this.radLabel111);
-            this.groupBox18.Controls.Add(this.tb_shell_backCover);
-            this.groupBox18.Controls.Add(this.radLabel107);
-            this.groupBox18.Controls.Add(this.tb_shell_frontCover);
-            this.groupBox18.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox18.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox18.Location = new System.Drawing.Point(501, 0);
-            this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(392, 689);
-            this.groupBox18.TabIndex = 41;
-            this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "物料PN";
-            // 
-            // groupBox19
-            // 
-            this.groupBox19.Controls.Add(this.radLabel64);
-            this.groupBox19.Controls.Add(this.tb_stent_localIPConMes);
-            this.groupBox19.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox19.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox19.Location = new System.Drawing.Point(0, 0);
-            this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(329, 689);
-            this.groupBox19.TabIndex = 43;
-            this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "地址";
-            // 
-            // groupBox20
-            // 
-            this.groupBox20.Controls.Add(this.radLabel105);
-            this.groupBox20.Controls.Add(this.tb_stent_stentScrew);
-            this.groupBox20.Controls.Add(this.radLabel63);
-            this.groupBox20.Controls.Add(this.radLabel81);
-            this.groupBox20.Controls.Add(this.tb_stent_stent);
-            this.groupBox20.Controls.Add(this.tb_stent_stentNut);
-            this.groupBox20.Controls.Add(this.radLabel50);
-            this.groupBox20.Controls.Add(this.tb_stent_unionStent);
-            this.groupBox20.Controls.Add(this.radLabel41);
-            this.groupBox20.Controls.Add(this.tb_stent_rightStent);
-            this.groupBox20.Controls.Add(this.radLabel2);
-            this.groupBox20.Controls.Add(this.tb_stent_leftStent);
-            this.groupBox20.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox20.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox20.Location = new System.Drawing.Point(329, 0);
-            this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(346, 689);
-            this.groupBox20.TabIndex = 44;
-            this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "物料PN";
-            // 
-            // radLabel2
-            // 
-            this.radLabel2.Location = new System.Drawing.Point(21, 129);
-            this.radLabel2.Name = "radLabel2";
-            this.radLabel2.Size = new System.Drawing.Size(71, 21);
-            this.radLabel2.TabIndex = 2;
-            this.radLabel2.Text = "左支架：";
-            this.radLabel2.ThemeName = "Material";
-            // 
-            // tb_stent_leftStent
-            // 
-            this.tb_stent_leftStent.Location = new System.Drawing.Point(108, 116);
-            this.tb_stent_leftStent.Name = "tb_stent_leftStent";
-            this.tb_stent_leftStent.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_leftStent.TabIndex = 3;
-            this.tb_stent_leftStent.ThemeName = "Material";
-            // 
-            // radLabel41
-            // 
-            this.radLabel41.Location = new System.Drawing.Point(21, 207);
-            this.radLabel41.Name = "radLabel41";
-            this.radLabel41.Size = new System.Drawing.Size(71, 21);
-            this.radLabel41.TabIndex = 4;
-            this.radLabel41.Text = "右支架：";
-            this.radLabel41.ThemeName = "Material";
-            // 
-            // tb_stent_rightStent
-            // 
-            this.tb_stent_rightStent.Location = new System.Drawing.Point(108, 192);
-            this.tb_stent_rightStent.Name = "tb_stent_rightStent";
-            this.tb_stent_rightStent.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_rightStent.TabIndex = 5;
-            this.tb_stent_rightStent.ThemeName = "Material";
-            // 
-            // radLabel50
-            // 
-            this.radLabel50.Location = new System.Drawing.Point(6, 280);
-            this.radLabel50.Name = "radLabel50";
-            this.radLabel50.Size = new System.Drawing.Size(86, 21);
-            this.radLabel50.TabIndex = 6;
-            this.radLabel50.Text = "连体支架：";
-            this.radLabel50.ThemeName = "Material";
-            // 
-            // tb_stent_unionStent
-            // 
-            this.tb_stent_unionStent.Location = new System.Drawing.Point(108, 266);
-            this.tb_stent_unionStent.Name = "tb_stent_unionStent";
-            this.tb_stent_unionStent.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_unionStent.TabIndex = 7;
-            this.tb_stent_unionStent.ThemeName = "Material";
-            // 
-            // radLabel81
-            // 
-            this.radLabel81.Location = new System.Drawing.Point(33, 348);
-            this.radLabel81.Name = "radLabel81";
-            this.radLabel81.Size = new System.Drawing.Size(55, 21);
-            this.radLabel81.TabIndex = 10;
-            this.radLabel81.Text = "支架：";
-            this.radLabel81.ThemeName = "Material";
-            // 
-            // tb_stent_stent
-            // 
-            this.tb_stent_stent.Location = new System.Drawing.Point(108, 333);
-            this.tb_stent_stent.Name = "tb_stent_stent";
-            this.tb_stent_stent.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_stent.TabIndex = 11;
-            this.tb_stent_stent.ThemeName = "Material";
-            // 
-            // radLabel105
-            // 
-            this.radLabel105.Location = new System.Drawing.Point(2, 413);
-            this.radLabel105.Name = "radLabel105";
-            this.radLabel105.Size = new System.Drawing.Size(86, 21);
-            this.radLabel105.TabIndex = 12;
-            this.radLabel105.Text = "支架螺丝：";
-            this.radLabel105.ThemeName = "Material";
-            // 
-            // tb_stent_stentScrew
-            // 
-            this.tb_stent_stentScrew.Location = new System.Drawing.Point(108, 398);
-            this.tb_stent_stentScrew.Name = "tb_stent_stentScrew";
-            this.tb_stent_stentScrew.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_stentScrew.TabIndex = 13;
-            this.tb_stent_stentScrew.ThemeName = "Material";
-            // 
-            // tb_stent_stentNut
-            // 
-            this.tb_stent_stentNut.Location = new System.Drawing.Point(108, 465);
-            this.tb_stent_stentNut.Name = "tb_stent_stentNut";
-            this.tb_stent_stentNut.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_stentNut.TabIndex = 9;
-            this.tb_stent_stentNut.ThemeName = "Material";
-            // 
-            // radLabel63
-            // 
-            this.radLabel63.Location = new System.Drawing.Point(2, 480);
-            this.radLabel63.Name = "radLabel63";
-            this.radLabel63.Size = new System.Drawing.Size(86, 21);
-            this.radLabel63.TabIndex = 8;
-            this.radLabel63.Text = "支架螺母：";
-            this.radLabel63.ThemeName = "Material";
-            // 
-            // radLabel107
-            // 
-            this.radLabel107.Location = new System.Drawing.Point(69, 86);
-            this.radLabel107.Name = "radLabel107";
-            this.radLabel107.Size = new System.Drawing.Size(55, 21);
-            this.radLabel107.TabIndex = 4;
-            this.radLabel107.Text = "前盖：";
-            this.radLabel107.ThemeName = "Material";
-            // 
-            // tb_shell_frontCover
-            // 
-            this.tb_shell_frontCover.Location = new System.Drawing.Point(140, 71);
-            this.tb_shell_frontCover.Name = "tb_shell_frontCover";
-            this.tb_shell_frontCover.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_frontCover.TabIndex = 5;
-            this.tb_shell_frontCover.ThemeName = "Material";
-            // 
-            // radLabel111
-            // 
-            this.radLabel111.Location = new System.Drawing.Point(69, 149);
-            this.radLabel111.Name = "radLabel111";
-            this.radLabel111.Size = new System.Drawing.Size(55, 21);
-            this.radLabel111.TabIndex = 6;
-            this.radLabel111.Text = "后盖：";
-            this.radLabel111.ThemeName = "Material";
-            // 
-            // tb_shell_backCover
-            // 
-            this.tb_shell_backCover.Location = new System.Drawing.Point(140, 134);
-            this.tb_shell_backCover.Name = "tb_shell_backCover";
-            this.tb_shell_backCover.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_backCover.TabIndex = 7;
-            this.tb_shell_backCover.ThemeName = "Material";
-            // 
-            // radLabel112
-            // 
-            this.radLabel112.Location = new System.Drawing.Point(42, 208);
-            this.radLabel112.Name = "radLabel112";
-            this.radLabel112.Size = new System.Drawing.Size(82, 21);
-            this.radLabel112.TabIndex = 8;
-            this.radLabel112.Text = "PCB螺丝：";
-            this.radLabel112.ThemeName = "Material";
-            // 
-            // tb_shell_pcbScrew
-            // 
-            this.tb_shell_pcbScrew.Location = new System.Drawing.Point(140, 201);
-            this.tb_shell_pcbScrew.Name = "tb_shell_pcbScrew";
-            this.tb_shell_pcbScrew.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_pcbScrew.TabIndex = 9;
-            this.tb_shell_pcbScrew.ThemeName = "Material";
-            // 
-            // radLabel113
-            // 
-            this.radLabel113.Location = new System.Drawing.Point(38, 280);
-            this.radLabel113.Name = "radLabel113";
-            this.radLabel113.Size = new System.Drawing.Size(86, 21);
-            this.radLabel113.TabIndex = 10;
-            this.radLabel113.Text = "外壳螺丝：";
-            this.radLabel113.ThemeName = "Material";
-            // 
-            // tb_shell_shellScrew
-            // 
-            this.tb_shell_shellScrew.Location = new System.Drawing.Point(140, 265);
-            this.tb_shell_shellScrew.Name = "tb_shell_shellScrew";
-            this.tb_shell_shellScrew.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_shellScrew.TabIndex = 11;
-            this.tb_shell_shellScrew.ThemeName = "Material";
-            // 
-            // radLabel114
-            // 
-            this.radLabel114.Location = new System.Drawing.Point(69, 347);
-            this.radLabel114.Name = "radLabel114";
-            this.radLabel114.Size = new System.Drawing.Size(55, 21);
-            this.radLabel114.TabIndex = 12;
-            this.radLabel114.Text = "上盖：";
-            this.radLabel114.ThemeName = "Material";
-            // 
-            // tb_shell_topCover
-            // 
-            this.tb_shell_topCover.Location = new System.Drawing.Point(140, 332);
-            this.tb_shell_topCover.Name = "tb_shell_topCover";
-            this.tb_shell_topCover.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_topCover.TabIndex = 13;
-            this.tb_shell_topCover.ThemeName = "Material";
-            // 
-            // radLabel115
-            // 
-            this.radLabel115.Location = new System.Drawing.Point(69, 412);
-            this.radLabel115.Name = "radLabel115";
-            this.radLabel115.Size = new System.Drawing.Size(55, 21);
-            this.radLabel115.TabIndex = 14;
-            this.radLabel115.Text = "外壳：";
-            this.radLabel115.ThemeName = "Material";
-            // 
-            // tb_shell_shell
-            // 
-            this.tb_shell_shell.Location = new System.Drawing.Point(140, 397);
-            this.tb_shell_shell.Name = "tb_shell_shell";
-            this.tb_shell_shell.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_shell.TabIndex = 15;
-            this.tb_shell_shell.ThemeName = "Material";
-            // 
-            // radLabel116
-            // 
-            this.radLabel116.Location = new System.Drawing.Point(6, 480);
-            this.radLabel116.Name = "radLabel116";
-            this.radLabel116.Size = new System.Drawing.Size(118, 21);
-            this.radLabel116.TabIndex = 16;
-            this.radLabel116.Text = "密封圈和线束：";
-            this.radLabel116.ThemeName = "Material";
-            // 
-            // tb_shell_sealRingWire
-            // 
-            this.tb_shell_sealRingWire.Location = new System.Drawing.Point(140, 465);
-            this.tb_shell_sealRingWire.Name = "tb_shell_sealRingWire";
-            this.tb_shell_sealRingWire.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_sealRingWire.TabIndex = 17;
-            this.tb_shell_sealRingWire.ThemeName = "Material";
-            // 
-            // radLabel117
-            // 
-            this.radLabel117.Location = new System.Drawing.Point(69, 548);
-            this.radLabel117.Name = "radLabel117";
-            this.radLabel117.Size = new System.Drawing.Size(55, 21);
-            this.radLabel117.TabIndex = 18;
-            this.radLabel117.Text = "泡棉：";
-            this.radLabel117.ThemeName = "Material";
-            // 
-            // tb_shell_bubbleCotton
-            // 
-            this.tb_shell_bubbleCotton.Location = new System.Drawing.Point(140, 533);
-            this.tb_shell_bubbleCotton.Name = "tb_shell_bubbleCotton";
-            this.tb_shell_bubbleCotton.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_bubbleCotton.TabIndex = 19;
-            this.tb_shell_bubbleCotton.ThemeName = "Material";
-            // 
             // StandConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3643,37 +3645,54 @@
             this.Load += new System.EventHandler(this.StandConfig_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).EndInit();
             this.radDock1.ResumeLayout(false);
-            this.documentWindow5.ResumeLayout(false);
-            this.documentWindow5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx_airtage_tip)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx_airtage_sign)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_airtage_save)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_airtage_refresh)).EndInit();
-            this.groupBox15.ResumeLayout(false);
-            this.groupBox15.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel58)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel60)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_testConditionValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_minFlate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel61)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel59)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel57)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_referenceConditionValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_maxInflate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_inflateTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel56)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel53)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_testTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel54)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel55)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_stableTime)).EndInit();
-            this.groupBox14.ResumeLayout(false);
-            this.groupBox14.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel51)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_localIPConMes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel52)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_tester)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel62)).EndInit();
+            this.documentWindow7.ResumeLayout(false);
+            this.documentWindow7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_productCheck_tip)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_productCheck_sign)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_productCheck_refresh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_productCheck_save)).EndInit();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_rfCanID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel78)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_cycleCanID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel82)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_receiveCanID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel88)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_sendCanID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel89)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel90)).EndInit();
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel96)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_dormantElectricMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_bootLoader)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel91)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel92)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_dormantElectricMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel93)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_softWareVersion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel94)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_hardWareVersion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel95)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_partNumber)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_workElectricMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel97)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel98)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_workElectricMin)).EndInit();
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel99)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_plcAddress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_localAddress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel100)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_controlPower)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel101)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel102)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_testBoard)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_avometer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel103)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel106)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer2)).EndInit();
             this.documentContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
@@ -3790,10 +3809,33 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel20)).EndInit();
             this.documentWindow4.ResumeLayout(false);
             this.documentWindow4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx_shell_tip)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx_shell_sign)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_shell_save)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_shell_refresh)).EndInit();
+            this.groupBox18.ResumeLayout(false);
+            this.groupBox18.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel117)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_bubbleCotton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel116)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_sealRingWire)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel115)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_shell)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel114)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_topCover)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel113)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_shellScrew)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel112)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_pcbScrew)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel111)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_backCover)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel107)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_frontCover)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.groupBox17.ResumeLayout(false);
+            this.groupBox17.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel110)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel109)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel47)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel48)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_smallScrewSetTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_largeScrewSetTime)).EndInit();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_shell_plcAddress)).EndInit();
@@ -3803,16 +3845,67 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel45)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_shell_localIPConPLC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel46)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_shell_tip)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_shell_sign)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_shell_save)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_shell_refresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel49)).EndInit();
+            this.documentWindow5.ResumeLayout(false);
+            this.documentWindow5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_airtage_tip)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_airtage_sign)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_airtage_save)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_airtage_refresh)).EndInit();
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox15.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel58)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel60)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_testConditionValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_minFlate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel61)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel59)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel57)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_referenceConditionValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_maxInflate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_inflateTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel56)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel53)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_testTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel54)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel55)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_stableTime)).EndInit();
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel51)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_localIPConMes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel52)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_airtage_tester)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel62)).EndInit();
             this.documentWindow6.ResumeLayout(false);
             this.documentWindow6.PerformLayout();
+            this.groupBox20.ResumeLayout(false);
+            this.groupBox20.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel105)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_stentScrew)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel63)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel81)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_stent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_stentNut)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel50)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_unionStent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel41)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_rightStent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_leftStent)).EndInit();
+            this.groupBox19.ResumeLayout(false);
+            this.groupBox19.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel64)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_localIPConMes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_stent_tip)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_stent_sign)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_stent_save)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_stent_refresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel65)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_localIPConMes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel64)).EndInit();
             this.documentWindow8.ResumeLayout(false);
             this.documentWindow8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_productTest_tip)).EndInit();
@@ -3863,97 +3956,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel70)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel69)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_product_autoSweepCode)).EndInit();
-            this.documentWindow7.ResumeLayout(false);
-            this.documentWindow7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx_productCheck_tip)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx_productCheck_sign)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_productCheck_refresh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_productCheck_save)).EndInit();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_rfCanID)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel78)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_cycleCanID)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel82)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_receiveCanID)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel88)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_sendCanID)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel89)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel90)).EndInit();
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel96)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_dormantElectricMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_bootLoader)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel91)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel92)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_dormantElectricMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel93)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_softWareVersion)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel94)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_hardWareVersion)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel95)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_partNumber)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_workElectricMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel97)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel98)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_workElectricMin)).EndInit();
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel99)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_plcAddress)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_localAddress)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel100)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_controlPower)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel101)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel102)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_testBoard)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_productCheck_avometer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel103)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel106)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.groupBox17.ResumeLayout(false);
-            this.groupBox17.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel110)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel109)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel47)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel48)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_smallScrewSetTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_largeScrewSetTime)).EndInit();
-            this.groupBox18.ResumeLayout(false);
-            this.groupBox18.PerformLayout();
-            this.groupBox19.ResumeLayout(false);
-            this.groupBox19.PerformLayout();
-            this.groupBox20.ResumeLayout(false);
-            this.groupBox20.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_leftStent)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel41)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_rightStent)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel50)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_unionStent)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel81)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_stent)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel105)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_stentScrew)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stent_stentNut)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel63)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel107)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_frontCover)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel111)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_backCover)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel112)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_pcbScrew)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel113)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_shellScrew)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel114)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_topCover)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel115)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_shell)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel116)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_sealRingWire)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel117)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_shell_bubbleCotton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

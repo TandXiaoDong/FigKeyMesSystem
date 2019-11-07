@@ -339,21 +339,8 @@ namespace MesWcfService
             if (!ExamineInputFormat.IsDecimal(amounted))
                 return MaterialStatistics.ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.ERROR_USE_AMOUNT_NOT_INT);
             insertMaterialStatisticsQueue.Enqueue(new string[] { typeNo,stationName,materialCode,amounted,teamLeader,admin,pcbaSN});
-            if (stationName == "外壳装配工站")
-            {
-                LogHelper.Log.Info($"【装配物料更新-外壳装配工站】第{c1}次更新 typeNo={typeNo} stationName={stationName} materialCode={materialCode} amounted={amounted} pcbaSN={pcbaSN}");
-                c1++;
-            }
-            else if (stationName == "支架装配工站")
-            {
-                LogHelper.Log.Info($"【装配物料更新-支架装配工站】第{c2}次更新 typeNo={typeNo} stationName={stationName} materialCode={materialCode} amounted={amounted} pcbaSN={pcbaSN}");
-                c2++;
-            }
-            
             return MaterialStatistics.UpdateMaterialStatistics(insertMaterialStatisticsQueue);
         }
-        static int c1 = 1;
-        static int c2 = 1;
         #endregion
 
         #region 查询物料剩余数量

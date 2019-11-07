@@ -148,6 +148,7 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "包装箱产品";
+            this.ThemeName = "Windows8";
             this.Load += new System.EventHandler(this.ProductPackageDetail_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

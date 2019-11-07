@@ -121,7 +121,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(41, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "用户类型：";
             // 
@@ -137,7 +137,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(37, 135);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.Size = new System.Drawing.Size(72, 13);
             this.label4.TabIndex = 8;
             this.label4.Text = "确认密码：";
             // 
@@ -165,7 +165,7 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "注册新用户";
-            this.ThemeName = "Windows7";
+            this.ThemeName = "Windows8";
             this.Load += new System.EventHandler(this.Register_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
