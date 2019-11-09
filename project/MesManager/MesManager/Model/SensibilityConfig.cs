@@ -27,6 +27,7 @@ namespace MesManager.Model
         public const string CyclyCanIDKey = "周期CAN_ID";
         public const string RfCanIDKey = "RF_CAN_ID";
         public const string ProductSerialKey = "测试序列";
+        public const string ProductIdKey = "配置产品ID";
 
 
         /// <summary>
@@ -81,5 +82,7 @@ namespace MesManager.Model
         public string CyclyCanID { get; set; }
 
         public string RfCanID { get; set; }
+
+        public string ProductId { get; set; }
     }
 }

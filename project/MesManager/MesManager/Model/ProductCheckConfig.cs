@@ -27,6 +27,7 @@ namespace MesManager.Model
         public const string CycleCanIDKey = "周期CAN_ID";
         public const string RF_CAN_IDKey = "RF_CAN_ID";
         public const string TestSerialKey = "测试序列";
+        public const string ProductIdKey = "配置产品ID";
 
 
         /// <summary>
@@ -80,5 +81,7 @@ namespace MesManager.Model
         public string RF_CAN_ID { get; set; }
 
         public string Avometer { get; set; }
+
+        public string ProductId { get; set; }
     }
 }

@@ -36,12 +36,12 @@ namespace MesAPI
         private Queue<string[]> selectDataQueue = new Queue<string[]>();
         private Queue<string[]> insertMaterialStatistics = new Queue<string[]>();
         //烧录工位/灵敏度工位/外壳工位/气密工位/支架装配工位/成品测试工位
-        private static string STATION_TURN = "烧录";
-        private static string STATION_SENSIBLITY = "灵敏度";
-        private static string STATION_SHELL = "外壳";
-        private static string STATION_AIR = "气密";
-        private static string STATION_STENT = "支架";
-        private static string STATION_PRODUCT = "成品";
+        private static string STATION_TURN = "烧录工站";
+        private static string STATION_SENSIBLITY = "灵敏度测试工站";
+        private static string STATION_SHELL = "外壳装配工站";
+        private static string STATION_AIR = "气密测试工站";
+        private static string STATION_STENT = "支架装配工站";
+        private static string STATION_PRODUCT = "成品测试工站";
 
         private int logCount = 0;
 
@@ -314,6 +314,39 @@ namespace MesAPI
                 $"WHERE {DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{processName}' " +
                 $"ORDER BY {DbTable.F_TECHNOLOGICAL_PROCESS.STATION_ORDER}";
             return SQLServer.ExecuteDataSet(selectSQL);
+        }
+
+        public DataSet SelectCirticalStationList(string processName,int cirticalID,bool IsBefore)
+        {
+            var ds = SelectStationList(processName);
+            if (ds.Tables.Count > 0)
+            {
+                var dt = ds.Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = dt.Rows.Count - 1;i >= 0; i--)
+                    {
+                        if (IsBefore)
+                        {
+                            if (i >= cirticalID - 1)
+                            {
+                                //dt.Rows[i].Delete();
+                                dt.Rows.RemoveAt(i);
+                            }
+                        }
+                        else
+                        {
+                            if (i < cirticalID - 1 )
+                            {
+                                //dt.Rows[i].Delete();
+                                dt.Rows.RemoveAt(i);
+                            }
+                        }
+                    }
+                    //dt.AcceptChanges();
+                }
+            }
+            return ds;
         }
 
         public DataSet SelectProcessList()
@@ -657,13 +690,6 @@ namespace MesAPI
 
         public DataSet SelectTestResultDetail(string querySN)
         {
-            //更新当前工站名称
-            STATION_TURN = UpdateCurrentStation(STATION_TURN);
-            STATION_STENT = UpdateCurrentStation(STATION_STENT);
-            STATION_SHELL = UpdateCurrentStation(STATION_SHELL);
-            STATION_SENSIBLITY = UpdateCurrentStation(STATION_SENSIBLITY);
-            STATION_PRODUCT = UpdateCurrentStation(STATION_PRODUCT);
-            STATION_AIR = UpdateCurrentStation(STATION_AIR);
             DataTable dt = InitTestResultDataTable(true);
             DataSet dataSet = new DataSet();
             List<string> pcbaList = new List<string>();
@@ -704,12 +730,15 @@ namespace MesAPI
                         dr[TestResultItemContent.PcbaSN] = pcbsn;
                         dr[TestResultItemContent.ProductSN] = productsn;
                     }
-                    dr[TestResultItemContent.FinalResultValue] = GetProductTestFinalResult(pcbsn,productsn);
+                    dr[TestResultItemContent.FinalResultValue] = GetProductTestFinalResult(pcbsn,productsn,shellLen);
+                    var currentProductType = GetProductTypeNoOfSN(pcbsn,productsn);
+                    if (currentProductType == "")
+                        continue;//当前SN不存在
+                    dr[TestResultItemContent.ProductTypeNo] = currentProductType;
 
                     #region 烧录工位信息
                     var testResultTurn = SelectTestResultOfSN(pcbsn,productsn,STATION_TURN);
                     //dr[TestResultItemContent.StationName_turn] = STATION_TURN;
-                    dr[TestResultItemContent.ProductTypeNo] = SelectCurrentTProcess();
                     dr[STATION_TURN + TestResultItemContent.StationInDate_turn] = testResultTurn.StationInDate;
                     dr[STATION_TURN + TestResultItemContent.StationOutDate_turn] = testResultTurn.StationOutDate;
                     dr[STATION_TURN + TestResultItemContent.UserTeamLeader_turn] = testResultTurn.UserTeamLeader;
@@ -1152,11 +1181,58 @@ namespace MesAPI
             return "";
         }
 
-        public string GetProductTestFinalResult(string pcbsn,string productsn)
+        public string GetPCBASn1(string sn)
+        {
+            var selectSQL = $"SELECT * FROM {DbTable.F_BINDING_PCBA_NAME} WHERE {DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                return sn;//传入值为PCBA
+            }
+            else
+            {
+                //传入值为外壳值
+                selectSQL = $"SELECT {DbTable.F_BINDING_PCBA.SN_PCBA} FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                    $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}'";
+                dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    return dt.Rows[0][0].ToString();
+                }
+            }
+            return "";
+        }
+
+        public string GetProductTestFinalResult(string pcbsn,string productsn,int shellLen)
         {
             bool IsFinalResultPass = true;
-            var productTypeNo = GetProductTypeNoOfSN(pcbsn);
+            var productTypeNo = GetProductTypeNoOfSN(pcbsn,productsn);
+            if (productTypeNo == "")
+                return "未完成";
             DataTable stationList = SelectStationList(productTypeNo).Tables[0];
+            //判断当前工艺流程是否没有外壳装配工站---即不能完成绑定关系
+            /*
+             * 1）将有PCBA的几个工站进行计算
+             * 2）将有外壳SN的几个工站进行计算
+             */
+            var stationRow = stationList.Select($"{DbTable.F_Test_Result.STATION_NAME} = '外壳装配工站'");
+            if (stationRow.Length < 1)
+            {
+                //不包含外壳装配工站，重新生成计算工站
+                var cirticalID = CalCirticalStationID();
+                if (pcbsn.Length == shellLen && productsn == "")
+                {
+                    //只计算外壳装配之后的工站--临界点
+                    LogHelper.Log.Info("【只计算外壳装配之后的工站】"+pcbsn);
+                    stationList = SelectCirticalStationList(productTypeNo, cirticalID, false).Tables[0];
+                }
+                else if (pcbsn.Length < shellLen && productsn == "")
+                {
+                    //只计算外壳装配之前的工站
+                    LogHelper.Log.Info("【只计算外壳装配之前的工站】" + pcbsn);
+                    stationList = SelectCirticalStationList(productTypeNo,cirticalID, true).Tables[0];
+                }
+            }
             if (stationList.Rows.Count > 0)
             {
                 for (int j = 0; j < stationList.Rows.Count; j++)
@@ -1258,26 +1334,28 @@ namespace MesAPI
         /// </summary>
         /// <param name="sn"></param>
         /// <returns></returns>
-        private string GetProductTypeNoOfSN(string sn)
+        private string GetProductTypeNoOfSN(string pcbsn,string productSn)
         {
             var selectSQL = $"SELECT TOP 1 {DbTable.F_Test_Result.TYPE_NO} FROM " +
-                $"{DbTable.F_TEST_RESULT_NAME} WHERE {DbTable.F_Test_Result.SN} = '{sn}' " +
+                $"{DbTable.F_TEST_RESULT_NAME} WHERE {DbTable.F_Test_Result.SN} like '%{pcbsn}%' " +
                 $"ORDER BY {DbTable.F_Test_Result.UPDATE_DATE} DESC";
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             if (dt.Rows.Count > 0)
                 return dt.Rows[0][0].ToString();
+            else
+            {
+                selectSQL = $"SELECT TOP 1 {DbTable.F_Test_Result.TYPE_NO} FROM " +
+                $"{DbTable.F_TEST_RESULT_NAME} WHERE {DbTable.F_Test_Result.SN} like '%{productSn}%' " +
+                $"ORDER BY {DbTable.F_Test_Result.UPDATE_DATE} DESC";
+                if (dt.Rows.Count > 0)
+                    return dt.Rows[0][0].ToString();
+            }
             return "";
         }
 
         public DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime)
         {
             //更新当前工站名称
-            STATION_TURN = UpdateCurrentStation(STATION_TURN);
-            STATION_STENT = UpdateCurrentStation(STATION_STENT);
-            STATION_SHELL = UpdateCurrentStation(STATION_SHELL);
-            STATION_SENSIBLITY = UpdateCurrentStation(STATION_SENSIBLITY);
-            STATION_PRODUCT = UpdateCurrentStation(STATION_PRODUCT);
-            STATION_AIR = UpdateCurrentStation(STATION_AIR);
             DataSet ds = new DataSet();
             var dt = InitTestResultDataTable(true);
             AddTestLogDetail(STATION_TURN,queryFilter,startTime,endTime,dt);
@@ -1286,7 +1364,6 @@ namespace MesAPI
             AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt);
             AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt);
             AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt);
-            LogHelper.Log.Info("【查询过站历史完成】");
             ds.Tables.Add(dt);
             return ds;
         }
@@ -1378,7 +1455,7 @@ namespace MesAPI
                     }
                     dr[TestResultItemContent.Order] = logCount + 1;
                     dr[TestResultItemContent.ProductTypeNo] = productTypeNo;
-                    dr[TestResultItemContent.FinalResultValue] = GetProductTestFinalResult(pcbaSN, productSN);
+                    dr[TestResultItemContent.FinalResultValue] = GetProductTestFinalResult(pcbaSN, productSN,shellLen);
 
                     #region 烧录工位信息
                     if (STATION_TURN == stationName)
@@ -1620,6 +1697,48 @@ namespace MesAPI
                 LogHelper.Log.Error(ex.Message + ex.StackTrace);
                 return "0X06";
             }
+        }
+
+        private static int CalCirticalStationID()
+        {
+            //计算当前工艺的临界点ID
+            //查询烧录工站是否存在
+            //查询灵敏度工站是否存在
+            int cirticalID = 0;
+            if (IsExistStation("烧录工站"))
+            {
+                //存在烧录工站
+                cirticalID += 1;
+                if (IsExistStation("灵敏度测试工站"))
+                {
+                    cirticalID += 1;
+                }
+            }
+            else
+            {
+                if (IsExistStation("灵敏度测试工站"))
+                {
+                    cirticalID += 1;
+                }
+            }
+            return cirticalID + 1;
+        }
+
+        private static bool IsExistStation(string stationName)
+        {
+            var currentProcess = new MesService().SelectCurrentTProcess();
+            var selectSQL = $"SELECT * FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{currentProcess}' " +
+                $"AND " +
+                $"{DbTable.F_TECHNOLOGICAL_PROCESS.STATION_NAME} = '{stationName}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL);
+            if (dt.Tables.Count > 0)
+            {
+                if (dt.Tables[0].Rows.Count > 0)
+                    return true;
+            }
+            return false;
         }
         #endregion
 
@@ -1960,40 +2079,6 @@ namespace MesAPI
         #region 物料综合查询
         public DataSet SelectMaterialBasicMsg(string queryCondition)
         {
-            var selectSQL = "";
-            DataSet ds = new DataSet();
-            var pcbaSN = GetPCBASn(queryCondition);
-            var productSN = GetProductSn(queryCondition);
-
-            #region SQL
-            selectSQL = $"SELECT DISTINCT " +
-                $"a.{DbTable.F_Material_Statistics.MATERIAL_CODE} 物料编码," +
-                $"b.{DbTable.F_Material.MATERIAL_NAME} 物料名称," +
-                $"a.{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO} 产品型号," +
-                $"SUM(a.{DbTable.F_Material_Statistics.MATERIAL_AMOUNT}) 使用总数量," +
-                $"a.{DbTable.F_Material_Statistics.PCBA_SN}," +
-                $"b.{DbTable.F_Material.MATERIAL_AMOUNTED}," +
-                $"b.{DbTable.F_Material.MATERIAL_STOCK}," +
-                $"a.{DbTable.F_Material_Statistics.MATERIAL_CURRENT_REMAIN} " +
-                $"FROM " +
-                $"{DbTable.F_MATERIAL_STATISTICS_NAME} a," +
-                $"{DbTable.F_MATERIAL_NAME} b " +
-                $"WHERE " +
-                $"a.{DbTable.F_Material_Statistics.MATERIAL_CODE} = b.{DbTable.F_Material.MATERIAL_CODE} AND " +
-                $"a.{DbTable.F_Material_Statistics.MATERIAL_CODE} like '%{queryCondition}%' OR " +
-                $"a.{DbTable.F_Material_Statistics.PCBA_SN} = '{pcbaSN}' OR " +
-                $"a.{DbTable.F_Material_Statistics.PCBA_SN} = '{productSN}' " +
-                $"GROUP BY " +
-                $"a.{DbTable.F_Material_Statistics.MATERIAL_CODE}," +
-                $"b.{DbTable.F_Material.MATERIAL_NAME}," +
-                $"a.{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO}," +
-                $"a.{DbTable.F_Material_Statistics.PCBA_SN}," +
-                $"b.{DbTable.F_Material.MATERIAL_AMOUNTED}," +
-                $"b.{DbTable.F_Material.MATERIAL_STOCK}," +
-                $"a.{DbTable.F_Material_Statistics.MATERIAL_CURRENT_REMAIN}";
-            #endregion
-
-            LogHelper.Log.Info("SelectMaterialBasicMsg=" + selectSQL);
             #region init datatable
             DataTable dataSourceMaterialBasic = new DataTable();
             dataSourceMaterialBasic.Columns.Add(DATA_ORDER);
@@ -2011,21 +2096,93 @@ namespace MesAPI
             dataSourceMaterialBasic.Columns.Add(RESIDUE_STOCK);
             dataSourceMaterialBasic.Columns.Add(PCBA_STATUS);
             #endregion
+
+            var pcbaSN = GetPCBASn1(queryCondition);
+            var productSN = GetProductSn(queryCondition);
+            var selectMsgOfMaterialSQL = "";
+            var selectMsgOfSn = "";
+            /*
+             * 查询条件：物料编号/PCBSN/外壳SN
+             * 判断查询条件的类型
+             */
+            #region SQL
+            var selectSQL = $"SELECT DISTINCT " +
+                $"a.{DbTable.F_Material_Statistics.MATERIAL_CODE} 物料编码," +
+                $"a.{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO} 产品型号," +
+                $"a.{DbTable.F_Material_Statistics.PCBA_SN}," +
+                $"a.{DbTable.F_Material_Statistics.MATERIAL_AMOUNT} 当前使用数量," +
+                $"a.{DbTable.F_Material_Statistics.MATERIAL_CURRENT_REMAIN} 当前剩余数量 " +
+                $"FROM " +
+                $"{DbTable.F_MATERIAL_STATISTICS_NAME} a ";
+            selectMsgOfMaterialSQL = $"SELECT DISTINCT " +
+                $"{DbTable.F_Material_Statistics.MATERIAL_CODE} ," +
+                $"{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO}," +
+                $"{DbTable.F_Material_Statistics.PCBA_SN}, " +
+                $"{DbTable.F_Material_Statistics.MATERIAL_AMOUNT}, " +
+                $"{DbTable.F_Material_Statistics.MATERIAL_CURRENT_REMAIN} " +
+                $"FROM " +
+                $"{DbTable.F_MATERIAL_STATISTICS_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_Material_Statistics.MATERIAL_CODE} like '%{queryCondition}%'";
+            selectMsgOfSn = $"SELECT DISTINCT " +
+                $"{DbTable.F_Material_Statistics.MATERIAL_CODE} ," +
+                $"{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO}," +
+                $"{DbTable.F_Material_Statistics.PCBA_SN}, " +
+                $"{DbTable.F_Material_Statistics.MATERIAL_AMOUNT}, " +
+                $"{DbTable.F_Material_Statistics.MATERIAL_CURRENT_REMAIN} " +
+                $"FROM " +
+                $"{DbTable.F_MATERIAL_STATISTICS_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{pcbaSN}%' " +
+                $"OR " +
+                $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{productSN}%'";
+            #endregion
+
+            if (queryCondition == "")
+            {
+                //查询所有信息
+                LogHelper.Log.Info("【物料查询】--查询所有 " + selectSQL);
+                return SelectMaterialDetail(dataSourceMaterialBasic, selectSQL);
+            }
+            else
+            {
+                //根据物料编码查询
+                //根据PCBA/外壳编码查询
+                if (pcbaSN == "" && productSN == "")
+                {
+                    //根据物料查询
+                    LogHelper.Log.Info("【物料查询--selectMsgOfMaterialSQL】" + selectMsgOfMaterialSQL);
+                    return SelectMaterialDetail(dataSourceMaterialBasic, selectMsgOfMaterialSQL);
+                }
+                else
+                {
+                    //根据SN查询
+                    LogHelper.Log.Info("【物料查询--selectMsgOfSn】" + selectMsgOfSn);
+                    return SelectMaterialDetail(dataSourceMaterialBasic, selectMsgOfSn);
+                }
+            }
+        }
+
+        private DataSet SelectMaterialDetail(DataTable dataSourceMaterialBasic,string selectSQL)
+        {
+            DataSet ds = new DataSet();
             DbDataReader dataReader = SQLServer.ExecuteDataReader(selectSQL);
             if (!dataReader.HasRows)
-                return null;
+            {
+                ds.Tables.Add(dataSourceMaterialBasic);
+                return ds;
+            }
             var i = 0;
+            var shellLen = ReadShellCodeLength();
+            //物料编码/产品型号/产品SN/当前使用数量/当前剩余数量
             while (dataReader.Read())
             {
                 DataRow dr = dataSourceMaterialBasic.NewRow();
                 var materialCode = dataReader[0].ToString();//pn/lot/rid/dc/qty
-                //var materialName = dt.Rows[i][1].ToString();
-                var productTypeNo = dataReader[2].ToString();
-                var useAmounted = dataReader[3].ToString();
-                var sn = dataReader[4].ToString();
-                var amountTotal = dataReader[5].ToString();
-                var putInStorage = dataReader[6].ToString();
-                var currentRemain = dataReader[7].ToString();
+                var productTypeNo = dataReader[1].ToString();
+                var sn = dataReader[2].ToString();
+                var useAmounted = dataReader[3].ToString();//当前使用数量
+                var currentRemain = dataReader[4].ToString();
                 var snPCBA = GetPCBASn(sn);
                 var snOutter = GetProductSn(sn);
                 if (!materialCode.Contains("&"))
@@ -2037,21 +2194,30 @@ namespace MesAPI
                 var dcCode = analysisMaterial.MaterialDC;
                 //var qtyCode = analysisMaterial.MaterialQTY;
                 var materialName = SelectMaterialName(pnCode);
+                var stockMsg = SelectStockMsg(materialCode);
                 dr[DATA_ORDER] = i + 1;
                 dr[MATERIAL_PN] = pnCode;
                 dr[MATERIAL_LOT] = lotCode;
                 dr[MATERIAL_RID] = ridCode;
                 dr[MATERIAL_DC] = dcCode;
-                dr[MATERIAL_QTY] = putInStorage;
+                dr[MATERIAL_QTY] = stockMsg.ActualStock;
                 dr[MATERIAL_NAME] = materialName;
                 dr[PRODUCT_TYPENO] = productTypeNo;
                 dr[USE_AMOUNTED] = useAmounted;
-                dr[RESIDUE_STOCK] = int.Parse(putInStorage) - int.Parse(amountTotal);
+                dr[RESIDUE_STOCK] = stockMsg.ActualStock - stockMsg.UseAmounted;
                 dr[CURRENT_RESIDUE_STOCK] = currentRemain;
 
-                dr[SN_PCBA] = snPCBA;
-                dr[SN_OUTTER] = snOutter;
-                dr[PCBA_STATUS] = SelectPcbaMsg(snPCBA,snOutter);
+                if (snPCBA.Length == shellLen && snOutter == "")
+                {
+                    dr[SN_PCBA] = snOutter;
+                    dr[SN_OUTTER] = snPCBA;
+                }
+                else
+                {
+                    dr[SN_PCBA] = snPCBA;
+                    dr[SN_OUTTER] = snOutter;
+                }
+                dr[PCBA_STATUS] = SelectPcbaMsg(snPCBA, snOutter);
                 dataSourceMaterialBasic.Rows.Add(dr);
                 i++;
             }
@@ -2132,9 +2298,28 @@ namespace MesAPI
             }
             return "【未绑定】";
         }
-        #endregion
 
-        #region 产品合格率统计接口
+        private StockMsg SelectStockMsg(string materialCode)
+        {
+            StockMsg stockMsg = new StockMsg();
+            var selectSQL = $"SELECT {DbTable.F_Material.MATERIAL_STOCK} ," +
+                $"{DbTable.F_Material.MATERIAL_AMOUNTED} " +
+                $"FROM " +
+                $"{DbTable.F_MATERIAL_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_Material.MATERIAL_CODE} = '{materialCode}'";
+            var ds = SQLServer.ExecuteDataSet(selectSQL);
+            if (ds.Tables.Count > 0)
+            {
+                var dt = ds.Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    stockMsg.ActualStock = int.Parse(dt.Rows[0][0].ToString());
+                    stockMsg.UseAmounted = int.Parse(dt.Rows[0][1].ToString());
+                }
+            }
+            return stockMsg;
+        }
         #endregion
 
         #region 验证传入工站是否可以生产/测试

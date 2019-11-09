@@ -84,8 +84,10 @@ namespace MesManager.UI
         private void Lbx_burn_openFile_Click(object sender, EventArgs e)
         {
             FileContent fileContent = FileSelect.GetSelectFileContent("(*.*)|*.*","选择文件");
+            if (fileContent == null)
+                return;
             this.tb_burn_programePath.Text = fileContent.FileName;
-            this.tb_burn_programeName.Text = fileContent.FileSafeName;
+            this.tb_burn_programeName.Text = fileContent.FileSafeName.Substring(0,fileContent.FileSafeName.LastIndexOf('.'));
         }
 
         #region 保存配置
@@ -715,6 +717,7 @@ namespace MesManager.UI
             sensibilityConfig.RfCanID = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.RfCanIDKey, senSavePath);
             sensibilityConfig.ProductSerial = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductSerialKey, senSavePath);
             sensibilityConfig.ProductSerial = GetProductTestSerial(sensibilityConfig.ProductSerial);
+            sensibilityConfig.ProductId = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductIdKey, senSavePath);
         }
 
         private void ReadShellStandConfig()
@@ -801,6 +804,7 @@ namespace MesManager.UI
             productTestConfig.TestSerial = INIFile.GetValue(standCommon.ProductTypeNo, ProductTestConfig.TestSerialKey, productSavePath);
             productTestConfig.ControlPower = INIFile.GetValue(standCommon.ProductTypeNo, ProductTestConfig.ControlPowerKey, productSavePath);
             productTestConfig.TestSerial = GetProductTestSerial(productTestConfig.TestSerial);
+            productTestConfig.ProductId = INIFile.GetValue(standCommon.ProductTypeNo, ProductTestConfig.ProductIdKey, productSavePath);
         }
 
         private void ReadProductCheckStandConfig()
@@ -828,6 +832,7 @@ namespace MesManager.UI
             productCheckConfig.TestSerial = INIFile.GetValue(standCommon.ProductTypeNo, ProductCheckConfig.TestSerialKey, productCheckSavePath);
             productCheckConfig.ControlPower = INIFile.GetValue(standCommon.ProductTypeNo, ProductCheckConfig.ControlPowerKey, productCheckSavePath);
             productCheckConfig.TestSerial = GetProductTestSerial(productCheckConfig.TestSerial);
+            productCheckConfig.ProductId = INIFile.GetValue(standCommon.ProductTypeNo, ProductCheckConfig.ProductIdKey, productCheckSavePath);
         }
         #endregion
 
@@ -868,7 +873,7 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.ProductIdKey, burnConfig.ProductId, burnSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.FirstVoltageMaxKey, burnConfig.FirstVoltageMax, burnSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.FirstVoltageMinKey, burnConfig.FirstVoltageMin, burnSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.SecondVoltageMaxKey, burnConfig.SecondVoltageMin, burnSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.SecondVoltageMaxKey, burnConfig.SecondVoltageMax, burnSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.SecondVoltageMinKey, burnConfig.SecondVoltageMin, burnSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.HardWareVersionKey, burnConfig.HardWareVersion, burnSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.SoftWareVersionKey, burnConfig.SoftWareVersion, burnSavePath);
@@ -1016,6 +1021,7 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.CyclyCanIDKey, sensibilityConfig.CyclyCanID, senSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.RfCanIDKey, sensibilityConfig.RfCanID, senSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductSerialKey, sensibilityConfig.ProductSerial, senSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductIdKey, sensibilityConfig.ProductId, senSavePath);
             MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             IsSavePrivateConfig = true;
         }
@@ -1106,6 +1112,7 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.CycleCanIDKey, productTestConfig.CycleCanID, productSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.RF_CAN_IDKey, productTestConfig.RF_CAN_ID, productSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.TestSerialKey, productTestConfig.TestSerial, productSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.ProductIdKey, productTestConfig.ProductId, productSavePath);
             MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             IsSavePrivateConfig = true;
         }
@@ -1134,6 +1141,7 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.CycleCanIDKey, productCheckConfig.CycleCanID, productCheckSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.RF_CAN_IDKey, productCheckConfig.RF_CAN_ID, productCheckSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.TestSerialKey, productCheckConfig.TestSerial, productCheckSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.ProductIdKey, productCheckConfig.ProductId, productCheckSavePath);
             MessageBox.Show("保存成功！","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
             IsSavePrivateConfig = true;
         }
@@ -1212,6 +1220,7 @@ namespace MesManager.UI
             sensibilityConfig.ReceiveCanID = this.tb_sen_receiveCanID.Text;
             sensibilityConfig.RfCanID = this.tb_sen_rfCanID.Text;
             sensibilityConfig.CyclyCanID = this.tb_sen_cycleCanID.Text;
+            sensibilityConfig.ProductId = this.tb_sen_productID.Text;
             var sensibility = GetSensibilityConfig(this.cb_sen_serialNumber.Text);
             if (sensibility == null)
                 return;
@@ -1300,6 +1309,7 @@ namespace MesManager.UI
             productTestConfig.ReceiveCanID = this.tb_product_receiveCanID.Text;
             productTestConfig.CycleCanID = this.tb_product_cyclyCanID.Text;
             productTestConfig.RF_CAN_ID = this.tb_product_rfCanID.Text;
+            productTestConfig.ProductId = this.tb_product_productID.Text;
             var productTest = GetProductTestConfig(this.cb_product_testSerial.Text);
             if (productTest == null)
                 return;
@@ -1328,6 +1338,7 @@ namespace MesManager.UI
             productCheckConfig.ReceiveCanID = this.tb_productCheck_receiveCanID.Text;
             productCheckConfig.CycleCanID = this.tb_productCheck_cycleCanID.Text;
             productCheckConfig.RF_CAN_ID = this.tb_productCheck_rfCanID.Text;
+            productCheckConfig.ProductId = this.tb_productCheck_productID.Text;
             var productCheck = GetProductCheckConfig(this.tb_productCheck_testSerial.Text);
             if (productCheck == null)
                 return;
@@ -1406,6 +1417,7 @@ namespace MesManager.UI
             this.tb_sen_receiveCanID.Text = sensibilityConfig.ReceiveCanID;
             this.tb_sen_cycleCanID.Text = sensibilityConfig.CyclyCanID;
             this.tb_sen_rfCanID.Text = sensibilityConfig.RfCanID;
+            this.tb_sen_productID.Text = sensibilityConfig.ProductId;
         }
 
         private void RefreshUIShellStation()
@@ -1482,6 +1494,7 @@ namespace MesManager.UI
             this.tb_product_cyclyCanID.Text = productTestConfig.CycleCanID;
             this.tb_product_rfCanID.Text = productTestConfig.RF_CAN_ID;
             this.cb_product_testSerial.Text = productTestConfig.TestSerial;
+            this.tb_product_productID.Text = productTestConfig.ProductId;
         }
 
         private void RefreshUIProductCheckStation()
@@ -1507,6 +1520,7 @@ namespace MesManager.UI
             this.tb_productCheck_cycleCanID.Text = productTestConfig.CycleCanID;
             this.tb_productCheck_rfCanID.Text = productCheckConfig.RF_CAN_ID;
             this.tb_productCheck_testSerial.Text = productCheckConfig.TestSerial;
+            this.tb_productCheck_productID.Text = productTestConfig.ProductId;
         }
         #endregion
 

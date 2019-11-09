@@ -134,6 +134,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 $"{DbTable.F_Test_Result.TYPE_NO} = '{typeNo}' " +
                 $"ORDER BY {DbTable.F_Test_Result.STATION_IN_DATE} DESC";
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            LogHelper.Log.Info("【查询进站日期】"+selectSQL);
             if (dt.Rows.Count > 0)
                 return dt.Rows[0][0].ToString();
             return "";

@@ -445,11 +445,6 @@ namespace MesManager.UI
             //DataSet ds = (await serviceClient.SelectTestResultUpperAsync(filter, filter, filter, true));
             LogHelper.Log.Info("【开始查询】");
             DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter);
-            if (ds.Tables.Count < 1)
-            {
-                this.radGridViewSn.DataSource = null;   
-                return;
-            }
             DataTable dt = ds.Tables[0];
             this.radGridViewSn.BeginEdit();
             this.radGridViewSn.DataSource = null; 
@@ -640,10 +635,6 @@ namespace MesManager.UI
             //物料信息表
             //物料编码+物料名称+所属型号+在哪个工序/站位消耗+该位置消耗数量
             var ds = await serviceClient.SelectMaterialBasicMsgAsync(this.tb_material.Text);
-            if (ds == null)
-                return;
-            if (ds.Tables.Count < 1)
-                return;
             this.radGridViewMaterial.DataSource = ds.Tables[0];
             //this.radGridViewMaterial.Columns[0].BestFit();
             this.radGridViewMaterial.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
