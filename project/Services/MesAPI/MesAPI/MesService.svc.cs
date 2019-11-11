@@ -674,8 +674,8 @@ namespace MesAPI
                 var defaultRoot = ConfigurationManager.AppSettings["shellCodeRoot"].ToString();
                 var process = SelectCurrentTProcess();
                 string configPath = defaultRoot + ":\\StationConfig\\外壳装配工站\\" + process + "\\" + "外壳装配工站_" + process + "_config.ini";
-                LogHelper.Log.Info("【配置文件路径】"+configPath);
                 int.TryParse(INIFile.GetValue(process, "设置外壳条码长度位数", configPath).Trim(), out shellLen);
+                //LogHelper.Log.Info("【配置文件路径】" + configPath + "len="+shellLen);
                 return shellLen;
             }
             catch (Exception ex)
@@ -715,18 +715,8 @@ namespace MesAPI
                     var pcbsn = GetPCBASn(pcbaSN);
                     var productsn = GetProductSn(pcbaSN);
                     dr[TestResultItemContent.Order] = count;
-                    if (pcbsn.Length == shellLen && productsn == "")
-                    {
-                        //只有外壳
-                        LogHelper.Log.Info($"【只有外壳】配置外壳长度={shellLen} 实际外壳长度={pcbsn}");
-                        dr[TestResultItemContent.PcbaSN] = productsn;
-                        dr[TestResultItemContent.ProductSN] = pcbsn;
-                    }
-                    else
-                    {
-                        dr[TestResultItemContent.PcbaSN] = pcbsn;
-                        dr[TestResultItemContent.ProductSN] = productsn;
-                    }
+                    dr[TestResultItemContent.PcbaSN] = pcbsn;
+                    dr[TestResultItemContent.ProductSN] = productsn;
                     dr[TestResultItemContent.FinalResultValue] = GetProductTestFinalResult(pcbsn,productsn,shellLen);
                     var currentProductType = GetProductTypeNoOfSN(pcbsn,productsn);
                     if (currentProductType == "")
@@ -825,8 +815,8 @@ namespace MesAPI
                     dt.Rows.Add(dr);
                     count++;
                 }
-                dataSet.Tables.Add(dt);
             }
+            dataSet.Tables.Add(dt);
             return dataSet;
         }
 
@@ -1134,6 +1124,11 @@ namespace MesAPI
 
         public string GetPCBASn(string sn)
         {
+            var snLen = 0;
+            if (sn == "" || sn == null)
+                snLen = 0;
+            else
+                snLen = sn.Length;
             var selectSQL = $"SELECT * FROM {DbTable.F_BINDING_PCBA_NAME} WHERE {DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}'";
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             if (dt.Rows.Count > 0)
@@ -1151,17 +1146,26 @@ namespace MesAPI
                     return dt.Rows[0][0].ToString();
                 }
             }
-            //LogHelper.Log.Info("【查PCBA失败！】"+sn);
+            if (ReadShellCodeLength() == snLen)
+            {
+                return "";
+            }
             return sn;
         }
 
         public string GetProductSn(string sn)
         {
+            //传入值为PCBA
+            var snLen = 0;
+            if (sn == "" || sn == null)
+                snLen = 0;
+            else
+                snLen = sn.Length;
             var selectSQL = $"SELECT * FROM {DbTable.F_BINDING_PCBA_NAME} WHERE {DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}'";
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             if (dt.Rows.Count > 0)
             {
-                return sn;//传入值为PCBA
+                return sn;//返回外壳
             }
             else
             {
@@ -1174,28 +1178,11 @@ namespace MesAPI
                     return dt.Rows[0][0].ToString();
                 }
             }
-            //LogHelper.Log.Info("【查外壳码失败！】" + sn);
-            return "";
-        }
-
-        public string GetPCBASn1(string sn)
-        {
-            var selectSQL = $"SELECT * FROM {DbTable.F_BINDING_PCBA_NAME} WHERE {DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}'";
-            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
-            if (dt.Rows.Count > 0)
+            //无查询结果-不存在绑定关系/传入值有误
+            //当前工艺无外壳装配工站时，并且是外壳码时，返回外壳码
+            if (ReadShellCodeLength() == snLen)
             {
-                return sn;//传入值为PCBA
-            }
-            else
-            {
-                //传入值为外壳值
-                selectSQL = $"SELECT {DbTable.F_BINDING_PCBA.SN_PCBA} FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
-                    $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}'";
-                dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
-                if (dt.Rows.Count > 0)
-                {
-                    return dt.Rows[0][0].ToString();
-                }
+                return sn;
             }
             return "";
         }
@@ -1560,7 +1547,7 @@ namespace MesAPI
             var selectTestResultSQL = "";
             try
             {
-                if (delTestResult == "")
+                if (queryCondition == "")
                 {
                     //删除测试log数据
                     selectTestResultSQL = $"SELECT " +
@@ -1626,10 +1613,11 @@ namespace MesAPI
                             $"OR " +
                             $"{DbTable.F_Test_Result.STATION_NAME} = '{queryCondition}'";
                 }
+                LogHelper.Log.Info("【查询-删除测试log数据】selectTestResultSQL=" + selectTestResultSQL);
                 var dtRes = SQLServer.ExecuteDataSet(selectTestResultSQL);
                 if (dtRes.Tables.Count > 0)
                 {
-                    int count = 0;
+                    int count = 0;//删除LOG数据数量
                     foreach (DataRow dr in dtRes.Tables[0].Rows)
                     {
                         var sn = dr[0].ToString();
@@ -1638,6 +1626,7 @@ namespace MesAPI
                         var joinTime = dr[7].ToString();
                         var pcbaSN = GetPCBASn(sn);
                         var productSN = GetProductSn(sn);
+                        //根据PCBA-SN删除数据
                         var delLogSQL = $"delete from {DbTable.F_TEST_LOG_DATA_NAME} where " +
                             $"{DbTable.F_TEST_LOG_DATA.TYPE_NO}='{typeNo}' " +
                             $"and " +
@@ -1649,6 +1638,7 @@ namespace MesAPI
                         var delRow = SQLServer.ExecuteNonQuery(delLogSQL);
                         if (delRow < 1)
                         {
+                            //根据外壳SN删除数据
                             delLogSQL = $"delete from {DbTable.F_TEST_LOG_DATA_NAME} where " +
                             $"{DbTable.F_TEST_LOG_DATA.TYPE_NO}='{typeNo}' " +
                             $"and " +
@@ -1662,7 +1652,7 @@ namespace MesAPI
                         count += delRow;
                     }
                     //执行删除测试结果数据
-
+                    LogHelper.Log.Info("【查询-删除测试log数据】log数据执行完毕，开始删除测试数据="+delTestResult);
                     var delRes = SQLServer.ExecuteNonQuery(delTestResult);
                     if (delRes > 0 && count > 0)
                     {
@@ -1672,15 +1662,17 @@ namespace MesAPI
                     }
                     else if (delRes > 0 && count <= 0)
                     {
-                        LogHelper.Log.Info($"【删除测试LOG数据】未完成");
+                        LogHelper.Log.Info($"【删除测试数据】0X02 完成{delRes}条");
+                        LogHelper.Log.Info($"【删除测试LOG数据】0X02 未完成 CODE=0X02");
                         return "0X02";
                     }
                     else if (delRes <= 0 && count > 0)
                     {
-                        LogHelper.Log.Info($"【删除测试数据】未完成");
+                        LogHelper.Log.Info($"【删除测试数据】0X03 未完成 CODE=0X03");
+                        LogHelper.Log.Info($"【删除测试LOG数据】0X03 完成 {count}条");
                         return "0X03";
                     }
-                    LogHelper.Log.Info($"【删除测试数据及log数据】未完成");
+                    LogHelper.Log.Info($"【删除测试数据及log数据】都未完成 CODE=0X04");
                     return "0X04";
                 }
                 else
@@ -2084,7 +2076,7 @@ namespace MesAPI
         #endregion
 
         #region 物料综合查询
-        public DataSet SelectMaterialBasicMsg(string queryCondition)
+        private DataTable InitMaterialBasic()
         {
             #region init datatable
             DataTable dataSourceMaterialBasic = new DataTable();
@@ -2103,8 +2095,15 @@ namespace MesAPI
             dataSourceMaterialBasic.Columns.Add(RESIDUE_STOCK);
             dataSourceMaterialBasic.Columns.Add(PCBA_STATUS);
             #endregion
+            return dataSourceMaterialBasic;
+        }
 
-            var pcbaSN = GetPCBASn1(queryCondition);
+        public DataSet SelectMaterialBasicMsg(string queryCondition)
+        {
+            if (queryCondition == null)
+                queryCondition = "";
+            var dataSourceMaterialBasic = InitMaterialBasic();
+            var pcbaSN = GetPCBASn(queryCondition);
             var productSN = GetProductSn(queryCondition);
             var selectMsgOfMaterialSQL = "";
             var selectMsgOfSn = "";
@@ -2131,18 +2130,51 @@ namespace MesAPI
                 $"{DbTable.F_MATERIAL_STATISTICS_NAME} " +
                 $"WHERE " +
                 $"{DbTable.F_Material_Statistics.MATERIAL_CODE} like '%{queryCondition}%'";
-            selectMsgOfSn = $"SELECT DISTINCT " +
-                $"{DbTable.F_Material_Statistics.MATERIAL_CODE} ," +
-                $"{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO}," +
-                $"{DbTable.F_Material_Statistics.PCBA_SN}, " +
-                $"{DbTable.F_Material_Statistics.MATERIAL_AMOUNT}, " +
-                $"{DbTable.F_Material_Statistics.MATERIAL_CURRENT_REMAIN} " +
-                $"FROM " +
-                $"{DbTable.F_MATERIAL_STATISTICS_NAME} " +
-                $"WHERE " +
-                $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{pcbaSN}%' " +
-                $"OR " +
-                $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{productSN}%'";
+            if (pcbaSN != "" && productSN == "")
+            {
+                selectMsgOfSn = $"SELECT DISTINCT " +
+                    $"{DbTable.F_Material_Statistics.MATERIAL_CODE} ," +
+                    $"{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO}," +
+                    $"{DbTable.F_Material_Statistics.PCBA_SN}, " +
+                    $"{DbTable.F_Material_Statistics.MATERIAL_AMOUNT}, " +
+                    $"{DbTable.F_Material_Statistics.MATERIAL_CURRENT_REMAIN} " +
+                    $"FROM " +
+                    $"{DbTable.F_MATERIAL_STATISTICS_NAME} " +
+                    $"WHERE " +
+                    $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{pcbaSN}%' ";
+            }
+            else if (pcbaSN == "" && productSN != "")
+            {
+                selectMsgOfSn = $"SELECT DISTINCT " +
+                    $"{DbTable.F_Material_Statistics.MATERIAL_CODE} ," +
+                    $"{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO}," +
+                    $"{DbTable.F_Material_Statistics.PCBA_SN}, " +
+                    $"{DbTable.F_Material_Statistics.MATERIAL_AMOUNT}, " +
+                    $"{DbTable.F_Material_Statistics.MATERIAL_CURRENT_REMAIN} " +
+                    $"FROM " +
+                    $"{DbTable.F_MATERIAL_STATISTICS_NAME} " +
+                    $"WHERE " +
+                    $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{productSN}%' ";
+            }
+            else if (pcbaSN != "" && productSN != "")
+            {
+                selectMsgOfSn = $"SELECT DISTINCT " +
+                    $"{DbTable.F_Material_Statistics.MATERIAL_CODE} ," +
+                    $"{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO}," +
+                    $"{DbTable.F_Material_Statistics.PCBA_SN}, " +
+                    $"{DbTable.F_Material_Statistics.MATERIAL_AMOUNT}, " +
+                    $"{DbTable.F_Material_Statistics.MATERIAL_CURRENT_REMAIN} " +
+                    $"FROM " +
+                    $"{DbTable.F_MATERIAL_STATISTICS_NAME} " +
+                    $"WHERE " +
+                    $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{productSN}%' " +
+                    $"OR " +
+                    $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{pcbaSN}%'";
+            }
+            else
+            {
+                selectMsgOfSn = selectSQL;
+            }
             #endregion
 
             if (queryCondition == "")
@@ -2155,18 +2187,68 @@ namespace MesAPI
             {
                 //根据物料编码查询
                 //根据PCBA/外壳编码查询
-                if (pcbaSN == "" && productSN == "")
-                {
-                    //根据物料查询
-                    LogHelper.Log.Info("【物料查询--selectMsgOfMaterialSQL】" + selectMsgOfMaterialSQL);
-                    return SelectMaterialDetail(dataSourceMaterialBasic, selectMsgOfMaterialSQL);
-                }
-                else
+
+                //根据物料查询
+                LogHelper.Log.Info("【物料查询--selectMsgOfMaterialSQL】" + selectMsgOfMaterialSQL);
+                var detailResult = SelectMaterialDetail(dataSourceMaterialBasic, selectMsgOfMaterialSQL);
+                if (detailResult.Tables[0].Rows.Count < 1)
                 {
                     //根据SN查询
                     LogHelper.Log.Info("【物料查询--selectMsgOfSn】" + selectMsgOfSn);
+                    dataSourceMaterialBasic = InitMaterialBasic();
                     return SelectMaterialDetail(dataSourceMaterialBasic, selectMsgOfSn);
                 }
+                return detailResult;
+            }
+        }
+
+        public int DeleteMaterialBasicMsg(string queryCondition)
+        {
+            var deleteAllMaterialMsg = "";
+            var deleteOfMaterialCode = "";
+            var deleteOfSN = "";
+            var delRow = 0;
+            if (queryCondition == "")
+            {
+                deleteAllMaterialMsg = $"DELETE FROM {DbTable.F_MATERIAL_STATISTICS_NAME}";
+                delRow = SQLServer.ExecuteNonQuery(deleteAllMaterialMsg);
+                LogHelper.Log.Info($"【删除所有物料使用数据】删除{delRow}条");
+                return delRow;
+            }
+            else
+            {
+                var pcbaSN = GetPCBASn(queryCondition);
+                var productSN = GetProductSn(queryCondition);
+                deleteOfMaterialCode = $"DELETE FROM {DbTable.F_MATERIAL_STATISTICS_NAME} " +
+                    $"WHERE " +
+                    $"{DbTable.F_Material_Statistics.MATERIAL_CODE} = '{queryCondition}'";
+                delRow = SQLServer.ExecuteNonQuery(deleteOfMaterialCode);
+                if (delRow < 1)
+                {
+                    if (pcbaSN == "" && productSN != "")
+                    {
+                        deleteOfSN = $"DELETE FROM {DbTable.F_MATERIAL_STATISTICS_NAME} WHERE " +
+                            $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{productSN}%'";
+                    }
+                    else if (pcbaSN != "" && productSN == "")
+                    {
+                        deleteOfSN = $"DELETE FROM {DbTable.F_MATERIAL_STATISTICS_NAME} WHERE " +
+                            $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{pcbaSN}%'";
+                    }
+                    else if (pcbaSN != "" && productSN != "")
+                    {
+                        deleteOfSN = $"DELETE FROM {DbTable.F_MATERIAL_STATISTICS_NAME} WHERE " +
+                            $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{productSN}%' OR " +
+                            $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{pcbaSN}%'";
+                    }
+                    else
+                    {
+                        LogHelper.Log.Info("【删除物料】PCBA/外壳为空--无删除数据");
+                    }
+                    return SQLServer.ExecuteNonQuery(deleteOfSN);
+                }
+                LogHelper.Log.Info($"【删除部分物料使用数据-物料条码】删除{delRow}条");
+                return delRow;
             }
         }
 
@@ -2214,16 +2296,8 @@ namespace MesAPI
                 dr[RESIDUE_STOCK] = stockMsg.ActualStock - stockMsg.UseAmounted;
                 dr[CURRENT_RESIDUE_STOCK] = currentRemain;
 
-                if (snPCBA.Length == shellLen && snOutter == "")
-                {
-                    dr[SN_PCBA] = snOutter;
-                    dr[SN_OUTTER] = snPCBA;
-                }
-                else
-                {
-                    dr[SN_PCBA] = snPCBA;
-                    dr[SN_OUTTER] = snOutter;
-                }
+                dr[SN_PCBA] = snPCBA;
+                dr[SN_OUTTER] = snOutter;
                 dr[PCBA_STATUS] = SelectPcbaMsg(snPCBA, snOutter);
                 dataSourceMaterialBasic.Rows.Add(dr);
                 i++;

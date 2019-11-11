@@ -63,12 +63,12 @@
             this.rbtn_today = new System.Windows.Forms.RadioButton();
             this.rbtn_oneYear = new System.Windows.Forms.RadioButton();
             this.rbtn_custom = new System.Windows.Forms.RadioButton();
-            this.btn_search = new Telerik.WinControls.UI.RadButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pickerEndTime = new Telerik.WinControls.UI.RadDateTimePicker();
             this.pickerStartTime = new Telerik.WinControls.UI.RadDateTimePicker();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
+            this.tool_query = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -78,7 +78,6 @@
             this.toolStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_search)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pickerEndTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pickerStartTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
@@ -180,6 +179,7 @@
             // 
             // toolStripTextBox1
             // 
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
             // 
@@ -191,6 +191,7 @@
             // 
             // tool_username
             // 
+            this.tool_username.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.tool_username.Name = "tool_username";
             this.tool_username.Size = new System.Drawing.Size(100, 25);
             // 
@@ -202,6 +203,7 @@
             // 
             // toolStripTextBox3
             // 
+            this.toolStripTextBox3.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBox3.Name = "toolStripTextBox3";
             this.toolStripTextBox3.Size = new System.Drawing.Size(100, 25);
             // 
@@ -213,6 +215,7 @@
             // 
             // toolStripTextBox4
             // 
+            this.toolStripTextBox4.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBox4.Name = "toolStripTextBox4";
             this.toolStripTextBox4.Size = new System.Drawing.Size(100, 25);
             // 
@@ -237,6 +240,7 @@
             this.tool_logData,
             this.tool_exportCondition,
             this.tool_export,
+            this.tool_query,
             this.tool_clearDB});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -310,7 +314,6 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.tableLayoutPanel1);
-            this.panel2.Controls.Add(this.btn_search);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.pickerEndTime);
@@ -328,7 +331,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.20942F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 98F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 188F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 189F));
             this.tableLayoutPanel1.Controls.Add(this.rbtn_threeMonth, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbtn_oneMonth, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbtn_today, 0, 0);
@@ -347,7 +350,7 @@
             this.rbtn_threeMonth.AutoSize = true;
             this.rbtn_threeMonth.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_threeMonth.ForeColor = System.Drawing.Color.White;
-            this.rbtn_threeMonth.Location = new System.Drawing.Point(194, 3);
+            this.rbtn_threeMonth.Location = new System.Drawing.Point(193, 3);
             this.rbtn_threeMonth.Name = "rbtn_threeMonth";
             this.rbtn_threeMonth.Size = new System.Drawing.Size(99, 49);
             this.rbtn_threeMonth.TabIndex = 16;
@@ -362,7 +365,7 @@
             this.rbtn_oneMonth.ForeColor = System.Drawing.Color.White;
             this.rbtn_oneMonth.Location = new System.Drawing.Point(79, 3);
             this.rbtn_oneMonth.Name = "rbtn_oneMonth";
-            this.rbtn_oneMonth.Size = new System.Drawing.Size(109, 49);
+            this.rbtn_oneMonth.Size = new System.Drawing.Size(108, 49);
             this.rbtn_oneMonth.TabIndex = 15;
             this.rbtn_oneMonth.TabStop = true;
             this.rbtn_oneMonth.Text = "最近一个月";
@@ -386,7 +389,7 @@
             this.rbtn_oneYear.AutoSize = true;
             this.rbtn_oneYear.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_oneYear.ForeColor = System.Drawing.Color.White;
-            this.rbtn_oneYear.Location = new System.Drawing.Point(299, 3);
+            this.rbtn_oneYear.Location = new System.Drawing.Point(298, 3);
             this.rbtn_oneYear.Name = "rbtn_oneYear";
             this.rbtn_oneYear.Size = new System.Drawing.Size(92, 49);
             this.rbtn_oneYear.TabIndex = 18;
@@ -399,25 +402,13 @@
             this.rbtn_custom.AutoSize = true;
             this.rbtn_custom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_custom.ForeColor = System.Drawing.Color.White;
-            this.rbtn_custom.Location = new System.Drawing.Point(397, 3);
+            this.rbtn_custom.Location = new System.Drawing.Point(396, 3);
             this.rbtn_custom.Name = "rbtn_custom";
-            this.rbtn_custom.Size = new System.Drawing.Size(183, 49);
+            this.rbtn_custom.Size = new System.Drawing.Size(184, 49);
             this.rbtn_custom.TabIndex = 13;
             this.rbtn_custom.TabStop = true;
             this.rbtn_custom.Text = "自定义日期";
             this.rbtn_custom.UseVisualStyleBackColor = true;
-            // 
-            // btn_search
-            // 
-            this.btn_search.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_search.Image = global::MesManager.Properties.Resources.Search_16x16;
-            this.btn_search.Location = new System.Drawing.Point(1151, 22);
-            this.btn_search.Name = "btn_search";
-            this.btn_search.Size = new System.Drawing.Size(88, 25);
-            this.btn_search.TabIndex = 8;
-            this.btn_search.Text = "查询";
-            this.btn_search.ThemeName = "Breeze";
-            this.btn_search.Click += new System.EventHandler(this.Btn_search_Click);
             // 
             // label1
             // 
@@ -480,6 +471,15 @@
             this.radGridView1.TabIndex = 15;
             this.radGridView1.ThemeName = "Breeze";
             // 
+            // tool_query
+            // 
+            this.tool_query.ForeColor = System.Drawing.Color.White;
+            this.tool_query.Image = global::MesManager.Properties.Resources.Search_16x16;
+            this.tool_query.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_query.Name = "tool_query";
+            this.tool_query.Size = new System.Drawing.Size(59, 24);
+            this.tool_query.Text = "查询";
+            // 
             // TestStand
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -513,7 +513,6 @@
             this.panel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_search)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pickerEndTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pickerStartTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).EndInit();
@@ -555,7 +554,6 @@
         private Telerik.WinControls.UI.RadDateTimePicker pickerEndTime;
         private Telerik.WinControls.UI.RadDateTimePicker pickerStartTime;
         private Telerik.WinControls.UI.RadGridView radGridView1;
-        private Telerik.WinControls.UI.RadButton btn_search;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.RadioButton rbtn_threeMonth;
         private System.Windows.Forms.RadioButton rbtn_oneMonth;
@@ -564,5 +562,6 @@
         private System.Windows.Forms.RadioButton rbtn_custom;
         private System.Windows.Forms.ToolStripComboBox tool_exportCondition;
         private System.Windows.Forms.ToolStripButton tool_clearDB;
+        private System.Windows.Forms.ToolStripButton tool_query;
     }
 }

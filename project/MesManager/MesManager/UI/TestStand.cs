@@ -27,6 +27,7 @@ namespace MesManager.UI
         private const string LOG_STATION_NAME = "工站名称";
         private const string LOG_TEST_RESULT = "测试结果";
         private DataTable dataSource;
+        private string currentQueryCondition;
 
         public TestStand()
         {
@@ -61,6 +62,12 @@ namespace MesManager.UI
             this.rbtn_threeMonth.Click += Rbtn_threeMonth_Click;
             this.rbtn_oneYear.Click += Rbtn_oneYear_Click;
             this.tool_clearDB.Click += Tool_clearDB_Click;
+            this.tool_query.Click += Tool_query_Click;
+        }
+
+        private void Tool_query_Click(object sender, EventArgs e)
+        {
+            RefreshUI();
         }
 
         private void Tool_clearDB_Click(object sender, EventArgs e)
@@ -156,6 +163,7 @@ namespace MesManager.UI
 
         private void RefreshUI()
         {
+            currentQueryCondition = this.tool_queryCondition.Text;
             if (currentDataType == TestStandDataType.TEST_LIMIT_CONFIG)
             {
                 SelectTestLimitConfig(this.tool_queryCondition.Text);
@@ -306,13 +314,35 @@ namespace MesManager.UI
             GridViewExport.ExportGridViewData(exportFormat, this.radGridView1);
         }
 
-        private void Btn_search_Click(object sender, EventArgs e)
-        {
-            RefreshUI();
-        }
-
         private void TestLogDetailDelete()
         {
+            var startTime = "";
+            var endTime = "";
+            if (rbtn_today.Checked)
+            {
+                startTime = DateTime.Now.ToString("yyyy-MM-dd") + " 00:00:00";
+                endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
+            }
+            else if (rbtn_oneMonth.Checked)
+            {
+                startTime = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd") + " 00:00:00";
+                endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
+            }
+            else if (rbtn_threeMonth.Checked)
+            {
+                startTime = DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd") + " 00:00:00";
+                endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
+            }
+            else if (rbtn_oneYear.Checked)
+            {
+                startTime = DateTime.Now.AddYears(-1).ToString("yyyy-MM-dd") + " 00:00:00";
+                endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
+            }
+            else if (rbtn_custom.Checked)
+            {
+                startTime = this.pickerStartTime.Text;
+                endTime = this.pickerEndTime.Text;
+            }
             if (this.radGridView1.RowCount < 1)
             {
                 MessageBox.Show("没有可以清除的数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -320,7 +350,7 @@ namespace MesManager.UI
             }
             if (MessageBox.Show("是否确认清除当前所有数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
-            var returnRes = serviceClient.DeleteTestLogData(this.tool_queryCondition.Text.Trim(),this.pickerStartTime.Text,this.pickerEndTime.Text);
+            var returnRes = serviceClient.DeleteTestLogData(this.currentQueryCondition.Trim(),startTime,endTime);
             if (returnRes == "0X01")
             {
                 RefreshUI();
@@ -341,7 +371,7 @@ namespace MesManager.UI
             }
             if (MessageBox.Show("是否确认清除当前所有数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
-            var returnRes = serviceClient.DeleteTestProgrameVersion(this.tool_queryCondition.Text.Trim());
+            var returnRes = serviceClient.DeleteTestProgrameVersion(this.currentQueryCondition.Trim());
             if (returnRes > 0)
             {
                 RefreshUI();
@@ -360,7 +390,7 @@ namespace MesManager.UI
             }
             if (MessageBox.Show("是否确认清除当前所有数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
-            var returnRes = serviceClient.DeleteTestLimitConfig(this.tool_queryCondition.Text.Trim());
+            var returnRes = serviceClient.DeleteTestLimitConfig(this.currentQueryCondition.Trim());
             if (returnRes > 0)
             {
                 RefreshUI();

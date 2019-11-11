@@ -513,6 +513,12 @@ namespace MesManager.MesService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectMaterialPN", ReplyAction="http://tempuri.org/IMesService/SelectMaterialPNResponse")]
         System.Threading.Tasks.Task<System.Data.DataSet> SelectMaterialPNAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteMaterialBasicMsg", ReplyAction="http://tempuri.org/IMesService/DeleteMaterialBasicMsgResponse")]
+        int DeleteMaterialBasicMsg(string queryCondition);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteMaterialBasicMsg", ReplyAction="http://tempuri.org/IMesService/DeleteMaterialBasicMsgResponse")]
+        System.Threading.Tasks.Task<int> DeleteMaterialBasicMsgAsync(string queryCondition);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteMaterial", ReplyAction="http://tempuri.org/IMesService/DeleteMaterialResponse")]
         int DeleteMaterial(string materialCode);
         
@@ -969,6 +975,14 @@ namespace MesManager.MesService {
         
         public System.Threading.Tasks.Task<System.Data.DataSet> SelectMaterialPNAsync() {
             return base.Channel.SelectMaterialPNAsync();
+        }
+        
+        public int DeleteMaterialBasicMsg(string queryCondition) {
+            return base.Channel.DeleteMaterialBasicMsg(queryCondition);
+        }
+        
+        public System.Threading.Tasks.Task<int> DeleteMaterialBasicMsgAsync(string queryCondition) {
+            return base.Channel.DeleteMaterialBasicMsgAsync(queryCondition);
         }
         
         public int DeleteMaterial(string materialCode) {

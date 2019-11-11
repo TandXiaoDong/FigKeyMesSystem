@@ -96,6 +96,8 @@ namespace MesAPI
         DataSet SelectMaterialPN();
         //[OperationContract]
         //List<MaterialMsg> CommitMaterial(List<MaterialMsg> list);
+        [OperationContract]
+        int DeleteMaterialBasicMsg(string queryCondition);
 
         [OperationContract]
         int DeleteMaterial(string materialCode);

@@ -116,10 +116,10 @@
             this.dw_stockManager.Controls.Add(this.radSplitContainer1);
             this.dw_stockManager.Controls.Add(this.toolStrip2);
             this.dw_stockManager.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dw_stockManager.Location = new System.Drawing.Point(6, 29);
+            this.dw_stockManager.Location = new System.Drawing.Point(5, 27);
             this.dw_stockManager.Name = "dw_stockManager";
             this.dw_stockManager.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dw_stockManager.Size = new System.Drawing.Size(1254, 679);
+            this.dw_stockManager.Size = new System.Drawing.Size(1256, 682);
             this.dw_stockManager.Text = "库存管理";
             // 
             // radSplitContainer1
@@ -136,7 +136,7 @@
             // 
             // 
             this.radSplitContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.radSplitContainer1.Size = new System.Drawing.Size(1254, 650);
+            this.radSplitContainer1.Size = new System.Drawing.Size(1256, 653);
             this.radSplitContainer1.TabIndex = 21;
             this.radSplitContainer1.TabStop = false;
             this.radSplitContainer1.ThemeName = "Breeze";
@@ -150,7 +150,7 @@
             // 
             // 
             this.splitPanel1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.splitPanel1.Size = new System.Drawing.Size(1254, 642);
+            this.splitPanel1.Size = new System.Drawing.Size(1256, 645);
             this.splitPanel1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, 0.4938081F);
             this.splitPanel1.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, 320);
             this.splitPanel1.TabIndex = 0;
@@ -168,20 +168,20 @@
             // 
             this.radGridViewStock.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridViewStock.Name = "radGridViewStock";
-            this.radGridViewStock.Size = new System.Drawing.Size(1254, 642);
+            this.radGridViewStock.Size = new System.Drawing.Size(1256, 645);
             this.radGridViewStock.TabIndex = 20;
             this.radGridViewStock.ThemeName = "Breeze";
             // 
             // splitPanel2
             // 
             this.splitPanel2.Controls.Add(this.radGridViewStockOut);
-            this.splitPanel2.Location = new System.Drawing.Point(0, 646);
+            this.splitPanel2.Location = new System.Drawing.Point(0, 649);
             this.splitPanel2.Name = "splitPanel2";
             // 
             // 
             // 
             this.splitPanel2.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.splitPanel2.Size = new System.Drawing.Size(1254, 4);
+            this.splitPanel2.Size = new System.Drawing.Size(1256, 4);
             this.splitPanel2.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, -0.4938081F);
             this.splitPanel2.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, -320);
             this.splitPanel2.TabIndex = 1;
@@ -198,7 +198,7 @@
             // 
             this.radGridViewStockOut.MasterTemplate.ViewDefinition = tableViewDefinition2;
             this.radGridViewStockOut.Name = "radGridViewStockOut";
-            this.radGridViewStockOut.Size = new System.Drawing.Size(1254, 4);
+            this.radGridViewStockOut.Size = new System.Drawing.Size(1256, 4);
             this.radGridViewStockOut.TabIndex = 0;
             // 
             // toolStrip2
@@ -215,7 +215,7 @@
             this.tool_stockManager_query});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1254, 29);
+            this.toolStrip2.Size = new System.Drawing.Size(1256, 29);
             this.toolStrip2.TabIndex = 17;
             this.toolStrip2.Text = "toolStrip2";
             // 

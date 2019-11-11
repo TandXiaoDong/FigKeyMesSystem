@@ -28,6 +28,7 @@ namespace MesManager.UI
         private DataTable dataSourceQuanlity;
         private DataTable dataSourceProductPackage;
         private const string DATA_ORDER = "序号";
+        private string currentMaterialQueryCondition;
 
         #region 物料统计字段
         private const string MATERIAL_PN = "物料号";
@@ -147,7 +148,16 @@ namespace MesManager.UI
 
         private void Tool_quanlityClearDB_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var delRow = serviceClient.DeleteMaterialBasicMsg(this.currentMaterialQueryCondition);
+            if (delRow > 0)
+            {
+                MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            //考虑删除绑定记录
         }
 
         private void Tool_SNClearDB_Click(object sender, EventArgs e)
@@ -423,7 +433,7 @@ namespace MesManager.UI
                 this.tool_SNClearDB.Enabled = false;
 
             }
-            this.tool_materialClearDB.Visible = false;
+            this.tool_materialClearDB.Visible = true;
             this.tool_packageClearDB.Visible = false;
             this.tool_productCheckClearDB.Visible = false;
             this.tool_quanlityClearDB.Visible = false;
@@ -632,6 +642,7 @@ namespace MesManager.UI
         /// </summary>
         async private void SelectOfMaterial()
         {
+            this.currentMaterialQueryCondition = this.tb_material.Text;
             //物料信息表
             //物料编码+物料名称+所属型号+在哪个工序/站位消耗+该位置消耗数量
             var ds = await serviceClient.SelectMaterialBasicMsgAsync(this.tb_material.Text);

@@ -224,7 +224,7 @@
             // btn_materialSelect
             // 
             this.btn_materialSelect.ForeColor = System.Drawing.Color.White;
-            this.btn_materialSelect.Image = global::MesManager.Properties.Resources.Refresh_16x16;
+            this.btn_materialSelect.Image = global::MesManager.Properties.Resources.Search_16x16;
             this.btn_materialSelect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btn_materialSelect.Name = "btn_materialSelect";
             this.btn_materialSelect.Size = new System.Drawing.Size(55, 34);
@@ -332,7 +332,7 @@
             // btn_selectOfSn
             // 
             this.btn_selectOfSn.ForeColor = System.Drawing.Color.White;
-            this.btn_selectOfSn.Image = global::MesManager.Properties.Resources.Refresh_16x16;
+            this.btn_selectOfSn.Image = global::MesManager.Properties.Resources.Search_16x16;
             this.btn_selectOfSn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btn_selectOfSn.Name = "btn_selectOfSn";
             this.btn_selectOfSn.Size = new System.Drawing.Size(55, 36);
@@ -447,7 +447,7 @@
             // btn_selectOfPackage
             // 
             this.btn_selectOfPackage.ForeColor = System.Drawing.Color.White;
-            this.btn_selectOfPackage.Image = global::MesManager.Properties.Resources.Refresh_16x16;
+            this.btn_selectOfPackage.Image = global::MesManager.Properties.Resources.Search_16x16;
             this.btn_selectOfPackage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btn_selectOfPackage.Name = "btn_selectOfPackage";
             this.btn_selectOfPackage.Size = new System.Drawing.Size(55, 39);
@@ -553,7 +553,7 @@
             // btn_productCheck
             // 
             this.btn_productCheck.ForeColor = System.Drawing.Color.White;
-            this.btn_productCheck.Image = global::MesManager.Properties.Resources.Refresh_16x16;
+            this.btn_productCheck.Image = global::MesManager.Properties.Resources.Search_16x16;
             this.btn_productCheck.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btn_productCheck.Name = "btn_productCheck";
             this.btn_productCheck.Size = new System.Drawing.Size(55, 37);
@@ -719,7 +719,7 @@
             // btn_quanlity
             // 
             this.btn_quanlity.ForeColor = System.Drawing.Color.White;
-            this.btn_quanlity.Image = global::MesManager.Properties.Resources.Refresh_16x16;
+            this.btn_quanlity.Image = global::MesManager.Properties.Resources.Search_16x16;
             this.btn_quanlity.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btn_quanlity.Name = "btn_quanlity";
             this.btn_quanlity.Size = new System.Drawing.Size(55, 37);

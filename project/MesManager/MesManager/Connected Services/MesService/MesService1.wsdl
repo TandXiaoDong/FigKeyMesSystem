@@ -147,6 +147,12 @@
   <wsdl:message name="IMesService_SelectMaterialPN_OutputMessage">
     <wsdl:part name="parameters" element="tns:SelectMaterialPNResponse" />
   </wsdl:message>
+  <wsdl:message name="IMesService_DeleteMaterialBasicMsg_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMaterialBasicMsg" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_DeleteMaterialBasicMsg_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMaterialBasicMsgResponse" />
+  </wsdl:message>
   <wsdl:message name="IMesService_DeleteMaterial_InputMessage">
     <wsdl:part name="parameters" element="tns:DeleteMaterial" />
   </wsdl:message>
@@ -485,6 +491,10 @@
     <wsdl:operation name="SelectMaterialPN">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectMaterialPN" message="tns:IMesService_SelectMaterialPN_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectMaterialPNResponse" message="tns:IMesService_SelectMaterialPN_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMaterialBasicMsg">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteMaterialBasicMsg" message="tns:IMesService_DeleteMaterialBasicMsg_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/DeleteMaterialBasicMsgResponse" message="tns:IMesService_DeleteMaterialBasicMsg_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="DeleteMaterial">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteMaterial" message="tns:IMesService_DeleteMaterial_InputMessage" />
@@ -853,6 +863,15 @@
     </wsdl:operation>
     <wsdl:operation name="SelectMaterialPN">
       <soap:operation soapAction="http://tempuri.org/IMesService/SelectMaterialPN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMaterialBasicMsg">
+      <soap:operation soapAction="http://tempuri.org/IMesService/DeleteMaterialBasicMsg" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
