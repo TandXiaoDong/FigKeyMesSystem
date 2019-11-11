@@ -502,10 +502,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<System.Data.DataSet> SelectTestResultUpperAsync(string sn, string typeNo, string station, bool IsSnFuzzy);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectMaterial", ReplyAction="http://tempuri.org/IMesService/SelectMaterialResponse")]
-        System.Data.DataSet SelectMaterial(string codeRID);
+        System.Data.DataSet SelectMaterial(string codeRID, int stockState);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectMaterial", ReplyAction="http://tempuri.org/IMesService/SelectMaterialResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> SelectMaterialAsync(string codeRID);
+        System.Threading.Tasks.Task<System.Data.DataSet> SelectMaterialAsync(string codeRID, int stockState);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectMaterialPN", ReplyAction="http://tempuri.org/IMesService/SelectMaterialPNResponse")]
         System.Data.DataSet SelectMaterialPN();
@@ -955,12 +955,12 @@ namespace MesManager.MesService {
             return base.Channel.SelectTestResultUpperAsync(sn, typeNo, station, IsSnFuzzy);
         }
         
-        public System.Data.DataSet SelectMaterial(string codeRID) {
-            return base.Channel.SelectMaterial(codeRID);
+        public System.Data.DataSet SelectMaterial(string codeRID, int stockState) {
+            return base.Channel.SelectMaterial(codeRID, stockState);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> SelectMaterialAsync(string codeRID) {
-            return base.Channel.SelectMaterialAsync(codeRID);
+        public System.Threading.Tasks.Task<System.Data.DataSet> SelectMaterialAsync(string codeRID, int stockState) {
+            return base.Channel.SelectMaterialAsync(codeRID, stockState);
         }
         
         public System.Data.DataSet SelectMaterialPN() {

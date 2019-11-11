@@ -9,6 +9,7 @@ using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using CommonUtils.FileHelper;
 using CommonUtils.Logger;
+using CommonUtils.CalculateAndString;
 using MesManager.Model;
 using MesManager.CommonEnum;
 using MesManager.Common;
@@ -28,13 +29,13 @@ namespace MesManager.UI
         private ProductTestConfig productTestConfig;
         private ProductCheckConfig productCheckConfig;
         private bool IsSavePrivateConfig;
-        List<BurnConfig> burnConfigList = new List<BurnConfig>();
-        List<SensibilityConfig> sensibilityConfigList = new List<SensibilityConfig>();
-        List<ShellConfig> shellConfigList = new List<ShellConfig>();
-        List<AirtageConfig> airtageConfigList = new List<AirtageConfig>();
-        List<StentConfig> stentConfigList = new List<StentConfig>();
-        List<ProductTestConfig> productTestConfigList = new List<ProductTestConfig>();
-        List<ProductCheckConfig> productCheckConfigList = new List<ProductCheckConfig>();
+        private List<BurnConfig> burnConfigList = new List<BurnConfig>();
+        private List<SensibilityConfig> sensibilityConfigList = new List<SensibilityConfig>();
+        private List<ShellConfig> shellConfigList = new List<ShellConfig>();
+        private List<AirtageConfig> airtageConfigList = new List<AirtageConfig>();
+        private List<StentConfig> stentConfigList = new List<StentConfig>();
+        private List<ProductTestConfig> productTestConfigList = new List<ProductTestConfig>();
+        private List<ProductCheckConfig> productCheckConfigList = new List<ProductCheckConfig>();
         private string standMapRoot;//机台使用映射根目录
         private string defaultRoot;//机台配置本地根目录
 
@@ -94,6 +95,8 @@ namespace MesManager.UI
         private void Btn_productTest_save_Click(object sender, EventArgs e)
         {
             bool IsContinue = false;
+            if (!CheckProductTestConfigParams())
+                return;
             var productTest = GetProductTestConfig(this.cb_product_testSerial.Text);
             if (productTest == null)
             {
@@ -108,7 +111,6 @@ namespace MesManager.UI
             }
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productTest))
                 return;
-            CheckProductTestConfigParams();
             SaveProductTestConfig();
             CheckCommonConfigParams();
             SaveCommonStandConfig();
@@ -117,6 +119,8 @@ namespace MesManager.UI
         private void Btn_productCheck_save_Click(object sender, EventArgs e)
         {
             bool IsContinue = false;
+            if (!CheckProductCheckConfigParams())
+                return;
             var productCheck = GetProductCheckConfig(this.tb_productCheck_testSerial.Text);
             if (productCheck == null)
             {
@@ -131,7 +135,6 @@ namespace MesManager.UI
             }
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productCheck))
                 return;
-            CheckProductCheckConfigParams();
             SaveProductCheckConfig();
             CheckCommonConfigParams();
             SaveCommonStandConfig();
@@ -140,6 +143,8 @@ namespace MesManager.UI
         private void Btn_airtage_save_Click(object sender, EventArgs e)
         {
             bool IsContinue = false;
+            if (!CheckAirtageConfigParams())
+                return;
             var airtage = GetAirtageConfig(this.tb_airtage_testSerial.Text);
             if (airtage == null)
             {
@@ -154,7 +159,6 @@ namespace MesManager.UI
             }
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.airtage))
                 return;
-            CheckAirtageConfigParams();
             SaveAirtageStandConfig();
             CheckCommonConfigParams();
             SaveCommonStandConfig();
@@ -163,6 +167,8 @@ namespace MesManager.UI
         private void Btn_stent_save_Click(object sender, EventArgs e)
         {
             bool IsContinue = false;
+            if (!CheckStentConfigParams())
+                return;
             var stent = GetStentConfig(this.cb_stent_testSerial.Text);
             if (stent == null)
             {
@@ -177,7 +183,6 @@ namespace MesManager.UI
             }
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.stent))
                 return;
-            CheckStentConfigParams();
             SaveStentStandConfig();
             CheckCommonConfigParams();
             SaveCommonStandConfig();
@@ -186,6 +191,8 @@ namespace MesManager.UI
         private void Btn_shell_save_Click(object sender, EventArgs e)
         {
             bool IsContinue = false;
+            if (!CheckShellConfigParams())
+                return;
             var shell = GetShellConfig(this.cb_shell_testSerial.Text);
             if (shell == null)
             {
@@ -200,7 +207,6 @@ namespace MesManager.UI
             }
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.shell))
                 return;
-            CheckShellConfigParams();
             SaveShellStandConfig();
             CheckCommonConfigParams();
             SaveCommonStandConfig();
@@ -209,6 +215,8 @@ namespace MesManager.UI
         private void Btn_sensilibity_save_Click(object sender, EventArgs e)
         {
             bool IsContinue = false;
+            if (!CheckSensibilityConfigParams())
+                return;
             var sen = GetSensibilityConfig(this.cb_sen_serialNumber.Text);
             if (sen == null)
             {
@@ -223,7 +231,6 @@ namespace MesManager.UI
             }
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.sensibility))
                 return;
-            CheckSensibilityConfigParams();
             SaveSensibilityStandConfig();
             CheckCommonConfigParams();
             SaveCommonStandConfig();
@@ -232,6 +239,8 @@ namespace MesManager.UI
         private void Btn_burn_save_Click(object sender, EventArgs e)
         {
             bool IsContinue = false;
+            if (!CheckBurnConfigParams())
+                return;
             var burn = GetBurnSerialConfig(this.cb_burn_serialNumber.Text);
             if (burn == null)
             {
@@ -246,7 +255,6 @@ namespace MesManager.UI
             }
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.burn))
                 return;
-            CheckBurnConfigParams();
             SaveBurnStandConfig();
             CheckCommonConfigParams();
             SaveCommonStandConfig();
@@ -254,9 +262,10 @@ namespace MesManager.UI
 
         private void Btn_common_save_Click(object sender, EventArgs e)
         {
+            if (!CheckCommonConfigParams())
+                return;
             if (MessageBox.Show("确认要保存修改的配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
-            CheckCommonConfigParams();
             SaveCommonStandConfig();
         }
         #endregion
@@ -1162,187 +1171,472 @@ namespace MesManager.UI
             CheckProductCheckConfigParams();
         }
 
-        private void CheckBurnConfigParams()
+        private string CheckAndWarn(RadTextBox inputText,string item)
         {
-            burnConfig.PowerValue = this.tb_burn_power.Text;
-            burnConfig.LocalAddress = this.tb_turn_localIP.Text;
-            burnConfig.AvometerAddress = this.tb_burn_avometer.Text;
-            burnConfig.AutoSweepCodeCom = this.tb_burn_autoSweepCode.Text;
-            burnConfig.Burner = this.tb_burn_burner.Text;
+            if (inputText.Text == "")
+            {
+                inputText.Focus();
+                MessageBox.Show($"【{item}】不能为空！","warn",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
+            return inputText.Text.Trim();
+        }
+
+        private string CheckAndWarn(ComboBox inputText, string item)
+        {
+            if (inputText.Text == "")
+            {
+                inputText.Focus();
+                MessageBox.Show($"【{item}】不能为空！", "warn", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            return inputText.Text.Trim();
+        }
+        private bool CheckBurnConfigParams()
+        {
+            burnConfig.PowerValue = CheckAndWarn(this.tb_burn_power,BurnConfig.PowerValueKey);
+            if (burnConfig.PowerValue == "")
+                return false;
+            burnConfig.LocalAddress = CheckAndWarn(this.tb_turn_localIP,BurnConfig.LocalAddressKey);
+            if (burnConfig.LocalAddress == "")
+                return false;
+            burnConfig.AvometerAddress = CheckAndWarn(this.tb_burn_avometer,BurnConfig.AvometerAddressKey);
+            if (burnConfig.AvometerAddress == "")
+                return false;
+            burnConfig.AutoSweepCodeCom = CheckAndWarn(this.tb_burn_autoSweepCode,BurnConfig.AutoSweepCodeComKey);
+            if (burnConfig.AutoSweepCodeCom == "")
+                return false;
+            burnConfig.Burner = CheckAndWarn(this.tb_burn_burner,BurnConfig.BurnerKey);
+            if (burnConfig.Burner == "")
+                return false;
             PorterRateEnum porterRateEnum;
-            Enum.TryParse(PorterRate.PorterStringToEnum(this.cb_burn_porterRate.Text),out porterRateEnum);
+            var burnPorterRate = CheckAndWarn(this.cb_burn_porterRate,burnConfig.PorterRate);
+            if (burnPorterRate == "")
+                return false;
+            Enum.TryParse(PorterRate.PorterStringToEnum(burnPorterRate),out porterRateEnum);
             burnConfig.PorterRate = (int)porterRateEnum + "";
-            burnConfig.CanId = this.tb_burn_canID.Text;
-            burnConfig.ProductId = this.tb_burn_productID.Text;
-            burnConfig.FirstVoltageMax = this.tb_burn_firstVoltageMax.Text;
-            burnConfig.FirstVoltageMin = this.tb_burn_firstVoltageMin.Text;
-            burnConfig.SecondVoltageMax = this.tb_burn_secondVoltageMax.Text;
-            burnConfig.SecondVoltageMin = this.tb_burn_secondVoltageMin.Text;
-            burnConfig.HardWareVersion = this.tb_burn_hardWareVersion.Text;
-            burnConfig.SoftWareVersion = this.tb_burn_softWareVersion.Text;
-            burnConfig.PartNumber = this.tb_burn_partNumber.Text;
-            burnConfig.ProgrameActualPath = this.tb_burn_programePath.Text;
-            burnConfig.ProgrameMapPath = LocalPathConvertToMapPath(this.tb_burn_programePath.Text);
-            burnConfig.ProgrameName = this.tb_burn_programeName.Text;
-            var burn = GetBurnSerialConfig(this.cb_burn_serialNumber.Text);
-            if (burn == null)
-                return;
-            burnConfig.SerialNumber = burn.ProductSerialPath;
+            burnConfig.CanId = CheckAndWarn(this.tb_burn_canID,BurnConfig.CanIdKey);
+            if (burnConfig.CanId == "")
+                return false;
+            burnConfig.ProductId = CheckAndWarn(this.tb_burn_productID,BurnConfig.ProductIdKey);
+            if (burnConfig.ProductId == "")
+                return false;
+            burnConfig.FirstVoltageMax = CheckAndWarn(this.tb_burn_firstVoltageMax,BurnConfig.FirstVoltageMaxKey);
+            if (burnConfig.FirstVoltageMax == "")
+                return false;
+            burnConfig.FirstVoltageMin = CheckAndWarn(this.tb_burn_firstVoltageMin,burnConfig.FirstVoltageMin);
+            if (burnConfig.FirstVoltageMin == "")
+                return false;
+            burnConfig.SecondVoltageMax = CheckAndWarn(this.tb_burn_secondVoltageMax,burnConfig.SecondVoltageMax);
+            if (burnConfig.SecondVoltageMax == "")
+                return false;
+            burnConfig.SecondVoltageMin = CheckAndWarn(this.tb_burn_secondVoltageMin,burnConfig.SecondVoltageMin);
+            if (burnConfig.SecondVoltageMin == "")
+                return false;
+            burnConfig.HardWareVersion = CheckAndWarn(this.tb_burn_hardWareVersion,burnConfig.HardWareVersion);
+            if (burnConfig.HardWareVersion == "")
+                return false;
+            burnConfig.SoftWareVersion = CheckAndWarn(this.tb_burn_softWareVersion,BurnConfig.SoftWareVersionKey);
+            if (burnConfig.SoftWareVersion == "")
+                return false;
+            burnConfig.PartNumber = CheckAndWarn(this.tb_burn_partNumber,BurnConfig.PartNumberKey);
+            if (burnConfig.PartNumber == "")
+                return false;
+            burnConfig.ProgrameActualPath = this.tb_burn_programePath.Text;//已屏蔽，无须验证
+            //burnConfig.ProgrameMapPath = LocalPathConvertToMapPath(this.tb_burn_programePath.Text);暂时去掉
+            burnConfig.ProgrameName = CheckAndWarn(this.tb_burn_programeName,BurnConfig.ProgrameNameKey);
+            if (burnConfig.ProgrameName == "")
+                return false;
+            var burnSerialNumber = CheckAndWarn(this.cb_burn_serialNumber,BurnConfig.SerialNumberKey);
+            if (burnSerialNumber == "")
+                return false;
+            var burn = GetBurnSerialConfig(burnSerialNumber);
+            if (burn != null)
+            {
+                burnConfig.SerialNumber = burn.ProductSerialPath;
+            }
+            return true;
         }
 
-        private void CheckCommonConfigParams()
+        private bool CheckCommonConfigParams()
         {
-            standCommon.PCBABarCodeLength = this.tb_common_pcbCodeLen.Text;
-            standCommon.ShellBarCodeLength = this.tb_common_shellCodeLen.Text;
-            standCommon.CaseBarCodeLength = this.tb_common_caseCodeLen.Text;
-            standCommon.PackageCaseAmount = this.tb_common_packageAmount.Text;
+            standCommon.PCBABarCodeLength = CheckAndWarn(this.tb_common_pcbCodeLen,StandCommon.PCBABarCodeLengthKey);
+            if (standCommon.PCBABarCodeLength == "")
+                return false;
+            if (!ExamineInputFormat.IsDecimal(standCommon.PCBABarCodeLength))
+            {
+                this.tb_common_pcbCodeLen.Focus();
+                MessageBox.Show("请输入十进制数字！","warn",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return false;
+            }
+            standCommon.ShellBarCodeLength = CheckAndWarn(this.tb_common_shellCodeLen,StandCommon.ShellBarCodeLengthKey);
+            if (standCommon.ShellBarCodeLength == "")
+                return false;
+            if (!ExamineInputFormat.IsDecimal(standCommon.ShellBarCodeLength))
+            {
+                this.tb_common_shellCodeLen.Focus();
+                MessageBox.Show("请输入十进制数字！", "warn", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            standCommon.CaseBarCodeLength = CheckAndWarn(this.tb_common_caseCodeLen,StandCommon.CaseBarCodeLengthKey);
+            if (standCommon.CaseBarCodeLength == "")
+                return false;
+            if (!ExamineInputFormat.IsDecimal(standCommon.CaseBarCodeLength))
+            {
+                this.tb_common_caseCodeLen.Focus();
+                MessageBox.Show("请输入十进制数字！", "warn", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            standCommon.PackageCaseAmount = this.tb_common_packageAmount.Text;//暂时屏幕，无需判断
+            return true;
         }
 
-        private void CheckSensibilityConfigParams()
+        private bool CheckSensibilityConfigParams()
         {
-            sensibilityConfig.PLCAddress = this.tb_sen_plc.Text;
-            sensibilityConfig.LocalAddress = this.tb_sen_localAddress.Text;
-            sensibilityConfig.AvometerAddress = this.tb_sen_avometer.Text;
-            sensibilityConfig.AutoSweepCode = this.tb_sen_autoSweepCode.Text;
-            sensibilityConfig.ProgrameControlPower = this.tb_sen_power.Text;
-            sensibilityConfig.WorkElectricMin = this.tb_sen_workElectricMin.Text;
-            sensibilityConfig.WorkElectricMax = this.tb_sen_workElectricMax.Text;
-            sensibilityConfig.PartNumber = this.tb_sen_partNumber.Text;
-            sensibilityConfig.HardWareVersion = this.tb_sen_hardWareVersion.Text;
-            sensibilityConfig.SoftWareVersion = this.tb_sen_softWareVersion.Text;
-            sensibilityConfig.DormantElectricMin = this.tb_sen_dormantElectricMin.Text;
-            sensibilityConfig.DormantElectricMax = this.tb_sen_dormantElectricMax.Text;
-            sensibilityConfig.BootLoader = this.tb_sen_boootloader.Text;
+            sensibilityConfig.PLCAddress = CheckAndWarn(this.tb_sen_plc,SensibilityConfig.PLCAddressKey);
+            if (sensibilityConfig.PLCAddress == "")
+                return false;
+            sensibilityConfig.LocalAddress = CheckAndWarn(this.tb_sen_localAddress,SensibilityConfig.LocalAddressKey);
+            if (sensibilityConfig.LocalAddress == "")
+                return false;
+            sensibilityConfig.AvometerAddress = CheckAndWarn(this.tb_sen_avometer,SensibilityConfig.AvometerAddressKey);
+            if (sensibilityConfig.AvometerAddress == "")
+                return false;
+            sensibilityConfig.AutoSweepCode = CheckAndWarn(this.tb_sen_autoSweepCode,SensibilityConfig.AutoSweepCodeKey);
+            if (sensibilityConfig.AutoSweepCode == "")
+                return false;
+            sensibilityConfig.ProgrameControlPower = CheckAndWarn(this.tb_sen_power,SensibilityConfig.ProgrameControlPowerKey);
+            if (sensibilityConfig.ProgrameControlPower == "")
+                return false;
+            sensibilityConfig.WorkElectricMin = CheckAndWarn(this.tb_sen_workElectricMin,SensibilityConfig.WorkElectricMinKey);
+            if (sensibilityConfig.WorkElectricMin == "")
+                return false;
+            sensibilityConfig.WorkElectricMax = CheckAndWarn(this.tb_sen_workElectricMax,SensibilityConfig.WorkElectricMaxKey);
+            if (sensibilityConfig.WorkElectricMax == "")
+                return false;
+            sensibilityConfig.PartNumber = CheckAndWarn(this.tb_sen_partNumber,SensibilityConfig.PartNumberKey);
+            if (sensibilityConfig.PartNumber == "")
+                return false;
+            sensibilityConfig.HardWareVersion = CheckAndWarn(this.tb_sen_hardWareVersion,SensibilityConfig.HardWareVersionKey);
+            if (sensibilityConfig.HardWareVersion == "")
+                return false;
+            sensibilityConfig.SoftWareVersion = CheckAndWarn(this.tb_sen_softWareVersion,SensibilityConfig.SoftWareVersionKey);
+            if (sensibilityConfig.SoftWareVersion == "")
+                return false;
+            sensibilityConfig.DormantElectricMin = CheckAndWarn(this.tb_sen_dormantElectricMin,SensibilityConfig.DormantElectricMinKey);
+            if (sensibilityConfig.DormantElectricMin == "")
+                return false;
+            sensibilityConfig.DormantElectricMax = CheckAndWarn(this.tb_sen_dormantElectricMax,SensibilityConfig.DormantElectricMaxKey);
+            if (sensibilityConfig.DormantElectricMax == "")
+                return false;
+            sensibilityConfig.BootLoader = CheckAndWarn(this.tb_sen_boootloader,SensibilityConfig.BootLoaderKey);
+            if (sensibilityConfig.BootLoader == "")
+                return false;
             PorterRateEnum porterRateEnum;
-            Enum.TryParse(PorterRate.PorterStringToEnum(this.tb_sen_porterRate.Text), out porterRateEnum);
+            var senPorterRate = CheckAndWarn(this.tb_sen_porterRate,SensibilityConfig.PorterRateKey);
+            if (senPorterRate == "")
+                return false;
+            Enum.TryParse(PorterRate.PorterStringToEnum(senPorterRate), out porterRateEnum);
             sensibilityConfig.PorterRate = (int)porterRateEnum + "";
-            sensibilityConfig.SendCanID = this.tb_sen_sendCanID.Text;
-            sensibilityConfig.ReceiveCanID = this.tb_sen_receiveCanID.Text;
-            sensibilityConfig.RfCanID = this.tb_sen_rfCanID.Text;
-            sensibilityConfig.CyclyCanID = this.tb_sen_cycleCanID.Text;
-            sensibilityConfig.ProductId = this.tb_sen_productID.Text;
-            var sensibility = GetSensibilityConfig(this.cb_sen_serialNumber.Text);
-            if (sensibility == null)
-                return;
-            sensibilityConfig.ProductSerial = sensibility.ProductSerialPath;
+
+            sensibilityConfig.SendCanID = CheckAndWarn(this.tb_sen_sendCanID,SensibilityConfig.SendCanIDKey);
+            if (sensibilityConfig.SendCanID == "")
+                return false;
+            sensibilityConfig.ReceiveCanID = CheckAndWarn(this.tb_sen_receiveCanID,SensibilityConfig.ReceiveCanIDKey);
+            if (sensibilityConfig.ReceiveCanID == "")
+                return false;
+            sensibilityConfig.RfCanID = CheckAndWarn(this.tb_sen_rfCanID,SensibilityConfig.RfCanIDKey);
+            if (sensibilityConfig.RfCanID == "")
+                return false;
+            sensibilityConfig.CyclyCanID = CheckAndWarn(this.tb_sen_cycleCanID,SensibilityConfig.CyclyCanIDKey);
+            if (sensibilityConfig.CyclyCanID == "")
+                return false;
+            sensibilityConfig.ProductId = CheckAndWarn(this.tb_sen_productID,SensibilityConfig.ProductIdKey);
+            if (sensibilityConfig.ProductId == "")
+                return false;
+            var senSerialNumber = CheckAndWarn(this.cb_sen_serialNumber,SensibilityConfig.ProductSerialKey);
+            if (senSerialNumber == "")
+                return false;
+            var sensibility = GetSensibilityConfig(senSerialNumber);
+            if (sensibility != null)
+                sensibilityConfig.ProductSerial = sensibility.ProductSerialPath;
+            return true;
         }
 
-        private void CheckShellConfigParams()
+        private bool CheckShellConfigParams()
         {
-            shellConfig.LocalAddressConMes = this.tb_shell_localConMes.Text;
-            shellConfig.LocalAddressConPLC = this.tb_shell_localIPConPLC.Text;
-            shellConfig.PLCAddress = this.tb_shell_plcAddress.Text;
-            shellConfig.SmallScrewSetTime = this.tb_shell_smallScrewSetTime.Text;
-            shellConfig.LargeScrewSetTime = this.tb_shell_largeScrewSetTime.Text;
-            shellConfig.FrontCover = this.tb_shell_frontCover.Text;
-            shellConfig.BackCover = this.tb_shell_backCover.Text;
-            shellConfig.PCBScrew = this.tb_shell_pcbScrew.Text;
-            shellConfig.ShellScrew = this.tb_shell_shellScrew.Text;
-            shellConfig.TopCover = this.tb_shell_topCover.Text;
-            shellConfig.Shell = this.tb_shell_shell.Text;
-            shellConfig.SealRingWire = this.tb_shell_sealRingWire.Text;
-            shellConfig.BubbleCotton = this.tb_shell_bubbleCotton.Text;
-            var shell = GetShellConfig(this.cb_shell_testSerial.Text);
-            if (shell == null)
-                return;
-            shellConfig.TestSerialNumber = shell.ProductSerialPath;
+            shellConfig.LocalAddressConMes = CheckAndWarn(this.tb_shell_localConMes,ShellConfig.LocalAddressConMesKey);
+            if (shellConfig.LocalAddressConMes == "")
+                return false;
+            shellConfig.LocalAddressConPLC = CheckAndWarn(this.tb_shell_localIPConPLC,ShellConfig.LocalAddressConPLCKey);
+            if (shellConfig.LocalAddressConPLC == "")
+                return false;
+            shellConfig.PLCAddress = CheckAndWarn(this.tb_shell_plcAddress,ShellConfig.PLCAddressKey);
+            if (shellConfig.PLCAddress == "")
+                return false;
+            shellConfig.SmallScrewSetTime = CheckAndWarn(this.tb_shell_smallScrewSetTime,ShellConfig.SmallScrewSetTimeKey);
+            if (shellConfig.SmallScrewSetTime == "")
+                return false;
+            shellConfig.LargeScrewSetTime = CheckAndWarn(this.tb_shell_largeScrewSetTime,ShellConfig.LargeScrewSetTimeKey);
+            if (shellConfig.LargeScrewSetTime == "")
+                return false;
+            shellConfig.FrontCover = CheckAndWarn(this.tb_shell_frontCover,ShellConfig.FrontCoverKey);
+            if (shellConfig.FrontCover == "")
+                return false;
+            shellConfig.BackCover = CheckAndWarn(this.tb_shell_backCover,ShellConfig.BackCoverKey);
+            if (shellConfig.BackCover == "")
+                return false;
+            shellConfig.PCBScrew = CheckAndWarn(this.tb_shell_pcbScrew,ShellConfig.PCBScrewKey);
+            if (shellConfig.PCBScrew == "")
+                return false;
+            shellConfig.ShellScrew = CheckAndWarn(this.tb_shell_shellScrew,ShellConfig.ShellScrewKey);
+            if (shellConfig.ShellScrew == "")
+                return false;
+            shellConfig.TopCover = CheckAndWarn(this.tb_shell_topCover,ShellConfig.TopCoverKey);
+            if (shellConfig.TopCover == "")
+                return false;
+            shellConfig.Shell = CheckAndWarn(this.tb_shell_shell,ShellConfig.ShellKey);
+            if (shellConfig.Shell == "")
+                return false;
+            shellConfig.SealRingWire = CheckAndWarn(this.tb_shell_sealRingWire,ShellConfig.SealRingWireKey);
+            if (shellConfig.SealRingWire == "")
+                return false;
+            shellConfig.BubbleCotton = CheckAndWarn(this.tb_shell_bubbleCotton,ShellConfig.BubbleCottonKey);
+            if (shellConfig.BubbleCotton == "")
+                return false;
+            var shellTestSerial = CheckAndWarn(this.cb_shell_testSerial,ShellConfig.TestSerialNumberKey);
+            if (shellTestSerial == "")
+                return false;
+            var shell = GetShellConfig(shellTestSerial);
+            if (shell != null)
+                shellConfig.TestSerialNumber = shell.ProductSerialPath;
+            return true;
         }
 
-        private void CheckAirtageConfigParams()
+        private bool CheckAirtageConfigParams()
         {
-            airtageConfig.LocalAddressConMes = this.tb_airtage_localIPConMes.Text;
-            airtageConfig.AirTester = this.tb_airtage_tester.Text;
-            airtageConfig.InflateAirTime = this.tb_airtage_inflateTime.Text;
-            airtageConfig.StableTime = this.tb_airtage_stableTime.Text;
-            airtageConfig.TestTime = this.tb_airtage_testTime.Text;
+            airtageConfig.LocalAddressConMes = CheckAndWarn(this.tb_airtage_localIPConMes,AirtageConfig.LocalAddressConMesKey);
+            if (airtageConfig.LocalAddressConMes == "")
+                return false;
+            airtageConfig.AirTester = CheckAndWarn(this.tb_airtage_tester,AirtageConfig.AirTesterKey);
+            if (airtageConfig.AirTester == "")
+                return false;
+            airtageConfig.InflateAirTime = CheckAndWarn(this.tb_airtage_inflateTime,AirtageConfig.InflateAirTimeKey);
+            if (airtageConfig.InflateAirTime == "")
+                return false;
+            airtageConfig.StableTime = CheckAndWarn(this.tb_airtage_stableTime,AirtageConfig.StableTimeKey);
+            if (airtageConfig.StableTime == "")
+                return false;
+            airtageConfig.TestTime = CheckAndWarn(this.tb_airtage_testTime,AirtageConfig.TestTimeKey);
+            if (airtageConfig.TestTime == "")
+                return false;
             AirtageSpreadUnitEnum spreadUnitEnum;
-            Enum.TryParse(this.tb_airtage_spread.Text.Replace("/", "_"),out spreadUnitEnum);
+            var airtageSpread = CheckAndWarn(this.tb_airtage_spread,AirtageConfig.SpreadUnitKey);
+            if (airtageSpread == "")
+                return false;
+            Enum.TryParse(airtageSpread.Replace("/", "_"),out spreadUnitEnum);
             airtageConfig.SpreadUnit = (int)spreadUnitEnum + "";
             AirtagePressureUnitEnum pressureUnitEnum;
+            var airtagePressure = CheckAndWarn(this.tb_airtage_pressureUnit,AirtageConfig.PressureUnitKey);
+            if (airtagePressure == "")
+                return false;
             Enum.TryParse(this.tb_airtage_pressureUnit.Text,out pressureUnitEnum);
             airtageConfig.PressureUnit = (int)pressureUnitEnum + "";
-            airtageConfig.MaxInflate = this.tb_airtage_maxInflate.Text;
-            airtageConfig.MinInflate = this.tb_airtage_minFlate.Text;
-            airtageConfig.TestConditionValue = this.tb_airtage_testConditionValue.Text;
-            airtageConfig.ReferenceConditionValue = this.tb_airtage_referenceConditionValue.Text;
+            airtageConfig.MaxInflate = CheckAndWarn(this.tb_airtage_maxInflate,AirtageConfig.MaxInflateKey);
+            if (airtageConfig.MaxInflate == "")
+                return false;
+            airtageConfig.MinInflate = CheckAndWarn(this.tb_airtage_minFlate,AirtageConfig.MinInflateKey);
+            if (airtageConfig.MinInflate == "")
+                return false;
+            airtageConfig.TestConditionValue = CheckAndWarn(this.tb_airtage_testConditionValue,AirtageConfig.TestConditionValueKey);
+            if (airtageConfig.TestConditionValue == "")
+                return false;
+            airtageConfig.ReferenceConditionValue = CheckAndWarn(this.tb_airtage_referenceConditionValue,AirtageConfig.ReferenceConditionValueKey);
+            if (airtageConfig.ReferenceConditionValue == "")
+                return false;
+            var airtageTestSerial = CheckAndWarn(this.tb_airtage_testSerial,AirtageConfig.TestSerialKey);
+            if (airtageTestSerial == "")
+                return false;
             var airtage = GetAirtageConfig(this.tb_airtage_testSerial.Text);
-            if (airtage == null)
-                return;
-            airtageConfig.TestSerial = airtage.ProductSerialPath;
+            if (airtage != null)
+                airtageConfig.TestSerial = airtage.ProductSerialPath;
+            return true;
         }
 
-        private void CheckStentConfigParams()
+        private bool CheckStentConfigParams()
         {
-            stentConfig.LocalAddressConMes = this.tb_stent_localIPConMes.Text;
-            stentConfig.LeftStent = this.tb_stent_leftStent.Text;
-            stentConfig.RightStent = this.tb_stent_rightStent.Text;
-            stentConfig.UnionStent = this.tb_stent_unionStent.Text;
-            stentConfig.Stent = this.tb_stent_stent.Text;
-            stentConfig.StentScrew = this.tb_stent_stentScrew.Text;
-            stentConfig.StentNut = this.tb_stent_stentNut.Text;
+            stentConfig.LocalAddressConMes = CheckAndWarn(this.tb_stent_localIPConMes,StentConfig.LocalAddressConMesKey);
+            if (stentConfig.LocalAddressConMes == "")
+                return false;
+            stentConfig.LeftStent = CheckAndWarn(this.tb_stent_leftStent,StentConfig.LeftStentKey);
+            if (stentConfig.LeftStent == "")
+                return false;
+            stentConfig.RightStent = CheckAndWarn(this.tb_stent_rightStent,StentConfig.RightStentKey);
+            if (stentConfig.RightStent == "")
+                return false;
+            stentConfig.UnionStent = CheckAndWarn(this.tb_stent_unionStent,StentConfig.UnionStentKey);
+            if (stentConfig.UnionStent == "")
+                return false;
+            stentConfig.Stent = CheckAndWarn(this.tb_stent_stent,StentConfig.StentKey);
+            if (stentConfig.Stent == "")
+                return false;
+            stentConfig.StentScrew = CheckAndWarn(this.tb_stent_stentScrew,StentConfig.StentSrcrewKey);
+            if (stentConfig.StentScrew == "")
+                return false;
+            stentConfig.StentNut = CheckAndWarn(this.tb_stent_stentNut,StentConfig.StentNutKey);
+            if (stentConfig.StentNut == "")
+                return false;
+            var stentTestSerial = CheckAndWarn(this.cb_stent_testSerial,StentConfig.TestSerialKey);
+            if (stentTestSerial == "")
+                return false;
             var stent = GetStentConfig(this.cb_stent_testSerial.Text);
-            if (stent == null)
-                return;
-            stentConfig.TestSerial = stent.ProductSerialPath;
+            if (stent != null)
+                stentConfig.TestSerial = stent.ProductSerialPath;
+            return true;
         }
 
-        private void CheckProductTestConfigParams()
+        private bool CheckProductTestConfigParams()
         {
-            productTestConfig.PlcAddress = this.tb_product_plcAddress.Text;
-            productTestConfig.LocalAddress = this.tb_product_localAddress.Text;
-            productTestConfig.Avometer = this.tb_product_avometer.Text;
-            productTestConfig.AutoSweepCode = this.tb_product_autoSweepCode.Text;
-            productTestConfig.TestBoard = this.tb_product_testBoard.Text;
-            productTestConfig.ControlPower = this.tb_product_controlPower.Text;
-            productTestConfig.WorkElectricMin = this.tb_product_workElectricMin.Text;
-            productTestConfig.WorkElectricMax = this.tb_product_workElectricMax.Text;
-            productTestConfig.PartNumber = this.tb_product_partNumber.Text;
-            productTestConfig.HardWareVersion = this.tb_product_hardWareVersion.Text;
-            productTestConfig.SoftWareVersion = this.tb_product_softWareVersion.Text;
-            productTestConfig.DormantElectricMin = this.tb_product_dormantElectricMin.Text;
-            productTestConfig.DormantElectricMax = this.tb_product_dormantElectricMax.Text;
-            productTestConfig.BootLoader = this.tb_prouct_bootLoader.Text;
+            productTestConfig.PlcAddress = CheckAndWarn(this.tb_product_plcAddress,ProductTestConfig.PlcAddressKey);
+            if (productTestConfig.PlcAddress == "")
+                return false;
+            productTestConfig.LocalAddress = CheckAndWarn(this.tb_product_localAddress,ProductTestConfig.LocalAddressKey);
+            if (productTestConfig.LocalAddress == "")
+                return false;
+            productTestConfig.Avometer = CheckAndWarn(this.tb_product_avometer,ProductTestConfig.AvometerKey);
+            if (productTestConfig.Avometer == "")
+                return false;
+            productTestConfig.AutoSweepCode = CheckAndWarn(this.tb_product_autoSweepCode,ProductTestConfig.AutoSweepCodeKey);
+            if (productTestConfig.AutoSweepCode == "")
+                return false;
+            productTestConfig.TestBoard = CheckAndWarn(this.tb_product_testBoard,ProductTestConfig.TestBoardKey);
+            if (productTestConfig.TestBoard == "")
+                return false;
+            productTestConfig.ControlPower = CheckAndWarn(this.tb_product_controlPower,ProductTestConfig.ControlPowerKey);
+            if (productTestConfig.ControlPower == "")
+                return false;
+            productTestConfig.WorkElectricMin = CheckAndWarn(this.tb_product_workElectricMin,ProductTestConfig.WorkElectricMinKey);
+            if (productTestConfig.WorkElectricMin == "")
+                return false;
+            productTestConfig.WorkElectricMax = CheckAndWarn(this.tb_product_workElectricMax,ProductTestConfig.WorkElectricMaxKey);
+            if (productTestConfig.WorkElectricMax == "")
+                return false;
+            productTestConfig.PartNumber = CheckAndWarn(this.tb_product_partNumber,ProductTestConfig.PartNumberKey);
+            if (productTestConfig.PartNumber == "")
+                return false;
+            productTestConfig.HardWareVersion = CheckAndWarn(this.tb_product_hardWareVersion,ProductTestConfig.HardWareVersionKey);
+            if (productTestConfig.HardWareVersion == "")
+                return false;
+            productTestConfig.SoftWareVersion = CheckAndWarn(this.tb_product_softWareVersion,ProductTestConfig.SoftWareVersionKey);
+            if (productTestConfig.SoftWareVersion == "")
+                return false;
+            productTestConfig.DormantElectricMin = CheckAndWarn(this.tb_product_dormantElectricMin,ProductTestConfig.DormantElectricMinKey);
+            if (productTestConfig.DormantElectricMin == "")
+                return false;
+            productTestConfig.DormantElectricMax = CheckAndWarn(this.tb_product_dormantElectricMax,ProductTestConfig.DormantElectricMaxKey);
+            if (productTestConfig.DormantElectricMax == "")
+                return false;
+            productTestConfig.BootLoader = CheckAndWarn(this.tb_prouct_bootLoader,ProductTestConfig.BootLoaderKey);
+            if (productTestConfig.BootLoader == "")
+                return false;
             PorterRateEnum porterRateEnum;
+            var productPorterRate = CheckAndWarn(this.tb_product_porterRate,ProductTestConfig.PorterRateKey);
+            if (productPorterRate == "")
+                return false;
             Enum.TryParse(PorterRate.PorterStringToEnum(this.tb_product_porterRate.Text), out porterRateEnum);
             productTestConfig.PorterRate = (int)porterRateEnum + "";
-            productTestConfig.SendCanID = this.tb_product_sendCanID.Text;
-            productTestConfig.ReceiveCanID = this.tb_product_receiveCanID.Text;
-            productTestConfig.CycleCanID = this.tb_product_cyclyCanID.Text;
-            productTestConfig.RF_CAN_ID = this.tb_product_rfCanID.Text;
-            productTestConfig.ProductId = this.tb_product_productID.Text;
+
+            productTestConfig.SendCanID = CheckAndWarn(this.tb_product_sendCanID,ProductTestConfig.SendCanIDKey);
+            if (productTestConfig.SendCanID == "")
+                return false;
+            productTestConfig.ReceiveCanID = CheckAndWarn(this.tb_product_receiveCanID,ProductTestConfig.ReceiveCanIDKey);
+            if (productTestConfig.ReceiveCanID == "")
+                return false;
+            productTestConfig.CycleCanID = CheckAndWarn(this.tb_product_cyclyCanID,ProductTestConfig.CycleCanIDKey);
+            if (productTestConfig.CycleCanID == "")
+                return false;
+            productTestConfig.RF_CAN_ID = CheckAndWarn(this.tb_product_rfCanID,ProductTestConfig.RF_CAN_IDKey);
+            if (productTestConfig.RF_CAN_ID == "")
+                return false;
+            productTestConfig.ProductId = CheckAndWarn(this.tb_product_productID,ProductTestConfig.ProductIdKey);
+            if (productTestConfig.ProductId == "")
+                return false;
+            var productTestSerial = CheckAndWarn(this.cb_product_testSerial,ProductTestConfig.TestSerialKey);
+            if (productTestSerial == "")
+                return false;
             var productTest = GetProductTestConfig(this.cb_product_testSerial.Text);
-            if (productTest == null)
-                return;
-            productTestConfig.TestSerial = productTest.ProductSerialPath;
+            if (productTest != null)
+                productTestConfig.TestSerial = productTest.ProductSerialPath;
+            return true;
         }
 
-        private void CheckProductCheckConfigParams()
+        private bool CheckProductCheckConfigParams()
         {
-            productCheckConfig.PlcAddress = this.tb_productCheck_plcAddress.Text;
-            productCheckConfig.LocalAddress = this.tb_productCheck_localAddress.Text;
-            productCheckConfig.Avometer = this.tb_productCheck_avometer.Text;
-            productCheckConfig.TestBoard = this.tb_productCheck_testBoard.Text;
-            productCheckConfig.ControlPower = this.tb_productCheck_controlPower.Text;
-            productCheckConfig.WorkElectricMin = this.tb_productCheck_workElectricMin.Text;
-            productCheckConfig.WorkElectricMax = this.tb_productCheck_workElectricMax.Text;
-            productCheckConfig.PartNumber = this.tb_productCheck_partNumber.Text;
-            productCheckConfig.HardWareVersion = this.tb_productCheck_hardWareVersion.Text;
-            productCheckConfig.SoftWareVersion = this.tb_productCheck_softWareVersion.Text;
-            productCheckConfig.DormantElectricMin = this.tb_productCheck_dormantElectricMin.Text;
-            productCheckConfig.DormantElectricMax = this.tb_productCheck_dormantElectricMax.Text;
-            productCheckConfig.BootLoader = this.tb_productCheck_bootLoader.Text;
+            productCheckConfig.PlcAddress = CheckAndWarn(this.tb_productCheck_plcAddress,ProductCheckConfig.PlcAddressKey);
+            if (productCheckConfig.PlcAddress == "")
+                return false;
+            productCheckConfig.LocalAddress = CheckAndWarn(this.tb_productCheck_localAddress,ProductCheckConfig.LocalAddressKey);
+            if (productCheckConfig.LocalAddress == "")
+                return false;
+            productCheckConfig.Avometer = CheckAndWarn(this.tb_productCheck_avometer,ProductCheckConfig.AvometerKey);
+            if (productCheckConfig.Avometer == "")
+                return false;
+            productCheckConfig.TestBoard = CheckAndWarn(this.tb_productCheck_testBoard,ProductCheckConfig.TestBoardKey);
+            if (productCheckConfig.TestBoard == "")
+                return false;
+            productCheckConfig.ControlPower = CheckAndWarn(this.tb_productCheck_controlPower,ProductCheckConfig.ControlPowerKey);
+            if (productCheckConfig.ControlPower == "")
+                return false;
+            productCheckConfig.WorkElectricMin = CheckAndWarn(this.tb_productCheck_workElectricMin,ProductCheckConfig.WorkElectricMinKey);
+            if (productCheckConfig.WorkElectricMin == "")
+                return false;
+            productCheckConfig.WorkElectricMax = CheckAndWarn(this.tb_productCheck_workElectricMax,ProductCheckConfig.WorkElectricMaxKey);
+            if (productCheckConfig.WorkElectricMax == "")
+                return false;
+            productCheckConfig.PartNumber = CheckAndWarn(this.tb_productCheck_partNumber,ProductCheckConfig.PartNumberKey);
+            if (productCheckConfig.PartNumber == "")
+                return false;
+            productCheckConfig.HardWareVersion = CheckAndWarn(this.tb_productCheck_hardWareVersion,ProductCheckConfig.HardWareVersionKey);
+            if (productCheckConfig.HardWareVersion == "")
+                return false;
+            productCheckConfig.SoftWareVersion = CheckAndWarn(this.tb_productCheck_softWareVersion,ProductCheckConfig.SoftWareVersionKey);
+            if (productCheckConfig.SoftWareVersion == "")
+                return false;
+            productCheckConfig.DormantElectricMin = CheckAndWarn(this.tb_productCheck_dormantElectricMin,ProductCheckConfig.DormantElectricMinKey);
+            if (productCheckConfig.DormantElectricMin == "")
+                return false;
+            productCheckConfig.DormantElectricMax = CheckAndWarn(this.tb_productCheck_dormantElectricMax,ProductCheckConfig.DormantElectricMaxKey);
+            if (productCheckConfig.DormantElectricMax == "")
+                return false;
+            productCheckConfig.BootLoader = CheckAndWarn(this.tb_productCheck_bootLoader,ProductCheckConfig.BootLoaderKey);
+            if (productCheckConfig.BootLoader == "")
+                return false;
             PorterRateEnum porterRateEnum;
+            var productCheckPorterRate = CheckAndWarn(this.tb_productCheck_porterRate,ProductCheckConfig.PorterRateKey);
+            if (productCheckPorterRate == "")
+                return false;
             Enum.TryParse(PorterRate.PorterStringToEnum(this.tb_productCheck_porterRate.Text), out porterRateEnum);
             productCheckConfig.PorterRate = (int)porterRateEnum + "";
-            productCheckConfig.SendCanID = this.tb_productCheck_sendCanID.Text;
-            productCheckConfig.ReceiveCanID = this.tb_productCheck_receiveCanID.Text;
-            productCheckConfig.CycleCanID = this.tb_productCheck_cycleCanID.Text;
-            productCheckConfig.RF_CAN_ID = this.tb_productCheck_rfCanID.Text;
-            productCheckConfig.ProductId = this.tb_productCheck_productID.Text;
+            productCheckConfig.SendCanID = CheckAndWarn(this.tb_productCheck_sendCanID,ProductCheckConfig.SendCanIDKey);
+            if (productCheckConfig.SendCanID == "")
+                return false;
+            productCheckConfig.ReceiveCanID = CheckAndWarn(this.tb_productCheck_receiveCanID,ProductCheckConfig.ReceiveCanIDKey);
+            if (productCheckConfig.ReceiveCanID == "")
+                return false;
+            productCheckConfig.CycleCanID = CheckAndWarn(this.tb_productCheck_cycleCanID,ProductCheckConfig.CycleCanIDKey);
+            if (productCheckConfig.CycleCanID == "")
+                return false;
+            productCheckConfig.RF_CAN_ID = CheckAndWarn(this.tb_productCheck_rfCanID,ProductCheckConfig.RF_CAN_IDKey);
+            if (productCheckConfig.RF_CAN_ID == "")
+                return false;
+            productCheckConfig.ProductId = CheckAndWarn(this.tb_productCheck_productID,ProductCheckConfig.ProductIdKey);
+            if (productCheckConfig.ProductId == "")
+                return false;
+            var checkTestSerial = CheckAndWarn(this.tb_productCheck_testSerial,ProductCheckConfig.TestSerialKey);
+            if (checkTestSerial == "")
+                return false;
             var productCheck = GetProductCheckConfig(this.tb_productCheck_testSerial.Text);
-            if (productCheck == null)
-                return;
-            productCheckConfig.TestSerial = productCheck.ProductSerialPath;
+            if (productCheck != null)
+                productCheckConfig.TestSerial = productCheck.ProductSerialPath;
+            return true;
         }
         #endregion
 

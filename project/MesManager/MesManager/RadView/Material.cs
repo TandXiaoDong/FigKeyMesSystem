@@ -174,7 +174,7 @@ namespace MesManager.RadView
         async private void SelectMaterial()
         {
             //调用查询接口
-            DataSet dataSet = await serviceClient.SelectMaterialAsync("");
+            DataSet dataSet = await serviceClient.SelectMaterialAsync("",1);
             DataTable dataTable = dataSet.Tables[0];
             dataSource.Clear();
             if (dataTable.Rows.Count > 0)

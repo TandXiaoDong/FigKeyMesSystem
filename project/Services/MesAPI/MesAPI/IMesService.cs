@@ -90,7 +90,7 @@ namespace MesAPI
 
         //物料信息接口
         [OperationContract]
-        DataSet SelectMaterial(string codeRID);
+        DataSet SelectMaterial(string codeRID,int stockState);
 
         [OperationContract]
         DataSet SelectMaterialPN();

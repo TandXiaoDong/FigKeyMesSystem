@@ -32,6 +32,7 @@ namespace MesManager.UI
         private const string MATERIAL_DC = "收料日期";
         private const string MATERIAL_NAME = "物料名称";
         private const string MATERIAL_QTY = "入库库存";
+        private const string MATERIAL_STOCK_OUT = "出库库存";
         private const string MATERIAL_DECRIBLE = "备注";
         private const string ADMIN = "管理员";
         private const string UPDATE_DATE = "更新日期";
@@ -93,7 +94,7 @@ namespace MesManager.UI
 
         private void InitMaterialRID()
         {
-            var dt = serviceClient.SelectMaterial("").Tables[0];
+            var dt = serviceClient.SelectMaterial("",1).Tables[0];
             if (dt.Rows.Count > 0)
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
@@ -460,7 +461,7 @@ namespace MesManager.UI
             this.radGridViewStock.Visible = true;
             this.radGridViewBind.Visible = false;
 
-            var dt = (await serviceClient.SelectMaterialAsync(queryCondition)).Tables[0];
+            var dt = (await serviceClient.SelectMaterialAsync(queryCondition,1)).Tables[0];
             materialStockData.Clear();
             if (dt.Rows.Count > 0)
             {

@@ -328,6 +328,7 @@
     <Compile Include="RadView\MaterialOutBox.Designer.cs">
       <DependentUpon>MaterialOutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\StandConfigData.cs" />
     <Compile Include="UI\BasicConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -655,6 +656,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MES修改设计.txt" />
+    <Content Include="描述.txt" />
     <Content Include="测试内容.txt" />
     <None Include="Connected Services\MesServiceTest\configuration91.svcinfo" />
     <None Include="Connected Services\MesServiceTest\configuration.svcinfo" />
@@ -669,7 +672,7 @@
     <None Include="Resources\figkeyLogo.png" />
     <None Include="Resources\favicon.ico" />
     <None Include="Resources\t01ef4cc12bbcc9fb6e.jpg" />
-    <None Include="Resources\背景-01.jpg" />
+    <None Include="Resources\����-01.jpg" />
     <None Include="Resources\GenericShareFolder_128x128.png" />
     <None Include="Resources\GenericShareFolder_24x24.png" />
     <None Include="Connected Services\MesService\configuration91.svcinfo" />
@@ -682,13 +685,12 @@
     <None Include="Connected Services\MesServiceTest\MesService.disco" />
     <Content Include="GenericShareFolder.ico" />
     <Content Include="License-LGPL.txt" />
-    <Content Include="MES修改设计.txt" />
     <None Include="Resources\update.png" />
     <None Include="Resources\upload_for_cloud.png" />
     <None Include="Resources\DeleteDataSource_16x16.png" />
     <None Include="Resources\ClearGrid.png" />
-    <None Include="Resources\万通公司LOG.png" />
-    <None Include="Resources\万通公司LOG426x90.png" />
+    <None Include="Resources\��ͨ��˾LOG.png" />
+    <None Include="Resources\��ͨ��˾LOG426x90.png" />
     <None Include="Resources\Export_16x16.png" />
     <None Include="Resources\Refresh_16x16.png" />
     <None Include="Resources\file_extension_txt.png" />
@@ -725,12 +727,11 @@
     <None Include="Resources\arrow_up.png" />
     <None Include="Resources\arrow_down.png" />
     <None Include="Resources\cancel.png" />
-    <Content Include="描述.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 和 x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 �� x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

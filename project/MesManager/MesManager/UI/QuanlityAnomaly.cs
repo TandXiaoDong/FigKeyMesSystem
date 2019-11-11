@@ -130,7 +130,7 @@ namespace MesManager.UI
                     cb_station.Items.Add(station);
                 }
             }
-            DataTable dt = (await serviceClient.SelectMaterialAsync("")).Tables[0];
+            DataTable dt = (await serviceClient.SelectMaterialAsync("",1)).Tables[0];
             if (dt.Rows.Count < 1)
                 return;
             this.cb_materialCode.Items.Clear();

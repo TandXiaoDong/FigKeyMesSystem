@@ -13,6 +13,7 @@ using MesManager.RadView;
 using System.Configuration;
 using WindowsFormTelerik.GridViewExportData;
 using CommonUtils.FileHelper;
+using MesManager.Common;
 
 namespace MesManager.UI
 {
@@ -479,6 +480,12 @@ namespace MesManager.UI
                 LogHelper.Log.Error(ex.Message + "\r\n" + ex.StackTrace);
                 MessageBox.Show($"{ex.Message}","ERROR",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
+        }
+
+        private void ModifyStandConfigProductType(string oldTypeNo,string newTypeNo)
+        {
+            StandConfigData standConfigData = new StandConfigData();
+            standConfigData.ReadProductTypeConfigToSaveAs(oldTypeNo,newTypeNo);
         }
         #endregion
     }

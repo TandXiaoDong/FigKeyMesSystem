@@ -40,7 +40,7 @@ namespace MesManager.UI
 
         async private void SelectMaterialMsg()
         {
-            DataTable dt = (await serviceClient.SelectMaterialAsync(this.tb_inputMsg.Text)).Tables[0];
+            DataTable dt = (await serviceClient.SelectMaterialAsync(this.tb_inputMsg.Text,1)).Tables[0];
             DataTable data = new DataTable();
             data.Columns.Add("序号");
             data.Columns.Add("物料编码");
