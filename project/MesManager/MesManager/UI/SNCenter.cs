@@ -138,7 +138,23 @@ namespace MesManager.UI
 
         private void Tool_materialClearDB_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (this.radGridViewMaterial.Rows.Count < 1)
+            {
+                MessageBox.Show("没有可以清除的数据!","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show("确认要清除当前数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            var delRow = serviceClient.DeleteMaterialBasicMsg(this.currentMaterialQueryCondition);
+            if (delRow > 0)
+            {
+                MessageBox.Show("删除数据完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("删除数据未完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            //考虑删除绑定记录
         }
 
         private void Tool_packageClearDB_Click(object sender, EventArgs e)
@@ -148,16 +164,7 @@ namespace MesManager.UI
 
         private void Tool_quanlityClearDB_Click(object sender, EventArgs e)
         {
-            var delRow = serviceClient.DeleteMaterialBasicMsg(this.currentMaterialQueryCondition);
-            if (delRow > 0)
-            {
-                MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            //考虑删除绑定记录
+            
         }
 
         private void Tool_SNClearDB_Click(object sender, EventArgs e)

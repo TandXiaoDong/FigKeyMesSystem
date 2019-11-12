@@ -97,6 +97,8 @@ namespace MesManager.UI
             bool IsContinue = false;
             if (!CheckProductTestConfigParams())
                 return;
+            if (!CheckCommonConfigParams())
+                return;
             var productTest = GetProductTestConfig(this.cb_product_testSerial.Text);
             if (productTest == null)
             {
@@ -112,7 +114,6 @@ namespace MesManager.UI
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productTest))
                 return;
             SaveProductTestConfig();
-            CheckCommonConfigParams();
             SaveCommonStandConfig();
         }
 
@@ -120,6 +121,8 @@ namespace MesManager.UI
         {
             bool IsContinue = false;
             if (!CheckProductCheckConfigParams())
+                return;
+            if (!CheckCommonConfigParams())
                 return;
             var productCheck = GetProductCheckConfig(this.tb_productCheck_testSerial.Text);
             if (productCheck == null)
@@ -136,7 +139,6 @@ namespace MesManager.UI
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productCheck))
                 return;
             SaveProductCheckConfig();
-            CheckCommonConfigParams();
             SaveCommonStandConfig();
         }
 
@@ -144,6 +146,8 @@ namespace MesManager.UI
         {
             bool IsContinue = false;
             if (!CheckAirtageConfigParams())
+                return;
+            if (!CheckCommonConfigParams())
                 return;
             var airtage = GetAirtageConfig(this.tb_airtage_testSerial.Text);
             if (airtage == null)
@@ -160,7 +164,6 @@ namespace MesManager.UI
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.airtage))
                 return;
             SaveAirtageStandConfig();
-            CheckCommonConfigParams();
             SaveCommonStandConfig();
         }
 
@@ -168,6 +171,8 @@ namespace MesManager.UI
         {
             bool IsContinue = false;
             if (!CheckStentConfigParams())
+                return;
+            if (!CheckCommonConfigParams())
                 return;
             var stent = GetStentConfig(this.cb_stent_testSerial.Text);
             if (stent == null)
@@ -184,7 +189,6 @@ namespace MesManager.UI
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.stent))
                 return;
             SaveStentStandConfig();
-            CheckCommonConfigParams();
             SaveCommonStandConfig();
         }
 
@@ -192,6 +196,8 @@ namespace MesManager.UI
         {
             bool IsContinue = false;
             if (!CheckShellConfigParams())
+                return;
+            if (!CheckCommonConfigParams())
                 return;
             var shell = GetShellConfig(this.cb_shell_testSerial.Text);
             if (shell == null)
@@ -208,7 +214,6 @@ namespace MesManager.UI
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.shell))
                 return;
             SaveShellStandConfig();
-            CheckCommonConfigParams();
             SaveCommonStandConfig();
         }
 
@@ -216,6 +221,8 @@ namespace MesManager.UI
         {
             bool IsContinue = false;
             if (!CheckSensibilityConfigParams())
+                return;
+            if (!CheckCommonConfigParams())
                 return;
             var sen = GetSensibilityConfig(this.cb_sen_serialNumber.Text);
             if (sen == null)
@@ -232,7 +239,6 @@ namespace MesManager.UI
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.sensibility))
                 return;
             SaveSensibilityStandConfig();
-            CheckCommonConfigParams();
             SaveCommonStandConfig();
         }
 
@@ -240,6 +246,8 @@ namespace MesManager.UI
         {
             bool IsContinue = false;
             if (!CheckBurnConfigParams())
+                return;
+            if (!CheckCommonConfigParams())
                 return;
             var burn = GetBurnSerialConfig(this.cb_burn_serialNumber.Text);
             if (burn == null)
@@ -256,7 +264,6 @@ namespace MesManager.UI
             if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.burn))
                 return;
             SaveBurnStandConfig();
-            CheckCommonConfigParams();
             SaveCommonStandConfig();
         }
 

@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition3 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition4 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition6 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition7 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition8 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition9 = new Telerik.WinControls.UI.TableViewDefinition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SNCenter));
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition5 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition10 = new Telerik.WinControls.UI.TableViewDefinition();
             this.chamferedRectShape1 = new Telerik.WinControls.ChamferedRectShape();
             this.panel_material = new System.Windows.Forms.Panel();
             this.radGridViewMaterial = new Telerik.WinControls.UI.RadGridView();
@@ -138,7 +138,7 @@
             this.panel_material.Controls.Add(this.panel5);
             this.panel_material.Location = new System.Drawing.Point(4, 100);
             this.panel_material.Name = "panel_material";
-            this.panel_material.Size = new System.Drawing.Size(726, 57);
+            this.panel_material.Size = new System.Drawing.Size(758, 42);
             this.panel_material.TabIndex = 27;
             // 
             // radGridViewMaterial
@@ -149,10 +149,10 @@
             // 
             // 
             // 
-            this.radGridViewMaterial.MasterTemplate.ViewDefinition = tableViewDefinition1;
+            this.radGridViewMaterial.MasterTemplate.ViewDefinition = tableViewDefinition6;
             this.radGridViewMaterial.Name = "radGridViewMaterial";
             this.radGridViewMaterial.Padding = new System.Windows.Forms.Padding(1);
-            this.radGridViewMaterial.Size = new System.Drawing.Size(726, 20);
+            this.radGridViewMaterial.Size = new System.Drawing.Size(758, 5);
             this.radGridViewMaterial.TabIndex = 8;
             this.radGridViewMaterial.ThemeName = "Breeze";
             // 
@@ -162,7 +162,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(726, 37);
+            this.panel5.Size = new System.Drawing.Size(758, 37);
             this.panel5.TabIndex = 7;
             // 
             // toolStrip3
@@ -173,14 +173,14 @@
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel3,
             this.tb_material,
+            this.btn_materialSelect,
+            this.tool_materialClearDB,
             this.toolStripLabel7,
             this.tool_material_exportFilter,
-            this.tool_material_export,
-            this.btn_materialSelect,
-            this.tool_materialClearDB});
+            this.tool_material_export});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(726, 37);
+            this.toolStrip3.Size = new System.Drawing.Size(758, 37);
             this.toolStrip3.TabIndex = 32;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -202,8 +202,8 @@
             // 
             this.toolStripLabel7.ForeColor = System.Drawing.Color.White;
             this.toolStripLabel7.Name = "toolStripLabel7";
-            this.toolStripLabel7.Size = new System.Drawing.Size(61, 34);
-            this.toolStripLabel7.Text = "导出格式";
+            this.toolStripLabel7.Size = new System.Drawing.Size(74, 34);
+            this.toolStripLabel7.Text = "导出格式：";
             // 
             // tool_material_exportFilter
             // 
@@ -258,7 +258,7 @@
             // 
             // 
             this.radGridViewSn.MasterTemplate.HorizontalScrollState = Telerik.WinControls.UI.ScrollState.AlwaysShow;
-            this.radGridViewSn.MasterTemplate.ViewDefinition = tableViewDefinition2;
+            this.radGridViewSn.MasterTemplate.ViewDefinition = tableViewDefinition7;
             this.radGridViewSn.Name = "radGridViewSn";
             this.radGridViewSn.Size = new System.Drawing.Size(726, 1);
             this.radGridViewSn.TabIndex = 10;
@@ -281,11 +281,11 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.tb_sn,
+            this.btn_selectOfSn,
+            this.tool_SNClearDB,
             this.toolStripLabel5,
             this.tool_sn_exportFilter,
-            this.tool_sn_export,
-            this.btn_selectOfSn,
-            this.tool_SNClearDB});
+            this.tool_sn_export});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(726, 39);
@@ -373,7 +373,7 @@
             // 
             // 
             // 
-            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition3;
+            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition8;
             this.radGridViewPackage.Name = "radGridViewPackage";
             this.radGridViewPackage.Size = new System.Drawing.Size(726, 3);
             this.radGridViewPackage.TabIndex = 32;
@@ -396,11 +396,11 @@
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel2,
             this.tb_package,
+            this.btn_selectOfPackage,
+            this.tool_packageClearDB,
             this.toolStripLabel6,
             this.tool_package_exportFilter,
-            this.tool_package_export,
-            this.btn_selectOfPackage,
-            this.tool_packageClearDB});
+            this.tool_package_export});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(726, 42);
@@ -479,7 +479,7 @@
             // 
             // 
             // 
-            this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition4;
+            this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition9;
             this.radGridViewCheck.Name = "radGridViewCheck";
             this.radGridViewCheck.Size = new System.Drawing.Size(726, 0);
             this.radGridViewCheck.TabIndex = 11;
@@ -502,11 +502,11 @@
             this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel4,
             this.tb_productCheck,
+            this.btn_productCheck,
+            this.tool_productCheckClearDB,
             this.toolStripLabel8,
             this.tool_productCheck_exportFilter,
-            this.tool_productCheck_export,
-            this.btn_productCheck,
-            this.tool_productCheckClearDB});
+            this.tool_productCheck_export});
             this.toolStrip4.Location = new System.Drawing.Point(0, 0);
             this.toolStrip4.Name = "toolStrip4";
             this.toolStrip4.Size = new System.Drawing.Size(726, 40);
@@ -645,7 +645,7 @@
             // 
             // 
             // 
-            this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition5;
+            this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition10;
             this.radGridViewQuanlity.Name = "radGridViewQuanlity";
             this.radGridViewQuanlity.Size = new System.Drawing.Size(726, 3);
             this.radGridViewQuanlity.TabIndex = 10;
@@ -668,11 +668,11 @@
             this.toolStrip5.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel9,
             this.tb_quanlity_filter,
+            this.btn_quanlity,
+            this.tool_quanlityClearDB,
             this.toolStripLabel10,
             this.tool_quanlity_exportFilter,
-            this.tool_quanlity_export,
-            this.btn_quanlity,
-            this.tool_quanlityClearDB});
+            this.tool_quanlity_export});
             this.toolStrip5.Location = new System.Drawing.Point(0, 0);
             this.toolStrip5.Name = "toolStrip5";
             this.toolStrip5.Size = new System.Drawing.Size(726, 40);

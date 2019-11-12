@@ -225,8 +225,35 @@ namespace MesWcfService.MessageQueue.RemoteClient
                  *  2）装配时存入的是外壳SN
                  * 查询无结果-未绑定PCBA：直接由传入SN查询
                  */ 
-                var snPCBA = SelectSN(sn);
-                LogHelper.Log.Info("【查询是否绑定PCBA】snPCBA="+snPCBA);
+                var snPCBA = SelectSN(sn);//不为空-正常绑定
+                LogHelper.Log.Info("【查询是否绑定PCBA】snPCBA="+snPCBA+"--判断是否有解绑记录");
+                if (snPCBA == "")//查询无正常绑定记录
+                {
+                    /*
+                     * 1)无绑定记录：继续下一步查询
+                     * 2）已解绑--PCBA异常/外壳异常：
+                     * 1、PCBA异常：
+                     *      1）传入PCBA时：查询出PCBA异常--不能继续
+                     *      2）传入外壳时：查询出PCBA异常--不能继续
+                     * 2、外壳异常：
+                     *      1)传入PCBA时：
+                     *      2)传入外壳时：
+                     *      
+                     */
+                    if (IsExistBindRecord(sn))
+                    {
+                        //存在绑定记录：可能正常/异常
+                        if (IsBindedShellExcept(sn))//判断是否有异常绑定记录
+                        {
+                            LogHelper.Log.Info("【查询是否有解绑记录】存在异常解绑--外壳异常");
+                            queryResult = new string[3];
+                            queryResult[0] = sn;
+                            queryResult[1] = lastStation;
+                            queryResult[2] = "FAIL";
+                            return queryResult;
+                        }
+                    }
+                }
                 //根据上一站位在查询该站位的最后一条记录
                 string selectSQL = $"SELECT " +
                     $"{DbTable.F_Test_Result.TEST_RESULT}," +
@@ -346,6 +373,12 @@ namespace MesWcfService.MessageQueue.RemoteClient
         }
         public static string SelectSN(string snOutter)
         {
+            /*
+             * 查询是否有绑定关系
+             * 1）不存在绑定记录
+             * 2）存在绑定记录-已绑定
+             * 3）存在绑定记录-已解绑--PCBA异常/外壳异常
+             */ 
             //两种情况
             //sn= snoutter;
             var selectSQL = $"SELECT {DbTable.F_BINDING_PCBA.SN_PCBA} FROM  {DbTable.F_BINDING_PCBA_NAME} " +
@@ -368,6 +401,76 @@ namespace MesWcfService.MessageQueue.RemoteClient
             if (dt.Rows.Count > 0)
                 return dt.Rows[0][0].ToString();
             return "";
+        }
+
+        private static bool IsBindedShellExcept(string sn)
+        {
+            var selectSQL = $"SELECT " +
+                $"{DbTable.F_BINDING_PCBA.PCBA_STATE}," +
+                $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} " +
+                $"FROM " +
+                $"{DbTable.F_BINDING_PCBA_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}'" +
+                $"AND " +
+                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}' " +
+                $"AND " +
+                $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '0' ";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                //存在绑定记录---已解绑-外壳异常
+                return true;
+            }
+            else
+            {
+                //外壳异常情况
+                //根据传入SN不同
+                //查询PCBA状态
+                selectSQL = $"SELECT " +
+                    $"{DbTable.F_BINDING_PCBA.PCBA_STATE}," +
+                    $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} " +
+                    $"FROM " +
+                    $"{DbTable.F_BINDING_PCBA_NAME} " +
+                    $"WHERE " +
+                    $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}'" +
+                    $"AND " +
+                    $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '1' "; 
+                dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    //查询外壳状态
+                    selectSQL = $"SELECT " +
+                    $"{DbTable.F_BINDING_PCBA.PCBA_STATE}," +
+                    $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} " +
+                    $"FROM " +
+                    $"{DbTable.F_BINDING_PCBA_NAME} " +
+                    $"WHERE " +
+                    $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}'" +
+                    $"AND " +
+                    $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '0' ";
+                    dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                    if (dt.Rows.Count > 0)
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        private static bool IsExistBindRecord(string sn)
+        {
+            var selectSQL = $"SELECT * FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}' " +
+                $"OR " +
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+                return true;
+            return false;
         }
 
         private static bool IsFirstStation(string typeNo,string stationName)

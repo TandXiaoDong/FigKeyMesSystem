@@ -60,15 +60,15 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 //update
                 LogHelper.Log.Info("【更新PCBA绑定状态】针对已解绑再次恢复绑定的情况");
                 var upDateSQL = $"UPDATE {DbTable.F_BINDING_PCBA_NAME} SET " +
-                $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '1' " +
-                $"WHERE " +
-                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn_pcba}' " +
-                $"AND " +
-                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn_outter}'" +
-                $"AND " +
-                $"{DbTable.F_BINDING_PCBA.MATERIAL_CODE} = '{materialCode}'" +
-                $"AND " +
-                $"{DbTable.F_BINDING_PCBA.PRODUCT_TYPE_NO} = '{productTypeNo}'";
+                    $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '1' " +
+                    $"WHERE " +
+                    $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn_pcba}' " +
+                    $"AND " +
+                    $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn_outter}' " +
+                    //$"AND " +
+                    //$"{DbTable.F_BINDING_PCBA.MATERIAL_CODE} = '{materialCode}'" +
+                    $"AND " +
+                    $"{DbTable.F_BINDING_PCBA.PRODUCT_TYPE_NO} = '{productTypeNo}'";
                 var row = SQLServer.ExecuteNonQuery(upDateSQL);
                 if (row > 0)
                 {

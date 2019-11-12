@@ -2221,7 +2221,7 @@ namespace MesAPI
                 var productSN = GetProductSn(queryCondition);
                 deleteOfMaterialCode = $"DELETE FROM {DbTable.F_MATERIAL_STATISTICS_NAME} " +
                     $"WHERE " +
-                    $"{DbTable.F_Material_Statistics.MATERIAL_CODE} = '{queryCondition}'";
+                    $"{DbTable.F_Material_Statistics.MATERIAL_CODE} like '%{queryCondition}%'";
                 delRow = SQLServer.ExecuteNonQuery(deleteOfMaterialCode);
                 if (delRow < 1)
                 {
@@ -2250,6 +2250,17 @@ namespace MesAPI
                 LogHelper.Log.Info($"【删除部分物料使用数据-物料条码】删除{delRow}条");
                 return delRow;
             }
+        }
+
+        private void DeleteBindedData(string queryCondition)
+        {
+            /*
+             * 删除绑定记录条件：
+             * 1）过站记录与物料记录至少有一个被执行完删除时
+             * 
+             */
+             //删除物料结束时，查询是否还存在过站记录
+
         }
 
         private DataSet SelectMaterialDetail(DataTable dataSourceMaterialBasic,string selectSQL)
