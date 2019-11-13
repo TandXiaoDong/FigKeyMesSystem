@@ -412,7 +412,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 $"{DbTable.F_BINDING_PCBA_NAME} " +
                 $"WHERE " +
                 $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}'" +
-                $"AND " +
+                $"OR " +
                 $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}' " +
                 $"AND " +
                 $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '0' ";

@@ -1129,7 +1129,8 @@ namespace MesAPI
                 snLen = 0;
             else
                 snLen = sn.Length;
-            var selectSQL = $"SELECT * FROM {DbTable.F_BINDING_PCBA_NAME} WHERE {DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}'";
+            var selectSQL = $"SELECT * FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}' AND {DbTable.F_BINDING_PCBA.BINDING_STATE} = '1'";
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             if (dt.Rows.Count > 0)
             {
@@ -1139,7 +1140,7 @@ namespace MesAPI
             {
                 //传入值为外壳值
                 selectSQL = $"SELECT {DbTable.F_BINDING_PCBA.SN_PCBA} FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
-                    $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}'";
+                    $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}' AND {DbTable.F_BINDING_PCBA.BINDING_STATE} = '1'";
                 dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
                 if (dt.Rows.Count > 0)
                 {
@@ -1161,7 +1162,8 @@ namespace MesAPI
                 snLen = 0;
             else
                 snLen = sn.Length;
-            var selectSQL = $"SELECT * FROM {DbTable.F_BINDING_PCBA_NAME} WHERE {DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}'";
+            var selectSQL = $"SELECT * FROM {DbTable.F_BINDING_PCBA_NAME} WHERE {DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}' AND " +
+                $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '1'";
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             if (dt.Rows.Count > 0)
             {
@@ -1171,7 +1173,7 @@ namespace MesAPI
             {
                 //传入值为外壳值
                 selectSQL = $"SELECT {DbTable.F_BINDING_PCBA.SN_OUTTER} FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
-                    $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}'";
+                    $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}' AND {DbTable.F_BINDING_PCBA.BINDING_STATE} = '1'";
                 dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
                 if (dt.Rows.Count > 0)
                 {
@@ -2259,8 +2261,14 @@ namespace MesAPI
              * 1）过站记录与物料记录至少有一个被执行完删除时
              * 
              */
-             //删除物料结束时，查询是否还存在过站记录
-
+            //删除物料结束时，查询是否还存在过站记录
+            var selectTestResult = $"SELECT * FROM {DbTable.F_TEST_RESULT_NAME} WHERE {DbTable.F_Test_Result.SN} = '{queryCondition}'";
+            var dt = SQLServer.ExecuteDataSet(selectTestResult).Tables[0];
+            if (dt.Rows.Count < 1)
+            {
+                //不存在过站记录
+                //删除绑定记录
+            }
         }
 
         private DataSet SelectMaterialDetail(DataTable dataSourceMaterialBasic,string selectSQL)

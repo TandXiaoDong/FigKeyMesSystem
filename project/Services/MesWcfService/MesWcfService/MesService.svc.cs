@@ -763,35 +763,41 @@ namespace MesWcfService
              * 2）外壳异常：更新所有外壳状态
              * 3）PCBA与外壳都异常：更新所有PCBA与所有外壳异常状态
              */
-            var pcbaUpdate = "";
+            var updateBindState = "";//更新绑定状态
+            var updateState = "";//更新PCBA/外壳状态
             if (pcbaState == 0 && outterState == 1)
             {
-                pcbaUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
-                    $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '0' ," +
-                    $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                updateState = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                    $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '0' " +
                     $"WHERE {DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbaSn}'";
             }
             else if (pcbaState == 1 && outterState == 0)
             {
-                pcbaUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
-                    $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '0'," +
-                    $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
-                    $"WHERE {DbTable.F_BINDING_PCBA.SN_OUTTER} = '{outterSn}'";
+                updateState = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                  $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '0' " +
+                  $"WHERE {DbTable.F_BINDING_PCBA.SN_OUTTER} = '{outterSn}'";
             }
             else if (pcbaState == 0 && outterState == 0)
             {
-                pcbaUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
-                    $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '0'," +
-                    $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '0'," +
-                    $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                updateState = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                    $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '0' " +
                     $"WHERE " +
-                    $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{outterSn}' " +
-                    $"OR " +
+                    $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{outterSn}'";
+                SQLServer.ExecuteNonQuery(updateState);
+                updateState = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                    $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '0' " +
+                    $"WHERE " +
                     $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbaSn}'";
             }
-            LogHelper.Log.Info("【更新解除绑定状态】"+ pcbaUpdate);
-            var res = SQLServer.ExecuteNonQuery(pcbaUpdate);
-            if (res > 0)
+            updateBindState = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                    $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                    $"WHERE {DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbaSn}' " +
+                    $"AND {DbTable.F_BINDING_PCBA.SN_OUTTER} =  '{outterSn}'";
+            LogHelper.Log.Info("【更新解除绑定状态】updateBindState=" + updateBindState);
+            LogHelper.Log.Info("【更新解除绑定状态】updateState=" + updateState);
+            var bindRow = SQLServer.ExecuteNonQuery(updateBindState);
+            var stateRow = SQLServer.ExecuteNonQuery(updateState);
+            if (bindRow > 0 && stateRow > 0)
             {
                 //state update successful
                 return true;
@@ -812,36 +818,41 @@ namespace MesWcfService
              */
             try
             {
-                var pcbaUpdate = "";
+                var bindStateUpdate = "";
+                var stateUpdate = "";
                 if (pcbaState == 1 && outterState == 0)
                 {
-                    pcbaUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
-                        $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '1' ," +
-                        $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                    stateUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                        $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '1' " +
                         $"WHERE {DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbaSn}'";
                 }
                 else if (pcbaState == 0 && outterState == 1)
                 {
-                    pcbaUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
-                        $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '1'," +
-                        $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                    stateUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                        $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '1' " +
                         $"WHERE {DbTable.F_BINDING_PCBA.SN_OUTTER} = '{outterSn}'";
                 }
                 else if (pcbaState == 1 && outterState == 1)
                 {
-                    pcbaUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
-                        $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '1'," +
-                        $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '1'," +
-                        $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                    stateUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                        $"{DbTable.F_BINDING_PCBA.OUTTER_STATE} = '1' " +
                         $"WHERE " +
-                        $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{outterSn}' " +
-                        $"OR " +
+                        $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{outterSn}'";
+                    SQLServer.ExecuteNonQuery(stateUpdate);
+                    stateUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                        $"{DbTable.F_BINDING_PCBA.PCBA_STATE} = '1' " +
+                        $"WHERE " +
                         $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbaSn}'";
                 }
-
-                LogHelper.Log.Info("【PCBA绑定-维修完成】" + pcbaUpdate);
-                var res = SQLServer.ExecuteNonQuery(pcbaUpdate);
-                if (res > 0)
+                bindStateUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
+                        $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '{bindingState}' " +
+                        $"WHERE {DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbaSn}' " +
+                        $"AND {DbTable.F_BINDING_PCBA.SN_OUTTER} = '{outterSn}'";
+                LogHelper.Log.Info("【PCBA绑定-维修完成】bindStateUpdate=" + bindStateUpdate);
+                LogHelper.Log.Info("【PCBA绑定-维修完成】stateUpdate=" + stateUpdate);
+                var bindRow = SQLServer.ExecuteNonQuery(bindStateUpdate);
+                var stateRow = SQLServer.ExecuteNonQuery(stateUpdate);
+                if (bindRow > 0 && stateRow > 0)
                 {
                     //state update successful
                     return true;
