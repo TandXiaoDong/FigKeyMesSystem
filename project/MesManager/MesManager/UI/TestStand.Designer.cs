@@ -50,13 +50,13 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tool_queryCondition = new System.Windows.Forms.ToolStripComboBox();
+            this.tool_query = new System.Windows.Forms.ToolStripButton();
             this.tool_programv = new System.Windows.Forms.ToolStripButton();
             this.tool_specCfg = new System.Windows.Forms.ToolStripButton();
             this.tool_logData = new System.Windows.Forms.ToolStripButton();
+            this.tool_clearDB = new System.Windows.Forms.ToolStripButton();
             this.tool_exportCondition = new System.Windows.Forms.ToolStripComboBox();
             this.tool_export = new System.Windows.Forms.ToolStripButton();
-            this.tool_query = new System.Windows.Forms.ToolStripButton();
-            this.tool_clearDB = new System.Windows.Forms.ToolStripButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.rbtn_threeMonth = new System.Windows.Forms.RadioButton();
@@ -179,7 +179,6 @@
             // 
             // toolStripTextBox1
             // 
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
             // 
@@ -191,7 +190,6 @@
             // 
             // tool_username
             // 
-            this.tool_username.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.tool_username.Name = "tool_username";
             this.tool_username.Size = new System.Drawing.Size(100, 25);
             // 
@@ -203,7 +201,6 @@
             // 
             // toolStripTextBox3
             // 
-            this.toolStripTextBox3.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBox3.Name = "toolStripTextBox3";
             this.toolStripTextBox3.Size = new System.Drawing.Size(100, 25);
             // 
@@ -215,7 +212,6 @@
             // 
             // toolStripTextBox4
             // 
-            this.toolStripTextBox4.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBox4.Name = "toolStripTextBox4";
             this.toolStripTextBox4.Size = new System.Drawing.Size(100, 25);
             // 
@@ -252,14 +248,23 @@
             // 
             this.toolStripLabel1.ForeColor = System.Drawing.Color.White;
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(132, 24);
-            this.toolStripLabel1.Text = "产品型号/SN/工站";
+            this.toolStripLabel1.Size = new System.Drawing.Size(66, 24);
+            this.toolStripLabel1.Text = "SN/工站";
             // 
             // tool_queryCondition
             // 
             this.tool_queryCondition.ForeColor = System.Drawing.Color.SteelBlue;
             this.tool_queryCondition.Name = "tool_queryCondition";
             this.tool_queryCondition.Size = new System.Drawing.Size(121, 27);
+            // 
+            // tool_query
+            // 
+            this.tool_query.ForeColor = System.Drawing.Color.White;
+            this.tool_query.Image = global::MesManager.Properties.Resources.Search_16x16;
+            this.tool_query.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_query.Name = "tool_query";
+            this.tool_query.Size = new System.Drawing.Size(59, 24);
+            this.tool_query.Text = "查询";
             // 
             // tool_programv
             // 
@@ -288,6 +293,15 @@
             this.tool_logData.Size = new System.Drawing.Size(90, 24);
             this.tool_logData.Text = "LOG记录";
             // 
+            // tool_clearDB
+            // 
+            this.tool_clearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_clearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_clearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_clearDB.Name = "tool_clearDB";
+            this.tool_clearDB.Size = new System.Drawing.Size(59, 24);
+            this.tool_clearDB.Text = "清除";
+            // 
             // tool_exportCondition
             // 
             this.tool_exportCondition.Name = "tool_exportCondition";
@@ -301,24 +315,6 @@
             this.tool_export.Name = "tool_export";
             this.tool_export.Size = new System.Drawing.Size(59, 24);
             this.tool_export.Text = "导出";
-            // 
-            // tool_query
-            // 
-            this.tool_query.ForeColor = System.Drawing.Color.White;
-            this.tool_query.Image = global::MesManager.Properties.Resources.Search_16x16;
-            this.tool_query.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_query.Name = "tool_query";
-            this.tool_query.Size = new System.Drawing.Size(59, 24);
-            this.tool_query.Text = "查询";
-            // 
-            // tool_clearDB
-            // 
-            this.tool_clearDB.ForeColor = System.Drawing.Color.White;
-            this.tool_clearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
-            this.tool_clearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_clearDB.Name = "tool_clearDB";
-            this.tool_clearDB.Size = new System.Drawing.Size(59, 24);
-            this.tool_clearDB.Text = "清除";
             // 
             // panel2
             // 
@@ -340,7 +336,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.20942F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 98F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 190F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 191F));
             this.tableLayoutPanel1.Controls.Add(this.rbtn_threeMonth, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbtn_oneMonth, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbtn_today, 0, 0);
@@ -359,7 +355,7 @@
             this.rbtn_threeMonth.AutoSize = true;
             this.rbtn_threeMonth.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_threeMonth.ForeColor = System.Drawing.Color.White;
-            this.rbtn_threeMonth.Location = new System.Drawing.Point(192, 3);
+            this.rbtn_threeMonth.Location = new System.Drawing.Point(191, 3);
             this.rbtn_threeMonth.Name = "rbtn_threeMonth";
             this.rbtn_threeMonth.Size = new System.Drawing.Size(99, 49);
             this.rbtn_threeMonth.TabIndex = 16;
@@ -374,7 +370,7 @@
             this.rbtn_oneMonth.ForeColor = System.Drawing.Color.White;
             this.rbtn_oneMonth.Location = new System.Drawing.Point(78, 3);
             this.rbtn_oneMonth.Name = "rbtn_oneMonth";
-            this.rbtn_oneMonth.Size = new System.Drawing.Size(108, 49);
+            this.rbtn_oneMonth.Size = new System.Drawing.Size(107, 49);
             this.rbtn_oneMonth.TabIndex = 15;
             this.rbtn_oneMonth.TabStop = true;
             this.rbtn_oneMonth.Text = "最近一个月";
@@ -398,7 +394,7 @@
             this.rbtn_oneYear.AutoSize = true;
             this.rbtn_oneYear.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_oneYear.ForeColor = System.Drawing.Color.White;
-            this.rbtn_oneYear.Location = new System.Drawing.Point(297, 3);
+            this.rbtn_oneYear.Location = new System.Drawing.Point(296, 3);
             this.rbtn_oneYear.Name = "rbtn_oneYear";
             this.rbtn_oneYear.Size = new System.Drawing.Size(92, 49);
             this.rbtn_oneYear.TabIndex = 18;
@@ -411,9 +407,9 @@
             this.rbtn_custom.AutoSize = true;
             this.rbtn_custom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_custom.ForeColor = System.Drawing.Color.White;
-            this.rbtn_custom.Location = new System.Drawing.Point(395, 3);
+            this.rbtn_custom.Location = new System.Drawing.Point(394, 3);
             this.rbtn_custom.Name = "rbtn_custom";
-            this.rbtn_custom.Size = new System.Drawing.Size(185, 49);
+            this.rbtn_custom.Size = new System.Drawing.Size(186, 49);
             this.rbtn_custom.TabIndex = 13;
             this.rbtn_custom.TabStop = true;
             this.rbtn_custom.Text = "自定义日期";

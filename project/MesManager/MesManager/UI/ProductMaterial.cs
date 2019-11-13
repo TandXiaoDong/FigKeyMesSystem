@@ -94,7 +94,7 @@ namespace MesManager.UI
 
         private void InitMaterialRID()
         {
-            var dt = serviceClient.SelectMaterial("",1).Tables[0];
+            var dt = serviceClient.SelectMaterial("",MesService.MaterialStockState.PUT_IN_STOCK).Tables[0];
             if (dt.Rows.Count > 0)
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
@@ -461,7 +461,7 @@ namespace MesManager.UI
             this.radGridViewStock.Visible = true;
             this.radGridViewBind.Visible = false;
 
-            var dt = (await serviceClient.SelectMaterialAsync(queryCondition,1)).Tables[0];
+            var dt = (await serviceClient.SelectMaterialAsync(queryCondition,MesService.MaterialStockState.PUT_IN_STOCK)).Tables[0];
             materialStockData.Clear();
             if (dt.Rows.Count > 0)
             {

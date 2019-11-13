@@ -393,7 +393,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codeRID" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="stockState" type="xs:int" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="stockStateEnum" type="q6:MaterialStockState" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -454,6 +454,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="DeleteQuanlityMsg">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="materialCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteQuanlityMsgResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteQuanlityMsgResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="DeleteMaterial">
     <xs:complexType>
       <xs:sequence>
@@ -483,14 +497,14 @@
   <xs:element name="CommitProductMaterial">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="pmList" nillable="true" type="q6:ArrayOfProductMaterial" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="pmList" nillable="true" type="q7:ArrayOfProductMaterial" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CommitProductMaterialResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="CommitProductMaterialResult" nillable="true" type="q7:ArrayOfProductMaterial" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="CommitProductMaterialResult" nillable="true" type="q8:ArrayOfProductMaterial" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -521,7 +535,7 @@
   <xs:element name="DeleteProductMaterial">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="material" nillable="true" type="q8:ProductMaterial" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="material" nillable="true" type="q9:ProductMaterial" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -711,6 +725,21 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="DeleteAllProductContinairCapacityResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProductPackage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="queryCondition" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="state" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProductPackageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteProductPackageResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1228,7 +1257,7 @@
   <xs:element name="ModifyMaterialStockResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="ModifyMaterialStockResult" type="q9:MaterialStockEnum" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="ModifyMaterialStockResult" type="q10:MaterialStockEnum" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

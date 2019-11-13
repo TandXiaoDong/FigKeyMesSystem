@@ -153,6 +153,12 @@
   <wsdl:message name="IMesService_DeleteMaterialBasicMsg_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteMaterialBasicMsgResponse" />
   </wsdl:message>
+  <wsdl:message name="IMesService_DeleteQuanlityMsg_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteQuanlityMsg" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_DeleteQuanlityMsg_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteQuanlityMsgResponse" />
+  </wsdl:message>
   <wsdl:message name="IMesService_DeleteMaterial_InputMessage">
     <wsdl:part name="parameters" element="tns:DeleteMaterial" />
   </wsdl:message>
@@ -236,6 +242,12 @@
   </wsdl:message>
   <wsdl:message name="IMesService_DeleteAllProductContinairCapacity_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteAllProductContinairCapacityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_DeleteProductPackage_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProductPackage" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_DeleteProductPackage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProductPackageResponse" />
   </wsdl:message>
   <wsdl:message name="IMesService_SelectProductBindingRecord_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectProductBindingRecord" />
@@ -496,6 +508,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteMaterialBasicMsg" message="tns:IMesService_DeleteMaterialBasicMsg_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/DeleteMaterialBasicMsgResponse" message="tns:IMesService_DeleteMaterialBasicMsg_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="DeleteQuanlityMsg">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteQuanlityMsg" message="tns:IMesService_DeleteQuanlityMsg_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/DeleteQuanlityMsgResponse" message="tns:IMesService_DeleteQuanlityMsg_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="DeleteMaterial">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteMaterial" message="tns:IMesService_DeleteMaterial_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/DeleteMaterialResponse" message="tns:IMesService_DeleteMaterial_OutputMessage" />
@@ -551,6 +567,10 @@
     <wsdl:operation name="DeleteAllProductContinairCapacity">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteAllProductContinairCapacity" message="tns:IMesService_DeleteAllProductContinairCapacity_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/DeleteAllProductContinairCapacityResponse" message="tns:IMesService_DeleteAllProductContinairCapacity_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProductPackage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteProductPackage" message="tns:IMesService_DeleteProductPackage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/DeleteProductPackageResponse" message="tns:IMesService_DeleteProductPackage_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SelectProductBindingRecord">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectProductBindingRecord" message="tns:IMesService_SelectProductBindingRecord_InputMessage" />
@@ -879,6 +899,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DeleteQuanlityMsg">
+      <soap:operation soapAction="http://tempuri.org/IMesService/DeleteQuanlityMsg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="DeleteMaterial">
       <soap:operation soapAction="http://tempuri.org/IMesService/DeleteMaterial" style="document" />
       <wsdl:input>
@@ -998,6 +1027,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteAllProductContinairCapacity">
       <soap:operation soapAction="http://tempuri.org/IMesService/DeleteAllProductContinairCapacity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProductPackage">
+      <soap:operation soapAction="http://tempuri.org/IMesService/DeleteProductPackage" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -90,7 +90,7 @@ namespace MesAPI
 
         //物料信息接口
         [OperationContract]
-        DataSet SelectMaterial(string codeRID,int stockState);
+        DataSet SelectMaterial(string codeRID, MaterialStockState stockStateEnum);
 
         [OperationContract]
         DataSet SelectMaterialPN();
@@ -98,6 +98,9 @@ namespace MesAPI
         //List<MaterialMsg> CommitMaterial(List<MaterialMsg> list);
         [OperationContract]
         int DeleteMaterialBasicMsg(string queryCondition);
+
+        [OperationContract]
+        int DeleteQuanlityMsg(string materialCode);
 
         [OperationContract]
         int DeleteMaterial(string materialCode);
@@ -144,6 +147,9 @@ namespace MesAPI
 
         [OperationContract]
         int DeleteAllProductContinairCapacity();
+
+        [OperationContract]
+        int DeleteProductPackage(string queryCondition, int state);
 
         #region 【接口】查询已绑定数据
         [OperationContract]

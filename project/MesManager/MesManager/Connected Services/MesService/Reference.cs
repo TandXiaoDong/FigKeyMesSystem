@@ -191,6 +191,23 @@ namespace MesManager.MesService {
         }
     }
     
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MaterialStockState", Namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model")]
+    public enum MaterialStockState : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PUT_IN_STOCK = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        STOCK_USE_COMPLED = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        STOCK_STATEMETN = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PUT_IN_STOCK_AND_STATEMENT = 4,
+    }
+    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ProductMaterial", Namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model")]
@@ -502,10 +519,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<System.Data.DataSet> SelectTestResultUpperAsync(string sn, string typeNo, string station, bool IsSnFuzzy);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectMaterial", ReplyAction="http://tempuri.org/IMesService/SelectMaterialResponse")]
-        System.Data.DataSet SelectMaterial(string codeRID, int stockState);
+        System.Data.DataSet SelectMaterial(string codeRID, MesManager.MesService.MaterialStockState stockStateEnum);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectMaterial", ReplyAction="http://tempuri.org/IMesService/SelectMaterialResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> SelectMaterialAsync(string codeRID, int stockState);
+        System.Threading.Tasks.Task<System.Data.DataSet> SelectMaterialAsync(string codeRID, MesManager.MesService.MaterialStockState stockStateEnum);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectMaterialPN", ReplyAction="http://tempuri.org/IMesService/SelectMaterialPNResponse")]
         System.Data.DataSet SelectMaterialPN();
@@ -518,6 +535,12 @@ namespace MesManager.MesService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteMaterialBasicMsg", ReplyAction="http://tempuri.org/IMesService/DeleteMaterialBasicMsgResponse")]
         System.Threading.Tasks.Task<int> DeleteMaterialBasicMsgAsync(string queryCondition);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteQuanlityMsg", ReplyAction="http://tempuri.org/IMesService/DeleteQuanlityMsgResponse")]
+        int DeleteQuanlityMsg(string materialCode);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteQuanlityMsg", ReplyAction="http://tempuri.org/IMesService/DeleteQuanlityMsgResponse")]
+        System.Threading.Tasks.Task<int> DeleteQuanlityMsgAsync(string materialCode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteMaterial", ReplyAction="http://tempuri.org/IMesService/DeleteMaterialResponse")]
         int DeleteMaterial(string materialCode);
@@ -602,6 +625,12 @@ namespace MesManager.MesService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteAllProductContinairCapacity", ReplyAction="http://tempuri.org/IMesService/DeleteAllProductContinairCapacityResponse")]
         System.Threading.Tasks.Task<int> DeleteAllProductContinairCapacityAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteProductPackage", ReplyAction="http://tempuri.org/IMesService/DeleteProductPackageResponse")]
+        int DeleteProductPackage(string queryCondition, int state);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteProductPackage", ReplyAction="http://tempuri.org/IMesService/DeleteProductPackageResponse")]
+        System.Threading.Tasks.Task<int> DeleteProductPackageAsync(string queryCondition, int state);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectProductBindingRecord", ReplyAction="http://tempuri.org/IMesService/SelectProductBindingRecordResponse")]
         System.Data.DataSet SelectProductBindingRecord(string casecode, string bindingState);
@@ -961,12 +990,12 @@ namespace MesManager.MesService {
             return base.Channel.SelectTestResultUpperAsync(sn, typeNo, station, IsSnFuzzy);
         }
         
-        public System.Data.DataSet SelectMaterial(string codeRID, int stockState) {
-            return base.Channel.SelectMaterial(codeRID, stockState);
+        public System.Data.DataSet SelectMaterial(string codeRID, MesManager.MesService.MaterialStockState stockStateEnum) {
+            return base.Channel.SelectMaterial(codeRID, stockStateEnum);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> SelectMaterialAsync(string codeRID, int stockState) {
-            return base.Channel.SelectMaterialAsync(codeRID, stockState);
+        public System.Threading.Tasks.Task<System.Data.DataSet> SelectMaterialAsync(string codeRID, MesManager.MesService.MaterialStockState stockStateEnum) {
+            return base.Channel.SelectMaterialAsync(codeRID, stockStateEnum);
         }
         
         public System.Data.DataSet SelectMaterialPN() {
@@ -983,6 +1012,14 @@ namespace MesManager.MesService {
         
         public System.Threading.Tasks.Task<int> DeleteMaterialBasicMsgAsync(string queryCondition) {
             return base.Channel.DeleteMaterialBasicMsgAsync(queryCondition);
+        }
+        
+        public int DeleteQuanlityMsg(string materialCode) {
+            return base.Channel.DeleteQuanlityMsg(materialCode);
+        }
+        
+        public System.Threading.Tasks.Task<int> DeleteQuanlityMsgAsync(string materialCode) {
+            return base.Channel.DeleteQuanlityMsgAsync(materialCode);
         }
         
         public int DeleteMaterial(string materialCode) {
@@ -1095,6 +1132,14 @@ namespace MesManager.MesService {
         
         public System.Threading.Tasks.Task<int> DeleteAllProductContinairCapacityAsync() {
             return base.Channel.DeleteAllProductContinairCapacityAsync();
+        }
+        
+        public int DeleteProductPackage(string queryCondition, int state) {
+            return base.Channel.DeleteProductPackage(queryCondition, state);
+        }
+        
+        public System.Threading.Tasks.Task<int> DeleteProductPackageAsync(string queryCondition, int state) {
+            return base.Channel.DeleteProductPackageAsync(queryCondition, state);
         }
         
         public System.Data.DataSet SelectProductBindingRecord(string casecode, string bindingState) {

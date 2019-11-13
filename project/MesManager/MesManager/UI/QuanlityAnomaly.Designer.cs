@@ -57,12 +57,9 @@
             this.cb_materialCode = new System.Windows.Forms.ComboBox();
             this.radDateTimePicker1 = new Telerik.WinControls.UI.RadDateTimePicker();
             this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_reason = new System.Windows.Forms.TextBox();
             this.radLabel6 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel5 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_matualStock = new System.Windows.Forms.TextBox();
             this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
-            this.tb_stock = new System.Windows.Forms.TextBox();
             this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -70,6 +67,11 @@
             this.rbtn_material_produce = new Telerik.WinControls.UI.RadRadioButton();
             this.rbtn_material_process = new Telerik.WinControls.UI.RadRadioButton();
             this.crystalTheme1 = new Telerik.WinControls.Themes.CrystalTheme();
+            this.btn_allApply = new Telerik.WinControls.UI.RadButton();
+            this.btn_recover = new Telerik.WinControls.UI.RadButton();
+            this.tb_stock = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_matualStock = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_reason = new Telerik.WinControls.UI.RadTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
             this.dw_pcba.SuspendLayout();
@@ -106,6 +108,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_stock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_produce)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_process)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_allApply)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_recover)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_matualStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_reason)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,7 +130,7 @@
             // 
             // 
             this.radDock1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.radDock1.Size = new System.Drawing.Size(796, 618);
+            this.radDock1.Size = new System.Drawing.Size(816, 618);
             this.radDock1.TabIndex = 11;
             this.radDock1.TabStop = false;
             this.radDock1.ThemeName = "Breeze";
@@ -140,14 +147,16 @@
             this.dw_pcba.Location = new System.Drawing.Point(5, 27);
             this.dw_pcba.Name = "dw_pcba";
             this.dw_pcba.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dw_pcba.Size = new System.Drawing.Size(786, 586);
+            this.dw_pcba.Size = new System.Drawing.Size(806, 586);
             this.dw_pcba.Text = "PCBA解除绑定";
             // 
             // btn_repaireComplete
             // 
-            this.btn_repaireComplete.Location = new System.Drawing.Point(467, 532);
+            this.btn_repaireComplete.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_repaireComplete.Image = global::MesManager.Properties.Resources.Apply_16x16;
+            this.btn_repaireComplete.Location = new System.Drawing.Point(456, 532);
             this.btn_repaireComplete.Name = "btn_repaireComplete";
-            this.btn_repaireComplete.Size = new System.Drawing.Size(79, 24);
+            this.btn_repaireComplete.Size = new System.Drawing.Size(94, 28);
             this.btn_repaireComplete.TabIndex = 10;
             this.btn_repaireComplete.Text = "维修完成";
             this.btn_repaireComplete.ThemeName = "Breeze";
@@ -161,7 +170,7 @@
             // 
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
-            this.radGridView1.Size = new System.Drawing.Size(786, 459);
+            this.radGridView1.Size = new System.Drawing.Size(806, 459);
             this.radGridView1.TabIndex = 9;
             this.radGridView1.ThemeName = "Breeze";
             // 
@@ -174,47 +183,55 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(786, 56);
+            this.panel2.Size = new System.Drawing.Size(806, 56);
             this.panel2.TabIndex = 8;
             // 
             // radLabel7
             // 
             this.radLabel7.ForeColor = System.Drawing.Color.White;
-            this.radLabel7.Location = new System.Drawing.Point(13, 16);
+            this.radLabel7.Location = new System.Drawing.Point(13, 20);
             this.radLabel7.Name = "radLabel7";
-            this.radLabel7.Size = new System.Drawing.Size(88, 18);
+            this.radLabel7.Size = new System.Drawing.Size(117, 21);
             this.radLabel7.TabIndex = 1;
             this.radLabel7.Text = "PCBA/外壳SN：";
+            this.radLabel7.ThemeName = "Material";
             // 
             // tb_pcbasn
             // 
             this.tb_pcbasn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_pcbasn.Location = new System.Drawing.Point(107, 12);
+            this.tb_pcbasn.Location = new System.Drawing.Point(136, 13);
             this.tb_pcbasn.Name = "tb_pcbasn";
-            this.tb_pcbasn.Size = new System.Drawing.Size(217, 23);
+            this.tb_pcbasn.Size = new System.Drawing.Size(333, 37);
             this.tb_pcbasn.TabIndex = 2;
+            this.tb_pcbasn.ThemeName = "Material";
             // 
             // cb_pcba
             // 
-            this.cb_pcba.Location = new System.Drawing.Point(347, 16);
+            this.cb_pcba.ForeColor = System.Drawing.Color.White;
+            this.cb_pcba.Location = new System.Drawing.Point(510, 19);
             this.cb_pcba.Name = "cb_pcba";
-            this.cb_pcba.Size = new System.Drawing.Size(71, 18);
+            this.cb_pcba.Size = new System.Drawing.Size(94, 19);
             this.cb_pcba.TabIndex = 4;
             this.cb_pcba.Text = "PCBA异常";
+            this.cb_pcba.ThemeName = "Material";
             // 
             // cb_shell
             // 
-            this.cb_shell.Location = new System.Drawing.Point(447, 16);
+            this.cb_shell.ForeColor = System.Drawing.Color.White;
+            this.cb_shell.Location = new System.Drawing.Point(625, 19);
             this.cb_shell.Name = "cb_shell";
-            this.cb_shell.Size = new System.Drawing.Size(68, 18);
+            this.cb_shell.Size = new System.Drawing.Size(89, 19);
             this.cb_shell.TabIndex = 5;
             this.cb_shell.Text = "外壳异常";
+            this.cb_shell.ThemeName = "Material";
             // 
             // btn_exit
             // 
-            this.btn_exit.Location = new System.Drawing.Point(685, 532);
+            this.btn_exit.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_exit.Image = global::MesManager.Properties.Resources.Cancel_16x16;
+            this.btn_exit.Location = new System.Drawing.Point(720, 532);
             this.btn_exit.Name = "btn_exit";
-            this.btn_exit.Size = new System.Drawing.Size(79, 24);
+            this.btn_exit.Size = new System.Drawing.Size(79, 28);
             this.btn_exit.TabIndex = 7;
             this.btn_exit.Text = "取消";
             this.btn_exit.ThemeName = "Breeze";
@@ -222,9 +239,11 @@
             // 
             // btn_cancelBinding
             // 
-            this.btn_cancelBinding.Location = new System.Drawing.Point(573, 532);
+            this.btn_cancelBinding.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_cancelBinding.Image = global::MesManager.Properties.Resources.Cancel_16x16;
+            this.btn_cancelBinding.Location = new System.Drawing.Point(583, 532);
             this.btn_cancelBinding.Name = "btn_cancelBinding";
-            this.btn_cancelBinding.Size = new System.Drawing.Size(79, 24);
+            this.btn_cancelBinding.Size = new System.Drawing.Size(94, 28);
             this.btn_cancelBinding.TabIndex = 6;
             this.btn_cancelBinding.Text = "解除绑定";
             this.btn_cancelBinding.ThemeName = "Breeze";
@@ -253,7 +272,7 @@
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
             this.documentTabStrip1.SelectedIndex = 0;
-            this.documentTabStrip1.Size = new System.Drawing.Size(796, 618);
+            this.documentTabStrip1.Size = new System.Drawing.Size(816, 618);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
             this.documentTabStrip1.ThemeName = "Breeze";
@@ -267,7 +286,7 @@
             this.dw_materialOver.Location = new System.Drawing.Point(5, 27);
             this.dw_materialOver.Name = "dw_materialOver";
             this.dw_materialOver.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dw_materialOver.Size = new System.Drawing.Size(786, 586);
+            this.dw_materialOver.Size = new System.Drawing.Size(806, 586);
             this.dw_materialOver.Text = "物料结单";
             // 
             // groupBox1
@@ -278,13 +297,18 @@
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(0, 84);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(786, 502);
+            this.groupBox1.Size = new System.Drawing.Size(806, 502);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "结单记录";
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.tb_reason);
+            this.panel1.Controls.Add(this.tb_matualStock);
+            this.panel1.Controls.Add(this.tb_stock);
+            this.panel1.Controls.Add(this.btn_recover);
+            this.panel1.Controls.Add(this.btn_allApply);
             this.panel1.Controls.Add(this.btn_query);
             this.panel1.Controls.Add(this.btn_cancel);
             this.panel1.Controls.Add(this.cb_materialState);
@@ -295,35 +319,33 @@
             this.panel1.Controls.Add(this.cb_materialCode);
             this.panel1.Controls.Add(this.radDateTimePicker1);
             this.panel1.Controls.Add(this.radLabel8);
-            this.panel1.Controls.Add(this.tb_reason);
             this.panel1.Controls.Add(this.radLabel6);
             this.panel1.Controls.Add(this.radLabel5);
-            this.panel1.Controls.Add(this.tb_matualStock);
             this.panel1.Controls.Add(this.radLabel4);
-            this.panel1.Controls.Add(this.tb_stock);
             this.panel1.Controls.Add(this.radLabel3);
             this.panel1.Controls.Add(this.radLabel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 19);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(780, 480);
+            this.panel1.Size = new System.Drawing.Size(800, 480);
             this.panel1.TabIndex = 5;
             // 
             // btn_query
             // 
             this.btn_query.Font = new System.Drawing.Font("Segoe UI Black", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_query.Location = new System.Drawing.Point(715, 13);
+            this.btn_query.Location = new System.Drawing.Point(740, 13);
             this.btn_query.Name = "btn_query";
-            this.btn_query.Size = new System.Drawing.Size(35, 24);
+            this.btn_query.Size = new System.Drawing.Size(21, 28);
             this.btn_query.TabIndex = 24;
             this.btn_query.Text = "...";
+            this.btn_query.ThemeName = "Breeze";
             this.btn_query.Click += new System.EventHandler(this.btn_query_Click);
             // 
             // btn_cancel
             // 
-            this.btn_cancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_cancel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancel.Image = global::MesManager.Properties.Resources.Cancel_16x16;
-            this.btn_cancel.Location = new System.Drawing.Point(654, 429);
+            this.btn_cancel.Location = new System.Drawing.Point(668, 429);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(93, 24);
             this.btn_cancel.TabIndex = 7;
@@ -332,18 +354,19 @@
             // 
             // cb_materialState
             // 
-            this.cb_materialState.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_materialState.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cb_materialState.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_materialState.FormattingEnabled = true;
-            this.cb_materialState.Location = new System.Drawing.Point(479, 95);
+            this.cb_materialState.Location = new System.Drawing.Point(475, 143);
             this.cb_materialState.Name = "cb_materialState";
-            this.cb_materialState.Size = new System.Drawing.Size(271, 25);
+            this.cb_materialState.Size = new System.Drawing.Size(286, 28);
             this.cb_materialState.TabIndex = 23;
             // 
             // radLabel10
             // 
             this.radLabel10.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radLabel10.ForeColor = System.Drawing.Color.White;
-            this.radLabel10.Location = new System.Drawing.Point(410, 94);
+            this.radLabel10.Location = new System.Drawing.Point(406, 150);
             this.radLabel10.Name = "radLabel10";
             this.radLabel10.Size = new System.Drawing.Size(63, 21);
             this.radLabel10.TabIndex = 22;
@@ -351,9 +374,9 @@
             // 
             // btn_apply
             // 
-            this.btn_apply.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_apply.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_apply.Image = global::MesManager.Properties.Resources.Apply_16x16;
-            this.btn_apply.Location = new System.Drawing.Point(540, 429);
+            this.btn_apply.Location = new System.Drawing.Point(553, 429);
             this.btn_apply.Name = "btn_apply";
             this.btn_apply.Size = new System.Drawing.Size(89, 24);
             this.btn_apply.TabIndex = 6;
@@ -362,43 +385,48 @@
             // 
             // cb_station
             // 
-            this.cb_station.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_station.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cb_station.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_station.FormattingEnabled = true;
-            this.cb_station.Location = new System.Drawing.Point(84, 135);
+            this.cb_station.Location = new System.Drawing.Point(84, 204);
             this.cb_station.Name = "cb_station";
-            this.cb_station.Size = new System.Drawing.Size(286, 25);
+            this.cb_station.Size = new System.Drawing.Size(286, 28);
             this.cb_station.TabIndex = 21;
             // 
             // radLabel1
             // 
             this.radLabel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radLabel1.ForeColor = System.Drawing.Color.White;
-            this.radLabel1.Location = new System.Drawing.Point(15, 135);
+            this.radLabel1.Location = new System.Drawing.Point(15, 211);
             this.radLabel1.Name = "radLabel1";
             this.radLabel1.Size = new System.Drawing.Size(63, 21);
             this.radLabel1.TabIndex = 20;
             this.radLabel1.Text = "工站名称";
+            this.radLabel1.ThemeName = "Material";
             // 
             // cb_materialCode
             // 
-            this.cb_materialCode.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_materialCode.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cb_materialCode.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_materialCode.FormattingEnabled = true;
             this.cb_materialCode.Location = new System.Drawing.Point(84, 13);
             this.cb_materialCode.Name = "cb_materialCode";
-            this.cb_materialCode.Size = new System.Drawing.Size(625, 25);
+            this.cb_materialCode.Size = new System.Drawing.Size(650, 28);
             this.cb_materialCode.TabIndex = 18;
             // 
             // radDateTimePicker1
             // 
+            this.radDateTimePicker1.CalendarSize = new System.Drawing.Size(290, 320);
             this.radDateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.radDateTimePicker1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radDateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.radDateTimePicker1.Location = new System.Drawing.Point(84, 52);
+            this.radDateTimePicker1.Location = new System.Drawing.Point(84, 78);
             this.radDateTimePicker1.Name = "radDateTimePicker1";
-            this.radDateTimePicker1.Size = new System.Drawing.Size(286, 23);
+            this.radDateTimePicker1.Size = new System.Drawing.Size(286, 37);
             this.radDateTimePicker1.TabIndex = 17;
             this.radDateTimePicker1.TabStop = false;
             this.radDateTimePicker1.Text = "2019-08-06 11:02:22";
+            this.radDateTimePicker1.ThemeName = "Material";
             this.radDateTimePicker1.Value = new System.DateTime(2019, 8, 6, 11, 2, 22, 418);
             // 
             // radLabel8
@@ -408,70 +436,48 @@
             this.radLabel8.Size = new System.Drawing.Size(2, 2);
             this.radLabel8.TabIndex = 13;
             // 
-            // tb_reason
-            // 
-            this.tb_reason.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_reason.Location = new System.Drawing.Point(84, 178);
-            this.tb_reason.Multiline = true;
-            this.tb_reason.Name = "tb_reason";
-            this.tb_reason.Size = new System.Drawing.Size(666, 232);
-            this.tb_reason.TabIndex = 10;
-            // 
             // radLabel6
             // 
             this.radLabel6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radLabel6.ForeColor = System.Drawing.Color.White;
-            this.radLabel6.Location = new System.Drawing.Point(15, 178);
+            this.radLabel6.Location = new System.Drawing.Point(15, 251);
             this.radLabel6.Name = "radLabel6";
             this.radLabel6.Size = new System.Drawing.Size(63, 21);
             this.radLabel6.TabIndex = 9;
             this.radLabel6.Text = "结单原因";
+            this.radLabel6.ThemeName = "Material";
             // 
             // radLabel5
             // 
             this.radLabel5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radLabel5.ForeColor = System.Drawing.Color.White;
-            this.radLabel5.Location = new System.Drawing.Point(15, 52);
+            this.radLabel5.Location = new System.Drawing.Point(15, 94);
             this.radLabel5.Name = "radLabel5";
             this.radLabel5.Size = new System.Drawing.Size(63, 21);
             this.radLabel5.TabIndex = 7;
             this.radLabel5.Text = "发生日期";
-            // 
-            // tb_matualStock
-            // 
-            this.tb_matualStock.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_matualStock.Location = new System.Drawing.Point(479, 52);
-            this.tb_matualStock.Name = "tb_matualStock";
-            this.tb_matualStock.Size = new System.Drawing.Size(271, 25);
-            this.tb_matualStock.TabIndex = 6;
+            this.radLabel5.ThemeName = "Material";
             // 
             // radLabel4
             // 
             this.radLabel4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radLabel4.ForeColor = System.Drawing.Color.White;
-            this.radLabel4.Location = new System.Drawing.Point(410, 52);
+            this.radLabel4.Location = new System.Drawing.Point(406, 94);
             this.radLabel4.Name = "radLabel4";
             this.radLabel4.Size = new System.Drawing.Size(63, 21);
             this.radLabel4.TabIndex = 5;
             this.radLabel4.Text = "实际库存";
             // 
-            // tb_stock
-            // 
-            this.tb_stock.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_stock.Location = new System.Drawing.Point(84, 94);
-            this.tb_stock.Name = "tb_stock";
-            this.tb_stock.Size = new System.Drawing.Size(286, 25);
-            this.tb_stock.TabIndex = 4;
-            // 
             // radLabel3
             // 
             this.radLabel3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radLabel3.ForeColor = System.Drawing.Color.White;
-            this.radLabel3.Location = new System.Drawing.Point(15, 97);
+            this.radLabel3.Location = new System.Drawing.Point(15, 160);
             this.radLabel3.Name = "radLabel3";
             this.radLabel3.Size = new System.Drawing.Size(63, 21);
             this.radLabel3.TabIndex = 3;
             this.radLabel3.Text = "异常数量";
+            this.radLabel3.ThemeName = "Material";
             // 
             // radLabel2
             // 
@@ -494,7 +500,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.White;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(786, 84);
+            this.groupBox2.Size = new System.Drawing.Size(806, 84);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "异常类别";
@@ -533,12 +539,63 @@
             this.rbtn_material_process.TabStop = false;
             this.rbtn_material_process.Text = "生产过程异常";
             // 
+            // btn_allApply
+            // 
+            this.btn_allApply.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_allApply.Image = global::MesManager.Properties.Resources.Apply_16x16;
+            this.btn_allApply.Location = new System.Drawing.Point(432, 429);
+            this.btn_allApply.Name = "btn_allApply";
+            this.btn_allApply.Size = new System.Drawing.Size(100, 24);
+            this.btn_allApply.TabIndex = 25;
+            this.btn_allApply.Text = "一键结单";
+            this.btn_allApply.ThemeName = "Breeze";
+            // 
+            // btn_recover
+            // 
+            this.btn_recover.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_recover.Image = global::MesManager.Properties.Resources.Apply_16x16;
+            this.btn_recover.Location = new System.Drawing.Point(310, 429);
+            this.btn_recover.Name = "btn_recover";
+            this.btn_recover.Size = new System.Drawing.Size(99, 24);
+            this.btn_recover.TabIndex = 26;
+            this.btn_recover.Text = "恢复正常";
+            this.btn_recover.ThemeName = "Breeze";
+            // 
+            // tb_stock
+            // 
+            this.tb_stock.Location = new System.Drawing.Point(84, 145);
+            this.tb_stock.Name = "tb_stock";
+            this.tb_stock.Size = new System.Drawing.Size(286, 36);
+            this.tb_stock.TabIndex = 27;
+            this.tb_stock.ThemeName = "Material";
+            // 
+            // tb_matualStock
+            // 
+            this.tb_matualStock.Location = new System.Drawing.Point(475, 82);
+            this.tb_matualStock.Name = "tb_matualStock";
+            this.tb_matualStock.Size = new System.Drawing.Size(286, 36);
+            this.tb_matualStock.TabIndex = 28;
+            this.tb_matualStock.ThemeName = "Material";
+            // 
+            // tb_reason
+            // 
+            this.tb_reason.Location = new System.Drawing.Point(84, 251);
+            this.tb_reason.Multiline = true;
+            this.tb_reason.Name = "tb_reason";
+            // 
+            // 
+            // 
+            this.tb_reason.RootElement.StretchVertically = true;
+            this.tb_reason.Size = new System.Drawing.Size(677, 163);
+            this.tb_reason.TabIndex = 29;
+            this.tb_reason.ThemeName = "Material";
+            // 
             // QuanlityAnomaly
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(796, 618);
+            this.ClientSize = new System.Drawing.Size(816, 618);
             this.Controls.Add(this.radDock1);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -589,6 +646,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_stock)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_produce)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_process)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_allApply)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_recover)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_matualStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_reason)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -610,12 +672,9 @@
         private System.Windows.Forms.ComboBox cb_materialCode;
         private Telerik.WinControls.UI.RadDateTimePicker radDateTimePicker1;
         private Telerik.WinControls.UI.RadLabel radLabel8;
-        private System.Windows.Forms.TextBox tb_reason;
         private Telerik.WinControls.UI.RadLabel radLabel6;
         private Telerik.WinControls.UI.RadLabel radLabel5;
-        private System.Windows.Forms.TextBox tb_matualStock;
         private Telerik.WinControls.UI.RadLabel radLabel4;
-        private System.Windows.Forms.TextBox tb_stock;
         private Telerik.WinControls.UI.RadLabel radLabel3;
         private Telerik.WinControls.UI.RadLabel radLabel2;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -635,5 +694,10 @@
         private System.Windows.Forms.Panel panel2;
         private Telerik.WinControls.UI.RadGridView radGridView1;
         private Telerik.WinControls.UI.RadButton btn_repaireComplete;
+        private Telerik.WinControls.UI.RadButton btn_recover;
+        private Telerik.WinControls.UI.RadButton btn_allApply;
+        private Telerik.WinControls.UI.RadTextBox tb_matualStock;
+        private Telerik.WinControls.UI.RadTextBox tb_stock;
+        private Telerik.WinControls.UI.RadTextBox tb_reason;
     }
 }

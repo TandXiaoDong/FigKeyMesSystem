@@ -37,6 +37,12 @@ namespace MesManager.UI
             FORCE_OVER = 3
         }
 
+        private enum MaterialStateMentType
+        {
+            AllMaterial,
+            SignalMaterial
+        }
+
         private void QuanlityAnomaly_Load(object sender, EventArgs e)
         {
             InitConfig();
@@ -45,8 +51,23 @@ namespace MesManager.UI
             this.tb_pcbasn.TextChanged += Tb_pcbasn_TextChanged;
             this.tb_pcbasn.KeyDown += Tb_pcbasn_KeyDown;
             this.btn_apply.Click += Btn_apply_Click;
+            this.btn_allApply.Click += Btn_allApply_Click;
             this.btn_cancel.Click += Btn_cancel_Click;
             this.btn_repaireComplete.Click += Btn_repaireComplete_Click;
+        }
+
+        private void Btn_allApply_Click(object sender, EventArgs e)
+        {
+            var materialList = new List<string>();
+            var ds = serviceClient.SelectMaterial("",MesService.MaterialStockState.PUT_IN_STOCK);
+            foreach (DataRow dataRow in ds.Tables[0].Rows)
+            {
+                var materialCode = dataRow[0].ToString();
+                if(materialCode != "")
+                    materialList.Add(materialCode);
+            }
+
+            CommitQuanlityData(materialList,MaterialStateMentType.AllMaterial);
         }
 
         private void Btn_repaireComplete_Click(object sender, EventArgs e)
@@ -61,7 +82,11 @@ namespace MesManager.UI
 
         private void Btn_apply_Click(object sender, EventArgs e)
         {
-            CommitQuanlityData();
+            var materialCode = this.cb_materialCode.Text;
+            var materialList = new List<string>();
+            if(materialCode != "")
+                materialList.Add(materialCode);
+            CommitQuanlityData(materialList,MaterialStateMentType.SignalMaterial);
         }
 
         private void Tb_pcbasn_KeyDown(object sender, KeyEventArgs e)
@@ -130,7 +155,7 @@ namespace MesManager.UI
                     cb_station.Items.Add(station);
                 }
             }
-            DataTable dt = (await serviceClient.SelectMaterialAsync("",1)).Tables[0];
+            DataTable dt = (await serviceClient.SelectMaterialAsync("",MesService.MaterialStockState.PUT_IN_STOCK_AND_STATEMENT)).Tables[0];
             if (dt.Rows.Count < 1)
                 return;
             this.cb_materialCode.Items.Clear();
@@ -142,8 +167,13 @@ namespace MesManager.UI
             this.cb_materialCode.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
         }
 
-        async private void CommitQuanlityData()
+        async private void CommitQuanlityData(List<string> materialCodeList,MaterialStateMentType stateMentType)
         {
+            if (materialCodeList.Count < 1)
+            {
+                MessageBox.Show("没有可结单的物料！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
             int eType = 0;
             if (this.rbtn_material_stock.CheckState == CheckState.Checked)
             {
@@ -157,7 +187,7 @@ namespace MesManager.UI
             {
                 eType = (int)ExceptType.MATERIAL_PROCESS;
             }
-            var materialCode = this.cb_materialCode.Text;
+            //var materialCode = this.cb_materialCode.Text;
             var statementDate = this.radDateTimePicker1.Text;
             var tStock = this.tb_stock.Text.Trim();
             var aStock = this.tb_matualStock.Text.Trim();
@@ -166,15 +196,41 @@ namespace MesManager.UI
             if (this.cb_materialState.SelectedIndex == 0)
                 state = (int)MaterialState.FORCE_OVER;
             var reason = this.tb_reason.Text;
-            
-            var res = await serviceClient.UpdateQuanlityDataAsync(eType+"",materialCode,statementDate,tStock,aStock,station,state+"",reason,MESMainForm.currentUser);
-            var sRes = await serviceClient.UpdateMaterialStateMentAsync(materialCode,3);
-            if (sRes > 0)
+            if (reason == "")
+            {
+                MessageBox.Show("结单原因不能为空！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
+            if (stateMentType == MaterialStateMentType.SignalMaterial)
+            {
+                if (MessageBox.Show("确认要将当前物料结单？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                    return;
+            }
+            else if (stateMentType == MaterialStateMentType.AllMaterial)
+            {
+                if (MessageBox.Show("确认要将所有物料结单？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                    return;
+            }
+            Dictionary<string, int> dicListResult = new Dictionary<string, int>();
+            foreach (var materialCode in materialCodeList)
+            {
+                var res = await serviceClient.UpdateQuanlityDataAsync(eType + "", materialCode, statementDate, tStock, aStock, station, state + "", reason, MESMainForm.currentUser);
+                var sRes = await serviceClient.UpdateMaterialStateMentAsync(materialCode, 3);
+                dicListResult.Add(materialCode,sRes);
+            }
+            //结单结果
+            bool IsSuccess = true;
+            foreach (var kv in dicListResult)
+            {
+                if (kv.Value < 1)
+                {
+                    IsSuccess = false;
+                    MessageBox.Show($"【{kv.Key}】结单失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            if (IsSuccess)
             {
                 MessageBox.Show("结单成功！", "提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
-            }else
-            {
-                MessageBox.Show("结单失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

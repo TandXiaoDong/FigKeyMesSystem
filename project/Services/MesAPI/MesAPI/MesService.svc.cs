@@ -1660,6 +1660,7 @@ namespace MesAPI
                     {
                         LogHelper.Log.Info($"【删除测试数据】0X01 完成{delRes}条");
                         LogHelper.Log.Info($"【删除测试LOG数据】0X01 完成{count}条");
+                        DeleteBindMsgOfTestLog(queryCondition,startTime,endTime, dtRes);
                         return "0X01";
                     }
                     else if (delRes > 0 && count <= 0)
@@ -1731,6 +1732,37 @@ namespace MesAPI
             }
             return false;
         }
+
+
+        /// <summary>
+        /// 删除测试log数据后，检查是否删除/执行删除绑定数据
+        /// </summary>
+        /// <param name="queryCondition"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        private int DeleteBindMsgOfTestLog(string queryCondition,string startTime,string endTime,DataSet dtRes)
+        {
+            /*
+             * 根据查询条件中的SN
+             * 1）查询物料统计中是否还存在记录
+             * 2）在查询当前条件之外的过站log是否还存在数据
+             * 都不存在时，删除绑定关系数据
+             */
+            foreach (DataRow dataRow in dtRes.Tables[0].Rows)
+            {
+                var sn = dataRow[0].ToString();
+                var snPCBA = "";//不区分解绑状态
+                var snOutter = "";
+                if (snPCBA == "" || snOutter == "")
+                    continue;//考虑跳站问题
+                var selectMaterialMsg = $"SELECT * FROM {DbTable.F_MATERIAL_STATISTICS_NAME} WHERE " +
+                    $"{DbTable.F_Material_Statistics.PCBA_SN} = '{snPCBA}' " +
+                    $"OR " +
+                    $"{DbTable.F_Material_Statistics.PCBA_SN} = '{snOutter}'";
+
+            }
+        }
         #endregion
 
         #region 物料信息表
@@ -1767,10 +1799,19 @@ namespace MesAPI
             return SQLServer.ExecuteNonQuery(deleteSQL);
         }
 
-        public DataSet SelectMaterial(string codeRid,int stockState)
+        public DataSet SelectMaterial(string codeRid, MaterialStockState stockStateEnum)
         {
             //stockState=1-在线库存，2/3-出库库存
             var selectSQL = "";
+            var stockStateCondition = "";
+            if(stockStateEnum == MaterialStockState.PUT_IN_STOCK)
+                stockStateCondition = $"{DbTable.F_Material.MATERIAL_STATE} = '1'";
+            else if(stockStateEnum == MaterialStockState.STOCK_USE_COMPLED)
+                stockStateCondition = $"{DbTable.F_Material.MATERIAL_STATE} = '2'";
+            else if(stockStateEnum == MaterialStockState.STOCK_STATEMETN)
+                stockStateCondition = $"{DbTable.F_Material.MATERIAL_STATE} = '3'";
+            else if(stockStateEnum == MaterialStockState.PUT_IN_STOCK_AND_STATEMENT)
+                stockStateCondition = $"{DbTable.F_Material.MATERIAL_STATE} = '1' OR {DbTable.F_Material.MATERIAL_STATE} = '3'";
             if (codeRid == "")
             {
                 selectSQL = $"SELECT " +
@@ -1779,11 +1820,12 @@ namespace MesAPI
                 $"{DbTable.F_Material.MATERIAL_USERNAME}," +
                 $"{DbTable.F_Material.MATERIAL_UPDATE_DATE}," +
                 $"{DbTable.F_Material.MATERIAL_DESCRIBLE}," +
-                $"{DbTable.F_Material.MATERIAL_STOCK} " +
+                $"{DbTable.F_Material.MATERIAL_STOCK}," +
+                $"{DbTable.F_Material.MATERIAL_STATE} " +
                 $"FROM " +
                 $"{DbTable.F_MATERIAL_NAME} " +
                 $"WHERE " +
-                $"{DbTable.F_Material.MATERIAL_STATE} = '{stockState}'";
+                $"{stockStateCondition}";
             }
             else
             {
@@ -1793,12 +1835,13 @@ namespace MesAPI
                 $"{DbTable.F_Material.MATERIAL_USERNAME}," +
                 $"{DbTable.F_Material.MATERIAL_UPDATE_DATE}," +
                 $"{DbTable.F_Material.MATERIAL_DESCRIBLE}," +
-                $"{DbTable.F_Material.MATERIAL_STOCK} " +
+                $"{DbTable.F_Material.MATERIAL_STOCK}," +
+                $"{DbTable.F_Material.MATERIAL_STATE} " +
                 $"FROM {DbTable.F_MATERIAL_NAME} " +
                 $"WHERE " +
                 $"{DbTable.F_Material.MATERIAL_CODE} like '%{codeRid}%' " +
                 $"AND " +
-                $"{DbTable.F_Material.MATERIAL_STATE} = '{stockState}'";
+                $"{stockStateCondition}";
             }
             return SQLServer.ExecuteDataSet(selectSQL);
         }
@@ -2215,6 +2258,7 @@ namespace MesAPI
                 deleteAllMaterialMsg = $"DELETE FROM {DbTable.F_MATERIAL_STATISTICS_NAME}";
                 delRow = SQLServer.ExecuteNonQuery(deleteAllMaterialMsg);
                 LogHelper.Log.Info($"【删除所有物料使用数据】删除{delRow}条");
+                DeleteBindedDataOfDeleteMaterial(queryCondition);
                 return delRow;
             }
             else
@@ -2250,25 +2294,159 @@ namespace MesAPI
                     return SQLServer.ExecuteNonQuery(deleteOfSN);
                 }
                 LogHelper.Log.Info($"【删除部分物料使用数据-物料条码】删除{delRow}条");
+                DeleteBindedDataOfDeleteMaterial(queryCondition);
                 return delRow;
             }
         }
 
-        private void DeleteBindedData(string queryCondition)
+        /// <summary>
+        /// 删除物料结束时，查询是否还存在过站记录,不存在时，删除绑定记录
+        /// </summary>
+        /// <param name="queryCondition"></param>
+        /// <returns></returns>
+        private int DeleteBindedDataOfDeleteMaterial(string queryCondition)
         {
-            /*
-             * 删除绑定记录条件：
-             * 1）过站记录与物料记录至少有一个被执行完删除时
-             * 
-             */
-            //删除物料结束时，查询是否还存在过站记录
-            var selectTestResult = $"SELECT * FROM {DbTable.F_TEST_RESULT_NAME} WHERE {DbTable.F_Test_Result.SN} = '{queryCondition}'";
-            var dt = SQLServer.ExecuteDataSet(selectTestResult).Tables[0];
-            if (dt.Rows.Count < 1)
+            ///查询条件为空/物料编码/PCBASN/外壳SN
+            var selectTestResult = "";
+            var deleteBindedMsg = "";
+
+            if (queryCondition == "")
             {
-                //不存在过站记录
-                //删除绑定记录
+                selectTestResult = $"SELECT * FROM {DbTable.F_TEST_RESULT_NAME} ";
+                deleteBindedMsg = $"DELETE FROM {DbTable.F_BINDING_PCBA_NAME}";
+                var dt = SQLServer.ExecuteDataSet(selectTestResult).Tables[0];
+                if (dt.Rows.Count < 1)
+                {
+                    LogHelper.Log.Info("【删除绑定记录-删除全部】已删除过站记录，删除全部绑定记录");
+                    return SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                }
             }
+            else
+            {
+                var selectBindMsg = $"SELECT {DbTable.F_BINDING_PCBA.SN_PCBA},{DbTable.F_BINDING_PCBA.SN_OUTTER},{DbTable.F_BINDING_PCBA.MATERIAL_CODE} FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                    $"{DbTable.F_BINDING_PCBA.MATERIAL_CODE} like '%{queryCondition}%'";
+                var bindData = SQLServer.ExecuteDataSet(selectBindMsg).Tables[0];
+                if (bindData.Rows.Count > 0)
+                {
+                    //1)条件为物料编码,根据物料编码查询SN
+                    //根据SN查询过站记录是否已删除
+                    foreach (DataRow dataRow in bindData.Rows)
+                    {
+                        var pcbSN = dataRow[0].ToString();//可能为空
+                        var shellSN = dataRow[1].ToString();//可能为空
+                        var materialCode = dataRow[2].ToString();
+                        DataTable testResultData = null;
+                        //pcbaSN 查询记录
+                        if (pcbSN != "" && shellSN == "")
+                        {
+                            LogHelper.Log.Info("【删除绑定记录-物料-条件】PCBA不为空-外壳为空");
+                        }
+                        else if (pcbSN == "" && shellSN != "")
+                        {
+                            LogHelper.Log.Info("【删除绑定记录-物料-条件】PCBA为空-外壳不为空");
+                        }
+                        else if (pcbSN != "" && shellSN != "")
+                        {
+                            selectTestResult = $"SELECT * FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
+                                $"{DbTable.F_Test_Result.SN} = '{pcbSN}' " +
+                                $"OR " +
+                                $"{DbTable.F_Test_Result.SN} = '{shellSN}'";
+                            testResultData = SQLServer.ExecuteDataSet(selectTestResult).Tables[0];
+                            if (testResultData.Rows.Count < 1)
+                            {
+                                //pcbaSN 查询无记录
+                                //删除绑定记录
+                                deleteBindedMsg = $"DELETE FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                                         $"{DbTable.F_BINDING_PCBA.MATERIAL_CODE} = '{materialCode}'" +
+                                         $"AND " +
+                                         $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbSN}' " +
+                                         $"AND " +
+                                         $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{shellSN}'";
+                                return SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    //2)条件为物料编码查询无记录，条件为SN
+                    //查询是否有过站记录
+                    //条件为PCBASN
+                    selectBindMsg = $"SELECT {DbTable.F_BINDING_PCBA.SN_PCBA},{DbTable.F_BINDING_PCBA.SN_OUTTER},{DbTable.F_BINDING_PCBA.MATERIAL_CODE} FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                        $"{DbTable.F_BINDING_PCBA.SN_PCBA} like '%{queryCondition}%'";
+                    bindData = SQLServer.ExecuteDataSet(selectBindMsg).Tables[0];
+                    if (bindData.Rows.Count > 0)
+                    {
+                        foreach (DataRow dataRow in bindData.Rows)
+                        {
+                            var snPCBA = dataRow[0].ToString();
+                            var snOutter = dataRow[1].ToString();
+                            var materialCode = dataRow[2].ToString();
+                            if (snPCBA != "" && snOutter != "")
+                            {
+                                selectTestResult = $"SELECT * FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
+                                    $"{DbTable.F_Test_Result.SN} = '{snPCBA}' OR {DbTable.F_Test_Result.SN} = '{snOutter}'";
+                                var testResultData = SQLServer.ExecuteDataSet(selectTestResult).Tables[0];
+                                if (testResultData.Rows.Count < 1)
+                                {
+                                    //无过站记录
+                                    //删除绑定记录
+                                    deleteBindedMsg = $"DELETE FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                                        $"{DbTable.F_BINDING_PCBA.SN_PCBA}  = '{snPCBA}' " +
+                                        $"AND " +
+                                        $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}' " +
+                                        $"AND " +
+                                        $"{DbTable.F_BINDING_PCBA.MATERIAL_CODE} = '{materialCode}'";
+                                    return SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                }
+                            }
+                            else
+                            {
+                                LogHelper.Log.Info("【删除绑定记录-SNPCBA-条件】PCBA或外壳有为空 "+snPCBA+" "+snOutter);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //条件为外壳SN
+                        selectBindMsg = $"SELECT {DbTable.F_BINDING_PCBA.SN_PCBA},{DbTable.F_BINDING_PCBA.SN_OUTTER},{DbTable.F_BINDING_PCBA.MATERIAL_CODE} FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                            $"{DbTable.F_BINDING_PCBA.SN_OUTTER} like '%{queryCondition}%'";
+                        bindData = SQLServer.ExecuteDataSet(selectBindMsg).Tables[0];
+                        if (bindData.Rows.Count > 0)
+                        {
+                            foreach (DataRow dataRow in bindData.Rows)
+                            {
+                                var snPCBA = dataRow[0].ToString();
+                                var snOutter = dataRow[1].ToString();
+                                var materialCode = dataRow[2].ToString();
+                                if (snPCBA != "" && snOutter != "")
+                                {
+                                    selectTestResult = $"SELECT * FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
+                                        $"{DbTable.F_Test_Result.SN} = '{snPCBA}' OR {DbTable.F_Test_Result.SN} = '{snOutter}'";
+                                    var testResultData = SQLServer.ExecuteDataSet(selectTestResult).Tables[0];
+                                    if (testResultData.Rows.Count < 1)
+                                    {
+                                        //无过站记录
+                                        //删除绑定记录
+                                        deleteBindedMsg = $"DELETE FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                                            $"{DbTable.F_BINDING_PCBA.SN_PCBA}  = '{snPCBA}' " +
+                                            $"AND " +
+                                            $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}' " +
+                                            $"AND " +
+                                            $"{DbTable.F_BINDING_PCBA.MATERIAL_CODE} = '{materialCode}'";
+                                        return SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                    }
+                                }
+                                else
+                                {
+                                    LogHelper.Log.Info("【删除绑定记录-SN外壳-条件】PCBA或外壳有为空 " + snPCBA + " " + snOutter);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return 0;
         }
 
         private DataSet SelectMaterialDetail(DataTable dataSourceMaterialBasic,string selectSQL)
@@ -2762,6 +2940,7 @@ namespace MesAPI
             LogHelper.Log.Info(selectSQL);
             return SQLServer.ExecuteDataSet(selectSQL);
         }
+
         public DataSet SelectPackageStorage(string queryFilter)
         {
             var selectSQL = "";
@@ -2774,8 +2953,10 @@ namespace MesAPI
                 $"COUNT(a.{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE}) 产品实际数量 " +
                 $"FROM " +
                 $"{DbTable.F_PRODUCT_PACKAGE_NAME}  a," +
-                $"{DbTable.F_PRODUCT_PACKAGE_STORAGE_NAME} b WHERE " +
-                $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} = b.{DbTable.F_PRODUCT_PACKAGE_STORAGE.PRODUCT_TYPE_NO} AND " +
+                $"{DbTable.F_PRODUCT_PACKAGE_STORAGE_NAME} b " +
+                $"WHERE " +
+                $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} = b.{DbTable.F_PRODUCT_PACKAGE_STORAGE.PRODUCT_TYPE_NO} " +
+                $"AND " +
                 $"a.{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '1' " +
                 $"GROUP BY " +
                 $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE}," +
@@ -2790,12 +2971,12 @@ namespace MesAPI
                 $"b.{DbTable.F_PRODUCT_PACKAGE_STORAGE.STORAGE_CAPACITY} 箱子容量," +
                 $"COUNT(a.{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE}) 产品实际数量 FROM " +
                 $"{DbTable.F_PRODUCT_PACKAGE_NAME}  a," +
-                $"{DbTable.F_PRODUCT_PACKAGE_STORAGE_NAME} b WHERE " +
+                $"{DbTable.F_PRODUCT_PACKAGE_STORAGE_NAME} b " +
+                $"WHERE " +
                 $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} = b.{DbTable.F_PRODUCT_PACKAGE_STORAGE.PRODUCT_TYPE_NO} AND " +
                 $"a.{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '1' AND " +
                 $"a.{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} = '{queryFilter}' OR " +
-                $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} = '{queryFilter}' AND " +
-                $"b.{DbTable.F_PRODUCT_PACKAGE_STORAGE.PRODUCT_TYPE_NO} = '{queryFilter}' " +
+                $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} = '{queryFilter}' " +
                 $"GROUP BY " +
                 $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE}," +
                 $"{DbTable.F_PRODUCT_PACKAGE_STORAGE.STORAGE_CAPACITY}," +
@@ -2803,6 +2984,26 @@ namespace MesAPI
             }
             LogHelper.Log.Info(selectSQL);
             return SQLServer.ExecuteDataSet(selectSQL);
+        }
+
+        public int DeleteProductPackage(string queryCondition,int state)
+        {
+            var deleteSQL = $"";
+            if (queryCondition == "")
+            {
+                deleteSQL = $"DELETE FROM {DbTable.F_PRODUCT_PACKAGE_NAME} WHERE " +
+                    $"{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '{state}'";
+            }
+            else
+            {
+                deleteSQL = $"DELETE FROM {DbTable.F_PRODUCT_PACKAGE_NAME} WHERE " +
+                    $"{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} = '{queryCondition}' " +
+                    $"OR " +
+                    $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} = '{queryCondition}' " +
+                    $"AND " +
+                    $"{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '{state}'";
+            }
+            return SQLServer.ExecuteNonQuery(deleteSQL);
         }
         #endregion
 
@@ -3129,7 +3330,7 @@ namespace MesAPI
         }
         #endregion
 
-        #region 品质异常管理
+        #region 品质管理
         public int UpdateQuanlityData(string eType,string mCode,string sDate,string estock,string aStock,string station,
             string state,string reason,string user)
         {
@@ -3145,8 +3346,29 @@ namespace MesAPI
                 $"{DbTable.F_QUANLITY_MANAGER.STATEMENT_USER}," +
                 $"{DbTable.F_QUANLITY_MANAGER.UPDATE_DATE}) VALUES(" +
                 $"'{eType}','{mCode}','{sDate}','{estock}','{aStock}','{station}','{state}','{reason}','{user}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
-            LogHelper.Log.Info(insertSQL);
-            return SQLServer.ExecuteNonQuery(insertSQL); 
+            if (IsExistQuanlityMaterial(mCode))
+            {
+                //update
+                var updateSQL = $"UPDATE {DbTable.F_QUANLITY_MANAGER_NAME} SET " +
+                    $"{DbTable.F_QUANLITY_MANAGER.EXCEPT_TYPE} = '{eType}'," +
+                    $"{DbTable.F_QUANLITY_MANAGER.STATEMENT_DATE} = '{sDate}'," +
+                    $"{DbTable.F_QUANLITY_MANAGER.EXCEPT_STOCK} = '{estock}'," +
+                    $"{DbTable.F_QUANLITY_MANAGER.ACTUAL_STOCK} = '{aStock}'," +
+                    $"{DbTable.F_QUANLITY_MANAGER.STATION_NAME} = '{station}'," +
+                    $"{DbTable.F_QUANLITY_MANAGER.MATERIAL_STATE} = '{state}'," +
+                    $"{DbTable.F_QUANLITY_MANAGER.STATEMENT_REASON} = '{reason}'," +
+                    $"{DbTable.F_QUANLITY_MANAGER.STATEMENT_USER} = '{user}'," +
+                    $"{DbTable.F_QUANLITY_MANAGER.UPDATE_DATE} = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' " +
+                    $"WHERE " +
+                    $"{DbTable.F_QUANLITY_MANAGER.MATERIAL_CODE} = '{mCode}'";
+                LogHelper.Log.Info(insertSQL);
+                return SQLServer.ExecuteNonQuery(updateSQL);
+            }
+            else
+            {
+                LogHelper.Log.Info(insertSQL);
+                return SQLServer.ExecuteNonQuery(insertSQL);
+            }
         }
 
         public int UpdateMaterialStateMent(string materialCode,int state)
@@ -3189,6 +3411,23 @@ namespace MesAPI
             }
 
             return SQLServer.ExecuteDataSet(selectSQL);
+        }
+
+        private bool IsExistQuanlityMaterial(string materialCode)
+        {
+            var selectSQL = $"SELECT * FROM {DbTable.F_QUANLITY_MANAGER_NAME} " +
+                $"WHERE {DbTable.F_QUANLITY_MANAGER.MATERIAL_CODE} = '{materialCode}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+                return true;
+            return false;
+        }
+
+        public int DeleteQuanlityMsg(string materialCode)
+        {
+            var deleteSQL = $"DELETE FROM {DbTable.F_QUANLITY_MANAGER_NAME} WHERE " +
+                $"{DbTable.F_QUANLITY_MANAGER.MATERIAL_CODE} = '{materialCode}'";
+            return SQLServer.ExecuteNonQuery(deleteSQL);
         }
         #endregion
 

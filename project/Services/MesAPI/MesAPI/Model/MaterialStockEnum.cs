@@ -14,4 +14,12 @@ namespace MesAPI.Model
         STATUS_NOT_ZERO_STOCK,
         STATUS_STOCK_NOT_SMALLER_AMOUNTED
     }
+
+    public enum MaterialStockState
+    {
+        PUT_IN_STOCK = 1,
+        STOCK_USE_COMPLED = 2,
+        STOCK_STATEMETN = 3,
+        PUT_IN_STOCK_AND_STATEMENT = 4
+    }
 }

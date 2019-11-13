@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MesAPI.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MesAPI.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.13.240:8085/MesService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:simpleType name="LoginResult">
     <xs:restriction base="xs:string">
       <xs:enumeration value="USER_NAME_ERR" />
@@ -37,6 +38,39 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Station" nillable="true" type="tns:Station" />
+  <xs:simpleType name="MaterialStockState">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PUT_IN_STOCK">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STOCK_USE_COMPLED">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STOCK_STATEMETN">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PUT_IN_STOCK_AND_STATEMENT">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MaterialStockState" nillable="true" type="tns:MaterialStockState" />
   <xs:complexType name="ArrayOfProductMaterial">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductMaterial" nillable="true" type="tns:ProductMaterial" />

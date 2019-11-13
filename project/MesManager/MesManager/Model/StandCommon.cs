@@ -15,7 +15,7 @@ namespace MesManager.Model
         public const string AirtageStationConfigPath        = ":\\StationConfig\\气密测试工站\\";
         public const string StentStationConfigPath          = ":\\StationConfig\\支架装配工站\\";
         public const string ProductFinishStationConfigPath  = ":\\StationConfig\\成品测试工站\\";
-        public const string CheckProductStationConfigPath   = ":\\StationConfig\\抽检工站\\";
+        public const string CheckProductStationConfigPath   = ":\\StationConfig\\质量抽检测试工站\\";
 
         //不完整文件名称
         public const string TurnStationIniName = "烧录工站_";

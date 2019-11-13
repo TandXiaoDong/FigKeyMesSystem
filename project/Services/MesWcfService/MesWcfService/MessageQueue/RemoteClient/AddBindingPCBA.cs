@@ -177,7 +177,9 @@ namespace MesWcfService.MessageQueue.RemoteClient
         private static string SelectPcba(string snOutter)
         {
             var selectSQL = $"SELECT {DbTable.F_BINDING_PCBA.SN_PCBA} FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
-                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}'";
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}' " +
+                $"AND " +
+                $"{DbTable.F_BINDING_PCBA.BINDING_STATE} = '1'";
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             if (dt.Rows.Count > 0)
                 return dt.Rows[0][0].ToString();

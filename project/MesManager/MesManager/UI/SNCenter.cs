@@ -28,7 +28,7 @@ namespace MesManager.UI
         private DataTable dataSourceQuanlity;
         private DataTable dataSourceProductPackage;
         private const string DATA_ORDER = "序号";
-        private string currentMaterialQueryCondition;
+        private string currentQueryCondition;
 
         #region 物料统计字段
         private const string MATERIAL_PN = "物料号";
@@ -133,7 +133,22 @@ namespace MesManager.UI
 
         private void Tool_productCheckClearDB_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (this.radGridViewCheck.RowCount < 1)
+            {
+                MessageBox.Show("没有可以清除的数据!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show("确认要清除当前数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            var delRow = serviceClient.DeleteProductPackage(this.currentQueryCondition,0);
+            if (delRow > 0)
+            {
+                MessageBox.Show("删除数据完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("删除数据未完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void Tool_materialClearDB_Click(object sender, EventArgs e)
@@ -145,7 +160,7 @@ namespace MesManager.UI
             }
             if (MessageBox.Show("确认要清除当前数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
-            var delRow = serviceClient.DeleteMaterialBasicMsg(this.currentMaterialQueryCondition);
+            var delRow = serviceClient.DeleteMaterialBasicMsg(this.currentQueryCondition);
             if (delRow > 0)
             {
                 MessageBox.Show("删除数据完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -159,17 +174,47 @@ namespace MesManager.UI
 
         private void Tool_packageClearDB_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (this.radGridViewPackage.RowCount < 1)
+            {
+                MessageBox.Show("没有可以清除的数据!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show("确认要清除当前数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            var delRow = serviceClient.DeleteProductPackage(this.currentQueryCondition,1);
+            if (delRow > 0)
+            {
+                MessageBox.Show("删除数据完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("删除数据未完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void Tool_quanlityClearDB_Click(object sender, EventArgs e)
         {
-            
+            if (this.radGridViewQuanlity.RowCount < 1)
+            {
+                MessageBox.Show("没有可以清除的数据!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show("确认要清除当前数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+            var delRow = serviceClient.DeleteQuanlityMsg(this.currentQueryCondition);
+            if (delRow > 0)
+            {
+                MessageBox.Show("删除数据完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("删除数据未完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void Tool_SNClearDB_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         #region UI style
@@ -440,10 +485,6 @@ namespace MesManager.UI
                 this.tool_SNClearDB.Enabled = false;
 
             }
-            this.tool_materialClearDB.Visible = true;
-            this.tool_packageClearDB.Visible = false;
-            this.tool_productCheckClearDB.Visible = false;
-            this.tool_quanlityClearDB.Visible = false;
             this.tool_SNClearDB.Visible = false;
         }
 
@@ -473,9 +514,9 @@ namespace MesManager.UI
 
         async private void SelectOfPackage(string state)
         {
-            var filter = tb_package.Text;
+            currentQueryCondition = tb_package.Text;
             //箱子编码/追溯码/型号
-            DataTable dt = (await serviceClient.SelectPackageStorageAsync(filter)).Tables[0];
+            DataTable dt = (await serviceClient.SelectPackageStorageAsync(currentQueryCondition)).Tables[0];
             dataSourceProductPackage.Clear();
             if (dt.Rows.Count > 0)
             {
@@ -496,9 +537,9 @@ namespace MesManager.UI
 
         async private void SelectOfPackageCheck(string state)
         {
-            var filter = tb_productCheck.Text;
+            currentQueryCondition = tb_productCheck.Text;
             //箱子编码/追溯码/型号
-            DataTable dt = (await serviceClient.SelectPackageProductCheckAsync(filter, state,false)).Tables[0];
+            DataTable dt = (await serviceClient.SelectPackageProductCheckAsync(currentQueryCondition, state,false)).Tables[0];
             this.dataSourceProductCheck.Clear();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -594,8 +635,8 @@ namespace MesManager.UI
 
         async private void SelectOfMaterialQuanlity()
         {
-            var materialCodeFilter = this.tb_quanlity_filter.Text;
-            var dt = (await serviceClient.SelectQuanlityManagerAsync(materialCodeFilter)).Tables[0];
+            currentQueryCondition = this.tb_quanlity_filter.Text;
+            var dt = (await serviceClient.SelectQuanlityManagerAsync(currentQueryCondition)).Tables[0];
             this.dataSourceQuanlity.Clear();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -641,7 +682,8 @@ namespace MesManager.UI
                 dataSourceQuanlity.Rows.Add(dr);
             }
             this.radGridViewQuanlity.DataSource = dataSourceQuanlity;
-            this.radGridViewQuanlity.Columns[0].BestFit();
+            this.radGridViewQuanlity.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridViewQuanlity.BestFitColumns();
         }
 
         /// <summary>
@@ -649,7 +691,7 @@ namespace MesManager.UI
         /// </summary>
         async private void SelectOfMaterial()
         {
-            this.currentMaterialQueryCondition = this.tb_material.Text;
+            this.currentQueryCondition = this.tb_material.Text;
             //物料信息表
             //物料编码+物料名称+所属型号+在哪个工序/站位消耗+该位置消耗数量
             var ds = await serviceClient.SelectMaterialBasicMsgAsync(this.tb_material.Text);

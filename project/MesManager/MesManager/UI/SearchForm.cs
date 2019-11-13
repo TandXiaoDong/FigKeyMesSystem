@@ -18,6 +18,7 @@ namespace MesManager.UI
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterParent;
+            this.MaximizeBox = false;
             serviceClient = new MesService.MesServiceClient();
             SelectMaterialMsg();
             this.tb_inputMsg.TextChanged += Tb_inputMsg_TextChanged;
@@ -40,10 +41,12 @@ namespace MesManager.UI
 
         async private void SelectMaterialMsg()
         {
-            DataTable dt = (await serviceClient.SelectMaterialAsync(this.tb_inputMsg.Text,1)).Tables[0];
+            DataTable dt = (await serviceClient.SelectMaterialAsync(this.tb_inputMsg.Text,MesService.MaterialStockState.PUT_IN_STOCK_AND_STATEMENT)).Tables[0];
+            
             DataTable data = new DataTable();
             data.Columns.Add("序号");
             data.Columns.Add("物料编码");
+            data.Columns.Add("库存状态");
             if (dt.Rows.Count > 0)
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
@@ -51,18 +54,32 @@ namespace MesManager.UI
                     DataRow dr = data.NewRow();
                     dr["序号"] = i + 1;
                     dr["物料编码"] = dt.Rows[i][0].ToString();
+                    var stockState = dt.Rows[i][6].ToString();
+                    if (stockState == "2")
+                        stockState = "已使用完成";
+                    else if (stockState == "3")
+                        stockState = "已经结单";
+                    else if (stockState == "1")
+                        stockState = "正常使用";
+                    dr["库存状态"] = stockState;
                     data.Rows.Add(dr);
                 }
             }
             this.radGridView1.DataSource = data;
             DataGridViewCommon.SetRadGridViewProperty(this.radGridView1, false);
             this.radGridView1.ReadOnly = true;
-            this.radGridView1.Columns[0].BestFit();
+            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = Telerik.WinControls.UI.GridViewAutoSizeColumnsMode.None;
+            this.radGridView1.BestFitColumns();
         }
 
         private void btn_ok_Click(object sender, EventArgs e)
         {
             currentMaterialCode = this.tb_selectCode.Text;
+            this.Close();
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
             this.Close();
         }
     }
