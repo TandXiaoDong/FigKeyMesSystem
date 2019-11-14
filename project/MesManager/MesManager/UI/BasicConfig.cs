@@ -248,6 +248,9 @@ namespace MesManager.UI
                         //删除产品后，同时将工艺删除
                         row = await serviceClient.DeleteProcessAsync(typeNo);
                         LogHelper.Log.Info($"【删除工艺】工艺名称={typeNo}影响行数={row} 操作用户={MESMainForm.currentUser}");
+                        //删除产品和工艺后，删除对应配置
+                        if(row > 0)
+                            InitStandConfig.QueryCurrentStandProductDirectory("");//查询并删除当前工艺配置文件
                         RefreshData();
                     }
                 }
@@ -452,7 +455,9 @@ namespace MesManager.UI
                 foreach (var basic in this.modifyProductTypeNoList)
                 {
                     serviceClient.UpdateAllProductTypeNo(basic.keyOldTypeNo,basic.keyNewTypeNo);
+                    ModifyStandConfigProductType(basic.keyOldTypeNo,basic.keyNewTypeNo);
                 }
+                modifyProductTypeNoList.Clear();
             }
             catch (Exception ex)
             {

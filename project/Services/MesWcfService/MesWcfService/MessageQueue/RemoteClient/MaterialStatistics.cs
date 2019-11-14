@@ -179,7 +179,9 @@ namespace MesWcfService.MessageQueue.RemoteClient
                             if (ConvertCheckMaterialStateCode(MaterialStateReturnCode.STATUS_USING) == cStateRes)
                             {
                                 //物料未使用完，不能扫描新的同种物料
-                                return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.ERROR_LAST_MATERIAL_PN_IS_NOT_USED_UP);
+                                //2019/11/14 10：12 已修改为可以继续扫描新的同种物料
+                                LogHelper.Log.Info("【物料号防错】旧物料未使用完，可以扫描新物料 "+MaterialCheckMatchReturnCode.STATUS_LAST_MATERIAL_PN_IS_NOT_USED_UP.ToString());
+                                return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
                             }
                             else if (ConvertCheckMaterialStateCode(MaterialStateReturnCode.STATUS_OTHER_COMPLETE) == cStateRes)
                             {

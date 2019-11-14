@@ -47,6 +47,11 @@
             this.dw_materialOver = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tb_reason = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_matualStock = new Telerik.WinControls.UI.RadTextBox();
+            this.tb_stock = new Telerik.WinControls.UI.RadTextBox();
+            this.btn_recover = new Telerik.WinControls.UI.RadButton();
+            this.btn_allApply = new Telerik.WinControls.UI.RadButton();
             this.btn_query = new Telerik.WinControls.UI.RadButton();
             this.btn_cancel = new Telerik.WinControls.UI.RadButton();
             this.cb_materialState = new System.Windows.Forms.ComboBox();
@@ -67,11 +72,6 @@
             this.rbtn_material_produce = new Telerik.WinControls.UI.RadRadioButton();
             this.rbtn_material_process = new Telerik.WinControls.UI.RadRadioButton();
             this.crystalTheme1 = new Telerik.WinControls.Themes.CrystalTheme();
-            this.btn_allApply = new Telerik.WinControls.UI.RadButton();
-            this.btn_recover = new Telerik.WinControls.UI.RadButton();
-            this.tb_stock = new Telerik.WinControls.UI.RadTextBox();
-            this.tb_matualStock = new Telerik.WinControls.UI.RadTextBox();
-            this.tb_reason = new Telerik.WinControls.UI.RadTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
             this.dw_pcba.SuspendLayout();
@@ -92,6 +92,11 @@
             this.dw_materialOver.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_reason)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_matualStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_recover)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_allApply)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_query)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).BeginInit();
@@ -108,17 +113,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_stock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_produce)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_process)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_allApply)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_recover)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stock)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_matualStock)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_reason)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.dw_pcba;
+            this.radDock1.ActiveWindow = this.dw_materialOver;
             this.radDock1.Controls.Add(this.documentContainer1);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radDock1.IsCleanUpTarget = true;
@@ -271,7 +271,7 @@
             // 
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 0;
+            this.documentTabStrip1.SelectedIndex = 1;
             this.documentTabStrip1.Size = new System.Drawing.Size(816, 618);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
@@ -329,6 +329,58 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(800, 480);
             this.panel1.TabIndex = 5;
+            // 
+            // tb_reason
+            // 
+            this.tb_reason.Location = new System.Drawing.Point(84, 251);
+            this.tb_reason.Multiline = true;
+            this.tb_reason.Name = "tb_reason";
+            // 
+            // 
+            // 
+            this.tb_reason.RootElement.StretchVertically = true;
+            this.tb_reason.Size = new System.Drawing.Size(677, 163);
+            this.tb_reason.TabIndex = 29;
+            this.tb_reason.ThemeName = "Material";
+            // 
+            // tb_matualStock
+            // 
+            this.tb_matualStock.Location = new System.Drawing.Point(475, 82);
+            this.tb_matualStock.Name = "tb_matualStock";
+            this.tb_matualStock.Size = new System.Drawing.Size(286, 36);
+            this.tb_matualStock.TabIndex = 28;
+            this.tb_matualStock.ThemeName = "Material";
+            // 
+            // tb_stock
+            // 
+            this.tb_stock.Location = new System.Drawing.Point(84, 145);
+            this.tb_stock.Name = "tb_stock";
+            this.tb_stock.Size = new System.Drawing.Size(286, 36);
+            this.tb_stock.TabIndex = 27;
+            this.tb_stock.ThemeName = "Material";
+            // 
+            // btn_recover
+            // 
+            this.btn_recover.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_recover.Image = global::MesManager.Properties.Resources.Apply_16x16;
+            this.btn_recover.Location = new System.Drawing.Point(310, 429);
+            this.btn_recover.Name = "btn_recover";
+            this.btn_recover.Size = new System.Drawing.Size(99, 24);
+            this.btn_recover.TabIndex = 26;
+            this.btn_recover.Text = "恢复正常";
+            this.btn_recover.ThemeName = "Breeze";
+            this.btn_recover.Visible = false;
+            // 
+            // btn_allApply
+            // 
+            this.btn_allApply.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_allApply.Image = global::MesManager.Properties.Resources.Apply_16x16;
+            this.btn_allApply.Location = new System.Drawing.Point(432, 429);
+            this.btn_allApply.Name = "btn_allApply";
+            this.btn_allApply.Size = new System.Drawing.Size(100, 24);
+            this.btn_allApply.TabIndex = 25;
+            this.btn_allApply.Text = "一键结单";
+            this.btn_allApply.ThemeName = "Breeze";
             // 
             // btn_query
             // 
@@ -539,57 +591,6 @@
             this.rbtn_material_process.TabStop = false;
             this.rbtn_material_process.Text = "生产过程异常";
             // 
-            // btn_allApply
-            // 
-            this.btn_allApply.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_allApply.Image = global::MesManager.Properties.Resources.Apply_16x16;
-            this.btn_allApply.Location = new System.Drawing.Point(432, 429);
-            this.btn_allApply.Name = "btn_allApply";
-            this.btn_allApply.Size = new System.Drawing.Size(100, 24);
-            this.btn_allApply.TabIndex = 25;
-            this.btn_allApply.Text = "一键结单";
-            this.btn_allApply.ThemeName = "Breeze";
-            // 
-            // btn_recover
-            // 
-            this.btn_recover.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_recover.Image = global::MesManager.Properties.Resources.Apply_16x16;
-            this.btn_recover.Location = new System.Drawing.Point(310, 429);
-            this.btn_recover.Name = "btn_recover";
-            this.btn_recover.Size = new System.Drawing.Size(99, 24);
-            this.btn_recover.TabIndex = 26;
-            this.btn_recover.Text = "恢复正常";
-            this.btn_recover.ThemeName = "Breeze";
-            // 
-            // tb_stock
-            // 
-            this.tb_stock.Location = new System.Drawing.Point(84, 145);
-            this.tb_stock.Name = "tb_stock";
-            this.tb_stock.Size = new System.Drawing.Size(286, 36);
-            this.tb_stock.TabIndex = 27;
-            this.tb_stock.ThemeName = "Material";
-            // 
-            // tb_matualStock
-            // 
-            this.tb_matualStock.Location = new System.Drawing.Point(475, 82);
-            this.tb_matualStock.Name = "tb_matualStock";
-            this.tb_matualStock.Size = new System.Drawing.Size(286, 36);
-            this.tb_matualStock.TabIndex = 28;
-            this.tb_matualStock.ThemeName = "Material";
-            // 
-            // tb_reason
-            // 
-            this.tb_reason.Location = new System.Drawing.Point(84, 251);
-            this.tb_reason.Multiline = true;
-            this.tb_reason.Name = "tb_reason";
-            // 
-            // 
-            // 
-            this.tb_reason.RootElement.StretchVertically = true;
-            this.tb_reason.Size = new System.Drawing.Size(677, 163);
-            this.tb_reason.TabIndex = 29;
-            this.tb_reason.ThemeName = "Material";
-            // 
             // QuanlityAnomaly
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -629,6 +630,11 @@
             this.groupBox1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_reason)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_matualStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_stock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_recover)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_allApply)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_query)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).EndInit();
@@ -646,11 +652,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_stock)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_produce)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbtn_material_process)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_allApply)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_recover)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_stock)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_matualStock)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_reason)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

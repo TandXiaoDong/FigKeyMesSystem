@@ -17,6 +17,8 @@ namespace MesManager.Model
         public const string SpreadUnitKey = "泄露单位";
         public const string MaxInflateKey = "最大充气";
         public const string MinInflateKey = "最小充气";
+        public const string BigLeakMaxKey = "大漏最大值";
+        public const string BigLeakMinKey = "大漏最小值";
         public const string TestConditionValueKey = "测试条件允收值";
         public const string ReferenceConditionValueKey = "参考条件允收值";
         public const string TestSerialKey = "测试序列";
@@ -56,6 +58,10 @@ namespace MesManager.Model
         public string MaxInflate { get; set; }
 
         public string MinInflate { get; set; }
+
+        public string BigLeakMax { get; set; }
+
+        public string BigLeakMin { get; set; }
 
         public string TestConditionValue { get; set; }
 

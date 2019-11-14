@@ -28,7 +28,7 @@ namespace MesManager.Common
         }
 
 
-        public static bool InitDirectory(StandConfigType configType)
+        public static bool InitDirectory(StandConfigType configType,bool IsCreateDirectory)
         {
             serviceClientTest = new MesServiceTest.MesServiceClient();
             var globalConfigPath = AppDomain.CurrentDomain.BaseDirectory + CommConfig.DeafaultConfigRoot;
@@ -56,21 +56,89 @@ namespace MesManager.Common
             var productTestProductType = defaultRoot + StandCommon.ProductFinishStationConfigPath + currentProcess;
             var productCheckProductType = defaultRoot + StandCommon.CheckProductStationConfigPath + currentProcess;
 
-            if(configType == StandConfigType.burn)
-                CreateNewDirectory(burnProductType);
-            else if(configType == StandConfigType.sensibility)
-                CreateNewDirectory(sensibilityProductType);
-            else if(configType == StandConfigType.shell)
-                CreateNewDirectory(shellProductType);
-            else if(configType == StandConfigType.airtage)
-                CreateNewDirectory(airtageProductType);
-            else if(configType == StandConfigType.stent)
-                CreateNewDirectory(stentProductType);
-            else if(configType == StandConfigType.productTest)
-                CreateNewDirectory(productTestProductType);
-            else if(configType == StandConfigType.productCheck)
-                CreateNewDirectory(defaultRoot + StandCommon.CheckProductStationConfigPath + currentProcess);
+            if (IsCreateDirectory)
+            {
+                if (configType == StandConfigType.burn)
+                    CreateNewDirectory(burnProductType);
+                else if (configType == StandConfigType.sensibility)
+                    CreateNewDirectory(sensibilityProductType);
+                else if (configType == StandConfigType.shell)
+                    CreateNewDirectory(shellProductType);
+                else if (configType == StandConfigType.airtage)
+                    CreateNewDirectory(airtageProductType);
+                else if (configType == StandConfigType.stent)
+                    CreateNewDirectory(stentProductType);
+                else if (configType == StandConfigType.productTest)
+                    CreateNewDirectory(productTestProductType);
+                else if (configType == StandConfigType.productCheck)
+                    CreateNewDirectory(defaultRoot + StandCommon.CheckProductStationConfigPath + currentProcess);
+            }
             return true;
+        }
+
+        public static void CreateCurrentProcessDirectory(string currentProcess,StandConfigType configType)
+        {
+            var defaultRoot = ConfigurationManager.AppSettings["standConfigRoot"].ToString();
+            //创建当前工艺文件夹
+            var burnProductType = defaultRoot + StandCommon.TurnStationConfigPath + currentProcess + "\\" + StandCommon.TurnStationFWName;
+            var sensibilityProductType = defaultRoot + StandCommon.SensibilityStationConfigPath + currentProcess;
+            var shellProductType = defaultRoot + StandCommon.ShellStationConfigPath + currentProcess;
+            var airtageProductType = defaultRoot + StandCommon.AirtageStationConfigPath + currentProcess;
+            var stentProductType = defaultRoot + StandCommon.StentStationConfigPath + currentProcess;
+            var productTestProductType = defaultRoot + StandCommon.ProductFinishStationConfigPath + currentProcess;
+            var productCheckProductType = defaultRoot + StandCommon.CheckProductStationConfigPath + currentProcess;
+
+            if (configType == StandConfigType.burn)
+                CreateNewDirectory(burnProductType);
+            else if (configType == StandConfigType.sensibility)
+                CreateNewDirectory(sensibilityProductType);
+            else if (configType == StandConfigType.shell)
+                CreateNewDirectory(shellProductType);
+            else if (configType == StandConfigType.airtage)
+                CreateNewDirectory(airtageProductType);
+            else if (configType == StandConfigType.stent)
+                CreateNewDirectory(stentProductType);
+            else if (configType == StandConfigType.productTest)
+                CreateNewDirectory(productTestProductType);
+            else if (configType == StandConfigType.productCheck)
+                CreateNewDirectory(defaultRoot + StandCommon.CheckProductStationConfigPath + currentProcess);
+        }
+
+        public static void CreateCurrentProcessDirectory(string currentProcess)
+        {
+            var defaultRoot = ConfigurationManager.AppSettings["standConfigRoot"].ToString();
+            //创建当前工艺文件夹
+            var burnProductType = defaultRoot + StandCommon.TurnStationConfigPath + currentProcess + "\\" + StandCommon.TurnStationFWName;
+            var sensibilityProductType = defaultRoot + StandCommon.SensibilityStationConfigPath + currentProcess;
+            var shellProductType = defaultRoot + StandCommon.ShellStationConfigPath + currentProcess;
+            var airtageProductType = defaultRoot + StandCommon.AirtageStationConfigPath + currentProcess;
+            var stentProductType = defaultRoot + StandCommon.StentStationConfigPath + currentProcess;
+            var productTestProductType = defaultRoot + StandCommon.ProductFinishStationConfigPath + currentProcess;
+            var productCheckProductType = defaultRoot + StandCommon.CheckProductStationConfigPath + currentProcess;
+            MesServiceTest.MesServiceClient mesServiceClient = new MesServiceTest.MesServiceClient();
+            var stationList = mesServiceClient.SelectStationList(currentProcess);
+            foreach (var station in stationList)
+            {
+                if (station == GetStationName(StandCommon.TurnStationIniName))
+                    CreateNewDirectory(burnProductType);
+                else if (station == GetStationName(StandCommon.SensibilityStationIniName))
+                    CreateNewDirectory(sensibilityProductType);
+                else if (station == GetStationName(StandCommon.ShellStationIniName))
+                    CreateNewDirectory(shellProductType);
+                else if (station == GetStationName(StandCommon.AirtageStationIniName))
+                    CreateNewDirectory(airtageProductType);
+                else if (station == GetStationName(StandCommon.StentStationIniName))
+                    CreateNewDirectory(stentProductType);
+                else if (station == GetStationName(StandCommon.ProductFinishStationIniName))
+                    CreateNewDirectory(productTestProductType);
+                else if (station == GetStationName(StandCommon.CheckProductStationIniName))
+                    CreateNewDirectory(defaultRoot + StandCommon.CheckProductStationConfigPath + currentProcess);
+            }
+        }
+
+        private static string GetStationName(string stationName)
+        {
+            return stationName.Substring(0,stationName.IndexOf('_'));
         }
 
         private static void CreateNewDirectory(string dir)
@@ -84,8 +152,10 @@ namespace MesManager.Common
         /// <summary>
         /// 查询所有工站下的目录
         /// </summary>
-        private static void QueryCurrentStandProductDirectory(string defaultRoot)
+        public static void QueryCurrentStandProductDirectory(string defaultRoot)
         {
+            if(defaultRoot == "")
+                defaultRoot = ConfigurationManager.AppSettings["standConfigRoot"].ToString();
             var processList = serviceClientTest.SelectAllTProcess();
             var burnStandPath = defaultRoot + StandCommon.TurnStationConfigPath;
             var sensibilityStand = defaultRoot + StandCommon.SensibilityStationConfigPath;

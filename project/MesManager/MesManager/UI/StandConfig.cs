@@ -78,7 +78,6 @@ namespace MesManager.UI
             this.btn_productTest_save.Click += Btn_productTest_save_Click;
 
             this.lbx_burn_openFile.Click += Lbx_burn_openFile_Click;
-
             this.FormClosed += StandConfig_FormClosed;
         }
 
@@ -94,6 +93,11 @@ namespace MesManager.UI
         #region 保存配置
         private void Btn_productTest_save_Click(object sender, EventArgs e)
         {
+            if (!standCommon.StationList.Contains(GetStationName(StandCommon.ProductFinishStationIniName)))
+            {
+                MessageBox.Show($"该工艺未配置【{GetStationName(StandCommon.ProductFinishStationIniName)}】!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             bool IsContinue = false;
             if (!CheckProductTestConfigParams())
                 return;
@@ -111,7 +115,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{productTest.TestSerial}】的供电电压为{productTest.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productTest))
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productTest,true))
                 return;
             SaveProductTestConfig();
             SaveCommonStandConfig();
@@ -119,6 +123,11 @@ namespace MesManager.UI
 
         private void Btn_productCheck_save_Click(object sender, EventArgs e)
         {
+            if (!standCommon.StationList.Contains(GetStationName(StandCommon.CheckProductStationIniName)))
+            {
+                MessageBox.Show($"该工艺未配置【{GetStationName(StandCommon.CheckProductStationIniName)}】!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             bool IsContinue = false;
             if (!CheckProductCheckConfigParams())
                 return;
@@ -136,7 +145,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{productCheck.TestSerial}】的供电电压为{productCheck.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productCheck))
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.productCheck,true))
                 return;
             SaveProductCheckConfig();
             SaveCommonStandConfig();
@@ -144,6 +153,11 @@ namespace MesManager.UI
 
         private void Btn_airtage_save_Click(object sender, EventArgs e)
         {
+            if (!standCommon.StationList.Contains(GetStationName(StandCommon.AirtageStationIniName)))
+            {
+                MessageBox.Show($"该工艺未配置【{GetStationName(StandCommon.AirtageStationIniName)}】!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             bool IsContinue = false;
             if (!CheckAirtageConfigParams())
                 return;
@@ -161,7 +175,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{airtage.TestSerial}】的供电电压为{airtage.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.airtage))
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.airtage,true))
                 return;
             SaveAirtageStandConfig();
             SaveCommonStandConfig();
@@ -169,6 +183,11 @@ namespace MesManager.UI
 
         private void Btn_stent_save_Click(object sender, EventArgs e)
         {
+            if (!standCommon.StationList.Contains(GetStationName(StandCommon.StentStationIniName)))
+            {
+                MessageBox.Show($"该工艺未配置【{GetStationName(StandCommon.StentStationIniName)}】!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             bool IsContinue = false;
             if (!CheckStentConfigParams())
                 return;
@@ -186,7 +205,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{stent.TestSerial}】的供电电压为{stent.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.stent))
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.stent,true))
                 return;
             SaveStentStandConfig();
             SaveCommonStandConfig();
@@ -194,6 +213,11 @@ namespace MesManager.UI
 
         private void Btn_shell_save_Click(object sender, EventArgs e)
         {
+            if (!standCommon.StationList.Contains(GetStationName(StandCommon.ShellStationIniName)))
+            {
+                MessageBox.Show($"该工艺未配置【{GetStationName(StandCommon.ShellStationIniName)}】!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             bool IsContinue = false;
             if (!CheckShellConfigParams())
                 return;
@@ -211,7 +235,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{shell.TestSerialNumber}】的供电电压为{shell.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.shell))
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.shell,true))
                 return;
             SaveShellStandConfig();
             SaveCommonStandConfig();
@@ -219,6 +243,11 @@ namespace MesManager.UI
 
         private void Btn_sensilibity_save_Click(object sender, EventArgs e)
         {
+            if (!standCommon.StationList.Contains(GetStationName(StandCommon.SensibilityStationIniName)))
+            {
+                MessageBox.Show($"该工艺未配置【{GetStationName(StandCommon.SensibilityStationIniName)}】!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             bool IsContinue = false;
             if (!CheckSensibilityConfigParams())
                 return;
@@ -236,7 +265,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{sen.ProductSerial}】的供电电压为{sen.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.sensibility))
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.sensibility,true))
                 return;
             SaveSensibilityStandConfig();
             SaveCommonStandConfig();
@@ -244,6 +273,11 @@ namespace MesManager.UI
 
         private void Btn_burn_save_Click(object sender, EventArgs e)
         {
+            if (!standCommon.StationList.Contains(GetStationName(StandCommon.TurnStationIniName)))
+            {
+                MessageBox.Show($"该工艺未配置【{GetStationName(StandCommon.TurnStationIniName)}】!","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
             bool IsContinue = false;
             if (!CheckBurnConfigParams())
                 return;
@@ -261,7 +295,7 @@ namespace MesManager.UI
                 if (MessageBox.Show($"序列【{burn.SerialNumber}】的供电电压为{burn.SupplyVoltage}\r\n确认选择无误，并保存配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                     return;
             }
-            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.burn))
+            if(!InitStandConfig.InitDirectory(InitStandConfig.StandConfigType.burn,true))
                 return;
             SaveBurnStandConfig();
             SaveCommonStandConfig();
@@ -274,6 +308,11 @@ namespace MesManager.UI
             if (MessageBox.Show("确认要保存修改的配置？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
             SaveCommonStandConfig();
+        }
+
+        private string GetStationName(string stationName)
+        {
+            return stationName.Substring(0,stationName.IndexOf('_'));
         }
         #endregion
 
@@ -348,6 +387,12 @@ namespace MesManager.UI
             serviceClient = new MesService.MesServiceClient();
             //查询当前工艺/产品型号
             standCommon.ProductTypeNo = serviceClientTest.SelectCurrentTProcess();
+            var stationList = serviceClientTest.SelectStationList(standCommon.ProductTypeNo);
+            standCommon.StationList = new List<string>();
+            foreach (var station in stationList)
+            {
+                standCommon.StationList.Add(station);
+            }
             if (standCommon.ProductTypeNo == "")
             {
                 LogHelper.Log.Error("【机台配置】查询当前工艺流程失败");
@@ -771,6 +816,8 @@ namespace MesManager.UI
             airtageConfig.SpreadUnit = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.SpreadUnitKey, airtageSavePath);
             airtageConfig.MaxInflate = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.MaxInflateKey, airtageSavePath);
             airtageConfig.MinInflate = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.MinInflateKey, airtageSavePath);
+            airtageConfig.BigLeakMin = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.BigLeakMinKey, airtageSavePath);
+            airtageConfig.BigLeakMax = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.BigLeakMaxKey, airtageSavePath);
             airtageConfig.TestConditionValue = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestConditionValueKey, airtageSavePath);
             airtageConfig.ReferenceConditionValue = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.ReferenceConditionValueKey, airtageSavePath);
             airtageConfig.TestTime = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestTimeKey, airtageSavePath);
@@ -1079,6 +1126,8 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.SpreadUnitKey, airtageConfig.SpreadUnit, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.MaxInflateKey, airtageConfig.MaxInflate, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.MinInflateKey, airtageConfig.MinInflate, airtageSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.BigLeakMinKey, airtageConfig.BigLeakMin, airtageSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.BigLeakMaxKey, airtageConfig.BigLeakMax, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.TestConditionValueKey, airtageConfig.TestConditionValue, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.ReferenceConditionValueKey, airtageConfig.ReferenceConditionValue, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.TestSerialKey, airtageConfig.TestSerial, airtageSavePath);
@@ -1197,6 +1246,7 @@ namespace MesManager.UI
             }
             return inputText.Text.Trim();
         }
+
         private bool CheckBurnConfigParams()
         {
             burnConfig.PowerValue = CheckAndWarn(this.tb_burn_power,BurnConfig.PowerValueKey);
@@ -1215,7 +1265,7 @@ namespace MesManager.UI
             if (burnConfig.Burner == "")
                 return false;
             PorterRateEnum porterRateEnum;
-            var burnPorterRate = CheckAndWarn(this.cb_burn_porterRate,burnConfig.PorterRate);
+            var burnPorterRate = CheckAndWarn(this.cb_burn_porterRate,BurnConfig.PorterRateKey);
             if (burnPorterRate == "")
                 return false;
             Enum.TryParse(PorterRate.PorterStringToEnum(burnPorterRate),out porterRateEnum);
@@ -1229,16 +1279,16 @@ namespace MesManager.UI
             burnConfig.FirstVoltageMax = CheckAndWarn(this.tb_burn_firstVoltageMax,BurnConfig.FirstVoltageMaxKey);
             if (burnConfig.FirstVoltageMax == "")
                 return false;
-            burnConfig.FirstVoltageMin = CheckAndWarn(this.tb_burn_firstVoltageMin,burnConfig.FirstVoltageMin);
+            burnConfig.FirstVoltageMin = CheckAndWarn(this.tb_burn_firstVoltageMin,BurnConfig.FirstVoltageMinKey);
             if (burnConfig.FirstVoltageMin == "")
                 return false;
-            burnConfig.SecondVoltageMax = CheckAndWarn(this.tb_burn_secondVoltageMax,burnConfig.SecondVoltageMax);
+            burnConfig.SecondVoltageMax = CheckAndWarn(this.tb_burn_secondVoltageMax,BurnConfig.SecondVoltageMaxKey);
             if (burnConfig.SecondVoltageMax == "")
                 return false;
-            burnConfig.SecondVoltageMin = CheckAndWarn(this.tb_burn_secondVoltageMin,burnConfig.SecondVoltageMin);
+            burnConfig.SecondVoltageMin = CheckAndWarn(this.tb_burn_secondVoltageMin,BurnConfig.SecondVoltageMinKey);
             if (burnConfig.SecondVoltageMin == "")
                 return false;
-            burnConfig.HardWareVersion = CheckAndWarn(this.tb_burn_hardWareVersion,burnConfig.HardWareVersion);
+            burnConfig.HardWareVersion = CheckAndWarn(this.tb_burn_hardWareVersion,BurnConfig.HardWareVersionKey);
             if (burnConfig.HardWareVersion == "")
                 return false;
             burnConfig.SoftWareVersion = CheckAndWarn(this.tb_burn_softWareVersion,BurnConfig.SoftWareVersionKey);
@@ -1434,6 +1484,12 @@ namespace MesManager.UI
                 return false;
             airtageConfig.TestTime = CheckAndWarn(this.tb_airtage_testTime,AirtageConfig.TestTimeKey);
             if (airtageConfig.TestTime == "")
+                return false;
+            airtageConfig.BigLeakMin = CheckAndWarn(this.tb_airtage_bigLeakMin,AirtageConfig.BigLeakMinKey);
+            if (airtageConfig.BigLeakMin == "")
+                return false;
+            airtageConfig.BigLeakMax = CheckAndWarn(this.tb_airtage_bigLeakMax, AirtageConfig.BigLeakMaxKey);
+            if (airtageConfig.BigLeakMax == "")
                 return false;
             AirtageSpreadUnitEnum spreadUnitEnum;
             var airtageSpread = CheckAndWarn(this.tb_airtage_spread,AirtageConfig.SpreadUnitKey);
@@ -1757,6 +1813,8 @@ namespace MesManager.UI
             this.tb_airtage_testConditionValue.Text = airtageConfig.TestConditionValue;
             this.tb_airtage_referenceConditionValue.Text = airtageConfig.ReferenceConditionValue;
             this.tb_airtage_testSerial.Text = airtageConfig.TestSerial;
+            this.tb_airtage_bigLeakMin.Text = airtageConfig.BigLeakMin;
+            this.tb_airtage_bigLeakMax.Text = airtageConfig.BigLeakMax;
         }
 
         private void RefreshUIStentStation()

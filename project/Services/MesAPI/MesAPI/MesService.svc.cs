@@ -1749,19 +1749,79 @@ namespace MesAPI
              * 2）在查询当前条件之外的过站log是否还存在数据
              * 都不存在时，删除绑定关系数据
              */
+            int delCount = 0;
             foreach (DataRow dataRow in dtRes.Tables[0].Rows)
             {
                 var sn = dataRow[0].ToString();
                 var snPCBA = "";//不区分解绑状态
                 var snOutter = "";
-                if (snPCBA == "" || snOutter == "")
-                    continue;//考虑跳站问题
-                var selectMaterialMsg = $"SELECT * FROM {DbTable.F_MATERIAL_STATISTICS_NAME} WHERE " +
-                    $"{DbTable.F_Material_Statistics.PCBA_SN} = '{snPCBA}' " +
-                    $"OR " +
-                    $"{DbTable.F_Material_Statistics.PCBA_SN} = '{snOutter}'";
-
+                if (snPCBA != "" && snOutter != "")
+                {
+                    //都不为空，一定是有绑定关系（不考虑解绑）
+                    //1）查询物料统计是否存在数据
+                    var selectMaterialMsg = $"SELECT * FROM {DbTable.F_MATERIAL_STATISTICS_NAME} WHERE " +
+                        $"{DbTable.F_Material_Statistics.PCBA_SN} = '{snPCBA}' " +
+                        $"OR " +
+                        $"{DbTable.F_Material_Statistics.PCBA_SN} = '{snOutter}'";
+                    var materialData = SQLServer.ExecuteDataSet(selectMaterialMsg).Tables[0];
+                    if (materialData.Rows.Count < 1)
+                    {
+                        //结果：物料统计不存在数据
+                        //2）查询当前条件之外是否存在数据
+                        var selectResultSQL = $"SELECT * FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} < '{startTime}' " +
+                            $"OR " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} > '{endTime}' " +
+                            $"AND " +
+                            $"{DbTable.F_Test_Result.SN} = '{snPCBA}' OR {DbTable.F_Test_Result.SN} = '{snOutter}' ";
+                        var otherTestResultData = SQLServer.ExecuteDataSet(selectResultSQL).Tables[0];
+                        if (otherTestResultData.Rows.Count < 0)
+                        {
+                            //已不存在数据，删除绑定记录
+                            var deleteBindSQL = $"DELETE FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{snPCBA}' " +
+                                $"AND " +
+                                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = {snOutter}";
+                            var delRow = SQLServer.ExecuteNonQuery(deleteBindSQL);
+                            delCount += delRow;
+                        }
+                    }
+                }
+                else if (snPCBA == "" && snOutter != "")
+                {
+                    //PCBA为空，外壳不为空，可能是跳站
+                    //1）查询物料统计是否存在数据
+                    var selectMaterialMsg = $"SELECT * FROM {DbTable.F_MATERIAL_STATISTICS_NAME} WHERE " +
+                        $"{DbTable.F_Material_Statistics.PCBA_SN} = '{snOutter}'";
+                    var materialData = SQLServer.ExecuteDataSet(selectMaterialMsg).Tables[0];
+                    if (materialData.Rows.Count < 1)
+                    {
+                        //结果：物料统计不存在数据
+                        //2）查询当前条件之外是否存在数据
+                        var selectResultSQL = $"SELECT * FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
+                            $"{DbTable.F_Test_Result.SN} = '{snOutter}' AND " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} < '{startTime}' OR " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} > '{endTime}'";
+                        var otherTestResultData = SQLServer.ExecuteDataSet(selectResultSQL).Tables[0];
+                        if (otherTestResultData.Rows.Count < 0)
+                        {
+                            //已不存在数据，删除绑定记录
+                            var deleteBindSQL = $"DELETE FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{snPCBA}' " +
+                                $"AND " +
+                                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = {snOutter}";
+                            var delRow = SQLServer.ExecuteNonQuery(deleteBindSQL);
+                            delCount += delRow;
+                        }
+                    }
+                }
+                else
+                {
+                    continue;
+                }
             }
+            LogHelper.Log.Info("【删除过站记录-查询删除绑定记录】删除绑定记录="+delCount);
+            return delCount;
         }
         #endregion
 
@@ -2309,7 +2369,7 @@ namespace MesAPI
             ///查询条件为空/物料编码/PCBASN/外壳SN
             var selectTestResult = "";
             var deleteBindedMsg = "";
-
+            int delCount = 0;
             if (queryCondition == "")
             {
                 selectTestResult = $"SELECT * FROM {DbTable.F_TEST_RESULT_NAME} ";
@@ -2318,7 +2378,7 @@ namespace MesAPI
                 if (dt.Rows.Count < 1)
                 {
                     LogHelper.Log.Info("【删除绑定记录-删除全部】已删除过站记录，删除全部绑定记录");
-                    return SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                    delCount = SQLServer.ExecuteNonQuery(deleteBindedMsg);
                 }
             }
             else
@@ -2339,14 +2399,32 @@ namespace MesAPI
                         //pcbaSN 查询记录
                         if (pcbSN != "" && shellSN == "")
                         {
-                            LogHelper.Log.Info("【删除绑定记录-物料-条件】PCBA不为空-外壳为空");
+                            LogHelper.Log.Info("【删除绑定记录-物料-条件】PCBA不为空-外壳为空，理论上不存在");
                         }
                         else if (pcbSN == "" && shellSN != "")
                         {
-                            LogHelper.Log.Info("【删除绑定记录-物料-条件】PCBA为空-外壳不为空");
+                            //针对跳站的情况，支架装配绑定时，只有外壳，PCBA为空
+                            LogHelper.Log.Info("【删除绑定记录-物料-条件】PCBA为空-外壳不为空，可能是跳站外壳装配");
+                            selectTestResult = $"SELECT * FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
+                                $"{DbTable.F_Test_Result.SN} = '{shellSN}' ";
+                            testResultData = SQLServer.ExecuteDataSet(selectTestResult).Tables[0];
+                            if (testResultData.Rows.Count < 1)
+                            {
+                                //pcbaSN 查询无记录
+                                //删除绑定记录
+                                deleteBindedMsg = $"DELETE FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
+                                         $"{DbTable.F_BINDING_PCBA.MATERIAL_CODE} = '{materialCode}'" +
+                                         $"AND " +
+                                         $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbSN}' " +
+                                         $"AND " +
+                                         $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{shellSN}'";
+                                var delRow = SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                delCount += delRow;
+                            }
                         }
                         else if (pcbSN != "" && shellSN != "")
                         {
+                            //针对不跳站的情况，都不会为空
                             selectTestResult = $"SELECT * FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
                                 $"{DbTable.F_Test_Result.SN} = '{pcbSN}' " +
                                 $"OR " +
@@ -2362,7 +2440,8 @@ namespace MesAPI
                                          $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{pcbSN}' " +
                                          $"AND " +
                                          $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{shellSN}'";
-                                return SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                var delRow = SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                delCount += delRow;
                             }
                         }
                     }
@@ -2397,7 +2476,8 @@ namespace MesAPI
                                         $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}' " +
                                         $"AND " +
                                         $"{DbTable.F_BINDING_PCBA.MATERIAL_CODE} = '{materialCode}'";
-                                    return SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                    var delRow = SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                    delCount += delRow;
                                 }
                             }
                             else
@@ -2434,7 +2514,8 @@ namespace MesAPI
                                             $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}' " +
                                             $"AND " +
                                             $"{DbTable.F_BINDING_PCBA.MATERIAL_CODE} = '{materialCode}'";
-                                        return SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                        var delRow = SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                        delCount += delRow;
                                     }
                                 }
                                 else
@@ -2446,7 +2527,8 @@ namespace MesAPI
                     }
                 }
             }
-            return 0;
+            LogHelper.Log.Info("【删除物料统计后--查询删除绑定记录】删除绑定记录="+delCount);
+            return delCount;
         }
 
         private DataSet SelectMaterialDetail(DataTable dataSourceMaterialBasic,string selectSQL)

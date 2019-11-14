@@ -46,8 +46,17 @@ namespace MesWcfService.Model
         ERROR_NULL_MATERIAL_PN =3,
         ERROR_NULL_ACTUAL_MATERIAL_PN = 4,
         ERROR_BOTH_MATERIAL_PN_IS_NOT_MATCH = 5,
+        /// <summary>
+        /// 同一PN的上一箱物料未使用完成，不能继续扫描下一箱
+        /// </summary>
         ERROR_LAST_MATERIAL_PN_IS_NOT_USED_UP = 6,
-        STATUS_CURRENT_MATERIAL_AMOUNT_END_OF_USE = 7
+        STATUS_CURRENT_MATERIAL_AMOUNT_END_OF_USE = 7,
+        /// <summary>
+        /// 同一PN的上一箱物料未使用完成，可以继续扫描下一箱
+        /// 修改时间：2019/11/14 10：09
+        /// 修改原因：需求改变，取消物料未使用完不能继续使用新数量的管控
+        /// </summary>
+        STATUS_LAST_MATERIAL_PN_IS_NOT_USED_UP = 8
     }
 
     public enum MaterialCheckPutStorageEnum
