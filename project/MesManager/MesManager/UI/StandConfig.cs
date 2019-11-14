@@ -382,6 +382,7 @@ namespace MesManager.UI
             stentConfig = new StentConfig();
             productTestConfig = new ProductTestConfig();
             productCheckConfig = new ProductCheckConfig();
+            this.radDock1.ActiveWindow = this.documentWindow2;
 
             serviceClientTest = new MesServiceTest.MesServiceClient();
             serviceClient = new MesService.MesServiceClient();

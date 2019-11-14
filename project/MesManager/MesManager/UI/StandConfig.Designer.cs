@@ -265,7 +265,6 @@
             this.radLabel76 = new Telerik.WinControls.UI.RadLabel();
             this.tb_product_partNumber = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel75 = new Telerik.WinControls.UI.RadLabel();
-            this.cb_product_testSerial = new System.Windows.Forms.ComboBox();
             this.radLabel80 = new Telerik.WinControls.UI.RadLabel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.tb_product_controlPower = new Telerik.WinControls.UI.RadTextBox();
@@ -369,6 +368,7 @@
             this.tb_airtage_minFlate = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel59 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel56 = new Telerik.WinControls.UI.RadLabel();
+            this.cb_product_testSerial = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
             this.documentWindow1.SuspendLayout();
@@ -700,7 +700,7 @@
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.documentWindow1;
+            this.radDock1.ActiveWindow = this.documentWindow8;
             this.radDock1.CausesValidation = false;
             this.radDock1.Controls.Add(this.documentContainer2);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -795,7 +795,7 @@
             this.tb_common_packageAmount.Location = new System.Drawing.Point(135, 346);
             this.tb_common_packageAmount.Name = "tb_common_packageAmount";
             this.tb_common_packageAmount.Size = new System.Drawing.Size(213, 36);
-            this.tb_common_packageAmount.TabIndex = 7;
+            this.tb_common_packageAmount.TabIndex = 4;
             this.tb_common_packageAmount.ThemeName = "Material";
             this.tb_common_packageAmount.Visible = false;
             // 
@@ -814,7 +814,7 @@
             this.tb_common_caseCodeLen.Location = new System.Drawing.Point(581, 242);
             this.tb_common_caseCodeLen.Name = "tb_common_caseCodeLen";
             this.tb_common_caseCodeLen.Size = new System.Drawing.Size(213, 36);
-            this.tb_common_caseCodeLen.TabIndex = 5;
+            this.tb_common_caseCodeLen.TabIndex = 3;
             this.tb_common_caseCodeLen.ThemeName = "Material";
             // 
             // radLabel43
@@ -831,7 +831,7 @@
             this.tb_common_shellCodeLen.Location = new System.Drawing.Point(581, 167);
             this.tb_common_shellCodeLen.Name = "tb_common_shellCodeLen";
             this.tb_common_shellCodeLen.Size = new System.Drawing.Size(213, 36);
-            this.tb_common_shellCodeLen.TabIndex = 3;
+            this.tb_common_shellCodeLen.TabIndex = 2;
             this.tb_common_shellCodeLen.ThemeName = "Material";
             // 
             // radLabel42
@@ -893,7 +893,7 @@
             // 
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 7;
+            this.documentTabStrip1.SelectedIndex = 5;
             this.documentTabStrip1.Size = new System.Drawing.Size(1278, 747);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
@@ -1001,7 +1001,7 @@
             this.tb_burn_programeName.Location = new System.Drawing.Point(14, 146);
             this.tb_burn_programeName.Name = "tb_burn_programeName";
             this.tb_burn_programeName.Size = new System.Drawing.Size(262, 36);
-            this.tb_burn_programeName.TabIndex = 5;
+            this.tb_burn_programeName.TabIndex = 17;
             this.tb_burn_programeName.ThemeName = "Material";
             // 
             // radLabel18
@@ -1021,7 +1021,7 @@
             this.tb_burn_programePath.Location = new System.Drawing.Point(14, 287);
             this.tb_burn_programePath.Name = "tb_burn_programePath";
             this.tb_burn_programePath.Size = new System.Drawing.Size(262, 36);
-            this.tb_burn_programePath.TabIndex = 3;
+            this.tb_burn_programePath.TabIndex = 18;
             this.tb_burn_programePath.ThemeName = "Material";
             this.tb_burn_programePath.Visible = false;
             // 
@@ -1058,7 +1058,7 @@
             this.tb_burn_canID.Location = new System.Drawing.Point(132, 119);
             this.tb_burn_canID.Name = "tb_burn_canID";
             this.tb_burn_canID.Size = new System.Drawing.Size(185, 36);
-            this.tb_burn_canID.TabIndex = 5;
+            this.tb_burn_canID.TabIndex = 15;
             this.tb_burn_canID.ThemeName = "Material";
             // 
             // tb_burn_productID
@@ -1066,7 +1066,7 @@
             this.tb_burn_productID.Location = new System.Drawing.Point(132, 188);
             this.tb_burn_productID.Name = "tb_burn_productID";
             this.tb_burn_productID.Size = new System.Drawing.Size(185, 36);
-            this.tb_burn_productID.TabIndex = 7;
+            this.tb_burn_productID.TabIndex = 16;
             this.tb_burn_productID.ThemeName = "Material";
             // 
             // radLabel8
@@ -1098,7 +1098,7 @@
             this.cb_burn_porterRate.Location = new System.Drawing.Point(130, 59);
             this.cb_burn_porterRate.Name = "cb_burn_porterRate";
             this.cb_burn_porterRate.Size = new System.Drawing.Size(187, 28);
-            this.cb_burn_porterRate.TabIndex = 8;
+            this.cb_burn_porterRate.TabIndex = 14;
             // 
             // radLabel10
             // 
@@ -1189,7 +1189,7 @@
             this.tb_burn_secondVoltageMin.Location = new System.Drawing.Point(205, 190);
             this.tb_burn_secondVoltageMin.Name = "tb_burn_secondVoltageMin";
             this.tb_burn_secondVoltageMin.Size = new System.Drawing.Size(155, 36);
-            this.tb_burn_secondVoltageMin.TabIndex = 9;
+            this.tb_burn_secondVoltageMin.TabIndex = 8;
             this.tb_burn_secondVoltageMin.ThemeName = "Material";
             // 
             // tb_burn_firstVoltageMax
@@ -1197,7 +1197,7 @@
             this.tb_burn_firstVoltageMax.Location = new System.Drawing.Point(205, 121);
             this.tb_burn_firstVoltageMax.Name = "tb_burn_firstVoltageMax";
             this.tb_burn_firstVoltageMax.Size = new System.Drawing.Size(155, 36);
-            this.tb_burn_firstVoltageMax.TabIndex = 3;
+            this.tb_burn_firstVoltageMax.TabIndex = 7;
             this.tb_burn_firstVoltageMax.ThemeName = "Material";
             // 
             // tb_burn_hardWareVersion
@@ -1205,7 +1205,7 @@
             this.tb_burn_hardWareVersion.Location = new System.Drawing.Point(205, 446);
             this.tb_burn_hardWareVersion.Name = "tb_burn_hardWareVersion";
             this.tb_burn_hardWareVersion.Size = new System.Drawing.Size(155, 36);
-            this.tb_burn_hardWareVersion.TabIndex = 15;
+            this.tb_burn_hardWareVersion.TabIndex = 13;
             this.tb_burn_hardWareVersion.ThemeName = "Material";
             // 
             // tb_burn_partNumber
@@ -1213,7 +1213,7 @@
             this.tb_burn_partNumber.Location = new System.Drawing.Point(205, 384);
             this.tb_burn_partNumber.Name = "tb_burn_partNumber";
             this.tb_burn_partNumber.Size = new System.Drawing.Size(155, 36);
-            this.tb_burn_partNumber.TabIndex = 13;
+            this.tb_burn_partNumber.TabIndex = 11;
             this.tb_burn_partNumber.ThemeName = "Material";
             // 
             // radLabel11
@@ -1243,7 +1243,7 @@
             this.tb_burn_firstVoltageMin.Location = new System.Drawing.Point(205, 48);
             this.tb_burn_firstVoltageMin.Name = "tb_burn_firstVoltageMin";
             this.tb_burn_firstVoltageMin.Size = new System.Drawing.Size(155, 36);
-            this.tb_burn_firstVoltageMin.TabIndex = 5;
+            this.tb_burn_firstVoltageMin.TabIndex = 6;
             this.tb_burn_firstVoltageMin.ThemeName = "Material";
             // 
             // radLabel16
@@ -1273,7 +1273,7 @@
             this.tb_burn_softWareVersion.Location = new System.Drawing.Point(205, 324);
             this.tb_burn_softWareVersion.Name = "tb_burn_softWareVersion";
             this.tb_burn_softWareVersion.Size = new System.Drawing.Size(155, 36);
-            this.tb_burn_softWareVersion.TabIndex = 11;
+            this.tb_burn_softWareVersion.TabIndex = 10;
             this.tb_burn_softWareVersion.ThemeName = "Material";
             // 
             // radLabel14
@@ -1292,7 +1292,7 @@
             this.tb_burn_secondVoltageMax.Location = new System.Drawing.Point(205, 260);
             this.tb_burn_secondVoltageMax.Name = "tb_burn_secondVoltageMax";
             this.tb_burn_secondVoltageMax.Size = new System.Drawing.Size(155, 36);
-            this.tb_burn_secondVoltageMax.TabIndex = 7;
+            this.tb_burn_secondVoltageMax.TabIndex = 9;
             this.tb_burn_secondVoltageMax.ThemeName = "Material";
             // 
             // radLabel13
@@ -1322,10 +1322,11 @@
             this.cb_burn_serialNumber.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cb_burn_serialNumber.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cb_burn_serialNumber.FormattingEnabled = true;
+            this.cb_burn_serialNumber.ItemHeight = 20;
             this.cb_burn_serialNumber.Location = new System.Drawing.Point(1015, 190);
             this.cb_burn_serialNumber.Name = "cb_burn_serialNumber";
             this.cb_burn_serialNumber.Size = new System.Drawing.Size(225, 28);
-            this.cb_burn_serialNumber.TabIndex = 10;
+            this.cb_burn_serialNumber.TabIndex = 19;
             // 
             // radLabel1
             // 
@@ -1362,7 +1363,7 @@
             this.tb_burn_burner.Location = new System.Drawing.Point(110, 309);
             this.tb_burn_burner.Name = "tb_burn_burner";
             this.tb_burn_burner.Size = new System.Drawing.Size(176, 36);
-            this.tb_burn_burner.TabIndex = 7;
+            this.tb_burn_burner.TabIndex = 5;
             this.tb_burn_burner.ThemeName = "Material";
             // 
             // radLabel3
@@ -1382,7 +1383,7 @@
             this.tb_burn_avometer.Location = new System.Drawing.Point(110, 254);
             this.tb_burn_avometer.Name = "tb_burn_avometer";
             this.tb_burn_avometer.Size = new System.Drawing.Size(176, 36);
-            this.tb_burn_avometer.TabIndex = 9;
+            this.tb_burn_avometer.TabIndex = 4;
             this.tb_burn_avometer.ThemeName = "Material";
             // 
             // tb_burn_power
@@ -1409,7 +1410,7 @@
             this.tb_turn_localIP.Location = new System.Drawing.Point(111, 119);
             this.tb_turn_localIP.Name = "tb_turn_localIP";
             this.tb_turn_localIP.Size = new System.Drawing.Size(175, 36);
-            this.tb_turn_localIP.TabIndex = 3;
+            this.tb_turn_localIP.TabIndex = 2;
             this.tb_turn_localIP.ThemeName = "Material";
             // 
             // radLabel5
@@ -1439,7 +1440,7 @@
             this.tb_burn_autoSweepCode.Location = new System.Drawing.Point(111, 190);
             this.tb_burn_autoSweepCode.Name = "tb_burn_autoSweepCode";
             this.tb_burn_autoSweepCode.Size = new System.Drawing.Size(175, 36);
-            this.tb_burn_autoSweepCode.TabIndex = 5;
+            this.tb_burn_autoSweepCode.TabIndex = 3;
             this.tb_burn_autoSweepCode.ThemeName = "Material";
             // 
             // radLabel7
@@ -1522,7 +1523,7 @@
             this.cb_sen_serialNumber.Location = new System.Drawing.Point(997, 168);
             this.cb_sen_serialNumber.Name = "cb_sen_serialNumber";
             this.cb_sen_serialNumber.Size = new System.Drawing.Size(268, 28);
-            this.cb_sen_serialNumber.TabIndex = 12;
+            this.cb_sen_serialNumber.TabIndex = 20;
             // 
             // radLabel39
             // 
@@ -1561,7 +1562,7 @@
             this.tb_sen_productID.Location = new System.Drawing.Point(164, 376);
             this.tb_sen_productID.Name = "tb_sen_productID";
             this.tb_sen_productID.Size = new System.Drawing.Size(174, 36);
-            this.tb_sen_productID.TabIndex = 18;
+            this.tb_sen_productID.TabIndex = 19;
             this.tb_sen_productID.ThemeName = "Material";
             // 
             // radLabel118
@@ -1582,14 +1583,14 @@
             this.tb_sen_porterRate.Location = new System.Drawing.Point(164, 74);
             this.tb_sen_porterRate.Name = "tb_sen_porterRate";
             this.tb_sen_porterRate.Size = new System.Drawing.Size(174, 28);
-            this.tb_sen_porterRate.TabIndex = 16;
+            this.tb_sen_porterRate.TabIndex = 14;
             // 
             // tb_sen_receiveCanID
             // 
             this.tb_sen_receiveCanID.Location = new System.Drawing.Point(164, 315);
             this.tb_sen_receiveCanID.Name = "tb_sen_receiveCanID";
             this.tb_sen_receiveCanID.Size = new System.Drawing.Size(174, 36);
-            this.tb_sen_receiveCanID.TabIndex = 15;
+            this.tb_sen_receiveCanID.TabIndex = 18;
             this.tb_sen_receiveCanID.ThemeName = "Material";
             // 
             // radLabel38
@@ -1606,7 +1607,7 @@
             this.tb_sen_rfCanID.Location = new System.Drawing.Point(164, 259);
             this.tb_sen_rfCanID.Name = "tb_sen_rfCanID";
             this.tb_sen_rfCanID.Size = new System.Drawing.Size(174, 36);
-            this.tb_sen_rfCanID.TabIndex = 11;
+            this.tb_sen_rfCanID.TabIndex = 17;
             this.tb_sen_rfCanID.ThemeName = "Material";
             // 
             // radLabel36
@@ -1623,7 +1624,7 @@
             this.tb_sen_cycleCanID.Location = new System.Drawing.Point(164, 125);
             this.tb_sen_cycleCanID.Name = "tb_sen_cycleCanID";
             this.tb_sen_cycleCanID.Size = new System.Drawing.Size(174, 36);
-            this.tb_sen_cycleCanID.TabIndex = 9;
+            this.tb_sen_cycleCanID.TabIndex = 15;
             this.tb_sen_cycleCanID.ThemeName = "Material";
             // 
             // radLabel35
@@ -1640,7 +1641,7 @@
             this.tb_sen_sendCanID.Location = new System.Drawing.Point(164, 190);
             this.tb_sen_sendCanID.Name = "tb_sen_sendCanID";
             this.tb_sen_sendCanID.Size = new System.Drawing.Size(174, 36);
-            this.tb_sen_sendCanID.TabIndex = 7;
+            this.tb_sen_sendCanID.TabIndex = 16;
             this.tb_sen_sendCanID.ThemeName = "Material";
             // 
             // radLabel34
@@ -1741,7 +1742,7 @@
             this.tb_sen_boootloader.Location = new System.Drawing.Point(146, 492);
             this.tb_sen_boootloader.Name = "tb_sen_boootloader";
             this.tb_sen_boootloader.Size = new System.Drawing.Size(157, 36);
-            this.tb_sen_boootloader.TabIndex = 17;
+            this.tb_sen_boootloader.TabIndex = 13;
             this.tb_sen_boootloader.ThemeName = "Material";
             // 
             // radLabel32
@@ -1758,7 +1759,7 @@
             this.tb_sen_dormantElectricMax.Location = new System.Drawing.Point(146, 251);
             this.tb_sen_dormantElectricMax.Name = "tb_sen_dormantElectricMax";
             this.tb_sen_dormantElectricMax.Size = new System.Drawing.Size(157, 36);
-            this.tb_sen_dormantElectricMax.TabIndex = 15;
+            this.tb_sen_dormantElectricMax.TabIndex = 9;
             this.tb_sen_dormantElectricMax.ThemeName = "Material";
             // 
             // radLabel31
@@ -1775,7 +1776,7 @@
             this.tb_sen_dormantElectricMin.Location = new System.Drawing.Point(146, 190);
             this.tb_sen_dormantElectricMin.Name = "tb_sen_dormantElectricMin";
             this.tb_sen_dormantElectricMin.Size = new System.Drawing.Size(157, 36);
-            this.tb_sen_dormantElectricMin.TabIndex = 13;
+            this.tb_sen_dormantElectricMin.TabIndex = 8;
             this.tb_sen_dormantElectricMin.ThemeName = "Material";
             // 
             // tb_sen_hardWareVersion
@@ -1783,7 +1784,7 @@
             this.tb_sen_hardWareVersion.Location = new System.Drawing.Point(146, 434);
             this.tb_sen_hardWareVersion.Name = "tb_sen_hardWareVersion";
             this.tb_sen_hardWareVersion.Size = new System.Drawing.Size(157, 36);
-            this.tb_sen_hardWareVersion.TabIndex = 11;
+            this.tb_sen_hardWareVersion.TabIndex = 12;
             this.tb_sen_hardWareVersion.ThemeName = "Material";
             // 
             // radLabel29
@@ -1809,7 +1810,7 @@
             this.tb_sen_softWareVersion.Location = new System.Drawing.Point(146, 376);
             this.tb_sen_softWareVersion.Name = "tb_sen_softWareVersion";
             this.tb_sen_softWareVersion.Size = new System.Drawing.Size(157, 36);
-            this.tb_sen_softWareVersion.TabIndex = 9;
+            this.tb_sen_softWareVersion.TabIndex = 11;
             this.tb_sen_softWareVersion.ThemeName = "Material";
             // 
             // radLabel26
@@ -1826,7 +1827,7 @@
             this.tb_sen_workElectricMax.Location = new System.Drawing.Point(146, 130);
             this.tb_sen_workElectricMax.Name = "tb_sen_workElectricMax";
             this.tb_sen_workElectricMax.Size = new System.Drawing.Size(157, 36);
-            this.tb_sen_workElectricMax.TabIndex = 5;
+            this.tb_sen_workElectricMax.TabIndex = 7;
             this.tb_sen_workElectricMax.ThemeName = "Material";
             // 
             // radLabel28
@@ -1843,7 +1844,7 @@
             this.tb_sen_workElectricMin.Location = new System.Drawing.Point(146, 66);
             this.tb_sen_workElectricMin.Name = "tb_sen_workElectricMin";
             this.tb_sen_workElectricMin.Size = new System.Drawing.Size(157, 36);
-            this.tb_sen_workElectricMin.TabIndex = 3;
+            this.tb_sen_workElectricMin.TabIndex = 6;
             this.tb_sen_workElectricMin.ThemeName = "Material";
             // 
             // radLabel25
@@ -1869,7 +1870,7 @@
             this.tb_sen_partNumber.Location = new System.Drawing.Point(146, 315);
             this.tb_sen_partNumber.Name = "tb_sen_partNumber";
             this.tb_sen_partNumber.Size = new System.Drawing.Size(157, 36);
-            this.tb_sen_partNumber.TabIndex = 7;
+            this.tb_sen_partNumber.TabIndex = 10;
             this.tb_sen_partNumber.ThemeName = "Material";
             // 
             // groupBox5
@@ -1898,7 +1899,7 @@
             this.tb_sen_autoSweepCode.Location = new System.Drawing.Point(105, 196);
             this.tb_sen_autoSweepCode.Name = "tb_sen_autoSweepCode";
             this.tb_sen_autoSweepCode.Size = new System.Drawing.Size(195, 36);
-            this.tb_sen_autoSweepCode.TabIndex = 7;
+            this.tb_sen_autoSweepCode.TabIndex = 3;
             this.tb_sen_autoSweepCode.ThemeName = "Material";
             // 
             // tb_sen_power
@@ -1906,7 +1907,7 @@
             this.tb_sen_power.Location = new System.Drawing.Point(105, 255);
             this.tb_sen_power.Name = "tb_sen_power";
             this.tb_sen_power.Size = new System.Drawing.Size(195, 36);
-            this.tb_sen_power.TabIndex = 9;
+            this.tb_sen_power.TabIndex = 4;
             this.tb_sen_power.ThemeName = "Material";
             // 
             // radLabel24
@@ -1949,7 +1950,7 @@
             this.tb_sen_localAddress.Location = new System.Drawing.Point(105, 130);
             this.tb_sen_localAddress.Name = "tb_sen_localAddress";
             this.tb_sen_localAddress.Size = new System.Drawing.Size(195, 36);
-            this.tb_sen_localAddress.TabIndex = 3;
+            this.tb_sen_localAddress.TabIndex = 2;
             this.tb_sen_localAddress.ThemeName = "Material";
             // 
             // radLabel21
@@ -2037,7 +2038,7 @@
             this.tb_shell_bubbleCotton.Location = new System.Drawing.Point(140, 533);
             this.tb_shell_bubbleCotton.Name = "tb_shell_bubbleCotton";
             this.tb_shell_bubbleCotton.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_bubbleCotton.TabIndex = 19;
+            this.tb_shell_bubbleCotton.TabIndex = 13;
             this.tb_shell_bubbleCotton.ThemeName = "Material";
             // 
             // radLabel116
@@ -2054,7 +2055,7 @@
             this.tb_shell_sealRingWire.Location = new System.Drawing.Point(140, 465);
             this.tb_shell_sealRingWire.Name = "tb_shell_sealRingWire";
             this.tb_shell_sealRingWire.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_sealRingWire.TabIndex = 17;
+            this.tb_shell_sealRingWire.TabIndex = 12;
             this.tb_shell_sealRingWire.ThemeName = "Material";
             // 
             // radLabel115
@@ -2071,7 +2072,7 @@
             this.tb_shell_shell.Location = new System.Drawing.Point(140, 397);
             this.tb_shell_shell.Name = "tb_shell_shell";
             this.tb_shell_shell.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_shell.TabIndex = 15;
+            this.tb_shell_shell.TabIndex = 11;
             this.tb_shell_shell.ThemeName = "Material";
             // 
             // radLabel114
@@ -2088,7 +2089,7 @@
             this.tb_shell_topCover.Location = new System.Drawing.Point(140, 332);
             this.tb_shell_topCover.Name = "tb_shell_topCover";
             this.tb_shell_topCover.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_topCover.TabIndex = 13;
+            this.tb_shell_topCover.TabIndex = 10;
             this.tb_shell_topCover.ThemeName = "Material";
             // 
             // radLabel113
@@ -2105,7 +2106,7 @@
             this.tb_shell_shellScrew.Location = new System.Drawing.Point(140, 265);
             this.tb_shell_shellScrew.Name = "tb_shell_shellScrew";
             this.tb_shell_shellScrew.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_shellScrew.TabIndex = 11;
+            this.tb_shell_shellScrew.TabIndex = 9;
             this.tb_shell_shellScrew.ThemeName = "Material";
             // 
             // radLabel112
@@ -2122,7 +2123,7 @@
             this.tb_shell_pcbScrew.Location = new System.Drawing.Point(140, 201);
             this.tb_shell_pcbScrew.Name = "tb_shell_pcbScrew";
             this.tb_shell_pcbScrew.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_pcbScrew.TabIndex = 9;
+            this.tb_shell_pcbScrew.TabIndex = 8;
             this.tb_shell_pcbScrew.ThemeName = "Material";
             // 
             // radLabel111
@@ -2156,7 +2157,7 @@
             this.tb_shell_frontCover.Location = new System.Drawing.Point(140, 71);
             this.tb_shell_frontCover.Name = "tb_shell_frontCover";
             this.tb_shell_frontCover.Size = new System.Drawing.Size(227, 36);
-            this.tb_shell_frontCover.TabIndex = 5;
+            this.tb_shell_frontCover.TabIndex = 6;
             this.tb_shell_frontCover.ThemeName = "Material";
             // 
             // panel2
@@ -2253,7 +2254,7 @@
             this.tb_shell_smallScrewSetTime.Location = new System.Drawing.Point(170, 69);
             this.tb_shell_smallScrewSetTime.Name = "tb_shell_smallScrewSetTime";
             this.tb_shell_smallScrewSetTime.Size = new System.Drawing.Size(298, 36);
-            this.tb_shell_smallScrewSetTime.TabIndex = 7;
+            this.tb_shell_smallScrewSetTime.TabIndex = 4;
             this.tb_shell_smallScrewSetTime.ThemeName = "Material";
             // 
             // tb_shell_largeScrewSetTime
@@ -2261,7 +2262,7 @@
             this.tb_shell_largeScrewSetTime.Location = new System.Drawing.Point(170, 149);
             this.tb_shell_largeScrewSetTime.Name = "tb_shell_largeScrewSetTime";
             this.tb_shell_largeScrewSetTime.Size = new System.Drawing.Size(298, 36);
-            this.tb_shell_largeScrewSetTime.TabIndex = 3;
+            this.tb_shell_largeScrewSetTime.TabIndex = 5;
             this.tb_shell_largeScrewSetTime.ThemeName = "Material";
             // 
             // groupBox16
@@ -2287,7 +2288,7 @@
             this.tb_shell_plcAddress.Location = new System.Drawing.Point(170, 230);
             this.tb_shell_plcAddress.Name = "tb_shell_plcAddress";
             this.tb_shell_plcAddress.Size = new System.Drawing.Size(298, 36);
-            this.tb_shell_plcAddress.TabIndex = 5;
+            this.tb_shell_plcAddress.TabIndex = 3;
             this.tb_shell_plcAddress.ThemeName = "Material";
             // 
             // radLabel108
@@ -2331,7 +2332,7 @@
             this.tb_shell_localIPConPLC.Location = new System.Drawing.Point(170, 149);
             this.tb_shell_localIPConPLC.Name = "tb_shell_localIPConPLC";
             this.tb_shell_localIPConPLC.Size = new System.Drawing.Size(298, 36);
-            this.tb_shell_localIPConPLC.TabIndex = 3;
+            this.tb_shell_localIPConPLC.TabIndex = 2;
             this.tb_shell_localIPConPLC.ThemeName = "Material";
             // 
             // radLabel46
@@ -2383,7 +2384,7 @@
             this.cb_shell_testSerial.Location = new System.Drawing.Point(917, 201);
             this.cb_shell_testSerial.Name = "cb_shell_testSerial";
             this.cb_shell_testSerial.Size = new System.Drawing.Size(299, 28);
-            this.cb_shell_testSerial.TabIndex = 37;
+            this.cb_shell_testSerial.TabIndex = 14;
             // 
             // btn_shell_refresh
             // 
@@ -2472,7 +2473,7 @@
             this.tb_airtage_testSerial.Location = new System.Drawing.Point(846, 169);
             this.tb_airtage_testSerial.Name = "tb_airtage_testSerial";
             this.tb_airtage_testSerial.Size = new System.Drawing.Size(299, 28);
-            this.tb_airtage_testSerial.TabIndex = 28;
+            this.tb_airtage_testSerial.TabIndex = 14;
             // 
             // groupBox14
             // 
@@ -2520,7 +2521,7 @@
             this.tb_airtage_tester.Location = new System.Drawing.Point(170, 118);
             this.tb_airtage_tester.Name = "tb_airtage_tester";
             this.tb_airtage_tester.Size = new System.Drawing.Size(185, 36);
-            this.tb_airtage_tester.TabIndex = 3;
+            this.tb_airtage_tester.TabIndex = 2;
             this.tb_airtage_tester.ThemeName = "Material";
             // 
             // radLabel62
@@ -2587,7 +2588,7 @@
             this.tb_stent_stentScrew.Location = new System.Drawing.Point(108, 398);
             this.tb_stent_stentScrew.Name = "tb_stent_stentScrew";
             this.tb_stent_stentScrew.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_stentScrew.TabIndex = 13;
+            this.tb_stent_stentScrew.TabIndex = 6;
             this.tb_stent_stentScrew.ThemeName = "Material";
             // 
             // radLabel63
@@ -2613,7 +2614,7 @@
             this.tb_stent_stent.Location = new System.Drawing.Point(108, 333);
             this.tb_stent_stent.Name = "tb_stent_stent";
             this.tb_stent_stent.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_stent.TabIndex = 11;
+            this.tb_stent_stent.TabIndex = 5;
             this.tb_stent_stent.ThemeName = "Material";
             // 
             // tb_stent_stentNut
@@ -2621,7 +2622,7 @@
             this.tb_stent_stentNut.Location = new System.Drawing.Point(108, 465);
             this.tb_stent_stentNut.Name = "tb_stent_stentNut";
             this.tb_stent_stentNut.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_stentNut.TabIndex = 9;
+            this.tb_stent_stentNut.TabIndex = 7;
             this.tb_stent_stentNut.ThemeName = "Material";
             // 
             // radLabel50
@@ -2638,7 +2639,7 @@
             this.tb_stent_unionStent.Location = new System.Drawing.Point(108, 266);
             this.tb_stent_unionStent.Name = "tb_stent_unionStent";
             this.tb_stent_unionStent.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_unionStent.TabIndex = 7;
+            this.tb_stent_unionStent.TabIndex = 4;
             this.tb_stent_unionStent.ThemeName = "Material";
             // 
             // radLabel41
@@ -2655,7 +2656,7 @@
             this.tb_stent_rightStent.Location = new System.Drawing.Point(108, 192);
             this.tb_stent_rightStent.Name = "tb_stent_rightStent";
             this.tb_stent_rightStent.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_rightStent.TabIndex = 5;
+            this.tb_stent_rightStent.TabIndex = 3;
             this.tb_stent_rightStent.ThemeName = "Material";
             // 
             // radLabel2
@@ -2672,7 +2673,7 @@
             this.tb_stent_leftStent.Location = new System.Drawing.Point(108, 116);
             this.tb_stent_leftStent.Name = "tb_stent_leftStent";
             this.tb_stent_leftStent.Size = new System.Drawing.Size(227, 36);
-            this.tb_stent_leftStent.TabIndex = 3;
+            this.tb_stent_leftStent.TabIndex = 2;
             this.tb_stent_leftStent.ThemeName = "Material";
             // 
             // groupBox19
@@ -2755,7 +2756,7 @@
             this.cb_stent_testSerial.Location = new System.Drawing.Point(901, 196);
             this.cb_stent_testSerial.Name = "cb_stent_testSerial";
             this.cb_stent_testSerial.Size = new System.Drawing.Size(227, 28);
-            this.cb_stent_testSerial.TabIndex = 19;
+            this.cb_stent_testSerial.TabIndex = 8;
             // 
             // radLabel65
             // 
@@ -2769,13 +2770,13 @@
             // documentWindow8
             // 
             this.documentWindow8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.documentWindow8.Controls.Add(this.cb_product_testSerial);
             this.documentWindow8.Controls.Add(this.lbx_productTest_tip);
             this.documentWindow8.Controls.Add(this.lbx_productTest_sign);
             this.documentWindow8.Controls.Add(this.btn_productTest_save);
             this.documentWindow8.Controls.Add(this.btn_productTest_refresh);
             this.documentWindow8.Controls.Add(this.groupBox10);
             this.documentWindow8.Controls.Add(this.groupBox9);
-            this.documentWindow8.Controls.Add(this.cb_product_testSerial);
             this.documentWindow8.Controls.Add(this.radLabel80);
             this.documentWindow8.Controls.Add(this.groupBox8);
             this.documentWindow8.Font = new System.Drawing.Font("宋体", 9F);
@@ -2866,7 +2867,7 @@
             this.tb_product_productID.Location = new System.Drawing.Point(166, 337);
             this.tb_product_productID.Name = "tb_product_productID";
             this.tb_product_productID.Size = new System.Drawing.Size(174, 36);
-            this.tb_product_productID.TabIndex = 23;
+            this.tb_product_productID.TabIndex = 20;
             this.tb_product_productID.ThemeName = "Material";
             // 
             // tb_product_porterRate
@@ -2877,7 +2878,7 @@
             this.tb_product_porterRate.Location = new System.Drawing.Point(166, 55);
             this.tb_product_porterRate.Name = "tb_product_porterRate";
             this.tb_product_porterRate.Size = new System.Drawing.Size(168, 28);
-            this.tb_product_porterRate.TabIndex = 22;
+            this.tb_product_porterRate.TabIndex = 15;
             // 
             // tb_product_receiveCanID
             // 
@@ -2892,7 +2893,7 @@
             this.tb_product_sendCanID.Location = new System.Drawing.Point(166, 100);
             this.tb_product_sendCanID.Name = "tb_product_sendCanID";
             this.tb_product_sendCanID.Size = new System.Drawing.Size(168, 36);
-            this.tb_product_sendCanID.TabIndex = 15;
+            this.tb_product_sendCanID.TabIndex = 16;
             this.tb_product_sendCanID.ThemeName = "Material";
             // 
             // tb_product_rfCanID
@@ -2900,7 +2901,7 @@
             this.tb_product_rfCanID.Location = new System.Drawing.Point(166, 281);
             this.tb_product_rfCanID.Name = "tb_product_rfCanID";
             this.tb_product_rfCanID.Size = new System.Drawing.Size(168, 36);
-            this.tb_product_rfCanID.TabIndex = 21;
+            this.tb_product_rfCanID.TabIndex = 19;
             this.tb_product_rfCanID.ThemeName = "Material";
             // 
             // radLabel83
@@ -2917,7 +2918,7 @@
             this.tb_product_cyclyCanID.Location = new System.Drawing.Point(166, 221);
             this.tb_product_cyclyCanID.Name = "tb_product_cyclyCanID";
             this.tb_product_cyclyCanID.Size = new System.Drawing.Size(168, 36);
-            this.tb_product_cyclyCanID.TabIndex = 19;
+            this.tb_product_cyclyCanID.TabIndex = 18;
             this.tb_product_cyclyCanID.ThemeName = "Material";
             // 
             // radLabel84
@@ -3036,7 +3037,7 @@
             this.tb_product_dormantElectricMax.Location = new System.Drawing.Point(143, 209);
             this.tb_product_dormantElectricMax.Name = "tb_product_dormantElectricMax";
             this.tb_product_dormantElectricMax.Size = new System.Drawing.Size(156, 36);
-            this.tb_product_dormantElectricMax.TabIndex = 25;
+            this.tb_product_dormantElectricMax.TabIndex = 10;
             this.tb_product_dormantElectricMax.ThemeName = "Material";
             // 
             // tb_product_softWareVersion
@@ -3044,7 +3045,7 @@
             this.tb_product_softWareVersion.Location = new System.Drawing.Point(143, 386);
             this.tb_product_softWareVersion.Name = "tb_product_softWareVersion";
             this.tb_product_softWareVersion.Size = new System.Drawing.Size(156, 36);
-            this.tb_product_softWareVersion.TabIndex = 21;
+            this.tb_product_softWareVersion.TabIndex = 13;
             this.tb_product_softWareVersion.ThemeName = "Material";
             // 
             // tb_product_workElectricMax
@@ -3052,7 +3053,7 @@
             this.tb_product_workElectricMax.Location = new System.Drawing.Point(143, 100);
             this.tb_product_workElectricMax.Name = "tb_product_workElectricMax";
             this.tb_product_workElectricMax.Size = new System.Drawing.Size(156, 36);
-            this.tb_product_workElectricMax.TabIndex = 15;
+            this.tb_product_workElectricMax.TabIndex = 8;
             this.tb_product_workElectricMax.ThemeName = "Material";
             // 
             // radLabel104
@@ -3069,7 +3070,7 @@
             this.tb_product_hardWareVersion.Location = new System.Drawing.Point(143, 326);
             this.tb_product_hardWareVersion.Name = "tb_product_hardWareVersion";
             this.tb_product_hardWareVersion.Size = new System.Drawing.Size(156, 36);
-            this.tb_product_hardWareVersion.TabIndex = 19;
+            this.tb_product_hardWareVersion.TabIndex = 12;
             this.tb_product_hardWareVersion.ThemeName = "Material";
             // 
             // tb_prouct_bootLoader
@@ -3077,7 +3078,7 @@
             this.tb_prouct_bootLoader.Location = new System.Drawing.Point(143, 439);
             this.tb_prouct_bootLoader.Name = "tb_prouct_bootLoader";
             this.tb_prouct_bootLoader.Size = new System.Drawing.Size(156, 36);
-            this.tb_prouct_bootLoader.TabIndex = 27;
+            this.tb_prouct_bootLoader.TabIndex = 14;
             this.tb_prouct_bootLoader.ThemeName = "Material";
             // 
             // radLabel79
@@ -3094,7 +3095,7 @@
             this.tb_product_dormantElectricMin.Location = new System.Drawing.Point(143, 158);
             this.tb_product_dormantElectricMin.Name = "tb_product_dormantElectricMin";
             this.tb_product_dormantElectricMin.Size = new System.Drawing.Size(156, 36);
-            this.tb_product_dormantElectricMin.TabIndex = 23;
+            this.tb_product_dormantElectricMin.TabIndex = 9;
             this.tb_product_dormantElectricMin.ThemeName = "Material";
             // 
             // radLabel77
@@ -3129,7 +3130,7 @@
             this.tb_product_workElectricMin.Location = new System.Drawing.Point(143, 40);
             this.tb_product_workElectricMin.Name = "tb_product_workElectricMin";
             this.tb_product_workElectricMin.Size = new System.Drawing.Size(156, 36);
-            this.tb_product_workElectricMin.TabIndex = 13;
+            this.tb_product_workElectricMin.TabIndex = 7;
             this.tb_product_workElectricMin.ThemeName = "Material";
             // 
             // radLabel74
@@ -3155,7 +3156,7 @@
             this.tb_product_partNumber.Location = new System.Drawing.Point(143, 266);
             this.tb_product_partNumber.Name = "tb_product_partNumber";
             this.tb_product_partNumber.Size = new System.Drawing.Size(156, 36);
-            this.tb_product_partNumber.TabIndex = 17;
+            this.tb_product_partNumber.TabIndex = 11;
             this.tb_product_partNumber.ThemeName = "Material";
             // 
             // radLabel75
@@ -3166,16 +3167,6 @@
             this.radLabel75.TabIndex = 18;
             this.radLabel75.Text = "硬件版本号：";
             this.radLabel75.ThemeName = "Material";
-            // 
-            // cb_product_testSerial
-            // 
-            this.cb_product_testSerial.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cb_product_testSerial.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cb_product_testSerial.FormattingEnabled = true;
-            this.cb_product_testSerial.Location = new System.Drawing.Point(995, 169);
-            this.cb_product_testSerial.Name = "cb_product_testSerial";
-            this.cb_product_testSerial.Size = new System.Drawing.Size(238, 28);
-            this.cb_product_testSerial.TabIndex = 18;
             // 
             // radLabel80
             // 
@@ -3214,7 +3205,7 @@
             this.tb_product_controlPower.Location = new System.Drawing.Point(129, 337);
             this.tb_product_controlPower.Name = "tb_product_controlPower";
             this.tb_product_controlPower.Size = new System.Drawing.Size(175, 36);
-            this.tb_product_controlPower.TabIndex = 11;
+            this.tb_product_controlPower.TabIndex = 6;
             this.tb_product_controlPower.ThemeName = "Material";
             // 
             // radLabel66
@@ -3248,7 +3239,7 @@
             this.tb_product_localAddress.Location = new System.Drawing.Point(129, 100);
             this.tb_product_localAddress.Name = "tb_product_localAddress";
             this.tb_product_localAddress.Size = new System.Drawing.Size(175, 36);
-            this.tb_product_localAddress.TabIndex = 3;
+            this.tb_product_localAddress.TabIndex = 2;
             this.tb_product_localAddress.ThemeName = "Material";
             // 
             // radLabel71
@@ -3274,7 +3265,7 @@
             this.tb_product_testBoard.Location = new System.Drawing.Point(129, 281);
             this.tb_product_testBoard.Name = "tb_product_testBoard";
             this.tb_product_testBoard.Size = new System.Drawing.Size(175, 36);
-            this.tb_product_testBoard.TabIndex = 9;
+            this.tb_product_testBoard.TabIndex = 5;
             this.tb_product_testBoard.ThemeName = "Material";
             // 
             // tb_product_avometer
@@ -3282,7 +3273,7 @@
             this.tb_product_avometer.Location = new System.Drawing.Point(129, 161);
             this.tb_product_avometer.Name = "tb_product_avometer";
             this.tb_product_avometer.Size = new System.Drawing.Size(175, 36);
-            this.tb_product_avometer.TabIndex = 5;
+            this.tb_product_avometer.TabIndex = 3;
             this.tb_product_avometer.ThemeName = "Material";
             // 
             // radLabel70
@@ -3308,7 +3299,7 @@
             this.tb_product_autoSweepCode.Location = new System.Drawing.Point(129, 221);
             this.tb_product_autoSweepCode.Name = "tb_product_autoSweepCode";
             this.tb_product_autoSweepCode.Size = new System.Drawing.Size(175, 36);
-            this.tb_product_autoSweepCode.TabIndex = 7;
+            this.tb_product_autoSweepCode.TabIndex = 4;
             this.tb_product_autoSweepCode.ThemeName = "Material";
             // 
             // documentWindow7
@@ -3411,7 +3402,7 @@
             this.tb_productCheck_productID.Location = new System.Drawing.Point(165, 336);
             this.tb_productCheck_productID.Name = "tb_productCheck_productID";
             this.tb_productCheck_productID.Size = new System.Drawing.Size(174, 36);
-            this.tb_productCheck_productID.TabIndex = 23;
+            this.tb_productCheck_productID.TabIndex = 19;
             this.tb_productCheck_productID.ThemeName = "Material";
             // 
             // tb_productCheck_porterRate
@@ -3422,14 +3413,14 @@
             this.tb_productCheck_porterRate.Location = new System.Drawing.Point(166, 56);
             this.tb_productCheck_porterRate.Name = "tb_productCheck_porterRate";
             this.tb_productCheck_porterRate.Size = new System.Drawing.Size(173, 28);
-            this.tb_productCheck_porterRate.TabIndex = 22;
+            this.tb_productCheck_porterRate.TabIndex = 14;
             // 
             // tb_productCheck_rfCanID
             // 
             this.tb_productCheck_rfCanID.Location = new System.Drawing.Point(166, 282);
             this.tb_productCheck_rfCanID.Name = "tb_productCheck_rfCanID";
             this.tb_productCheck_rfCanID.Size = new System.Drawing.Size(173, 36);
-            this.tb_productCheck_rfCanID.TabIndex = 21;
+            this.tb_productCheck_rfCanID.TabIndex = 18;
             this.tb_productCheck_rfCanID.ThemeName = "Material";
             // 
             // radLabel78
@@ -3446,7 +3437,7 @@
             this.tb_productCheck_cycleCanID.Location = new System.Drawing.Point(166, 222);
             this.tb_productCheck_cycleCanID.Name = "tb_productCheck_cycleCanID";
             this.tb_productCheck_cycleCanID.Size = new System.Drawing.Size(173, 36);
-            this.tb_productCheck_cycleCanID.TabIndex = 19;
+            this.tb_productCheck_cycleCanID.TabIndex = 17;
             this.tb_productCheck_cycleCanID.ThemeName = "Material";
             // 
             // radLabel82
@@ -3463,7 +3454,7 @@
             this.tb_productCheck_receiveCanID.Location = new System.Drawing.Point(166, 166);
             this.tb_productCheck_receiveCanID.Name = "tb_productCheck_receiveCanID";
             this.tb_productCheck_receiveCanID.Size = new System.Drawing.Size(173, 36);
-            this.tb_productCheck_receiveCanID.TabIndex = 17;
+            this.tb_productCheck_receiveCanID.TabIndex = 16;
             this.tb_productCheck_receiveCanID.ThemeName = "Material";
             // 
             // radLabel88
@@ -3590,7 +3581,7 @@
             this.tb_productCheck_dormantElectricMax.Location = new System.Drawing.Point(155, 224);
             this.tb_productCheck_dormantElectricMax.Name = "tb_productCheck_dormantElectricMax";
             this.tb_productCheck_dormantElectricMax.Size = new System.Drawing.Size(150, 36);
-            this.tb_productCheck_dormantElectricMax.TabIndex = 25;
+            this.tb_productCheck_dormantElectricMax.TabIndex = 9;
             this.tb_productCheck_dormantElectricMax.ThemeName = "Material";
             // 
             // tb_productCheck_bootLoader
@@ -3598,7 +3589,7 @@
             this.tb_productCheck_bootLoader.Location = new System.Drawing.Point(155, 454);
             this.tb_productCheck_bootLoader.Name = "tb_productCheck_bootLoader";
             this.tb_productCheck_bootLoader.Size = new System.Drawing.Size(150, 36);
-            this.tb_productCheck_bootLoader.TabIndex = 27;
+            this.tb_productCheck_bootLoader.TabIndex = 13;
             this.tb_productCheck_bootLoader.ThemeName = "Material";
             // 
             // radLabel91
@@ -3624,7 +3615,7 @@
             this.tb_productCheck_dormantElectricMin.Location = new System.Drawing.Point(155, 166);
             this.tb_productCheck_dormantElectricMin.Name = "tb_productCheck_dormantElectricMin";
             this.tb_productCheck_dormantElectricMin.Size = new System.Drawing.Size(150, 36);
-            this.tb_productCheck_dormantElectricMin.TabIndex = 23;
+            this.tb_productCheck_dormantElectricMin.TabIndex = 8;
             this.tb_productCheck_dormantElectricMin.ThemeName = "Material";
             // 
             // radLabel93
@@ -3641,7 +3632,7 @@
             this.tb_productCheck_softWareVersion.Location = new System.Drawing.Point(155, 398);
             this.tb_productCheck_softWareVersion.Name = "tb_productCheck_softWareVersion";
             this.tb_productCheck_softWareVersion.Size = new System.Drawing.Size(150, 36);
-            this.tb_productCheck_softWareVersion.TabIndex = 21;
+            this.tb_productCheck_softWareVersion.TabIndex = 12;
             this.tb_productCheck_softWareVersion.ThemeName = "Material";
             // 
             // tb_productCheck_workElectricMax
@@ -3649,7 +3640,7 @@
             this.tb_productCheck_workElectricMax.Location = new System.Drawing.Point(155, 110);
             this.tb_productCheck_workElectricMax.Name = "tb_productCheck_workElectricMax";
             this.tb_productCheck_workElectricMax.Size = new System.Drawing.Size(150, 36);
-            this.tb_productCheck_workElectricMax.TabIndex = 15;
+            this.tb_productCheck_workElectricMax.TabIndex = 7;
             this.tb_productCheck_workElectricMax.ThemeName = "Material";
             // 
             // radLabel97
@@ -3684,7 +3675,7 @@
             this.tb_productCheck_workElectricMin.Location = new System.Drawing.Point(155, 48);
             this.tb_productCheck_workElectricMin.Name = "tb_productCheck_workElectricMin";
             this.tb_productCheck_workElectricMin.Size = new System.Drawing.Size(150, 36);
-            this.tb_productCheck_workElectricMin.TabIndex = 13;
+            this.tb_productCheck_workElectricMin.TabIndex = 6;
             this.tb_productCheck_workElectricMin.ThemeName = "Material";
             // 
             // tb_productCheck_hardWareVersion
@@ -3692,7 +3683,7 @@
             this.tb_productCheck_hardWareVersion.Location = new System.Drawing.Point(155, 341);
             this.tb_productCheck_hardWareVersion.Name = "tb_productCheck_hardWareVersion";
             this.tb_productCheck_hardWareVersion.Size = new System.Drawing.Size(150, 36);
-            this.tb_productCheck_hardWareVersion.TabIndex = 19;
+            this.tb_productCheck_hardWareVersion.TabIndex = 11;
             this.tb_productCheck_hardWareVersion.ThemeName = "Material";
             // 
             // tb_productCheck_partNumber
@@ -3700,7 +3691,7 @@
             this.tb_productCheck_partNumber.Location = new System.Drawing.Point(155, 282);
             this.tb_productCheck_partNumber.Name = "tb_productCheck_partNumber";
             this.tb_productCheck_partNumber.Size = new System.Drawing.Size(150, 36);
-            this.tb_productCheck_partNumber.TabIndex = 17;
+            this.tb_productCheck_partNumber.TabIndex = 10;
             this.tb_productCheck_partNumber.ThemeName = "Material";
             // 
             // radLabel95
@@ -3720,7 +3711,7 @@
             this.tb_productCheck_testSerial.Location = new System.Drawing.Point(986, 168);
             this.tb_productCheck_testSerial.Name = "tb_productCheck_testSerial";
             this.tb_productCheck_testSerial.Size = new System.Drawing.Size(253, 28);
-            this.tb_productCheck_testSerial.TabIndex = 18;
+            this.tb_productCheck_testSerial.TabIndex = 24;
             // 
             // groupBox13
             // 
@@ -3765,7 +3756,7 @@
             this.tb_productCheck_localAddress.Location = new System.Drawing.Point(108, 108);
             this.tb_productCheck_localAddress.Name = "tb_productCheck_localAddress";
             this.tb_productCheck_localAddress.Size = new System.Drawing.Size(168, 36);
-            this.tb_productCheck_localAddress.TabIndex = 3;
+            this.tb_productCheck_localAddress.TabIndex = 2;
             this.tb_productCheck_localAddress.ThemeName = "MaterialBlueGrey";
             // 
             // radLabel100
@@ -3782,7 +3773,7 @@
             this.tb_productCheck_controlPower.Location = new System.Drawing.Point(108, 282);
             this.tb_productCheck_controlPower.Name = "tb_productCheck_controlPower";
             this.tb_productCheck_controlPower.Size = new System.Drawing.Size(168, 36);
-            this.tb_productCheck_controlPower.TabIndex = 11;
+            this.tb_productCheck_controlPower.TabIndex = 5;
             this.tb_productCheck_controlPower.ThemeName = "Material";
             // 
             // radLabel101
@@ -3808,7 +3799,7 @@
             this.tb_productCheck_testBoard.Location = new System.Drawing.Point(108, 225);
             this.tb_productCheck_testBoard.Name = "tb_productCheck_testBoard";
             this.tb_productCheck_testBoard.Size = new System.Drawing.Size(168, 36);
-            this.tb_productCheck_testBoard.TabIndex = 9;
+            this.tb_productCheck_testBoard.TabIndex = 4;
             this.tb_productCheck_testBoard.ThemeName = "Material";
             // 
             // tb_productCheck_avometer
@@ -3816,7 +3807,7 @@
             this.tb_productCheck_avometer.Location = new System.Drawing.Point(108, 166);
             this.tb_productCheck_avometer.Name = "tb_productCheck_avometer";
             this.tb_productCheck_avometer.Size = new System.Drawing.Size(168, 36);
-            this.tb_productCheck_avometer.TabIndex = 5;
+            this.tb_productCheck_avometer.TabIndex = 3;
             this.tb_productCheck_avometer.ThemeName = "Material";
             // 
             // radLabel103
@@ -3925,7 +3916,7 @@
             this.tb_airtage_inflateTime.Location = new System.Drawing.Point(144, 40);
             this.tb_airtage_inflateTime.Name = "tb_airtage_inflateTime";
             this.tb_airtage_inflateTime.Size = new System.Drawing.Size(223, 36);
-            this.tb_airtage_inflateTime.TabIndex = 5;
+            this.tb_airtage_inflateTime.TabIndex = 11;
             this.tb_airtage_inflateTime.ThemeName = "Material";
             // 
             // tb_airtage_testTime
@@ -3933,7 +3924,7 @@
             this.tb_airtage_testTime.Location = new System.Drawing.Point(144, 159);
             this.tb_airtage_testTime.Name = "tb_airtage_testTime";
             this.tb_airtage_testTime.Size = new System.Drawing.Size(223, 36);
-            this.tb_airtage_testTime.TabIndex = 9;
+            this.tb_airtage_testTime.TabIndex = 13;
             this.tb_airtage_testTime.ThemeName = "Material";
             // 
             // radLabel54
@@ -3950,7 +3941,7 @@
             this.tb_airtage_stableTime.Location = new System.Drawing.Point(144, 102);
             this.tb_airtage_stableTime.Name = "tb_airtage_stableTime";
             this.tb_airtage_stableTime.Size = new System.Drawing.Size(223, 36);
-            this.tb_airtage_stableTime.TabIndex = 7;
+            this.tb_airtage_stableTime.TabIndex = 12;
             this.tb_airtage_stableTime.ThemeName = "Material";
             // 
             // radLabel55
@@ -4015,7 +4006,7 @@
             this.tb_airtage_bigLeakMax.Location = new System.Drawing.Point(144, 102);
             this.tb_airtage_bigLeakMax.Name = "tb_airtage_bigLeakMax";
             this.tb_airtage_bigLeakMax.Size = new System.Drawing.Size(223, 36);
-            this.tb_airtage_bigLeakMax.TabIndex = 9;
+            this.tb_airtage_bigLeakMax.TabIndex = 10;
             this.tb_airtage_bigLeakMax.ThemeName = "Material";
             // 
             // radLabel145
@@ -4032,7 +4023,7 @@
             this.tb_airtage_bigLeakMin.Location = new System.Drawing.Point(144, 36);
             this.tb_airtage_bigLeakMin.Name = "tb_airtage_bigLeakMin";
             this.tb_airtage_bigLeakMin.Size = new System.Drawing.Size(223, 36);
-            this.tb_airtage_bigLeakMin.TabIndex = 7;
+            this.tb_airtage_bigLeakMin.TabIndex = 9;
             this.tb_airtage_bigLeakMin.ThemeName = "Material";
             // 
             // groupBox21
@@ -4060,7 +4051,7 @@
             this.tb_airtage_spread.Location = new System.Drawing.Point(144, 171);
             this.tb_airtage_spread.Name = "tb_airtage_spread";
             this.tb_airtage_spread.Size = new System.Drawing.Size(223, 28);
-            this.tb_airtage_spread.TabIndex = 43;
+            this.tb_airtage_spread.TabIndex = 8;
             // 
             // radLabel60
             // 
@@ -4076,7 +4067,7 @@
             this.tb_airtage_referenceConditionValue.Location = new System.Drawing.Point(144, 54);
             this.tb_airtage_referenceConditionValue.Name = "tb_airtage_referenceConditionValue";
             this.tb_airtage_referenceConditionValue.Size = new System.Drawing.Size(223, 36);
-            this.tb_airtage_referenceConditionValue.TabIndex = 21;
+            this.tb_airtage_referenceConditionValue.TabIndex = 6;
             this.tb_airtage_referenceConditionValue.ThemeName = "Material";
             // 
             // radLabel61
@@ -4093,7 +4084,7 @@
             this.tb_airtage_testConditionValue.Location = new System.Drawing.Point(144, 115);
             this.tb_airtage_testConditionValue.Name = "tb_airtage_testConditionValue";
             this.tb_airtage_testConditionValue.Size = new System.Drawing.Size(223, 36);
-            this.tb_airtage_testConditionValue.TabIndex = 19;
+            this.tb_airtage_testConditionValue.TabIndex = 7;
             this.tb_airtage_testConditionValue.ThemeName = "Material";
             // 
             // radLabel57
@@ -4130,7 +4121,7 @@
             this.tb_airtage_pressureUnit.Location = new System.Drawing.Point(170, 184);
             this.tb_airtage_pressureUnit.Name = "tb_airtage_pressureUnit";
             this.tb_airtage_pressureUnit.Size = new System.Drawing.Size(185, 28);
-            this.tb_airtage_pressureUnit.TabIndex = 44;
+            this.tb_airtage_pressureUnit.TabIndex = 5;
             // 
             // radLabel58
             // 
@@ -4146,7 +4137,7 @@
             this.tb_airtage_maxInflate.Location = new System.Drawing.Point(170, 123);
             this.tb_airtage_maxInflate.Name = "tb_airtage_maxInflate";
             this.tb_airtage_maxInflate.Size = new System.Drawing.Size(185, 36);
-            this.tb_airtage_maxInflate.TabIndex = 15;
+            this.tb_airtage_maxInflate.TabIndex = 4;
             this.tb_airtage_maxInflate.ThemeName = "Material";
             // 
             // tb_airtage_minFlate
@@ -4154,7 +4145,7 @@
             this.tb_airtage_minFlate.Location = new System.Drawing.Point(170, 57);
             this.tb_airtage_minFlate.Name = "tb_airtage_minFlate";
             this.tb_airtage_minFlate.Size = new System.Drawing.Size(185, 36);
-            this.tb_airtage_minFlate.TabIndex = 17;
+            this.tb_airtage_minFlate.TabIndex = 3;
             this.tb_airtage_minFlate.ThemeName = "Material";
             // 
             // radLabel59
@@ -4174,6 +4165,16 @@
             this.radLabel56.TabIndex = 10;
             this.radLabel56.Text = "压力单位：";
             this.radLabel56.ThemeName = "Material";
+            // 
+            // cb_product_testSerial
+            // 
+            this.cb_product_testSerial.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cb_product_testSerial.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cb_product_testSerial.FormattingEnabled = true;
+            this.cb_product_testSerial.Location = new System.Drawing.Point(995, 169);
+            this.cb_product_testSerial.Name = "cb_product_testSerial";
+            this.cb_product_testSerial.Size = new System.Drawing.Size(238, 28);
+            this.cb_product_testSerial.TabIndex = 21;
             // 
             // StandConfig
             // 
@@ -4655,7 +4656,6 @@
         private Telerik.WinControls.UI.RadLabel radLabel70;
         private Telerik.WinControls.UI.RadLabel radLabel69;
         private Telerik.WinControls.UI.RadTextBox tb_product_autoSweepCode;
-        private System.Windows.Forms.ComboBox cb_product_testSerial;
         private Telerik.WinControls.UI.RadLabel radLabel80;
         private System.Windows.Forms.ComboBox tb_productCheck_testSerial;
         private Telerik.WinControls.UI.RadLabel radLabel106;
@@ -4894,5 +4894,6 @@
         private Telerik.WinControls.UI.RadTextBox tb_airtage_minFlate;
         private Telerik.WinControls.UI.RadLabel radLabel59;
         private Telerik.WinControls.UI.RadLabel radLabel56;
+        private System.Windows.Forms.ComboBox cb_product_testSerial;
     }
 }

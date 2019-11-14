@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductPackageDetail));
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
@@ -56,16 +57,16 @@
             // 
             // toolStrip2
             // 
-            this.toolStrip2.BackColor = System.Drawing.Color.SkyBlue;
+            this.toolStrip2.BackColor = System.Drawing.Color.SteelBlue;
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel2,
             this.tb_package,
+            this.btn_selectOfPackage,
             this.toolStripLabel6,
             this.tool_package_exportFilter,
-            this.tool_package_export,
-            this.btn_selectOfPackage});
+            this.tool_package_export});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1033, 42);
@@ -113,7 +114,7 @@
             // btn_selectOfPackage
             // 
             this.btn_selectOfPackage.ForeColor = System.Drawing.Color.White;
-            this.btn_selectOfPackage.Image = global::MesManager.Properties.Resources.Refresh_16x16;
+            this.btn_selectOfPackage.Image = global::MesManager.Properties.Resources.Search_16x16;
             this.btn_selectOfPackage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btn_selectOfPackage.Name = "btn_selectOfPackage";
             this.btn_selectOfPackage.Size = new System.Drawing.Size(55, 39);
@@ -128,7 +129,7 @@
             // 
             // 
             // 
-            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition1;
+            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition2;
             this.radGridViewPackage.Name = "radGridViewPackage";
             this.radGridViewPackage.Size = new System.Drawing.Size(1033, 454);
             this.radGridViewPackage.TabIndex = 39;
@@ -142,13 +143,14 @@
             this.ClientSize = new System.Drawing.Size(1033, 496);
             this.Controls.Add(this.radGridViewPackage);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProductPackageDetail";
             // 
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "包装箱产品";
-            this.ThemeName = "Windows8";
+            this.ThemeName = "Material";
             this.Load += new System.EventHandler(this.ProductPackageDetail_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

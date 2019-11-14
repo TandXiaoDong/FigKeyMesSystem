@@ -74,6 +74,13 @@ namespace MesAPI
         private const string STATEMENT_DATE = "结单日期";
         #endregion
 
+        #region 产品打包
+        public const string OUT_CASE_CODE = "箱子编码";
+        public const string CASE_PRODUCT_TYPE_NO = "产品型号";
+        public const string CASE_STORAGE_CAPACITY = "箱子容量";
+        public const string CASE_AMOUNTED = "产品实际数据";
+        #endregion
+
         private string GetDateTimeNow()
         {
             return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
@@ -2992,11 +2999,27 @@ namespace MesAPI
                      $"{DbTable.F_PRODUCT_PACKAGE_NAME} " +
                      $"WHERE " +
                      $"{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '{state}' AND " +
-                     $"{DbTable.F_PRODUCT_PACKAGE.SN_OUTTER} like '%{queryFilter}%' OR " +
-                     $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} like '%{queryFilter}%' ";
+                     $"{DbTable.F_PRODUCT_PACKAGE.SN_OUTTER} like '%{queryFilter}%'";
             }
             LogHelper.Log.Info(selectSQL);
-            return SQLServer.ExecuteDataSet(selectSQL);
+            var ds = SQLServer.ExecuteDataSet(selectSQL);
+            if (ds.Tables[0].Rows.Count < 1)
+            {
+                selectSQL = $"SELECT {rowNumber}{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} 箱子编码," +
+                     $"{DbTable.F_PRODUCT_PACKAGE.SN_OUTTER} 产品SN," +
+                     $"{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} 产品型号," +
+                     $"{DbTable.F_PRODUCT_PACKAGE.TEAM_LEADER} 班组长," +
+                     $"{DbTable.F_PRODUCT_PACKAGE.ADMIN} 管理员," +
+                     $"{DbTable.F_PRODUCT_PACKAGE.REMARK} 描述," +
+                     $"{DbTable.F_PRODUCT_PACKAGE.BINDING_DATE} 绑定日期 " +
+                     $"FROM " +
+                     $"{DbTable.F_PRODUCT_PACKAGE_NAME} " +
+                     $"WHERE " +
+                     $"{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '{state}' AND " +
+                     $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} like '%{queryFilter}%'";
+                return SQLServer.ExecuteDataSet(selectSQL);
+            }
+            return ds;
         }
 
         public DataSet SelectPackageProductOfCaseCode(string queryFilter, string state, bool IsShowNumber)
@@ -3026,66 +3049,124 @@ namespace MesAPI
         public DataSet SelectPackageStorage(string queryFilter)
         {
             var selectSQL = "";
+            DataTable dataSourceProductPackage = new DataTable();
+            dataSourceProductPackage.Columns.Add(DATA_ORDER);
+            dataSourceProductPackage.Columns.Add(OUT_CASE_CODE);
+            dataSourceProductPackage.Columns.Add(CASE_PRODUCT_TYPE_NO);
+            dataSourceProductPackage.Columns.Add(CASE_STORAGE_CAPACITY);
+            dataSourceProductPackage.Columns.Add(CASE_AMOUNTED);
+            DataSet ds = new DataSet();
+            DbDataReader dataReader = null;
             if (queryFilter == "")
             {
                 selectSQL = $"SELECT " +
                 $"a.{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} 箱子编码," +
                 $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} 产品型号," +
-                $"b.{DbTable.F_PRODUCT_PACKAGE_STORAGE.STORAGE_CAPACITY} 箱子容量," +
                 $"COUNT(a.{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE}) 产品实际数量 " +
                 $"FROM " +
-                $"{DbTable.F_PRODUCT_PACKAGE_NAME}  a," +
-                $"{DbTable.F_PRODUCT_PACKAGE_STORAGE_NAME} b " +
+                $"{DbTable.F_PRODUCT_PACKAGE_NAME}  a " +
                 $"WHERE " +
-                $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} = b.{DbTable.F_PRODUCT_PACKAGE_STORAGE.PRODUCT_TYPE_NO} " +
-                $"AND " +
                 $"a.{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '1' " +
                 $"GROUP BY " +
                 $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE}," +
-                $"{DbTable.F_PRODUCT_PACKAGE_STORAGE.STORAGE_CAPACITY}," +
-                $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} ";
+                $"{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} ";
             }
             else
             {
                 selectSQL = $"SELECT " +
+                    $"a.{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} 箱子编码," +
+                    $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} 产品型号, " +
+                    $"COUNT(a.{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE}) 产品实际数量 FROM " +
+                    $"{DbTable.F_PRODUCT_PACKAGE_NAME}  a " +
+                    $"WHERE " +
+                    $"a.{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '1' AND " +
+                    $"a.{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} = '{queryFilter}' " +
+                    $"GROUP BY " +
+                    $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE}," +
+                    $"{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} ";
+            }
+            dataReader = SQLServer.ExecuteDataReader(selectSQL);
+            if (!dataReader.HasRows)
+            {
+                selectSQL = $"SELECT " +
                 $"a.{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} 箱子编码," +
-                $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} 产品型号," +
-                $"b.{DbTable.F_PRODUCT_PACKAGE_STORAGE.STORAGE_CAPACITY} 箱子容量," +
+                $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} 产品型号, " +
                 $"COUNT(a.{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE}) 产品实际数量 FROM " +
-                $"{DbTable.F_PRODUCT_PACKAGE_NAME}  a," +
-                $"{DbTable.F_PRODUCT_PACKAGE_STORAGE_NAME} b " +
+                $"{DbTable.F_PRODUCT_PACKAGE_NAME}  a " +
                 $"WHERE " +
-                $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} = b.{DbTable.F_PRODUCT_PACKAGE_STORAGE.PRODUCT_TYPE_NO} AND " +
                 $"a.{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '1' AND " +
-                $"a.{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} = '{queryFilter}' OR " +
                 $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} = '{queryFilter}' " +
                 $"GROUP BY " +
                 $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE}," +
-                $"{DbTable.F_PRODUCT_PACKAGE_STORAGE.STORAGE_CAPACITY}," +
-                $"a.{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} ";
+                $"{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} ";
+                dataReader = SQLServer.ExecuteDataReader(selectSQL);
+                if (!dataReader.HasRows)
+                {
+                    ds.Tables.Add(dataSourceProductPackage);
+                    return ds;
+                }
             }
+            int i = 0;
+            while (dataReader.Read())
+            {
+                DataRow dr = dataSourceProductPackage.NewRow();
+                var productTypeNo = dataReader[1].ToString();
+                dr[DATA_ORDER] = i + 1;
+                dr[OUT_CASE_CODE] = dataReader[0].ToString();
+                dr[CASE_PRODUCT_TYPE_NO] = productTypeNo;
+                dr[CASE_AMOUNTED] = dataReader[2].ToString();
+                dr[CASE_STORAGE_CAPACITY] = GetProductStorage(productTypeNo);
+                dataSourceProductPackage.Rows.Add(dr);
+                i++;
+            }
+            dataReader.Close();
             LogHelper.Log.Info(selectSQL);
-            return SQLServer.ExecuteDataSet(selectSQL);
+            ds.Tables.Add(dataSourceProductPackage);
+            return ds;
+        }
+
+        private string GetProductStorage(string typeNo)
+        {
+            var selectSQL = $"SELECT {DbTable.F_PRODUCT_PACKAGE_STORAGE.STORAGE_CAPACITY} FROM {DbTable.F_PRODUCT_PACKAGE_STORAGE_NAME} WHERE " +
+                $"{DbTable.F_PRODUCT_PACKAGE_STORAGE.PRODUCT_TYPE_NO} = '{typeNo}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+                return dt.Rows[0][0].ToString();
+            return "";
         }
 
         public int DeleteProductPackage(string queryCondition,int state)
         {
             var deleteSQL = $"";
+            var delRow = 0;
             if (queryCondition == "")
             {
                 deleteSQL = $"DELETE FROM {DbTable.F_PRODUCT_PACKAGE_NAME} WHERE " +
                     $"{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '{state}'";
+                delRow = SQLServer.ExecuteNonQuery(deleteSQL);
             }
             else
             {
                 deleteSQL = $"DELETE FROM {DbTable.F_PRODUCT_PACKAGE_NAME} WHERE " +
                     $"{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} = '{queryCondition}' " +
-                    $"OR " +
+                    $"AND " +
+                    $"{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '{state}'";
+                delRow = SQLServer.ExecuteNonQuery(deleteSQL);
+                if (delRow < 1)
+                {
+                    deleteSQL = $"DELETE FROM {DbTable.F_PRODUCT_PACKAGE_NAME} WHERE " +
                     $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} = '{queryCondition}' " +
                     $"AND " +
                     $"{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '{state}'";
+                    delRow = SQLServer.ExecuteNonQuery(deleteSQL);
+                }
             }
-            return SQLServer.ExecuteNonQuery(deleteSQL);
+
+            if(state == 0)
+                LogHelper.Log.Info("【删除抽检数据】" + delRow);
+            else if(state == 1)
+                LogHelper.Log.Info("【删除打包数据】" + delRow);
+            return delRow;
         }
         #endregion
 
