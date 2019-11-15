@@ -1441,35 +1441,33 @@ namespace MesAPI
                 }
                 else
                 {
-                    //按PCBASN查询
+                    //按SN查询
                     var pcbaSN = GetPCBASn(queryFilter);
                     var productSN = GetProductSn(queryFilter);
-                    selectTestResultSQL = $"SELECT " +
-                                $"{DbTable.F_Test_Result.SN}," +
-                                $"{DbTable.F_Test_Result.TYPE_NO}," +
-                                $"{DbTable.F_Test_Result.STATION_NAME}," +
-                                $"{DbTable.F_Test_Result.TEST_RESULT}," +
-                                $"{DbTable.F_Test_Result.STATION_IN_DATE}," +
-                                $"{DbTable.F_Test_Result.STATION_OUT_DATE}," +
-                                $"{DbTable.F_Test_Result.TEAM_LEADER}," +
-                                $"{DbTable.F_Test_Result.JOIN_DATE_TIME} " +
-                                $"FROM " +
-                                $"{DbTable.F_TEST_RESULT_NAME} " +
-                                $"WHERE " +
-                                $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
-                                $"AND " +
-                                $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
-                                $"AND " +
-                                $"{DbTable.F_Test_Result.STATION_NAME} = '{station}' " +
-                                $"AND " +
-                                $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' ";
-                    if(pcbaSN != "")
-                        dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
-                    if (dtResult.Rows.Count < 1)
+                    if (pcbaSN != "" && productSN != "")
                     {
-                        //按外壳SN查询
-                        if (productSN == "")
-                            return;
+                        selectTestResultSQL = $"SELECT " +
+                            $"{DbTable.F_Test_Result.SN}," +
+                            $"{DbTable.F_Test_Result.TYPE_NO}," +
+                            $"{DbTable.F_Test_Result.STATION_NAME}," +
+                            $"{DbTable.F_Test_Result.TEST_RESULT}," +
+                            $"{DbTable.F_Test_Result.STATION_IN_DATE}," +
+                            $"{DbTable.F_Test_Result.STATION_OUT_DATE}," +
+                            $"{DbTable.F_Test_Result.TEAM_LEADER}," +
+                            $"{DbTable.F_Test_Result.JOIN_DATE_TIME} " +
+                            $"FROM " +
+                            $"{DbTable.F_TEST_RESULT_NAME} " +
+                            $"WHERE " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                            $"AND " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
+                            $"AND " +
+                            $"({DbTable.F_Test_Result.STATION_NAME} = '{station}' AND {DbTable.F_Test_Result.SN} = '{pcbaSN}') " +
+                            $"OR " +
+                            $"({DbTable.F_Test_Result.STATION_NAME} = '{station}' AND {DbTable.F_Test_Result.SN} = '{productSN}')";
+                    }
+                    else if (pcbaSN != "" && productSN == "")
+                    {
                         selectTestResultSQL = $"SELECT " +
                                 $"{DbTable.F_Test_Result.SN}," +
                                 $"{DbTable.F_Test_Result.TYPE_NO}," +
@@ -1482,14 +1480,38 @@ namespace MesAPI
                                 $"FROM " +
                                 $"{DbTable.F_TEST_RESULT_NAME} " +
                                 $"WHERE " +
+                                $"{DbTable.F_Test_Result.STATION_NAME} = '{station}' AND " +
                                 $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
                                 $"AND " +
                                 $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
                                 $"AND " +
-                                $"{DbTable.F_Test_Result.STATION_NAME} = '{station}' " +
+                                $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' ";
+                    }
+                    else if (pcbaSN == "" && productSN != "")
+                    {
+                        selectTestResultSQL = $"SELECT " +
+                                $"{DbTable.F_Test_Result.SN}," +
+                                $"{DbTable.F_Test_Result.TYPE_NO}," +
+                                $"{DbTable.F_Test_Result.STATION_NAME}," +
+                                $"{DbTable.F_Test_Result.TEST_RESULT}," +
+                                $"{DbTable.F_Test_Result.STATION_IN_DATE}," +
+                                $"{DbTable.F_Test_Result.STATION_OUT_DATE}," +
+                                $"{DbTable.F_Test_Result.TEAM_LEADER}," +
+                                $"{DbTable.F_Test_Result.JOIN_DATE_TIME} " +
+                                $"FROM " +
+                                $"{DbTable.F_TEST_RESULT_NAME} " +
+                                $"WHERE " +
+                                $"{DbTable.F_Test_Result.STATION_NAME} = '{station}' AND " +
+                                $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                                $"AND " +
+                                $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
                                 $"AND " +
                                 $"{DbTable.F_Test_Result.SN} = '{productSN}' ";
-                        dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+                    }
+                    else
+                    {
+                        //都为空
+                        return;//查询条件不存在
                     }
                 }
             }
@@ -1663,6 +1685,7 @@ namespace MesAPI
                             $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
                             $"AND " +
                             $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' ";
+                    dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
                 }
                 else
                 {
@@ -1687,13 +1710,51 @@ namespace MesAPI
                             $"AND " +
                             $"{DbTable.F_Test_Result.STATION_NAME} like '%{queryCondition}%' ";
                         dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+                        delTestResult = $"delete FROM " +
+                            $"{DbTable.F_TEST_RESULT_NAME} " +
+                            $"WHERE " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                            $"AND " +
+                            $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' "+
+                            $"AND " +
+                            $"{DbTable.F_Test_Result.STATION_NAME} like '%{queryCondition}%' ";
                     }
                     else
                     {
                         //按PCBASN查询
                         var pcbaSN = GetPCBASn(queryCondition);
                         var productSN = GetProductSn(queryCondition);
-                        selectTestResultSQL = $"SELECT " +
+                        if (pcbaSN != "" && productSN != "")
+                        {
+                            selectTestResultSQL = $"SELECT " +
+                                $"{DbTable.F_Test_Result.SN}," +
+                                $"{DbTable.F_Test_Result.TYPE_NO}," +
+                                $"{DbTable.F_Test_Result.STATION_NAME}," +
+                                $"{DbTable.F_Test_Result.TEST_RESULT}," +
+                                $"{DbTable.F_Test_Result.STATION_IN_DATE}," +
+                                $"{DbTable.F_Test_Result.STATION_OUT_DATE}," +
+                                $"{DbTable.F_Test_Result.TEAM_LEADER}," +
+                                $"{DbTable.F_Test_Result.JOIN_DATE_TIME} " +
+                                $"FROM " +
+                                $"{DbTable.F_TEST_RESULT_NAME} " +
+                                $"WHERE " +
+                                $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                                $"AND " +
+                                $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
+                                $"AND " +
+                                $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' OR {DbTable.F_Test_Result.SN} = '{productSN}'";
+                            delTestResult = $"delete FROM " +
+                                $"{DbTable.F_TEST_RESULT_NAME} " +
+                                $"WHERE " +
+                                $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                                $"AND " +
+                                $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
+                                $"AND " +
+                                $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' OR {DbTable.F_Test_Result.SN} = '{productSN}'";
+                        }
+                        else if (pcbaSN != "" && productSN == "")
+                        {
+                            selectTestResultSQL = $"SELECT " +
                                     $"{DbTable.F_Test_Result.SN}," +
                                     $"{DbTable.F_Test_Result.TYPE_NO}," +
                                     $"{DbTable.F_Test_Result.STATION_NAME}," +
@@ -1710,13 +1771,17 @@ namespace MesAPI
                                     $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
                                     $"AND " +
                                     $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' ";
-                        if (pcbaSN != "")
-                            dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
-                        if (dtResult.Rows.Count < 1)
+                            delTestResult = $"delete FROM " +
+                                   $"{DbTable.F_TEST_RESULT_NAME} " +
+                                   $"WHERE " +
+                                   $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                                   $"AND " +
+                                   $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
+                                   $"AND " +
+                                   $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' ";
+                        }
+                        else if (pcbaSN == "" && productSN != "")
                         {
-                            //按外壳SN查询
-                            if (productSN == "")
-                                return "0X07";//查询条件不为空，查询外壳SN为空
                             selectTestResultSQL = $"SELECT " +
                                     $"{DbTable.F_Test_Result.SN}," +
                                     $"{DbTable.F_Test_Result.TYPE_NO}," +
@@ -1734,14 +1799,28 @@ namespace MesAPI
                                     $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
                                     $"AND " +
                                     $"{DbTable.F_Test_Result.SN} = '{productSN}' ";
-                            dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+                            delTestResult = $"delete FROM " +
+                                   $"{DbTable.F_TEST_RESULT_NAME} " +
+                                   $"WHERE " +
+                                   $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                                   $"AND " +
+                                   $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
+                                   $"AND " +
+                                   $"{DbTable.F_Test_Result.SN} = '{productSN}' ";
                         }
+                        else
+                        {
+                            //都为空
+                            return "0X07";//查询条件不存在
+                        }
+                        dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+                    }
                 }
                 LogHelper.Log.Info("【查询-删除测试log数据】selectTestResultSQL=" + selectTestResultSQL);
-                if (dtResult.Tables.Count > 0)
+                if (dtResult.Rows.Count > 0)
                 {
                     int count = 0;//删除LOG数据数量
-                    foreach (DataRow dr in dtRes.Tables[0].Rows)
+                    foreach (DataRow dr in dtResult.Rows)
                     {
                         var sn = dr[0].ToString();
                         var typeNo = dr[1].ToString();
@@ -1775,13 +1854,13 @@ namespace MesAPI
                         count += delRow;
                     }
                     //执行删除测试结果数据
-                    LogHelper.Log.Info("【查询-删除测试log数据】log数据执行完毕，开始删除测试数据="+delTestResult);
+                    LogHelper.Log.Info("【查询-删除测试log数据】log数据执行完毕，开始删除测试数据=" + delTestResult);
                     var delRes = SQLServer.ExecuteNonQuery(delTestResult);
                     if (delRes > 0 && count > 0)
                     {
                         LogHelper.Log.Info($"【删除测试数据】0X01 完成{delRes}条");
                         LogHelper.Log.Info($"【删除测试LOG数据】0X01 完成{count}条");
-                        DeleteBindMsgOfTestLog(queryCondition,startTime,endTime, dtRes);
+                        DeleteBindMsgOfTestLog(queryCondition, startTime, endTime, dtResult);
                         return "0X01";
                     }
                     else if (delRes > 0 && count <= 0)
@@ -1862,7 +1941,7 @@ namespace MesAPI
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <returns></returns>
-        private int DeleteBindMsgOfTestLog(string queryCondition,string startTime,string endTime,DataSet dtRes)
+        private int DeleteBindMsgOfTestLog(string queryCondition,string startTime,string endTime,DataTable dtRes)
         {
             /*
              * 根据查询条件中的SN
@@ -1871,11 +1950,11 @@ namespace MesAPI
              * 都不存在时，删除绑定关系数据
              */
             int delCount = 0;
-            foreach (DataRow dataRow in dtRes.Tables[0].Rows)
+            foreach (DataRow dataRow in dtRes.Rows)
             {
                 var sn = dataRow[0].ToString();
-                var snPCBA = "";//不区分解绑状态
-                var snOutter = "";
+                var snPCBA = GetPCBASnOfBind(sn);//不区分解绑状态
+                var snOutter = GetOutterSnOfBind(sn);
                 if (snPCBA != "" && snOutter != "")
                 {
                     //都不为空，一定是有绑定关系（不考虑解绑）
@@ -1890,19 +1969,18 @@ namespace MesAPI
                         //结果：物料统计不存在数据
                         //2）查询当前条件之外是否存在数据
                         var selectResultSQL = $"SELECT * FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
-                            $"{DbTable.F_Test_Result.UPDATE_DATE} < '{startTime}' " +
-                            $"OR " +
-                            $"{DbTable.F_Test_Result.UPDATE_DATE} > '{endTime}' " +
-                            $"AND " +
-                            $"{DbTable.F_Test_Result.SN} = '{snPCBA}' OR {DbTable.F_Test_Result.SN} = '{snOutter}' ";
+                            $"({DbTable.F_Test_Result.UPDATE_DATE} < '{startTime}' AND {DbTable.F_Test_Result.SN} = '{snPCBA}') OR " +
+                            $"({DbTable.F_Test_Result.UPDATE_DATE} < '{startTime}' AND {DbTable.F_Test_Result.SN} = '{snOutter}') OR " +
+                            $"({DbTable.F_Test_Result.UPDATE_DATE} > '{endTime}'   AND {DbTable.F_Test_Result.SN} = '{snPCBA}') OR " +
+                            $"({DbTable.F_Test_Result.UPDATE_DATE} > '{endTime}'   AND {DbTable.F_Test_Result.SN} = '{snOutter}') ";
                         var otherTestResultData = SQLServer.ExecuteDataSet(selectResultSQL).Tables[0];
-                        if (otherTestResultData.Rows.Count < 0)
+                        if (otherTestResultData.Rows.Count < 1)
                         {
                             //已不存在数据，删除绑定记录
                             var deleteBindSQL = $"DELETE FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
                                 $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{snPCBA}' " +
                                 $"AND " +
-                                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = {snOutter}";
+                                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}'";
                             var delRow = SQLServer.ExecuteNonQuery(deleteBindSQL);
                             delCount += delRow;
                         }
@@ -1930,7 +2008,7 @@ namespace MesAPI
                             var deleteBindSQL = $"DELETE FROM {DbTable.F_BINDING_PCBA_NAME} WHERE " +
                                 $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{snPCBA}' " +
                                 $"AND " +
-                                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = {snOutter}";
+                                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{snOutter}'";
                             var delRow = SQLServer.ExecuteNonQuery(deleteBindSQL);
                             delCount += delRow;
                         }
@@ -1943,6 +2021,46 @@ namespace MesAPI
             }
             LogHelper.Log.Info("【删除过站记录-查询删除绑定记录】删除绑定记录="+delCount);
             return delCount;
+        }
+
+        private string GetPCBASnOfBind(string sn)
+        {
+            var selectSQL = $"SELECT TOP 1 {DbTable.F_BINDING_PCBA.SN_PCBA} FROM {DbTable.F_BINDING_PCBA_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+                return sn;
+            else
+            {
+                selectSQL = $"SELECT TOP 1 {DbTable.F_BINDING_PCBA.SN_PCBA} FROM {DbTable.F_BINDING_PCBA_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}'";
+                dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                if (dt.Rows.Count > 0)
+                    return dt.Rows[0][0].ToString();
+            }
+            return "";
+        }
+
+        private string GetOutterSnOfBind(string sn)
+        {
+            var selectSQL = $"SELECT TOP 1 {DbTable.F_BINDING_PCBA.SN_OUTTER} FROM {DbTable.F_BINDING_PCBA_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+                return sn;
+            else
+            {
+                selectSQL = $"SELECT TOP 1 {DbTable.F_BINDING_PCBA.SN_OUTTER} FROM {DbTable.F_BINDING_PCBA_NAME} " +
+                $"WHERE " +
+                $"{DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}'";
+                dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                if (dt.Rows.Count > 0)
+                    return dt.Rows[0][0].ToString();
+            }
+            return "";
         }
         #endregion
 
@@ -2439,19 +2557,23 @@ namespace MesAPI
                 deleteAllMaterialMsg = $"DELETE FROM {DbTable.F_MATERIAL_STATISTICS_NAME}";
                 delRow = SQLServer.ExecuteNonQuery(deleteAllMaterialMsg);
                 LogHelper.Log.Info($"【删除所有物料使用数据】删除{delRow}条");
-                DeleteBindedDataOfDeleteMaterial(queryCondition);
+                if(delRow > 0)
+                    DeleteBindedDataOfDeleteMaterial(queryCondition);
                 return delRow;
             }
             else
             {
-                var pcbaSN = GetPCBASn(queryCondition);
-                var productSN = GetProductSn(queryCondition);
                 deleteOfMaterialCode = $"DELETE FROM {DbTable.F_MATERIAL_STATISTICS_NAME} " +
                     $"WHERE " +
                     $"{DbTable.F_Material_Statistics.MATERIAL_CODE} like '%{queryCondition}%'";
                 delRow = SQLServer.ExecuteNonQuery(deleteOfMaterialCode);
+                if(delRow > 0)
+                    DeleteBindedDataOfDeleteMaterial(queryCondition);
+                LogHelper.Log.Info($"【删除所有物料使用数据】删除{delRow}条");
                 if (delRow < 1)
                 {
+                    var pcbaSN = GetPCBASn(queryCondition);
+                    var productSN = GetProductSn(queryCondition);
                     if (pcbaSN == "" && productSN != "")
                     {
                         deleteOfSN = $"DELETE FROM {DbTable.F_MATERIAL_STATISTICS_NAME} WHERE " +
@@ -2472,10 +2594,11 @@ namespace MesAPI
                     {
                         LogHelper.Log.Info("【删除物料】PCBA/外壳为空--无删除数据");
                     }
-                    return SQLServer.ExecuteNonQuery(deleteOfSN);
+                    delRow = SQLServer.ExecuteNonQuery(deleteOfSN);
+                    if(delRow > 0)
+                        DeleteBindedDataOfDeleteMaterial(queryCondition);
+                    LogHelper.Log.Info($"【删除所有物料使用数据】删除{delRow}条");
                 }
-                LogHelper.Log.Info($"【删除部分物料使用数据-物料条码】删除{delRow}条");
-                DeleteBindedDataOfDeleteMaterial(queryCondition);
                 return delRow;
             }
         }
