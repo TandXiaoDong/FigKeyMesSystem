@@ -657,7 +657,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MES修改设计.txt" />
-    <Content Include="描述.txt" />
+    <Content Include="需求总结.txt" />
     <Content Include="测试内容.txt" />
     <None Include="Connected Services\MesServiceTest\configuration91.svcinfo" />
     <None Include="Connected Services\MesServiceTest\configuration.svcinfo" />
