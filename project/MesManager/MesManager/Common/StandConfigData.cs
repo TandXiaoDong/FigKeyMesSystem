@@ -278,8 +278,8 @@ namespace MesManager.Common
             airtageConfig.SpreadUnit = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.SpreadUnitKey, airtageSavePath);
             airtageConfig.MaxInflate = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.MaxInflateKey, airtageSavePath);
             airtageConfig.MinInflate = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.MinInflateKey, airtageSavePath);
-            airtageConfig.TestConditionValue = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestConditionValueKey, airtageSavePath);
-            airtageConfig.ReferenceConditionValue = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.ReferenceConditionValueKey, airtageSavePath);
+            airtageConfig.LevelMin = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LevelMinKey, airtageSavePath);
+            airtageConfig.LevelMax = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LevelMaxKey, airtageSavePath);
             airtageConfig.TestTime = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestTimeKey, airtageSavePath);
             airtageConfig.TestSerial = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestSerialKey, airtageSavePath);
             airtageConfig.TestSerial = GetProductTestSerial(airtageConfig.TestSerial);
@@ -599,8 +599,8 @@ namespace MesManager.Common
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.SpreadUnitKey, airtageConfig.SpreadUnit, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.MaxInflateKey, airtageConfig.MaxInflate, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.MinInflateKey, airtageConfig.MinInflate, airtageSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.TestConditionValueKey, airtageConfig.TestConditionValue, airtageSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.ReferenceConditionValueKey, airtageConfig.ReferenceConditionValue, airtageSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.LevelMinKey, airtageConfig.LevelMin, airtageSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.LevelMaxKey, airtageConfig.LevelMax, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.TestSerialKey, airtageConfig.TestSerial, airtageSavePath);
             IsSavePrivateConfig = true;
             return true;

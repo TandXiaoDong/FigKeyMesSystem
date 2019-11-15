@@ -19,8 +19,8 @@ namespace MesManager.Model
         public const string MinInflateKey = "最小充气";
         public const string BigLeakMaxKey = "大漏最大值";
         public const string BigLeakMinKey = "大漏最小值";
-        public const string TestConditionValueKey = "测试条件允收值";
-        public const string ReferenceConditionValueKey = "参考条件允收值";
+        public const string LevelMaxKey = "流量水平最大值";
+        public const string LevelMinKey = "流量水平最小值";
         public const string TestSerialKey = "测试序列";
 
 
@@ -63,8 +63,8 @@ namespace MesManager.Model
 
         public string BigLeakMin { get; set; }
 
-        public string TestConditionValue { get; set; }
+        public string LevelMax { get; set; }
 
-        public string ReferenceConditionValue { get; set; }
+        public string LevelMin { get; set; }
     }
 }

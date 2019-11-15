@@ -123,11 +123,12 @@ namespace MesManager.UI
 
         private void Btn_productCheck_save_Click(object sender, EventArgs e)
         {
-            if (!standCommon.StationList.Contains(GetStationName(StandCommon.CheckProductStationIniName)))
-            {
-                MessageBox.Show($"该工艺未配置【{GetStationName(StandCommon.CheckProductStationIniName)}】!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //质量抽检工站，不在工艺配置范围，只做保存
+            //if (!standCommon.StationList.Contains(GetStationName(StandCommon.CheckProductStationIniName)))
+            //{
+            //    MessageBox.Show($"该工艺未配置【{GetStationName(StandCommon.CheckProductStationIniName)}】!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
             bool IsContinue = false;
             if (!CheckProductCheckConfigParams())
                 return;
@@ -819,8 +820,8 @@ namespace MesManager.UI
             airtageConfig.MinInflate = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.MinInflateKey, airtageSavePath);
             airtageConfig.BigLeakMin = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.BigLeakMinKey, airtageSavePath);
             airtageConfig.BigLeakMax = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.BigLeakMaxKey, airtageSavePath);
-            airtageConfig.TestConditionValue = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestConditionValueKey, airtageSavePath);
-            airtageConfig.ReferenceConditionValue = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.ReferenceConditionValueKey, airtageSavePath);
+            airtageConfig.LevelMin = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LevelMinKey, airtageSavePath);
+            airtageConfig.LevelMax = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LevelMaxKey, airtageSavePath);
             airtageConfig.TestTime = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestTimeKey, airtageSavePath);
             airtageConfig.TestSerial = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestSerialKey, airtageSavePath);
             airtageConfig.TestSerial = GetProductTestSerial(airtageConfig.TestSerial);
@@ -1129,8 +1130,8 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.MinInflateKey, airtageConfig.MinInflate, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.BigLeakMinKey, airtageConfig.BigLeakMin, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.BigLeakMaxKey, airtageConfig.BigLeakMax, airtageSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.TestConditionValueKey, airtageConfig.TestConditionValue, airtageSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.ReferenceConditionValueKey, airtageConfig.ReferenceConditionValue, airtageSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.LevelMinKey, airtageConfig.LevelMin, airtageSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.LevelMaxKey, airtageConfig.LevelMax, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.TestSerialKey, airtageConfig.TestSerial, airtageSavePath);
             MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             IsSavePrivateConfig = true;
@@ -1248,11 +1249,74 @@ namespace MesManager.UI
             return inputText.Text.Trim();
         }
 
+        private bool CheckComPort(RadTextBox inputText,string item,out string outText)
+        {
+            var textString = "";
+            if (inputText.Text != "")
+            {
+                textString = inputText.Text.Trim().ToUpper();
+                if (!textString.Contains("COM"))
+                {
+                    inputText.Focus();
+                    MessageBox.Show($"【{item}】为COM端口！", "warn", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    outText = inputText.Text;
+                    return false;
+                }
+                //checkCOM后数字
+                if (textString.Length <= 3)
+                {
+                    inputText.Focus();
+                    MessageBox.Show($"【{item}】请输入正确的COM端口！", "warn", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    outText = textString;
+                    return false;
+                }
+                else if (textString.Length > 3)
+                {
+                    var comIndex = textString.Substring(3);
+                    int comIndexValue;
+                    if (!int.TryParse(comIndex, out comIndexValue))
+                    {
+                        inputText.Focus();
+                        outText = inputText.Text;
+                        MessageBox.Show($"【{item}】请输入正确的COM端口！", "warn", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+                }
+                outText = textString;
+                return true;
+            }
+            outText = inputText.Text;
+            return false;
+        }
+
+        private bool CheckInputValueFloat(RadTextBox inputText,string item)
+        {
+            if (inputText.Text != "")
+            {
+                float v = 0;
+                if (!float.TryParse(inputText.Text.Trim(),out v))
+                {
+                    inputText.Focus();
+                    MessageBox.Show($"【{item}】输入格式错误，请输入整数或浮点数！", "warn", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
         private bool CheckBurnConfigParams()
         {
             burnConfig.PowerValue = CheckAndWarn(this.tb_burn_power,BurnConfig.PowerValueKey);
             if (burnConfig.PowerValue == "")
                 return false;
+            else
+            {
+                var powerValue = "";
+                if (!CheckComPort(this.tb_burn_power, BurnConfig.PowerValueKey, out powerValue))
+                    return false;
+                burnConfig.PowerValue = powerValue;
+            }
             burnConfig.LocalAddress = CheckAndWarn(this.tb_turn_localIP,BurnConfig.LocalAddressKey);
             if (burnConfig.LocalAddress == "")
                 return false;
@@ -1262,6 +1326,13 @@ namespace MesManager.UI
             burnConfig.AutoSweepCodeCom = CheckAndWarn(this.tb_burn_autoSweepCode,BurnConfig.AutoSweepCodeComKey);
             if (burnConfig.AutoSweepCodeCom == "")
                 return false;
+            else
+            {
+                var autoSweepCodeValue = "";
+                if (!CheckComPort(this.tb_burn_autoSweepCode, BurnConfig.AutoSweepCodeComKey, out autoSweepCodeValue))
+                    return false; ;
+                burnConfig.AutoSweepCodeCom = autoSweepCodeValue;
+            }
             burnConfig.Burner = CheckAndWarn(this.tb_burn_burner,BurnConfig.BurnerKey);
             if (burnConfig.Burner == "")
                 return false;
@@ -1277,18 +1348,56 @@ namespace MesManager.UI
             burnConfig.ProductId = CheckAndWarn(this.tb_burn_productID,BurnConfig.ProductIdKey);
             if (burnConfig.ProductId == "")
                 return false;
+
+            burnConfig.FirstVoltageMin = CheckAndWarn(this.tb_burn_firstVoltageMin, BurnConfig.FirstVoltageMinKey);
+            if (burnConfig.FirstVoltageMin == "")
+                return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_burn_firstVoltageMin, BurnConfig.FirstVoltageMinKey))
+                    return false;
+            }
+
             burnConfig.FirstVoltageMax = CheckAndWarn(this.tb_burn_firstVoltageMax,BurnConfig.FirstVoltageMaxKey);
             if (burnConfig.FirstVoltageMax == "")
                 return false;
-            burnConfig.FirstVoltageMin = CheckAndWarn(this.tb_burn_firstVoltageMin,BurnConfig.FirstVoltageMinKey);
-            if (burnConfig.FirstVoltageMin == "")
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_burn_firstVoltageMax, BurnConfig.FirstVoltageMaxKey))
+                    return false;
+            }
+            //第一个电压测试点最大值是否大于最小值
+            if (float.Parse(burnConfig.FirstVoltageMax) < float.Parse(burnConfig.FirstVoltageMin))
+            {
+                MessageBox.Show(BurnConfig.FirstVoltageMaxKey+"不能比最小值更小！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                this.tb_burn_firstVoltageMax.Focus();
                 return false;
+            }
+            burnConfig.SecondVoltageMin = CheckAndWarn(this.tb_burn_secondVoltageMin, BurnConfig.SecondVoltageMinKey);
+            if (burnConfig.SecondVoltageMin == "")
+                return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_burn_secondVoltageMin, BurnConfig.SecondVoltageMinKey))
+                    return false;
+            }
+
             burnConfig.SecondVoltageMax = CheckAndWarn(this.tb_burn_secondVoltageMax,BurnConfig.SecondVoltageMaxKey);
             if (burnConfig.SecondVoltageMax == "")
                 return false;
-            burnConfig.SecondVoltageMin = CheckAndWarn(this.tb_burn_secondVoltageMin,BurnConfig.SecondVoltageMinKey);
-            if (burnConfig.SecondVoltageMin == "")
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_burn_secondVoltageMax, BurnConfig.SecondVoltageMaxKey))
+                    return false;
+            }
+            //第二个电压测试点最大值是否大于最小值
+            if (float.Parse(burnConfig.SecondVoltageMax) < float.Parse(burnConfig.SecondVoltageMin))
+            {
+                MessageBox.Show(BurnConfig.SecondVoltageMaxKey + "不能比最小值更小！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.tb_burn_secondVoltageMax.Focus();
                 return false;
+            }
+
             burnConfig.HardWareVersion = CheckAndWarn(this.tb_burn_hardWareVersion,BurnConfig.HardWareVersionKey);
             if (burnConfig.HardWareVersion == "")
                 return false;
@@ -1361,30 +1470,81 @@ namespace MesManager.UI
             sensibilityConfig.AutoSweepCode = CheckAndWarn(this.tb_sen_autoSweepCode,SensibilityConfig.AutoSweepCodeKey);
             if (sensibilityConfig.AutoSweepCode == "")
                 return false;
+            else
+            {
+                var autoSweepValue = "";
+                if (!CheckComPort(this.tb_sen_autoSweepCode, SensibilityConfig.AutoSweepCodeKey, out autoSweepValue))
+                    return false; ;
+                sensibilityConfig.AutoSweepCode = autoSweepValue;
+            }
             sensibilityConfig.ProgrameControlPower = CheckAndWarn(this.tb_sen_power,SensibilityConfig.ProgrameControlPowerKey);
             if (sensibilityConfig.ProgrameControlPower == "")
                 return false;
+            else
+            {
+                var powerValue = "";
+                if (!CheckComPort(this.tb_sen_power, SensibilityConfig.ProgrameControlPowerKey, out powerValue))
+                    return false; ;
+                sensibilityConfig.ProgrameControlPower = powerValue;
+            }
             sensibilityConfig.WorkElectricMin = CheckAndWarn(this.tb_sen_workElectricMin,SensibilityConfig.WorkElectricMinKey);
             if (sensibilityConfig.WorkElectricMin == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_sen_workElectricMin, SensibilityConfig.WorkElectricMinKey))
+                    return false;
+            }
             sensibilityConfig.WorkElectricMax = CheckAndWarn(this.tb_sen_workElectricMax,SensibilityConfig.WorkElectricMaxKey);
             if (sensibilityConfig.WorkElectricMax == "")
                 return false;
-            sensibilityConfig.PartNumber = CheckAndWarn(this.tb_sen_partNumber,SensibilityConfig.PartNumberKey);
-            if (sensibilityConfig.PartNumber == "")
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_sen_workElectricMax, SensibilityConfig.WorkElectricMaxKey))
+                    return false;
+            }
+            //工作电流最大值是否大于最小值
+            if (float.Parse(sensibilityConfig.WorkElectricMax) < float.Parse(sensibilityConfig.WorkElectricMin))
+            {
+                MessageBox.Show(SensibilityConfig.WorkElectricMaxKey + "不能比最小值更小！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.tb_sen_workElectricMax.Focus();
                 return false;
-            sensibilityConfig.HardWareVersion = CheckAndWarn(this.tb_sen_hardWareVersion,SensibilityConfig.HardWareVersionKey);
-            if (sensibilityConfig.HardWareVersion == "")
-                return false;
-            sensibilityConfig.SoftWareVersion = CheckAndWarn(this.tb_sen_softWareVersion,SensibilityConfig.SoftWareVersionKey);
-            if (sensibilityConfig.SoftWareVersion == "")
-                return false;
+            }
+            
             sensibilityConfig.DormantElectricMin = CheckAndWarn(this.tb_sen_dormantElectricMin,SensibilityConfig.DormantElectricMinKey);
             if (sensibilityConfig.DormantElectricMin == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_sen_dormantElectricMin, SensibilityConfig.DormantElectricMinKey))
+                    return false;
+            }
             sensibilityConfig.DormantElectricMax = CheckAndWarn(this.tb_sen_dormantElectricMax,SensibilityConfig.DormantElectricMaxKey);
             if (sensibilityConfig.DormantElectricMax == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_sen_dormantElectricMax, SensibilityConfig.DormantElectricMaxKey))
+                    return false;
+            }
+            //工作电流最大值是否大于最小值
+            if (float.Parse(sensibilityConfig.DormantElectricMax) < float.Parse(sensibilityConfig.DormantElectricMin))
+            {
+                MessageBox.Show(SensibilityConfig.DormantElectricMaxKey + "不能比最小值更小！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.tb_sen_dormantElectricMax.Focus();
+                return false;
+            }
+
+            sensibilityConfig.PartNumber = CheckAndWarn(this.tb_sen_partNumber, SensibilityConfig.PartNumberKey);
+            if (sensibilityConfig.PartNumber == "")
+                return false;
+            sensibilityConfig.HardWareVersion = CheckAndWarn(this.tb_sen_hardWareVersion, SensibilityConfig.HardWareVersionKey);
+            if (sensibilityConfig.HardWareVersion == "")
+                return false;
+            sensibilityConfig.SoftWareVersion = CheckAndWarn(this.tb_sen_softWareVersion, SensibilityConfig.SoftWareVersionKey);
+            if (sensibilityConfig.SoftWareVersion == "")
+                return false;
+
             sensibilityConfig.BootLoader = CheckAndWarn(this.tb_sen_boootloader,SensibilityConfig.BootLoaderKey);
             if (sensibilityConfig.BootLoader == "")
                 return false;
@@ -1433,9 +1593,27 @@ namespace MesManager.UI
             shellConfig.SmallScrewSetTime = CheckAndWarn(this.tb_shell_smallScrewSetTime,ShellConfig.SmallScrewSetTimeKey);
             if (shellConfig.SmallScrewSetTime == "")
                 return false;
+            else
+            {
+                if (!ExamineInputFormat.IsDecimal(shellConfig.SmallScrewSetTime))
+                {
+                    this.tb_shell_smallScrewSetTime.Focus();
+                    MessageBox.Show("请输入十进制数字！", "warn", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            }
             shellConfig.LargeScrewSetTime = CheckAndWarn(this.tb_shell_largeScrewSetTime,ShellConfig.LargeScrewSetTimeKey);
             if (shellConfig.LargeScrewSetTime == "")
                 return false;
+            else
+            {
+                if (!ExamineInputFormat.IsDecimal(shellConfig.LargeScrewSetTime))
+                {
+                    this.tb_shell_largeScrewSetTime.Focus();
+                    MessageBox.Show("请输入十进制数字！", "warn", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            }
             shellConfig.FrontCover = CheckAndWarn(this.tb_shell_frontCover,ShellConfig.FrontCoverKey);
             if (shellConfig.FrontCover == "")
                 return false;
@@ -1477,21 +1655,65 @@ namespace MesManager.UI
             airtageConfig.AirTester = CheckAndWarn(this.tb_airtage_tester,AirtageConfig.AirTesterKey);
             if (airtageConfig.AirTester == "")
                 return false;
+            else
+            {
+                var airTesterValue = "";
+                if (!CheckComPort(this.tb_airtage_tester, AirtageConfig.AirTesterKey, out airTesterValue))
+                    return false; ;
+                airtageConfig.AirTester = airTesterValue;
+            }
             airtageConfig.InflateAirTime = CheckAndWarn(this.tb_airtage_inflateTime,AirtageConfig.InflateAirTimeKey);
             if (airtageConfig.InflateAirTime == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_airtage_inflateTime, AirtageConfig.InflateAirTimeKey))
+                    return false;
+            }
+
             airtageConfig.StableTime = CheckAndWarn(this.tb_airtage_stableTime,AirtageConfig.StableTimeKey);
             if (airtageConfig.StableTime == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_airtage_stableTime, AirtageConfig.StableTimeKey))
+                    return false;
+            }
+
             airtageConfig.TestTime = CheckAndWarn(this.tb_airtage_testTime,AirtageConfig.TestTimeKey);
             if (airtageConfig.TestTime == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_airtage_testTime, AirtageConfig.TestTimeKey))
+                    return false;
+            }
+
             airtageConfig.BigLeakMin = CheckAndWarn(this.tb_airtage_bigLeakMin,AirtageConfig.BigLeakMinKey);
             if (airtageConfig.BigLeakMin == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_airtage_bigLeakMin, AirtageConfig.BigLeakMinKey))
+                    return false;
+            }
+
             airtageConfig.BigLeakMax = CheckAndWarn(this.tb_airtage_bigLeakMax, AirtageConfig.BigLeakMaxKey);
             if (airtageConfig.BigLeakMax == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_airtage_bigLeakMax, AirtageConfig.BigLeakMaxKey))
+                    return false;
+            }
+            //大漏最大值是否大于最小值
+            if (float.Parse(airtageConfig.BigLeakMax) < float.Parse(airtageConfig.BigLeakMin))
+            {
+                MessageBox.Show(AirtageConfig.BigLeakMaxKey + "不能比最小值更小！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.tb_airtage_bigLeakMax.Focus();
+                return false;
+            }
+
             AirtageSpreadUnitEnum spreadUnitEnum;
             var airtageSpread = CheckAndWarn(this.tb_airtage_spread,AirtageConfig.SpreadUnitKey);
             if (airtageSpread == "")
@@ -1504,18 +1726,57 @@ namespace MesManager.UI
                 return false;
             Enum.TryParse(this.tb_airtage_pressureUnit.Text,out pressureUnitEnum);
             airtageConfig.PressureUnit = (int)pressureUnitEnum + "";
+
+            airtageConfig.MinInflate = CheckAndWarn(this.tb_airtage_minFlate, AirtageConfig.MinInflateKey);
+            if (airtageConfig.MinInflate == "")
+                return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_airtage_minFlate, AirtageConfig.MinInflateKey))
+                    return false;
+            }
+
             airtageConfig.MaxInflate = CheckAndWarn(this.tb_airtage_maxInflate,AirtageConfig.MaxInflateKey);
             if (airtageConfig.MaxInflate == "")
                 return false;
-            airtageConfig.MinInflate = CheckAndWarn(this.tb_airtage_minFlate,AirtageConfig.MinInflateKey);
-            if (airtageConfig.MinInflate == "")
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_airtage_maxInflate, AirtageConfig.MaxInflateKey))
+                    return false;
+            }
+            //充气最大值是否大于最小值
+            if (float.Parse(airtageConfig.MaxInflate) < float.Parse(airtageConfig.MinInflate))
+            {
+                MessageBox.Show(AirtageConfig.MaxInflateKey + "不能比最小值更小！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.tb_airtage_maxInflate.Focus();
                 return false;
-            airtageConfig.TestConditionValue = CheckAndWarn(this.tb_airtage_testConditionValue,AirtageConfig.TestConditionValueKey);
-            if (airtageConfig.TestConditionValue == "")
+            }
+
+            airtageConfig.LevelMin = CheckAndWarn(this.tb_airtage_levelMin, AirtageConfig.LevelMinKey);
+            if (airtageConfig.LevelMin == "")
                 return false;
-            airtageConfig.ReferenceConditionValue = CheckAndWarn(this.tb_airtage_referenceConditionValue,AirtageConfig.ReferenceConditionValueKey);
-            if (airtageConfig.ReferenceConditionValue == "")
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_airtage_levelMin, AirtageConfig.LevelMinKey))
+                    return false;
+            }
+
+            airtageConfig.LevelMax = CheckAndWarn(this.tb_airtage_levelMax,AirtageConfig.LevelMaxKey);
+            if (airtageConfig.LevelMax == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_airtage_levelMax, AirtageConfig.LevelMaxKey))
+                    return false;
+            }
+            //流量水平最大值是否大于最小值
+            if (float.Parse(airtageConfig.LevelMax) < float.Parse(airtageConfig.LevelMin))
+            {
+                MessageBox.Show(AirtageConfig.LevelMaxKey + "不能比最小值更小！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.tb_airtage_levelMax.Focus();
+                return false;
+            }
+
             var airtageTestSerial = CheckAndWarn(this.tb_airtage_testSerial,AirtageConfig.TestSerialKey);
             if (airtageTestSerial == "")
                 return false;
@@ -1571,33 +1832,96 @@ namespace MesManager.UI
             productTestConfig.AutoSweepCode = CheckAndWarn(this.tb_product_autoSweepCode,ProductTestConfig.AutoSweepCodeKey);
             if (productTestConfig.AutoSweepCode == "")
                 return false;
+            else
+            {
+                var autoSweepCodeValue = "";
+                if (!CheckComPort(this.tb_product_autoSweepCode, ProductTestConfig.AutoSweepCodeKey, out autoSweepCodeValue))
+                    return false; ;
+                productTestConfig.AutoSweepCode = autoSweepCodeValue;
+            }
+
             productTestConfig.TestBoard = CheckAndWarn(this.tb_product_testBoard,ProductTestConfig.TestBoardKey);
             if (productTestConfig.TestBoard == "")
                 return false;
+            else
+            {
+                var testBoardValue = "";
+                if (!CheckComPort(this.tb_product_testBoard, ProductTestConfig.TestBoardKey, out testBoardValue))
+                    return false;
+                productTestConfig.TestBoard = testBoardValue;
+            }
+
             productTestConfig.ControlPower = CheckAndWarn(this.tb_product_controlPower,ProductTestConfig.ControlPowerKey);
             if (productTestConfig.ControlPower == "")
                 return false;
+            else
+            {
+                var controlPower = "";
+                if (!CheckComPort(this.tb_product_controlPower, ProductTestConfig.ControlPowerKey, out controlPower))
+                    return false;
+                productTestConfig.ControlPower = controlPower;
+            }
+
             productTestConfig.WorkElectricMin = CheckAndWarn(this.tb_product_workElectricMin,ProductTestConfig.WorkElectricMinKey);
             if (productTestConfig.WorkElectricMin == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_product_workElectricMin, ProductTestConfig.WorkElectricMinKey))
+                    return false;
+            }
+
             productTestConfig.WorkElectricMax = CheckAndWarn(this.tb_product_workElectricMax,ProductTestConfig.WorkElectricMaxKey);
             if (productTestConfig.WorkElectricMax == "")
                 return false;
-            productTestConfig.PartNumber = CheckAndWarn(this.tb_product_partNumber,ProductTestConfig.PartNumberKey);
-            if (productTestConfig.PartNumber == "")
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_product_workElectricMax, ProductTestConfig.WorkElectricMaxKey))
+                    return false;
+            }
+            //工作电流最大值是否大于最小值
+            if (float.Parse(productTestConfig.WorkElectricMax) < float.Parse(productTestConfig.WorkElectricMin))
+            {
+                MessageBox.Show(ProductTestConfig.WorkElectricMaxKey + "不能比最小值更小！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.tb_product_workElectricMax.Focus();
                 return false;
-            productTestConfig.HardWareVersion = CheckAndWarn(this.tb_product_hardWareVersion,ProductTestConfig.HardWareVersionKey);
-            if (productTestConfig.HardWareVersion == "")
-                return false;
-            productTestConfig.SoftWareVersion = CheckAndWarn(this.tb_product_softWareVersion,ProductTestConfig.SoftWareVersionKey);
-            if (productTestConfig.SoftWareVersion == "")
-                return false;
+            }
+
             productTestConfig.DormantElectricMin = CheckAndWarn(this.tb_product_dormantElectricMin,ProductTestConfig.DormantElectricMinKey);
             if (productTestConfig.DormantElectricMin == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_product_dormantElectricMin, ProductTestConfig.DormantElectricMinKey))
+                    return false;
+            }
+
             productTestConfig.DormantElectricMax = CheckAndWarn(this.tb_product_dormantElectricMax,ProductTestConfig.DormantElectricMaxKey);
             if (productTestConfig.DormantElectricMax == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_product_dormantElectricMax, ProductTestConfig.DormantElectricMaxKey))
+                    return false;
+            }
+            //休眠电流最大值是否大于最小值
+            if (float.Parse(productTestConfig.DormantElectricMax) < float.Parse(productTestConfig.DormantElectricMin))
+            {
+                MessageBox.Show(ProductTestConfig.DormantElectricMaxKey + "不能比最小值更小！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.tb_product_dormantElectricMax.Focus();
+                return false;
+            }
+
+            productTestConfig.PartNumber = CheckAndWarn(this.tb_product_partNumber, ProductTestConfig.PartNumberKey);
+            if (productTestConfig.PartNumber == "")
+                return false;
+            productTestConfig.HardWareVersion = CheckAndWarn(this.tb_product_hardWareVersion, ProductTestConfig.HardWareVersionKey);
+            if (productTestConfig.HardWareVersion == "")
+                return false;
+            productTestConfig.SoftWareVersion = CheckAndWarn(this.tb_product_softWareVersion, ProductTestConfig.SoftWareVersionKey);
+            if (productTestConfig.SoftWareVersion == "")
+                return false;
+
             productTestConfig.BootLoader = CheckAndWarn(this.tb_prouct_bootLoader,ProductTestConfig.BootLoaderKey);
             if (productTestConfig.BootLoader == "")
                 return false;
@@ -1646,30 +1970,85 @@ namespace MesManager.UI
             productCheckConfig.TestBoard = CheckAndWarn(this.tb_productCheck_testBoard,ProductCheckConfig.TestBoardKey);
             if (productCheckConfig.TestBoard == "")
                 return false;
+            else
+            {
+                var testBoardValue = "";
+                if (!CheckComPort(this.tb_productCheck_testBoard, ProductCheckConfig.TestBoardKey, out testBoardValue))
+                    return false; ;
+                productCheckConfig.TestBoard = testBoardValue;
+            }
+
             productCheckConfig.ControlPower = CheckAndWarn(this.tb_productCheck_controlPower,ProductCheckConfig.ControlPowerKey);
             if (productCheckConfig.ControlPower == "")
                 return false;
+            else
+            {
+                var controlPower = "";
+                if (!CheckComPort(this.tb_productCheck_controlPower, ProductCheckConfig.ControlPowerKey, out controlPower))
+                    return false; ;
+                productCheckConfig.ControlPower = controlPower;
+            }
+
             productCheckConfig.WorkElectricMin = CheckAndWarn(this.tb_productCheck_workElectricMin,ProductCheckConfig.WorkElectricMinKey);
             if (productCheckConfig.WorkElectricMin == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_productCheck_workElectricMin, ProductCheckConfig.WorkElectricMinKey))
+                    return false;
+            }
+
             productCheckConfig.WorkElectricMax = CheckAndWarn(this.tb_productCheck_workElectricMax,ProductCheckConfig.WorkElectricMaxKey);
             if (productCheckConfig.WorkElectricMax == "")
                 return false;
-            productCheckConfig.PartNumber = CheckAndWarn(this.tb_productCheck_partNumber,ProductCheckConfig.PartNumberKey);
-            if (productCheckConfig.PartNumber == "")
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_productCheck_workElectricMax, ProductCheckConfig.WorkElectricMaxKey))
+                    return false;
+            }
+            //工作电流最大值是否大于最小值
+            if (float.Parse(productCheckConfig.WorkElectricMax) < float.Parse(productCheckConfig.WorkElectricMin))
+            {
+                MessageBox.Show(ProductCheckConfig.WorkElectricMaxKey + "不能比最小值更小！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.tb_productCheck_workElectricMax.Focus();
                 return false;
-            productCheckConfig.HardWareVersion = CheckAndWarn(this.tb_productCheck_hardWareVersion,ProductCheckConfig.HardWareVersionKey);
-            if (productCheckConfig.HardWareVersion == "")
-                return false;
-            productCheckConfig.SoftWareVersion = CheckAndWarn(this.tb_productCheck_softWareVersion,ProductCheckConfig.SoftWareVersionKey);
-            if (productCheckConfig.SoftWareVersion == "")
-                return false;
+            }
+
             productCheckConfig.DormantElectricMin = CheckAndWarn(this.tb_productCheck_dormantElectricMin,ProductCheckConfig.DormantElectricMinKey);
             if (productCheckConfig.DormantElectricMin == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_productCheck_dormantElectricMin, ProductCheckConfig.DormantElectricMinKey))
+                    return false;
+            }
+
             productCheckConfig.DormantElectricMax = CheckAndWarn(this.tb_productCheck_dormantElectricMax,ProductCheckConfig.DormantElectricMaxKey);
             if (productCheckConfig.DormantElectricMax == "")
                 return false;
+            else
+            {
+                if (!CheckInputValueFloat(this.tb_productCheck_dormantElectricMax, ProductCheckConfig.DormantElectricMaxKey))
+                    return false;
+            }
+            //休眠电流最大值是否大于最小值
+            if (float.Parse(productCheckConfig.DormantElectricMax) < float.Parse(productCheckConfig.DormantElectricMin))
+            {
+                MessageBox.Show(ProductCheckConfig.DormantElectricMaxKey + "不能比最小值更小！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.tb_productCheck_dormantElectricMax.Focus();
+                return false;
+            }
+
+            productCheckConfig.PartNumber = CheckAndWarn(this.tb_productCheck_partNumber, ProductCheckConfig.PartNumberKey);
+            if (productCheckConfig.PartNumber == "")
+                return false;
+            productCheckConfig.HardWareVersion = CheckAndWarn(this.tb_productCheck_hardWareVersion, ProductCheckConfig.HardWareVersionKey);
+            if (productCheckConfig.HardWareVersion == "")
+                return false;
+            productCheckConfig.SoftWareVersion = CheckAndWarn(this.tb_productCheck_softWareVersion, ProductCheckConfig.SoftWareVersionKey);
+            if (productCheckConfig.SoftWareVersion == "")
+                return false;
+
             productCheckConfig.BootLoader = CheckAndWarn(this.tb_productCheck_bootLoader,ProductCheckConfig.BootLoaderKey);
             if (productCheckConfig.BootLoader == "")
                 return false;
@@ -1811,8 +2190,8 @@ namespace MesManager.UI
             this.tb_airtage_spread.Text = spreadUnitEnum.ToString().Replace("_","/");
             this.tb_airtage_maxInflate.Text = airtageConfig.MaxInflate;
             this.tb_airtage_minFlate.Text = airtageConfig.MinInflate;
-            this.tb_airtage_testConditionValue.Text = airtageConfig.TestConditionValue;
-            this.tb_airtage_referenceConditionValue.Text = airtageConfig.ReferenceConditionValue;
+            this.tb_airtage_levelMax.Text = airtageConfig.LevelMax;
+            this.tb_airtage_levelMin.Text = airtageConfig.LevelMin;
             this.tb_airtage_testSerial.Text = airtageConfig.TestSerial;
             this.tb_airtage_bigLeakMin.Text = airtageConfig.BigLeakMin;
             this.tb_airtage_bigLeakMax.Text = airtageConfig.BigLeakMax;

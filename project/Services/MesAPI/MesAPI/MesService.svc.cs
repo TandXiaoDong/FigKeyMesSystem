@@ -1351,19 +1351,48 @@ namespace MesAPI
             //更新当前工站名称
             DataSet ds = new DataSet();
             var dt = InitTestResultDataTable(true);
-            AddTestLogDetail(STATION_TURN,queryFilter,startTime,endTime,dt);
-            AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt);
-            AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt);
-            AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt);
-            AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt);
-            AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt);
+
+            if (STATION_TURN.Contains(queryFilter) && queryFilter != "")
+            {
+                AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt,true);
+            }
+            else if (STATION_SENSIBLITY.Contains(queryFilter) && queryFilter != "")
+            {
+                AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt,true);
+            }
+            else if (STATION_SHELL.Contains(queryFilter) && queryFilter != "")
+            {
+                AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt,true);
+            }
+            else if (STATION_AIR.Contains(queryFilter) && queryFilter != "")
+            {
+                AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt,true);
+            }
+            else if (STATION_STENT.Contains(queryFilter) && queryFilter != "")
+            {
+                AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt,true);
+            }
+            else if (STATION_PRODUCT.Contains(queryFilter) && queryFilter != "")
+            {
+                AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt,true);
+            }
+            else
+            {
+                AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt,false);
+                AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt,false);
+                AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt,false);
+                AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt,false);
+                AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt,false);
+                AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt,false);
+            }
             ds.Tables.Add(dt);
             return ds;
         }
 
-        private void AddTestLogDetail(string station,string queryFilter, string startTime, string endTime,DataTable dt)
+        private void AddTestLogDetail(string station,string queryFilter, string startTime, string endTime,DataTable dt,bool IsQueryOfStation)
         {
             var selectTestResultSQL = "";
+            DataTable dtResult = new DataTable();
             if (queryFilter == "")
             {
                 selectTestResultSQL = $"SELECT " +
@@ -1388,9 +1417,10 @@ namespace MesAPI
             }
             else
             {
-                var pcbaSN = GetPCBASn(queryFilter);
-                var productSN = GetProductSn(queryFilter);
-                selectTestResultSQL = $"SELECT " +
+                //按工站查询
+                if (IsQueryOfStation)
+                {
+                    selectTestResultSQL = $"SELECT " +
                             $"{DbTable.F_Test_Result.SN}," +
                             $"{DbTable.F_Test_Result.TYPE_NO}," +
                             $"{DbTable.F_Test_Result.STATION_NAME}," +
@@ -1406,16 +1436,65 @@ namespace MesAPI
                             $"AND " +
                             $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
                             $"AND " +
-                            $"{DbTable.F_Test_Result.STATION_NAME} = '{station}' " +
-                            $"AND " +
-                            $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' " +
-                            $"OR " +
-                            $"{DbTable.F_Test_Result.SN} = '{productSN}' " +
-                            $"OR " +
-                            $"{DbTable.F_Test_Result.STATION_NAME} = '{queryFilter}'";
+                            $"{DbTable.F_Test_Result.STATION_NAME} like '%{queryFilter}%' ";
+                    dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+                }
+                else
+                {
+                    //按PCBASN查询
+                    var pcbaSN = GetPCBASn(queryFilter);
+                    var productSN = GetProductSn(queryFilter);
+                    selectTestResultSQL = $"SELECT " +
+                                $"{DbTable.F_Test_Result.SN}," +
+                                $"{DbTable.F_Test_Result.TYPE_NO}," +
+                                $"{DbTable.F_Test_Result.STATION_NAME}," +
+                                $"{DbTable.F_Test_Result.TEST_RESULT}," +
+                                $"{DbTable.F_Test_Result.STATION_IN_DATE}," +
+                                $"{DbTable.F_Test_Result.STATION_OUT_DATE}," +
+                                $"{DbTable.F_Test_Result.TEAM_LEADER}," +
+                                $"{DbTable.F_Test_Result.JOIN_DATE_TIME} " +
+                                $"FROM " +
+                                $"{DbTable.F_TEST_RESULT_NAME} " +
+                                $"WHERE " +
+                                $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                                $"AND " +
+                                $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
+                                $"AND " +
+                                $"{DbTable.F_Test_Result.STATION_NAME} = '{station}' " +
+                                $"AND " +
+                                $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' ";
+                    if(pcbaSN != "")
+                        dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+                    if (dtResult.Rows.Count < 1)
+                    {
+                        //按外壳SN查询
+                        if (productSN == "")
+                            return;
+                        selectTestResultSQL = $"SELECT " +
+                                $"{DbTable.F_Test_Result.SN}," +
+                                $"{DbTable.F_Test_Result.TYPE_NO}," +
+                                $"{DbTable.F_Test_Result.STATION_NAME}," +
+                                $"{DbTable.F_Test_Result.TEST_RESULT}," +
+                                $"{DbTable.F_Test_Result.STATION_IN_DATE}," +
+                                $"{DbTable.F_Test_Result.STATION_OUT_DATE}," +
+                                $"{DbTable.F_Test_Result.TEAM_LEADER}," +
+                                $"{DbTable.F_Test_Result.JOIN_DATE_TIME} " +
+                                $"FROM " +
+                                $"{DbTable.F_TEST_RESULT_NAME} " +
+                                $"WHERE " +
+                                $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                                $"AND " +
+                                $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
+                                $"AND " +
+                                $"{DbTable.F_Test_Result.STATION_NAME} = '{station}' " +
+                                $"AND " +
+                                $"{DbTable.F_Test_Result.SN} = '{productSN}' ";
+                        dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+                    }
+                }
             }
             LogHelper.Log.Info("【开始查询过站历史】" + selectTestResultSQL);
-            var dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+            dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
             if (dtResult.Rows.Count > 0)
             {
                 var shellLen = ReadShellCodeLength();
@@ -1554,6 +1633,7 @@ namespace MesAPI
         {
             var delTestResult = "";
             var selectTestResultSQL = "";
+            DataTable dtResult = new DataTable();
             try
             {
                 if (queryCondition == "")
@@ -1586,9 +1666,10 @@ namespace MesAPI
                 }
                 else
                 {
-                    var pcbaSN = GetPCBASn(queryCondition);
-                    var productSN = GetProductSn(queryCondition);
-                    selectTestResultSQL = $"SELECT " +
+                    //按工站查询
+                    if (STATION_TURN.Contains(queryCondition) || STATION_SENSIBLITY.Contains(queryCondition) || STATION_SHELL.Contains(queryCondition) || STATION_AIR.Contains(queryCondition) || STATION_STENT.Contains(queryCondition) || STATION_PRODUCT.Contains(queryCondition))
+                    {
+                        selectTestResultSQL = $"SELECT " +
                             $"{DbTable.F_Test_Result.SN}," +
                             $"{DbTable.F_Test_Result.TYPE_NO}," +
                             $"{DbTable.F_Test_Result.STATION_NAME}," +
@@ -1604,27 +1685,60 @@ namespace MesAPI
                             $"AND " +
                             $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
                             $"AND " +
-                            $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' " +
-                            $"OR " +
-                            $"{DbTable.F_Test_Result.SN} = '{productSN}' " +
-                            $"OR " +
-                            $"{DbTable.F_Test_Result.STATION_NAME} = '{queryCondition}'";
-                    delTestResult = $"delete FROM " +
-                            $"{DbTable.F_TEST_RESULT_NAME} " +
-                            $"WHERE " +
-                            $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
-                            $"AND " +
-                            $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}'" +
-                            $"AND " +
-                            $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' " +
-                            $"OR " +
-                            $"{DbTable.F_Test_Result.SN} = '{productSN}' " +
-                            $"OR " +
-                            $"{DbTable.F_Test_Result.STATION_NAME} = '{queryCondition}'";
+                            $"{DbTable.F_Test_Result.STATION_NAME} like '%{queryCondition}%' ";
+                        dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+                    }
+                    else
+                    {
+                        //按PCBASN查询
+                        var pcbaSN = GetPCBASn(queryCondition);
+                        var productSN = GetProductSn(queryCondition);
+                        selectTestResultSQL = $"SELECT " +
+                                    $"{DbTable.F_Test_Result.SN}," +
+                                    $"{DbTable.F_Test_Result.TYPE_NO}," +
+                                    $"{DbTable.F_Test_Result.STATION_NAME}," +
+                                    $"{DbTable.F_Test_Result.TEST_RESULT}," +
+                                    $"{DbTable.F_Test_Result.STATION_IN_DATE}," +
+                                    $"{DbTable.F_Test_Result.STATION_OUT_DATE}," +
+                                    $"{DbTable.F_Test_Result.TEAM_LEADER}," +
+                                    $"{DbTable.F_Test_Result.JOIN_DATE_TIME} " +
+                                    $"FROM " +
+                                    $"{DbTable.F_TEST_RESULT_NAME} " +
+                                    $"WHERE " +
+                                    $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                                    $"AND " +
+                                    $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
+                                    $"AND " +
+                                    $"{DbTable.F_Test_Result.SN} = '{pcbaSN}' ";
+                        if (pcbaSN != "")
+                            dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+                        if (dtResult.Rows.Count < 1)
+                        {
+                            //按外壳SN查询
+                            if (productSN == "")
+                                return "0X07";//查询条件不为空，查询外壳SN为空
+                            selectTestResultSQL = $"SELECT " +
+                                    $"{DbTable.F_Test_Result.SN}," +
+                                    $"{DbTable.F_Test_Result.TYPE_NO}," +
+                                    $"{DbTable.F_Test_Result.STATION_NAME}," +
+                                    $"{DbTable.F_Test_Result.TEST_RESULT}," +
+                                    $"{DbTable.F_Test_Result.STATION_IN_DATE}," +
+                                    $"{DbTable.F_Test_Result.STATION_OUT_DATE}," +
+                                    $"{DbTable.F_Test_Result.TEAM_LEADER}," +
+                                    $"{DbTable.F_Test_Result.JOIN_DATE_TIME} " +
+                                    $"FROM " +
+                                    $"{DbTable.F_TEST_RESULT_NAME} " +
+                                    $"WHERE " +
+                                    $"{DbTable.F_Test_Result.UPDATE_DATE} >= '{startTime}' " +
+                                    $"AND " +
+                                    $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
+                                    $"AND " +
+                                    $"{DbTable.F_Test_Result.SN} = '{productSN}' ";
+                            dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+                        }
                 }
                 LogHelper.Log.Info("【查询-删除测试log数据】selectTestResultSQL=" + selectTestResultSQL);
-                var dtRes = SQLServer.ExecuteDataSet(selectTestResultSQL);
-                if (dtRes.Tables.Count > 0)
+                if (dtResult.Tables.Count > 0)
                 {
                     int count = 0;//删除LOG数据数量
                     foreach (DataRow dr in dtRes.Tables[0].Rows)
