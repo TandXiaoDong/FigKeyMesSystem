@@ -281,14 +281,14 @@ namespace MesManager.UI
             var kdescrible = this.radGridView1.CurrentRow.Cells[5].Value;
             if (key == null || kdescrible == null || keyName == null)//行不存在
                 return;
-            if (keyOldTypeNo != key.ToString() || keyDescrible != kdescrible.ToString() || keyProductStorage != keyName.ToString())
+            if (keyOldTypeNo != key.ToString().Trim() || keyDescrible != kdescrible.ToString().Trim() || keyProductStorage != keyName.ToString().Trim())
             {
                 modifyTypeNoTemp.Add(this.keyOldTypeNo);
-                if (keyOldTypeNo != key.ToString())
+                if (keyOldTypeNo != key.ToString().Trim())
                 {
                     BasicConfig basicConfig = new BasicConfig();
                     basicConfig.keyOldTypeNo = keyOldTypeNo;
-                    basicConfig.keyNewTypeNo = key.ToString();
+                    basicConfig.keyNewTypeNo = key.ToString().Trim();
                     modifyProductTypeNoList.Add(basicConfig);
                 }
             }
@@ -302,9 +302,9 @@ namespace MesManager.UI
             if (key == null && key_describle == null || key_name == null)//行不存在
                 return;
 
-            this.keyOldTypeNo = key.ToString();
-            this.keyDescrible = key_describle.ToString();
-            this.keyProductStorage = key_name.ToString();
+            this.keyOldTypeNo = key.ToString().Trim();
+            this.keyDescrible = key_describle.ToString().Trim();
+            this.keyProductStorage = key_name.ToString().Trim();
         }
 
         private void Cb_cfgType_SelectedIndexChanged(object sender, EventArgs e)
@@ -319,8 +319,7 @@ namespace MesManager.UI
 
         private void Menu_commit_Click(object sender, EventArgs e)
         {
-            //this.cb_cfgType.Focus();
-            CommitData();
+            CommitTypeNoMesService();
         }
 
         private void RefreshData()
@@ -331,11 +330,6 @@ namespace MesManager.UI
             //this.menu_clear_db.Enabled = false;
             //this.menu_add.Enabled = false;
             //SelectMaterial();
-        }
-
-        private void CommitData()
-        {
-            CommitTypeNoMesService();
         }
 
         #region 调用接口

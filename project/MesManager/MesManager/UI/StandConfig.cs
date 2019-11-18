@@ -2275,7 +2275,7 @@ namespace MesManager.UI
         {
             if (!serialPath.Contains("\\") && !serialPath.Contains("\\\\"))
             {
-                LogHelper.Log.Error("【产品序列路径不合法】");
+                //LogHelper.Log.Error("【产品序列路径不合法】");
                 return "";
             }
             return serialPath.Substring(serialPath.LastIndexOf('\\') + 1);

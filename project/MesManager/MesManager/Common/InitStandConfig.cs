@@ -156,6 +156,8 @@ namespace MesManager.Common
         {
             if(defaultRoot == "")
                 defaultRoot = ConfigurationManager.AppSettings["standConfigRoot"].ToString();
+            if (serviceClientTest == null)
+                serviceClientTest = new MesServiceTest.MesServiceClient();
             var processList = serviceClientTest.SelectAllTProcess();
             var burnStandPath = defaultRoot + StandCommon.TurnStationConfigPath;
             var sensibilityStand = defaultRoot + StandCommon.SensibilityStationConfigPath;
@@ -185,12 +187,20 @@ namespace MesManager.Common
             {
                 if (!productList.Contains(dir.Name))
                 {
-                    Directory.Delete(dir.FullName,true);
+                    if (Directory.Exists(dir.FullName))
+                    {
+                        Directory.Delete(dir.FullName, true);
+                        LogHelper.Log.Info($"【删除不存在的产品目录】standPath={standPath} fullName=" + dir.FullName);
+                    }
                 }
             }
             foreach (var file in fileInfos)
             {
-                file.Delete();
+                if (File.Exists(file.FullName))
+                {
+                    file.Delete();
+                    LogHelper.Log.Info("【删除不存在的产品文件】standPath={standPath} file=" + file);
+                }
             }
         }
     }

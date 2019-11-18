@@ -63,6 +63,94 @@ namespace MesManager.Common
 
         private void Init()
         {
+            var serialPath = AppDomain.CurrentDomain.BaseDirectory + CommConfig.DeafaultConfigRoot + CommConfig.TestStandSerialNumber;
+            //read file content
+            int serialCount;
+            //读取烧录序列
+            int.TryParse(INIFile.GetValue(CommConfig.BurnStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                BurnConfig burnConfig = new BurnConfig();
+                var serialValue = INIFile.GetValue(CommConfig.BurnStationSection, CommConfig.SerialNumberKey + i, serialPath);
+                var serialVoltage = INIFile.GetValue(CommConfig.BurnStationSection, CommConfig.SerialVoltageKey + i, serialPath);
+                burnConfig.ProductSerialPath = serialValue;
+                burnConfig.SerialNumber = GetProductTestSerial(serialValue);
+                burnConfig.SupplyVoltage = serialVoltage;
+                burnConfigList.Add(burnConfig);
+            }
+
+            //读取灵敏度序列
+            int.TryParse(INIFile.GetValue(CommConfig.SensibilityStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                SensibilityConfig sensibilityConfig = new SensibilityConfig();
+                var serialValue = INIFile.GetValue(CommConfig.SensibilityStationSection, CommConfig.SerialNumberKey + i, serialPath);
+                var serialVoltage = INIFile.GetValue(CommConfig.SensibilityStationSection, CommConfig.SerialVoltageKey + i, serialPath);
+                sensibilityConfig.ProductSerialPath = serialValue;
+                sensibilityConfig.ProductSerial = GetProductTestSerial(serialValue);
+                sensibilityConfig.SupplyVoltage = serialVoltage;
+                sensibilityConfigList.Add(sensibilityConfig);
+            }
+            //读取外壳装配序列
+            int.TryParse(INIFile.GetValue(CommConfig.ShellStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                ShellConfig shellConfig = new ShellConfig();
+                var serialValue = INIFile.GetValue(CommConfig.ShellStationSection, CommConfig.SerialNumberKey + i, serialPath);
+                var serialVoltage = INIFile.GetValue(CommConfig.ShellStationSection, CommConfig.SerialVoltageKey + i, serialPath);
+                shellConfig.ProductSerialPath = serialValue;
+                shellConfig.TestSerialNumber = GetProductTestSerial(serialValue);
+                shellConfig.SupplyVoltage = serialVoltage;
+                shellConfigList.Add(shellConfig);
+            }
+            //读取气密序列
+            int.TryParse(INIFile.GetValue(CommConfig.AirtageStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                AirtageConfig airtageConfig = new AirtageConfig();
+                var serialValue = INIFile.GetValue(CommConfig.AirtageStationSection, CommConfig.SerialNumberKey + i, serialPath);
+                var serialVoltage = INIFile.GetValue(CommConfig.AirtageStationSection, CommConfig.SerialVoltageKey + i, serialPath);
+                airtageConfig.ProductSerialPath = serialValue;
+                airtageConfig.TestSerial = GetProductTestSerial(serialValue);
+                airtageConfig.SupplyVoltage = serialVoltage;
+                airtageConfigList.Add(airtageConfig);
+            }
+            //读取支架装配序列
+            int.TryParse(INIFile.GetValue(CommConfig.StentStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                StentConfig stentConfig = new StentConfig();
+                var serialValue = INIFile.GetValue(CommConfig.StentStationSection, CommConfig.SerialNumberKey + i, serialPath);
+                var serialVoltage = INIFile.GetValue(CommConfig.StentStationSection, CommConfig.SerialVoltageKey + i, serialPath);
+                stentConfig.ProductSerialPath = serialValue;
+                stentConfig.TestSerial = GetProductTestSerial(serialValue);
+                stentConfig.SupplyVoltage = serialVoltage;
+                stentConfigList.Add(stentConfig);
+            }
+            //读取成品测试序列
+            int.TryParse(INIFile.GetValue(CommConfig.ProductFinishStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                ProductTestConfig productTestConfig = new ProductTestConfig();
+                var serialValue = INIFile.GetValue(CommConfig.ProductFinishStationSection, CommConfig.SerialNumberKey + i, serialPath);
+                var serialVoltage = INIFile.GetValue(CommConfig.ProductFinishStationSection, CommConfig.SerialVoltageKey + i, serialPath);
+                productTestConfig.ProductSerialPath = serialValue;
+                productTestConfig.TestSerial = GetProductTestSerial(serialValue);
+                productTestConfig.SupplyVoltage = serialVoltage;
+                productTestConfigList.Add(productTestConfig);
+            }
+            //读取成品抽检序列
+            int.TryParse(INIFile.GetValue(CommConfig.CheckProductStationSection, CommConfig.CountKey, serialPath), out serialCount);
+            for (int i = 0; i < serialCount; i++)
+            {
+                ProductCheckConfig productCheckConfig = new ProductCheckConfig();
+                var serialValue = INIFile.GetValue(CommConfig.CheckProductStationSection, CommConfig.SerialNumberKey + i, serialPath);
+                var serialVoltage = INIFile.GetValue(CommConfig.CheckProductStationSection, CommConfig.SerialVoltageKey + i, serialPath);
+                productCheckConfig.ProductSerialPath = serialValue;
+                productCheckConfig.TestSerial = GetProductTestSerial(serialValue);
+                productCheckConfig.SupplyVoltage = serialVoltage;
+                productCheckConfigList.Add(productCheckConfig);
+            }
             //读取机台映射根目录
             standMapRoot = ConfigurationManager.AppSettings["standMapRoot"].ToString();
             if (standMapRoot == "")
@@ -114,6 +202,8 @@ namespace MesManager.Common
             var burnFileName = StandCommon.TurnStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var burnSavePath = burnInitPath + burnFileName;
             if (!Directory.Exists(burnInitPath))
+                return;
+            if (!File.Exists(burnSavePath))
                 return;
             InitStandConfig.CreateCurrentProcessDirectory(newTypeNo,InitStandConfig.StandConfigType.burn);//创建新路径
             burnConfig.PowerValue = INIFile.GetValue(standCommon.ProductTypeNo, BurnConfig.PowerValueKey, burnSavePath);
@@ -211,6 +301,8 @@ namespace MesManager.Common
             var senSavePath = senInitPath + senFileName;
             if (!Directory.Exists(senInitPath))
                 return;
+            if (!File.Exists(senSavePath))
+                return;
             InitStandConfig.CreateCurrentProcessDirectory(newTypeNo, InitStandConfig.StandConfigType.sensibility);//创建新路径
             sensibilityConfig.PLCAddress = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.PLCAddressKey, senSavePath);
             sensibilityConfig.LocalAddress = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.LocalAddressKey, senSavePath);
@@ -233,7 +325,7 @@ namespace MesManager.Common
             sensibilityConfig.ProductSerial = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductSerialKey, senSavePath);
             sensibilityConfig.ProductSerial = GetProductTestSerial(sensibilityConfig.ProductSerial);
             sensibilityConfig.ProductId = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductIdKey, senSavePath);
-            Directory.Delete(senSavePath,true);
+            Directory.Delete(senInitPath, true);
         }
 
         public void ReadShellStandConfig(string newTypeNo)
@@ -242,6 +334,8 @@ namespace MesManager.Common
             var shellFileName = StandCommon.ShellStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var shellSavePath = shellInitPath + shellFileName;
             if (!Directory.Exists(shellInitPath))
+                return;
+            if (!File.Exists(shellSavePath))
                 return;
             InitStandConfig.CreateCurrentProcessDirectory(newTypeNo, InitStandConfig.StandConfigType.shell);//创建新路径
             shellConfig.LocalAddressConMes = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.LocalAddressConMesKey, shellSavePath);
@@ -259,7 +353,7 @@ namespace MesManager.Common
             shellConfig.BubbleCotton = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.BubbleCottonKey, shellSavePath);
             shellConfig.TestSerialNumber = INIFile.GetValue(standCommon.ProductTypeNo, ShellConfig.TestSerialNumberKey, shellSavePath);
             shellConfig.TestSerialNumber = GetProductTestSerial(shellConfig.TestSerialNumber);
-            Directory.Delete(shellSavePath,true);
+            Directory.Delete(shellInitPath, true);
         }
 
         public void ReadAirtageStandConfig(string newTypeNo)
@@ -268,6 +362,8 @@ namespace MesManager.Common
             var airtageFileName = StandCommon.AirtageStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var airtageSavePath = airtageInitPath + airtageFileName;
             if (!Directory.Exists(airtageInitPath))
+                return;
+            if (!File.Exists(airtageSavePath))
                 return;
             InitStandConfig.CreateCurrentProcessDirectory(newTypeNo, InitStandConfig.StandConfigType.airtage);//创建新路径
             airtageConfig.LocalAddressConMes = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LocalAddressConMesKey, airtageSavePath);
@@ -280,10 +376,12 @@ namespace MesManager.Common
             airtageConfig.MinInflate = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.MinInflateKey, airtageSavePath);
             airtageConfig.LevelMin = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LevelMinKey, airtageSavePath);
             airtageConfig.LevelMax = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.LevelMaxKey, airtageSavePath);
+            airtageConfig.BigLeakMax = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.BigLeakMaxKey, airtageSavePath);
+            airtageConfig.BigLeakMin = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.BigLeakMinKey, airtageSavePath);
             airtageConfig.TestTime = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestTimeKey, airtageSavePath);
             airtageConfig.TestSerial = INIFile.GetValue(standCommon.ProductTypeNo, AirtageConfig.TestSerialKey, airtageSavePath);
             airtageConfig.TestSerial = GetProductTestSerial(airtageConfig.TestSerial);
-            Directory.Delete(airtageSavePath,true);
+            Directory.Delete(airtageInitPath, true);
         }
 
         public void ReadStentStandConfig(string newTypeNo)
@@ -292,6 +390,8 @@ namespace MesManager.Common
             var stentFileName = StandCommon.StentStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var stentSavePath = stentInitPath + stentFileName;
             if (!Directory.Exists(stentInitPath))
+                return;
+            if (!File.Exists(stentSavePath))
                 return;
             InitStandConfig.CreateCurrentProcessDirectory(newTypeNo, InitStandConfig.StandConfigType.stent);//创建新路径
             stentConfig.LocalAddressConMes = INIFile.GetValue(standCommon.ProductTypeNo, StentConfig.LocalAddressConMesKey, stentSavePath);
@@ -303,7 +403,7 @@ namespace MesManager.Common
             stentConfig.StentNut = INIFile.GetValue(standCommon.ProductTypeNo, StentConfig.StentNutKey, stentSavePath);
             stentConfig.TestSerial = INIFile.GetValue(standCommon.ProductTypeNo, StentConfig.TestSerialKey, stentSavePath);
             stentConfig.TestSerial = GetProductTestSerial(stentConfig.TestSerial);
-            Directory.Delete(stentSavePath);
+            Directory.Delete(stentInitPath,true);
         }
 
         public void ReadProductTestStandConfig(string newTypeNo)
@@ -312,6 +412,8 @@ namespace MesManager.Common
             var productFileName = StandCommon.ProductFinishStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var productSavePath = productInitPath + productFileName;
             if (!Directory.Exists(productInitPath))
+                return;
+            if (!File.Exists(productSavePath))
                 return;
             InitStandConfig.CreateCurrentProcessDirectory(newTypeNo, InitStandConfig.StandConfigType.productTest);//创建新路径
             productTestConfig.PlcAddress = INIFile.GetValue(standCommon.ProductTypeNo, ProductTestConfig.PlcAddressKey, productSavePath);
@@ -336,7 +438,7 @@ namespace MesManager.Common
             productTestConfig.ControlPower = INIFile.GetValue(standCommon.ProductTypeNo, ProductTestConfig.ControlPowerKey, productSavePath);
             productTestConfig.TestSerial = GetProductTestSerial(productTestConfig.TestSerial);
             productTestConfig.ProductId = INIFile.GetValue(standCommon.ProductTypeNo, ProductTestConfig.ProductIdKey, productSavePath);
-            Directory.Delete(productSavePath);
+            Directory.Delete(productInitPath,true);
         }
 
         public void ReadProductCheckStandConfig(string newTypeNo)
@@ -345,6 +447,8 @@ namespace MesManager.Common
             var productCheckFileName = StandCommon.CheckProductStationIniName + standCommon.ProductTypeNo + "_config.ini";
             var productCheckSavePath = productCheckInitPath + productCheckFileName;
             if (!Directory.Exists(productCheckInitPath))
+                return;
+            if (!File.Exists(productCheckSavePath))
                 return;
             InitStandConfig.CreateCurrentProcessDirectory(newTypeNo, InitStandConfig.StandConfigType.productCheck);//创建新路径
             productCheckConfig.PlcAddress = INIFile.GetValue(standCommon.ProductTypeNo, ProductCheckConfig.PlcAddressKey, productCheckSavePath);
@@ -368,7 +472,7 @@ namespace MesManager.Common
             productCheckConfig.ControlPower = INIFile.GetValue(standCommon.ProductTypeNo, ProductCheckConfig.ControlPowerKey, productCheckSavePath);
             productCheckConfig.TestSerial = GetProductTestSerial(productCheckConfig.TestSerial);
             productCheckConfig.ProductId = INIFile.GetValue(standCommon.ProductTypeNo, ProductCheckConfig.ProductIdKey, productCheckSavePath);
-            Directory.Delete(productCheckSavePath);
+            Directory.Delete(productCheckInitPath,true);
         }
         #endregion
 
@@ -417,6 +521,13 @@ namespace MesManager.Common
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.ProgrameActualPathKey, burnConfig.ProgrameActualPath, burnSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.ProgrameMapPathKey, burnConfig.ProgrameMapPath, burnSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.ProgrameNameKey, burnConfig.ProgrameName, burnSavePath);
+            if (burnConfig.SerialNumber == "")
+                return false;
+            var burn = GetBurnSerialConfig(burnConfig.SerialNumber);
+            if (burn != null)
+            {
+                burnConfig.SerialNumber = burn.ProductSerialPath;
+            }
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.SerialNumberKey, burnConfig.SerialNumber, burnSavePath);
             IsSavePrivateConfig = true;
             return true;
@@ -556,8 +667,13 @@ namespace MesManager.Common
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.ReceiveCanIDKey, sensibilityConfig.ReceiveCanID, senSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.CyclyCanIDKey, sensibilityConfig.CyclyCanID, senSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.RfCanIDKey, sensibilityConfig.RfCanID, senSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductSerialKey, sensibilityConfig.ProductSerial, senSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductIdKey, sensibilityConfig.ProductId, senSavePath);
+            if (sensibilityConfig.ProductSerial == "")
+                return false;
+            var sensibility = GetSensibilityConfig(sensibilityConfig.ProductSerial);
+            if (sensibility != null)
+                sensibilityConfig.ProductSerial = sensibility.ProductSerialPath;
+            INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductSerialKey, sensibilityConfig.ProductSerial, senSavePath);
             IsSavePrivateConfig = true;
             return true;
         }
@@ -580,6 +696,11 @@ namespace MesManager.Common
             INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.ShellKey, shellConfig.Shell, shellSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.SealRingWireKey, shellConfig.SealRingWire, shellSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.BubbleCottonKey, shellConfig.BubbleCotton, shellSavePath);
+            if (shellConfig.TestSerialNumber == "")
+                return false;
+            var shell = GetShellConfig(shellConfig.TestSerialNumber);
+            if (shell != null)
+                shellConfig.TestSerialNumber = shell.ProductSerialPath;
             INIFile.SetValue(standCommon.ProductTypeNo, ShellConfig.TestSerialNumberKey, shellConfig.TestSerialNumber, shellSavePath);
             IsSavePrivateConfig = true;
             return true;
@@ -601,6 +722,13 @@ namespace MesManager.Common
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.MinInflateKey, airtageConfig.MinInflate, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.LevelMinKey, airtageConfig.LevelMin, airtageSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.LevelMaxKey, airtageConfig.LevelMax, airtageSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.BigLeakMaxKey, airtageConfig.BigLeakMax, airtageSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.BigLeakMinKey, airtageConfig.BigLeakMin, airtageSavePath);
+            if (airtageConfig.TestSerial == "")
+                return false;
+            var airtage = GetAirtageConfig(airtageConfig.TestSerial);
+            if (airtage != null)
+                airtageConfig.TestSerial = airtage.ProductSerialPath;
             INIFile.SetValue(standCommon.ProductTypeNo, AirtageConfig.TestSerialKey, airtageConfig.TestSerial, airtageSavePath);
             IsSavePrivateConfig = true;
             return true;
@@ -618,6 +746,11 @@ namespace MesManager.Common
             INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.StentKey, stentConfig.Stent, stentSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.StentSrcrewKey, stentConfig.StentScrew, stentSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.StentNutKey, stentConfig.StentNut, stentSavePath);
+            if (stentConfig.TestSerial == "")
+                return false;
+            var stent = GetStentConfig(stentConfig.TestSerial);
+            if (stent != null)
+                stentConfig.TestSerial = stent.ProductSerialPath;
             INIFile.SetValue(standCommon.ProductTypeNo, StentConfig.TestSerialKey, stentConfig.TestSerial, stentSavePath);
             IsSavePrivateConfig = true;
             return true;
@@ -647,8 +780,13 @@ namespace MesManager.Common
             INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.ReceiveCanIDKey, productTestConfig.ReceiveCanID, productSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.CycleCanIDKey, productTestConfig.CycleCanID, productSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.RF_CAN_IDKey, productTestConfig.RF_CAN_ID, productSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.TestSerialKey, productTestConfig.TestSerial, productSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.ProductIdKey, productTestConfig.ProductId, productSavePath);
+            if (productTestConfig.TestSerial == "")
+                return false;
+            var productTest = GetProductTestConfig(productTestConfig.TestSerial);
+            if (productTest != null)
+                productTestConfig.TestSerial = productTest.ProductSerialPath;
+            INIFile.SetValue(standCommon.ProductTypeNo, ProductTestConfig.TestSerialKey, productTestConfig.TestSerial, productSavePath);
             IsSavePrivateConfig = true;
             return true;
         }
@@ -676,8 +814,13 @@ namespace MesManager.Common
             INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.ReceiveCanIDKey, productCheckConfig.ReceiveCanID, productCheckSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.CycleCanIDKey, productCheckConfig.CycleCanID, productCheckSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.RF_CAN_IDKey, productCheckConfig.RF_CAN_ID, productCheckSavePath);
-            INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.TestSerialKey, productCheckConfig.TestSerial, productCheckSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.ProductIdKey, productCheckConfig.ProductId, productCheckSavePath);
+            if (productCheckConfig.TestSerial == "")
+                return false;
+            var productCheck = GetProductCheckConfig(productCheckConfig.TestSerial);
+            if (productCheck != null)
+                productCheckConfig.TestSerial = productCheck.ProductSerialPath;
+            INIFile.SetValue(standCommon.ProductTypeNo, ProductCheckConfig.TestSerialKey, productCheckConfig.TestSerial, productCheckSavePath);
             IsSavePrivateConfig = true;
             return true;
         }
