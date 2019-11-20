@@ -144,6 +144,7 @@ namespace MesManager.UI
             this.cb_materialState.Items.Add("关闭");
             this.cb_materialState.SelectedIndex = 0;
             this.cb_materialState.ForeColor = Color.Red;
+            this.radDateTimePicker1.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             var currentProcess = await serviceClientTest.SelectCurrentTProcessAsync();
             string[] array = await serviceClientTest.SelectStationListAsync(currentProcess);

@@ -24,7 +24,7 @@ namespace MesManager.Model
         public const string AirtageStationIniName = "气密测试工站_";
         public const string StentStationIniName = "支架装配工站_";
         public const string ProductFinishStationIniName = "成品测试工站_";
-        public const string CheckProductStationIniName = "抽检工站_";
+        public const string CheckProductStationIniName = "质量抽检测试工站_";
 
         //公用配置
         public const string PCBABarCodeLengthKey = "设置PCB条码长度位数";

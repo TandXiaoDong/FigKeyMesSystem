@@ -28,6 +28,7 @@ namespace MesManager.Model
         public const string RfCanIDKey = "RF_CAN_ID";
         public const string ProductSerialKey = "测试序列";
         public const string ProductIdKey = "配置产品ID";
+        public const string RadioFrequcyKey = "射频强度";
 
 
         /// <summary>
@@ -84,5 +85,7 @@ namespace MesManager.Model
         public string RfCanID { get; set; }
 
         public string ProductId { get; set; }
+
+        public string RadioFrequcy { get; set; }
     }
 }

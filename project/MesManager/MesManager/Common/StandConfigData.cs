@@ -325,6 +325,7 @@ namespace MesManager.Common
             sensibilityConfig.ProductSerial = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductSerialKey, senSavePath);
             sensibilityConfig.ProductSerial = GetProductTestSerial(sensibilityConfig.ProductSerial);
             sensibilityConfig.ProductId = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductIdKey, senSavePath);
+            sensibilityConfig.RadioFrequcy = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.RadioFrequcyKey, senSavePath);
             Directory.Delete(senInitPath, true);
         }
 
@@ -668,6 +669,7 @@ namespace MesManager.Common
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.CyclyCanIDKey, sensibilityConfig.CyclyCanID, senSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.RfCanIDKey, sensibilityConfig.RfCanID, senSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductIdKey, sensibilityConfig.ProductId, senSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.RadioFrequcyKey, sensibilityConfig.RadioFrequcy, senSavePath);
             if (sensibilityConfig.ProductSerial == "")
                 return false;
             var sensibility = GetSensibilityConfig(sensibilityConfig.ProductSerial);

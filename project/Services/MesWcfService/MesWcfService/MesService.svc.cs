@@ -549,6 +549,7 @@ namespace MesWcfService
         {
             string selectSQL = $"SELECT DISTINCT {DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} FROM " +
                 $"{DbTable.F_TECHNOLOGICAL_PROCESS_NAME}";
+            CheckProductProcess();
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             if (dt.Rows.Count > 0)
             {
@@ -560,6 +561,32 @@ namespace MesWcfService
                 return arrayRes;
             }
             return new string[] { "NULL"};
+        }
+
+        /// <summary>
+        /// 检查工艺与产品是否匹配
+        /// </summary>
+        private void CheckProductProcess()
+        {
+            var selectProcessSQL = $"select distinct {DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} from {DbTable.F_TECHNOLOGICAL_PROCESS_NAME}";
+            var dt = SQLServer.ExecuteDataSet(selectProcessSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    var productTypeNo = dr[0].ToString();
+                    selectProcessSQL = $"select * from {DbTable.F_OUT_CASE_STORAGE_NAME} where " +
+                        $"{DbTable.F_Out_Case_Storage.TYPE_NO} = '{productTypeNo}'";
+                    dt = SQLServer.ExecuteDataSet(selectProcessSQL).Tables[0];
+                    if (dt.Rows.Count < 1)
+                    {
+                        var deleteSQL = $"delete from {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} where " +
+                            $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{productTypeNo}'";
+                        var delRow = SQLServer.ExecuteNonQuery(deleteSQL);
+                        LogHelper.Log.Info($"【删除工艺】删除不存在工艺,工艺名称={productTypeNo}");
+                    }
+                }
+            }
         }
         #endregion
 

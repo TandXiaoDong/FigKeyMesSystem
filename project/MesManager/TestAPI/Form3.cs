@@ -23,18 +23,8 @@ namespace TestAPI
 
         private void Form3_Load(object sender, EventArgs e)
         {
-            //dockPanel = new DockPanel();
-            //dockPanel.Dock = DockStyle.Fill;
-            //this.Controls.Add(dockPanel);
-            //Form2 form2 = new Form2();
-            //form2.Show(this.dockPanel,DockState.DockBottom);
-            //测试数据
-            MesServiceTest.MesServiceClient mesServiceTest = new MesServiceTest.MesServiceClient();
-            MesService.MesServiceClient cst = new MesService.MesServiceClient();
-            //var res = mesServiceTest.UpdatePackageProductBindingMsg("13","0012","A01","","0","","","");
-            //var msg = mesServiceTest.CheckPcbaState("017 B19922001901", "");
-            var res = mesServiceTest.BindingPCBA("", "A571E20311K091910027DE00112029", "jorgte", "HTSB20040000");
-            MessageBox.Show(res);
+            ScrollText scrollText = new ScrollText(this.radLabel1,this.panel1,ScrollText.RoolDirection.Left);
+            ScrollText scrollText2 = new ScrollText(this.radLabel2, this.panel1, ScrollText.RoolDirection.Left);
         }
 
         public void LSOSQL()

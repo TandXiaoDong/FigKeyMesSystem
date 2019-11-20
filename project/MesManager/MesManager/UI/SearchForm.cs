@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using MesManager.Control;
+using MesManager.Common;
 
 namespace MesManager.UI
 {
@@ -46,14 +47,19 @@ namespace MesManager.UI
             DataTable data = new DataTable();
             data.Columns.Add("序号");
             data.Columns.Add("物料编码");
+            data.Columns.Add("物料名称");
             data.Columns.Add("库存状态");
+
             if (dt.Rows.Count > 0)
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     DataRow dr = data.NewRow();
+                    var materialCode = dt.Rows[i][0].ToString();
+                    var materialPN = AnalysisMaterialCode.GetMaterialPN(materialCode);
                     dr["序号"] = i + 1;
-                    dr["物料编码"] = dt.Rows[i][0].ToString();
+                    dr["物料编码"] = materialCode;
+                    dr["物料名称"] = serviceClient.SelectMaterialName(materialPN);
                     var stockState = dt.Rows[i][6].ToString();
                     if (stockState == "2")
                         stockState = "已使用完成";

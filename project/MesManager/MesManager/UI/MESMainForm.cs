@@ -8,8 +8,10 @@ using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using CommonUtils.Logger;
+using CommonUtils.FileHelper;
 using MesManager.Common;
 using System.IO;
+using System.Configuration;
 
 namespace MesManager.UI
 {
@@ -103,6 +105,26 @@ namespace MesManager.UI
             this.btn_user_login.Click += Btn_user_login_Click;
             this.ledControl1.Click += LedControl1_Click;
             this.btn_stand_config.Click += Btn_stand_config_Click;
+            this.FormClosed += MESMainForm_FormClosed;
+        }
+
+        private void MESMainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //备份配置文件
+            var sourceFilePath = "F:\\StationConfig";
+            var destFilePath = "F:\\StationConfigBackUp\\";
+            var isAutoBackup = ConfigurationManager.AppSettings["IsStationConfigAutoBackup"].ToString();
+            if (isAutoBackup != "true")
+                return;
+            if (!Directory.Exists(sourceFilePath))
+                return;
+            if (Directory.Exists(destFilePath))
+            {
+                Directory.Delete(destFilePath,true);
+                if(!Directory.Exists(destFilePath))
+                    Directory.CreateDirectory(destFilePath);
+            }
+            DirFile.CopyFolder(sourceFilePath,destFilePath);
         }
 
         private void LedControl1_Click(object sender, EventArgs e)

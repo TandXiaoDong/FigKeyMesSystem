@@ -10,6 +10,7 @@ using Telerik.WinControls.UI;
 using CommonUtils.FileHelper;
 using CommonUtils.Logger;
 using CommonUtils.CalculateAndString;
+using WindowsFormTelerik.ControlCommon;
 using MesManager.Model;
 using MesManager.CommonEnum;
 using MesManager.Common;
@@ -38,6 +39,8 @@ namespace MesManager.UI
         private List<ProductCheckConfig> productCheckConfigList = new List<ProductCheckConfig>();
         private string standMapRoot;//机台使用映射根目录
         private string defaultRoot;//机台配置本地根目录
+        private float radioFreqMax;//射频最小值
+        private float radioFreqMin;//射频最小值
 
         private MesServiceTest.MesServiceClient serviceClientTest;
         private MesService.MesServiceClient serviceClient;
@@ -46,6 +49,7 @@ namespace MesManager.UI
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterParent;
+            System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false;
         }
 
         private void StandConfig_Load(object sender, EventArgs e)
@@ -55,6 +59,8 @@ namespace MesManager.UI
             ReadStandConfig();
             RefreshUI();
             EventHandler();
+            RefreshFontRool();
+            //ScrollLeftAndRight.AutoRoll(this.lbx_burn_tip,ScrollLeftAndRight.RoolDirection.Left);
         }
 
         private void EventHandler()
@@ -79,6 +85,44 @@ namespace MesManager.UI
 
             this.lbx_burn_openFile.Click += Lbx_burn_openFile_Click;
             this.FormClosed += StandConfig_FormClosed;
+            this.radDock1.ActiveWindowChanged += RadDock1_ActiveWindowChanged;
+        }
+
+        private void RadDock1_ActiveWindowChanged(object sender, Telerik.WinControls.UI.Docking.DockWindowEventArgs e)
+        {
+            RefreshFontRool();
+        }
+
+        private void RefreshFontRool()
+        {
+            if (this.radDock1.ActiveWindow == this.dwBurn)
+            {
+                FontRool.FontAutoRool(this.lbx_burn_tip, this.panel_burn, FontRool.RoolDirection.Left);
+            }
+            else if (this.radDock1.ActiveWindow == this.dwSensibility)
+            {
+                FontRool.FontAutoRool(this.lbx_sensibility_tip, this.panel_sensibility, FontRool.RoolDirection.Left);
+            }
+            else if (this.radDock1.ActiveWindow == this.dwShell)
+            {
+                FontRool.FontAutoRool(this.lbx_shell_tip, this.panel_shell, FontRool.RoolDirection.Left);
+            }
+            else if (this.radDock1.ActiveWindow == this.dwAirtage)
+            {
+                FontRool.FontAutoRool(this.lbx_airtage_tip, this.panel_airtage, FontRool.RoolDirection.Left);
+            }
+            else if (this.radDock1.ActiveWindow == this.dwStent)
+            {
+                FontRool.FontAutoRool(this.lbx_stent_tip, this.panel_stent, FontRool.RoolDirection.Left);
+            }
+            else if (this.radDock1.ActiveWindow == this.dwProductTest)
+            {
+                FontRool.FontAutoRool(this.lbx_productTest_tip, this.panel_productTest, FontRool.RoolDirection.Left);
+            }
+            else if (this.radDock1.ActiveWindow == this.dwProductCheck)
+            {
+                FontRool.FontAutoRool(this.lbx_productCheck_tip, this.panel_productCheck, FontRool.RoolDirection.Left);
+            }
         }
 
         private void Lbx_burn_openFile_Click(object sender, EventArgs e)
@@ -383,7 +427,7 @@ namespace MesManager.UI
             stentConfig = new StentConfig();
             productTestConfig = new ProductTestConfig();
             productCheckConfig = new ProductCheckConfig();
-            this.radDock1.ActiveWindow = this.documentWindow2;
+            this.radDock1.ActiveWindow = this.dwBurn;
 
             serviceClientTest = new MesServiceTest.MesServiceClient();
             serviceClient = new MesService.MesServiceClient();
@@ -413,6 +457,9 @@ namespace MesManager.UI
             //初始化压力/泄露单位
             this.tb_airtage_spread.DataSource = AirtageTestItem.AirtageSpreadUnitItem();
             this.tb_airtage_pressureUnit.DataSource = AirtageTestItem.AirtagePressureUnitItem();
+
+            float.TryParse(ConfigurationManager.AppSettings["radioFreMin"].ToString(),out radioFreqMin);
+            float.TryParse(ConfigurationManager.AppSettings["radioFreMax"].ToString(),out radioFreqMax);
         }
 
         private void ReadDefaultConfig()
@@ -781,6 +828,7 @@ namespace MesManager.UI
             sensibilityConfig.ProductSerial = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductSerialKey, senSavePath);
             sensibilityConfig.ProductSerial = GetProductTestSerial(sensibilityConfig.ProductSerial);
             sensibilityConfig.ProductId = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductIdKey, senSavePath);
+            sensibilityConfig.RadioFrequcy = INIFile.GetValue(standCommon.ProductTypeNo, SensibilityConfig.RadioFrequcyKey, senSavePath);
         }
 
         private void ReadShellStandConfig()
@@ -1087,6 +1135,7 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.RfCanIDKey, sensibilityConfig.RfCanID, senSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductSerialKey, sensibilityConfig.ProductSerial, senSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.ProductIdKey, sensibilityConfig.ProductId, senSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, SensibilityConfig.RadioFrequcyKey, sensibilityConfig.RadioFrequcy, senSavePath);
             MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             IsSavePrivateConfig = true;
         }
@@ -1570,6 +1619,25 @@ namespace MesManager.UI
             sensibilityConfig.ProductId = CheckAndWarn(this.tb_sen_productID,SensibilityConfig.ProductIdKey);
             if (sensibilityConfig.ProductId == "")
                 return false;
+
+            sensibilityConfig.RadioFrequcy = CheckAndWarn(this.tb_sen_radioFreq, SensibilityConfig.RadioFrequcyKey);
+            if (sensibilityConfig.RadioFrequcy == "")
+                return false;
+            else
+            {
+                if (CheckInputValueFloat(this.tb_sen_radioFreq, SensibilityConfig.RadioFrequcyKey))
+                {
+                    float radioFreq = float.Parse(this.tb_sen_radioFreq.Text.Trim());
+                    if (radioFreq > radioFreqMax || radioFreq < radioFreqMin)
+                    {
+                        MessageBox.Show($"请输入{radioFreqMin}到{radioFreqMax}之间的数据！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                        return false;
+                    }
+                }
+                else
+                    return false;
+            }
+
             var senSerialNumber = CheckAndWarn(this.cb_sen_serialNumber,SensibilityConfig.ProductSerialKey);
             if (senSerialNumber == "")
                 return false;
@@ -2155,6 +2223,7 @@ namespace MesManager.UI
             this.tb_sen_cycleCanID.Text = sensibilityConfig.CyclyCanID;
             this.tb_sen_rfCanID.Text = sensibilityConfig.RfCanID;
             this.tb_sen_productID.Text = sensibilityConfig.ProductId;
+            this.tb_sen_radioFreq.Text = sensibilityConfig.RadioFrequcy;
         }
 
         private void RefreshUIShellStation()

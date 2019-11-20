@@ -561,10 +561,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<MesManager.MesService.ProductMaterial[]> CommitProductMaterialAsync(MesManager.MesService.ProductMaterial[] pmList);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectProductMaterial", ReplyAction="http://tempuri.org/IMesService/SelectProductMaterialResponse")]
-        System.Data.DataSet SelectProductMaterial();
+        System.Data.DataSet SelectProductMaterial(string queryCondition);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectProductMaterial", ReplyAction="http://tempuri.org/IMesService/SelectProductMaterialResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> SelectProductMaterialAsync();
+        System.Threading.Tasks.Task<System.Data.DataSet> SelectProductMaterialAsync(string queryCondition);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteProductMaterial", ReplyAction="http://tempuri.org/IMesService/DeleteProductMaterialResponse")]
         int DeleteProductMaterial(MesManager.MesService.ProductMaterial material);
@@ -1046,12 +1046,12 @@ namespace MesManager.MesService {
             return base.Channel.CommitProductMaterialAsync(pmList);
         }
         
-        public System.Data.DataSet SelectProductMaterial() {
-            return base.Channel.SelectProductMaterial();
+        public System.Data.DataSet SelectProductMaterial(string queryCondition) {
+            return base.Channel.SelectProductMaterial(queryCondition);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> SelectProductMaterialAsync() {
-            return base.Channel.SelectProductMaterialAsync();
+        public System.Threading.Tasks.Task<System.Data.DataSet> SelectProductMaterialAsync(string queryCondition) {
+            return base.Channel.SelectProductMaterialAsync(queryCondition);
         }
         
         public int DeleteProductMaterial(MesManager.MesService.ProductMaterial material) {

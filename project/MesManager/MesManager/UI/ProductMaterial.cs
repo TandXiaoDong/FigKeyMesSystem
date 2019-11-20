@@ -103,7 +103,6 @@ namespace MesManager.UI
                     AnalysisMaterialCode analysisMaterialCode = AnalysisMaterialCode.GetMaterialDetail(materialCode);
                     var materialRID = analysisMaterialCode.MaterialRID;
                     this.tool_stock_queryCondition.Items.Add(materialRID);
-                    this.tool_bind_queryCondition.Items.Add(materialRID);
                 }
                 this.tool_stock_queryCondition.AutoCompleteSource = AutoCompleteSource.ListItems;
                 this.tool_stock_queryCondition.AutoCompleteMode = AutoCompleteMode.Suggest;
@@ -360,7 +359,7 @@ namespace MesManager.UI
             }
             else if (materialType == MaterialType.MATERIAL_STOCK_MODIFY)
             {
-                BindingMaterialStock("");
+                BindingMaterialStock(this.tool_stock_queryCondition.Text);
             }
         }
 
@@ -707,7 +706,8 @@ namespace MesManager.UI
 
         async private void SelectData()
         {
-            DataTable dt = (await serviceClient.SelectProductMaterialAsync()).Tables[0];
+            var bindCondition = this.tool_bind_queryCondition.Text;
+            DataTable dt = (await serviceClient.SelectProductMaterialAsync(bindCondition)).Tables[0];
             this.radGridViewBind.DataSource = null;
             for (int i = 0; i < dt.Rows.Count; i++)
             {

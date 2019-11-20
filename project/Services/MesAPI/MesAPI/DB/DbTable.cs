@@ -106,8 +106,7 @@ namespace MesAPI.DB
         public class F_PRODUCT_MATERIAL
         {
             public const string TYPE_NO = "[type_no]";
-            public const string MATERIAL_CODE = "[material_code]";//material_pn
-            public const string STOCK = "[stock]";
+            public const string MATERIAL_PN = "[material_code]";//material_pn
             public const string AMOUNTED = "[amounted]";
             public const string Describle = "[describle]";
             public const string UpdateDate = "[update_date]";

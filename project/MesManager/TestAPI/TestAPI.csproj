@@ -171,6 +171,7 @@
     <Compile Include="MySqlHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScrollText.cs" />
     <Compile Include="TestDB.cs" />
     <Compile Include="testGridGroup.cs">
       <SubType>Form</SubType>

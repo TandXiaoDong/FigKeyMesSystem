@@ -111,7 +111,7 @@ namespace MesAPI
         [OperationContract]
         List<ProductMaterial> CommitProductMaterial(List<ProductMaterial> pmList);
         [OperationContract]
-        DataSet SelectProductMaterial();
+        DataSet SelectProductMaterial(string queryCondition);
 
         [OperationContract]
         int DeleteProductMaterial(ProductMaterial material);
