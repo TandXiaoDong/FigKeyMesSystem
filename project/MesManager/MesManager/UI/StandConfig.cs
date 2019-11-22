@@ -732,6 +732,7 @@ namespace MesManager.UI
             burnConfig.SoftWareVersion = INIFile.GetValue(standCommon.ProductTypeNo, BurnConfig.SoftWareVersionKey, burnSavePath);
             burnConfig.PartNumber = INIFile.GetValue(standCommon.ProductTypeNo, BurnConfig.PartNumberKey, burnSavePath);
             burnConfig.ProgrameActualPath = INIFile.GetValue(standCommon.ProductTypeNo, BurnConfig.ProgrameActualPathKey, burnSavePath);
+            burnConfig.SendCanID = INIFile.GetValue(standCommon.ProductTypeNo, BurnConfig.SendCanIDKey, burnSavePath);
             burnConfig.ProgrameName = INIFile.GetValue(standCommon.ProductTypeNo,BurnConfig.ProgrameNameKey,burnSavePath);
             burnConfig.SerialNumber = INIFile.GetValue(standCommon.ProductTypeNo, BurnConfig.SerialNumberKey, burnSavePath);
             burnConfig.SerialNumber = GetProductTestSerial(burnConfig.SerialNumber);//更加路径返回序列名
@@ -994,6 +995,7 @@ namespace MesManager.UI
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.ProgrameActualPathKey, burnConfig.ProgrameActualPath, burnSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.ProgrameMapPathKey, burnConfig.ProgrameMapPath, burnSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.ProgrameNameKey, burnConfig.ProgrameName, burnSavePath);
+            INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.SendCanIDKey, burnConfig.SendCanID, burnSavePath);
             INIFile.SetValue(standCommon.ProductTypeNo, BurnConfig.SerialNumberKey, burnConfig.SerialNumber, burnSavePath);
             MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             IsSavePrivateConfig = true;
@@ -1469,6 +1471,9 @@ namespace MesManager.UI
             {
                 burnConfig.SerialNumber = burn.ProductSerialPath;
             }
+            burnConfig.SendCanID = CheckAndWarn(this.tb_burn_sendCanID, BurnConfig.SendCanIDKey);
+            if (burnConfig.SendCanID == "")
+                return false;
             return true;
         }
 
@@ -2188,6 +2193,7 @@ namespace MesManager.UI
             this.cb_burn_serialNumber.Text = burnConfig.SerialNumber;
             this.tb_burn_programePath.Text = burnConfig.ProgrameActualPath;
             this.tb_burn_programeName.Text = burnConfig.ProgrameName;
+            this.tb_burn_sendCanID.Text = burnConfig.SendCanID;
         }
 
         private void RefreshUICommonConfig()

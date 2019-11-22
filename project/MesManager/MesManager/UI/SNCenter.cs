@@ -495,16 +495,18 @@ namespace MesManager.UI
         async private void SelectOfSn()
         {
             var filter = tb_sn.Text;
+            this.radGridViewSn.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             //DataSet ds = (await serviceClient.SelectTestResultUpperAsync(filter, filter, filter, true));
             LogHelper.Log.Info("【开始查询】");
-            DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter);
-            DataTable dt = ds.Tables[0];
             this.radGridViewSn.BeginEdit();
-            this.radGridViewSn.DataSource = null; 
+            DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter);
+            LogHelper.Log.Info("【查询结束】");
+            DataTable dt = ds.Tables[0];
+            this.radGridViewSn.DataSource = null;
             this.radGridViewSn.DataSource = dt;
             this.radGridViewSn.EndEdit();
-            this.radGridViewSn.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridViewSn.BestFitColumns();
+            LogHelper.Log.Info("【查询结束///】");
         }
 
         async private void SelectOfPackage(string state)

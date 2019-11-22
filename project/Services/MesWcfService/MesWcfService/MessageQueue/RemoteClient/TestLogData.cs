@@ -19,7 +19,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
         public const string ProductTestStation = "成品测试工站";
 
         public const string Turn_TurnItem = "烧录";
-        public const string Turn_Voltage_12V_Item = "12V电压测试";
+        public const string Turn_Voltage_12V_Item = "13.5V电压测试";
         public const string Turn_Voltage_5V_Item = "5V电压测试";
         public const string Turn_Voltage_33_1V_Item = "3.3V电压测试点-1";
         public const string Turn_Voltage_33_2V_Item = "3.3V电压测试点-2";

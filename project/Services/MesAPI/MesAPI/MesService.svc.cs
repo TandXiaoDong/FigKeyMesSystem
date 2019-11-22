@@ -694,6 +694,7 @@ namespace MesAPI
 
         public DataSet SelectTestResultDetail(string querySN)
         {
+            LogHelper.Log.Info("开始查询");
             DataTable dt = InitTestResultDataTable(true);
             DataSet dataSet = new DataSet();
             List<string> pcbaList = new List<string>();
@@ -824,6 +825,7 @@ namespace MesAPI
                 }
             }
             dataSet.Tables.Add(dt);
+            LogHelper.Log.Info("查询结束");
             return dataSet;
         }
 

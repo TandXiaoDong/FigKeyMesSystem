@@ -28,6 +28,7 @@ namespace MesManager.Model
         public const string CanIdKey = "配置CAN ID";
         public const string ProductIdKey = "配置产品ID";
         public const string SerialNumberKey = "测试序列";
+        public const string SendCanIDKey = "发送CAN ID";
         #endregion
 
         //配置参数值
@@ -89,5 +90,7 @@ namespace MesManager.Model
         public string CanId { get; set; }
 
         public string ProductId { get; set; }
+
+        public string SendCanID { get; set; }
     }
 }

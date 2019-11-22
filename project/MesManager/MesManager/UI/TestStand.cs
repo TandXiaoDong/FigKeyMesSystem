@@ -294,6 +294,7 @@ namespace MesManager.UI
 
         async private void SelectTestResultDetail(string queryFilter, string startTime, string endTime)
         {
+            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             var ds = await serviceClient.SelectTestResultLogDetailAsync(queryFilter, startTime, endTime);
             if (ds.Tables.Count < 1)
             {
@@ -301,9 +302,10 @@ namespace MesManager.UI
                 return;
             }
             var dt = ds.Tables[0];
+            this.radGridView1.BeginEdit();
             this.radGridView1.DataSource = null;
             this.radGridView1.DataSource = dt;
-            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridView1.EndEdit();
             this.radGridView1.BestFitColumns();
         }
 

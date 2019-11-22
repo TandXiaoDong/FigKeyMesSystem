@@ -104,12 +104,12 @@ namespace MesManager.UI
 
         async private void QueryPcbaMsg()
         {
+            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridView1.BestFitColumns();
             var dt = (await serviceClientTest.QueryPCBAMesAsync(this.tb_pcbasn.Text)).Tables[0];
             this.radGridView1.DataSource = dt;
             DataGridViewCommon.SetRadGridViewProperty(this.radGridView1, false);
             this.radGridView1.ReadOnly = true;
-            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
-            this.radGridView1.BestFitColumns();
             foreach (var rowInfo in this.radGridView1.Rows)
             {
                 var bindingState = rowInfo.Cells[5].Value.ToString();
