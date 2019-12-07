@@ -31,6 +31,10 @@
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_testResult_num = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btn_insert = new System.Windows.Forms.Button();
+            this.tb_sign = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
@@ -48,7 +52,7 @@
             // 
             this.panel1.Controls.Add(this.radLabel2);
             this.panel1.Controls.Add(this.radLabel1);
-            this.panel1.Location = new System.Drawing.Point(125, 86);
+            this.panel1.Location = new System.Drawing.Point(23, 50);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(113, 214);
             this.panel1.TabIndex = 1;
@@ -61,11 +65,48 @@
             this.radLabel2.TabIndex = 1;
             this.radLabel2.Text = "123456789108987643423245tend";
             // 
+            // tb_testResult_num
+            // 
+            this.tb_testResult_num.Location = new System.Drawing.Point(494, 76);
+            this.tb_testResult_num.Name = "tb_testResult_num";
+            this.tb_testResult_num.Size = new System.Drawing.Size(100, 21);
+            this.tb_testResult_num.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(282, 76);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(185, 12);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "批量插入测试最终结果数据条数：";
+            // 
+            // btn_insert
+            // 
+            this.btn_insert.Location = new System.Drawing.Point(494, 183);
+            this.btn_insert.Name = "btn_insert";
+            this.btn_insert.Size = new System.Drawing.Size(100, 23);
+            this.btn_insert.TabIndex = 6;
+            this.btn_insert.Text = "批量插入";
+            this.btn_insert.UseVisualStyleBackColor = true;
+            this.btn_insert.Click += new System.EventHandler(this.btn_insert_Click);
+            // 
+            // tb_sign
+            // 
+            this.tb_sign.Location = new System.Drawing.Point(494, 40);
+            this.tb_sign.Name = "tb_sign";
+            this.tb_sign.Size = new System.Drawing.Size(100, 21);
+            this.tb_sign.TabIndex = 7;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.tb_sign);
+            this.Controls.Add(this.btn_insert);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tb_testResult_num);
             this.Controls.Add(this.panel1);
             this.Name = "Form3";
             this.TabText = "Form3";
@@ -76,6 +117,7 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -84,5 +126,9 @@
         private Telerik.WinControls.UI.RadLabel radLabel1;
         private System.Windows.Forms.Panel panel1;
         private Telerik.WinControls.UI.RadLabel radLabel2;
+        private System.Windows.Forms.TextBox tb_testResult_num;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btn_insert;
+        private System.Windows.Forms.TextBox tb_sign;
     }
 }

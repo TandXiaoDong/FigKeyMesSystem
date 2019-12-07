@@ -328,6 +328,7 @@ namespace MesWcfService
         [SwaggerWcfResponse("0X06", "ERROR_USE_AMOUNT_NOT_INT")]
         [SwaggerWcfResponse("0X07", "ERROR_NOT_MATCH_MATERIAL_PN")]
         [SwaggerWcfResponse("0X08", "ERROR_NOT_AMOUNT_STATE")]
+        [SwaggerWcfResponse("0X09", "STATUS_NOT_PUT_IN")]
         public string UpdateMaterialStatistics(string typeNo,string stationName,string materialCode,string amounted,string teamLeader,string admin,string pcbaSN)
         {
             if (string.IsNullOrEmpty(typeNo))
@@ -389,7 +390,7 @@ namespace MesWcfService
         [SwaggerWcfResponse("0X07", "STATUS_CURRENT_MATERIAL_AMOUNT_END_OF_USE")]
         public string CheckMaterialMatch(string productTypeNo,string testMaterialPN,string actualMaterialPN,string materialCode)
         {
-            LogHelper.Log.Info("物料防错 "+productTypeNo+" "+actualMaterialPN+" "+materialCode);
+            LogHelper.Log.Info($"物料防错 "+productTypeNo+ $" testMaterialPN={testMaterialPN} actualMaterialPN={actualMaterialPN} " +" "+materialCode);
             if (string.IsNullOrEmpty(productTypeNo))
                 return MaterialStatistics.ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.ERROR_NULL_PRODUCT_TYPENO);
             if (string.IsNullOrEmpty(actualMaterialPN))

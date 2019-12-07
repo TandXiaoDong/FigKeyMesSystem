@@ -80,7 +80,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             }
             else
             {
-                LogHelper.Log.Info("【更新出站结果】ERROR_FAIL=0X01");
+                LogHelper.Log.Info("【更新出站结果】ERROR_FAIL=0X01 ");
                 return ConvertTestResultCode(UpdateTestResultEnum.ERROR_FAIL);
             }
         }

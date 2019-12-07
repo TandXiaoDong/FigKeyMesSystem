@@ -19,7 +19,11 @@ namespace MesWcfService.Model
         ERROR_IS_NULL_AMOUNTED = 5,
         ERROR_USE_AMOUNT_NOT_INT = 6,
         ERROR_NOT_MATCH_MATERIAL_PN = 7,
-        ERROR_NOT_AMOUNT_STATE = 8
+        ERROR_NOT_AMOUNT_STATE = 8,
+        /// <summary>
+        /// 没有入库，不能使用数量
+        /// </summary>
+        STATUS_NOT_PUT_IN = 9
     }
 
     public enum MaterialStateReturnCode

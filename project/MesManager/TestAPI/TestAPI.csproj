@@ -214,17 +214,17 @@
     <EmbeddedResource Include="TestTreeView.resx">
       <DependentUpon>TestTreeView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Connected Services\MesServiceTest\MesService.wsdl" />
+    <None Include="Connected Services\MesServiceTest\MesService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesServiceTest\MesService1.wsdl" />
     <None Include="Connected Services\MesServiceTest\MesService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService11.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService12.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\MesServiceTest\MesService13.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\MesService\MesService.wsdl" />
@@ -320,7 +320,7 @@
     <None Include="Connected Services\MesService\MesService.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MesServiceTest\MesService.disco" />
+    <None Include="Connected Services\MesServiceTest\MesService1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

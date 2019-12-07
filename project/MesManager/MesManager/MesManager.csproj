@@ -593,17 +593,17 @@
       <DependentUpon>WelcomeForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
-    <None Include="Connected Services\MesServiceTest\MesService.wsdl" />
+    <None Include="Connected Services\MesServiceTest\MesService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesServiceTest\MesService1.wsdl" />
     <None Include="Connected Services\MesServiceTest\MesService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService11.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService12.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\MesServiceTest\MesService13.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\MesService\MesManager.MesService.LoginResult.datasource">
@@ -621,20 +621,20 @@
     <None Include="Connected Services\MesService\MesManager.MesService.Station.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\MesService\MesService1.wsdl" />
-    <None Include="Connected Services\MesService\MesService5.xsd">
+    <None Include="Connected Services\MesService\MesService.wsdl" />
+    <None Include="Connected Services\MesService\MesService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService51.xsd">
+    <None Include="Connected Services\MesService\MesService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService52.xsd">
+    <None Include="Connected Services\MesService\MesService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService53.xsd">
+    <None Include="Connected Services\MesService\MesService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService54.xsd">
+    <None Include="Connected Services\MesService\MesService4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -655,6 +655,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\MesService\MesService.disco" />
+    <None Include="Connected Services\MesServiceTest\MesService1.disco" />
     <Content Include="MES修改设计.txt" />
     <Content Include="需求总结.txt" />
     <Content Include="测试内容.txt" />
@@ -680,8 +682,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Connected Services\MesService\MesService1.disco" />
-    <None Include="Connected Services\MesServiceTest\MesService.disco" />
     <Content Include="GenericShareFolder.ico" />
     <Content Include="License-LGPL.txt" />
     <None Include="Resources\update.png" />

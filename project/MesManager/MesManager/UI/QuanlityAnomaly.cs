@@ -105,10 +105,10 @@ namespace MesManager.UI
         async private void QueryPcbaMsg()
         {
             this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
-            this.radGridView1.BestFitColumns();
             var dt = (await serviceClientTest.QueryPCBAMesAsync(this.tb_pcbasn.Text)).Tables[0];
-            this.radGridView1.DataSource = dt;
+            this.radGridView1.BeginEdit();
             DataGridViewCommon.SetRadGridViewProperty(this.radGridView1, false);
+            this.radGridView1.DataSource = dt;
             this.radGridView1.ReadOnly = true;
             foreach (var rowInfo in this.radGridView1.Rows)
             {
@@ -122,6 +122,8 @@ namespace MesManager.UI
                 if (outterState == "异常")
                     rowInfo.Cells[7].Style.ForeColor = Color.PaleVioletRed;
             }
+            this.radGridView1.EndEdit();
+            this.radGridView1.BestFitColumns();
         }
 
         private void RefreshControl()

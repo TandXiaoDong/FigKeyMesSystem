@@ -134,8 +134,9 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectSQL = $"SELECT * FROM {DbTable.F_PRODUCT_MATERIAL_NAME}  WHERE " +
                 $"{DbTable.F_PRODUCT_MATERIAL.TYPE_NO} = '{productTypeNo}' AND " +
                 $"{DbTable.F_PRODUCT_MATERIAL.MATERIAL_CODE} = '{materialPN}'";
+            LogHelper.Log.Info("【物料号防错】SQL =" + selectSQL);
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
-            if (dt.Rows.Count == 1)
+            if (dt.Rows.Count > 0)
             {
                 //传入物料号存在，且要防错的物料号与实际扫描物料号相同
                 //当扫描的物料号相同，但为新的一箱时，判断是否可以扫描新的一箱
@@ -143,60 +144,69 @@ namespace MesWcfService.MessageQueue.RemoteClient
 
                 //检查传入编码是否已经存在，已经存在了就直接返回，不需要再次判断
                 //如果不存在，则为新扫描的同种物料的不同条码，需要判断已经存在的同种条码是否还有未使用完的，有就返回6
-                if (IsExistMaterial(materialCode))
-                {   //第二次之后扫描相同编码，存在-返回
-                    //新增防错：当之后扫描已经入库的物料时，如果该物料已经使用完成，则返回其他代码，因为继续使用没有意义
-                    var materialState = SelectCurrentMaterialState(materialCode);
-                    if (materialState == "2" || materialState == "3")
-                        return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.STATUS_CURRENT_MATERIAL_AMOUNT_END_OF_USE);
-                    return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
-                }
-                else
-                {
-                    //根据PN号查询是否有入库记录
-                    if (!IsExistMaterialCodePN(materialPN))
-                    {
-                        //没有入库记录，则为第一次入库，返回
-                        if (!IsExistMaterial(materialCode))
-                        {
-                            return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
-                        }
-                    }
-                    else
-                    {
-                        //有入库记录，则查询是否有使用记录
+                #region 判断物料的具体状态
+                //if (IsExistMaterial(materialCode))
+                //{   //第二次之后扫描相同编码，存在-返回
+                //    //新增防错：当之后扫描已经入库的物料时，如果该物料已经使用完成，则返回其他代码，因为继续使用没有意义
+                //    var materialState = SelectCurrentMaterialState(materialCode);
+                //    if (materialState == "2" || materialState == "3")
+                //        return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.STATUS_CURRENT_MATERIAL_AMOUNT_END_OF_USE);
+                //    return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
+                //}
+                //else
+                //{
+                //    //根据PN号查询是否有入库记录
+                //    if (!IsExistMaterialCodePN(materialPN))
+                //    {
+                //        //没有入库记录，则为第一次入库，返回
+                //        if (!IsExistMaterial(materialCode))
+                //        {
+                //            return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
+                //        }
 
-                        if (!IsExistStatistic(productTypeNo, materialPN))
-                        {
-                            //如果没有统计记录，则说明都是入库了没有使用，返回正常即可
-                            return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
-                        }
-                        else
-                        {
-                            //如果有统计记录，说明某一箱已经使用了，在判断这一箱是否使用完即可
-                            var cStateRes = CheckMaterialUseState(productTypeNo, materialCode);
-                            LogHelper.Log.Info("【物料号防错】cStateRes="+cStateRes);
-                            if (ConvertCheckMaterialStateCode(MaterialStateReturnCode.STATUS_USING) == cStateRes)
-                            {
-                                //物料未使用完，不能扫描新的同种物料
-                                //2019/11/14 10：12 已修改为可以继续扫描新的同种物料
-                                LogHelper.Log.Info("【物料号防错】旧物料未使用完，可以扫描新物料 "+MaterialCheckMatchReturnCode.STATUS_LAST_MATERIAL_PN_IS_NOT_USED_UP.ToString());
-                                return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
-                            }
-                            else if (ConvertCheckMaterialStateCode(MaterialStateReturnCode.STATUS_OTHER_COMPLETE) == cStateRes)
-                            {
-                                return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
-                            }
-                            else
-                            {
-                                LogHelper.Log.Info("【物料号匹配其他情况】"); 
-                            }
-                        }
-                    }
-                }
+                //    }
+                //    else
+                //    {
+                //        //有入库记录，则查询是否有使用记录
+
+                //        if (!IsExistStatistic(productTypeNo, materialPN))
+                //        {
+                //            //如果没有统计记录，则说明都是入库了没有使用，返回正常即可
+                //            return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
+                //        }
+                //        else
+                //        {
+                //            return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
+                //            //如果有统计记录，说明某一箱已经使用了，在判断这一箱是否使用完即可
+                //            //var cStateRes = CheckMaterialUseState(productTypeNo, materialCode);
+                //            //LogHelper.Log.Info("【物料号防错】cStateRes=" + cStateRes);
+                //            //if (ConvertCheckMaterialStateCode(MaterialStateReturnCode.STATUS_USING) == cStateRes)
+                //            //{
+                //            //    //物料未使用完，不能扫描新的同种物料
+                //            //    //2019/11/14 10：12 已修改为可以继续扫描新的同种物料
+                //            //    LogHelper.Log.Info("【物料号防错】旧物料未使用完，可以扫描新物料 " + MaterialCheckMatchReturnCode.STATUS_LAST_MATERIAL_PN_IS_NOT_USED_UP.ToString());
+                //            //    return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
+                //            //}
+                //            //else if (ConvertCheckMaterialStateCode(MaterialStateReturnCode.STATUS_OTHER_COMPLETE) == cStateRes)
+                //            //{
+                //            //    return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
+                //            //}
+                //            //else
+                //            //{
+                //            //    LogHelper.Log.Info("【物料号匹配其他情况】");
+                //            //}
+                //        }
+                //    }
+                //}
+                #endregion
+
+                return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_MATCH);
             }
-            LogHelper.Log.Info("【物料号防错】不匹配");
-            return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_NOT_MATCH);
+            else
+            {
+                LogHelper.Log.Info("【物料号防错】该料号未绑定此产品 0X00 =" + selectSQL);
+                return ConvertCheckMaterialMatch(MaterialCheckMatchReturnCode.IS_NOT_MATCH);
+            }
         }
 
         private static string SelectCurrentMaterialState(string materialCode)
@@ -422,10 +432,18 @@ namespace MesWcfService.MessageQueue.RemoteClient
 
                 #endregion
 
+                //没有入库，不能传入使用数量，前面已经判断过，此处再次判断，防止前后判断的物料与使用时的物料不一致
+                if (!IsPutInStorage(materialCode))
+                    return ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.STATUS_NOT_PUT_IN);
+                if (amounted != "1")
+                {
+                    LogHelper.Log.Info($"【更新物料统计】传入物料数量不为1,amounted={amounted} materialCode={materialCode}");
+                }
                 int row = 0;
                 if (!IsExistMaterialData(array))
                 {
                     //插入
+                    LogHelper.Log.Info($"【更新物料统计】不存在--插入数据 materialCode={materialCode} pcbaSN={pcbaSN} ");
                     row = SQLServer.ExecuteNonQuery(insertSQL);
                     if (row > 0)
                     {
@@ -451,29 +469,45 @@ namespace MesWcfService.MessageQueue.RemoteClient
                             }
                         }
                     }
-                    LogHelper.Log.Error("【更新物料统计-插入失败】"+insertSQL);
+                    LogHelper.Log.Error("【更新物料统计-插入失败】" + insertSQL);
                     return ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.STATUS_FAIL);
                 }
-
-                //更新物料统计
-                //int originNum = SelectLastInsertAmount(productTypeNo, stationName, materialCode);
-                var mRes = UpdateMaterialStatisticAmounted(pcbaSN,productTypeNo,stationName,materialCode,int.Parse(amounted));
-                var uRes = UpdateMaterialAmounted(materialCode, int.Parse(amounted));//更新计数
-                var sRes = UpdateMaterialState(materialCode);//更新状态
-                UpdateCurrentMaterialRemain(materialCode, productTypeNo, stationName, pcbaSN);
-                if (uRes > 0 && sRes > 0 && mRes > 0)
+                else
                 {
-                    //更新物料使用数量成功
-                    LogHelper.Log.Info($"【物料计数统计-更新成功】materialCode={materialCode} pcbaSN={pcbaSN}");
-                    return ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.STATUS_USCCESS);
+                    LogHelper.Log.Info($"【更新物料统计】已存在--更新数据 materialCode={materialCode} pcbaSN={pcbaSN} ");
+                    //更新物料统计
+                    //int originNum = SelectLastInsertAmount(productTypeNo, stationName, materialCode);
+                    var mRes = UpdateMaterialStatisticAmounted(pcbaSN, productTypeNo, stationName, materialCode, int.Parse(amounted));
+                    var uRes = UpdateMaterialAmounted(materialCode, int.Parse(amounted));//更新计数
+                    var sRes = UpdateMaterialState(materialCode);//更新状态
+                    UpdateCurrentMaterialRemain(materialCode, productTypeNo, stationName, pcbaSN);
+                    if (uRes > 0 && sRes > 0 && mRes > 0)
+                    {
+                        //更新物料使用数量成功
+                        LogHelper.Log.Info($"【物料计数统计-更新成功】materialCode={materialCode} pcbaSN={pcbaSN}");
+                        return ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.STATUS_USCCESS);
+                    }
+                    return ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.STATUS_FAIL);
                 }
-                return ConvertMaterialStatisticsCode(MaterialStatisticsReturnCode.STATUS_FAIL);
             }
             catch (Exception ex)
             {
                 LogHelper.Log.Error(ex.Message);
                 return "ERROR";
             }
+        }
+
+        private static bool IsPutInStorage(string materialCode)
+        {
+            var selectSQL = $"SELECT {DbTable.F_Material.MATERIAL_STATE} FROM " +
+                $"{DbTable.F_MATERIAL_NAME} WHERE {DbTable.F_Material.MATERIAL_CODE} = '{materialCode}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                //查询有记录，已经入过库
+                return true;
+            }
+            return false;
         }
 
         private static bool IsExistMaterialData(string[] array)
@@ -516,7 +550,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 $"{DbTable.F_Material.MATERIAL_AMOUNTED} += '{amounted}' " +
                 $"WHERE " +
                 $"{DbTable.F_Material.MATERIAL_CODE} = '{materialCode}'";
-            LogHelper.Log.Info("【更新物料使用总数量】"+updateSQL);
+            LogHelper.Log.Info($"【更新物料使用总数量】amounted={amounted} " + updateSQL);
             return SQLServer.ExecuteNonQuery(updateSQL);
         }
 
@@ -550,12 +584,14 @@ namespace MesWcfService.MessageQueue.RemoteClient
             {
                 var stock = int.Parse(dt.Rows[0][0].ToString());
                 var amounted = int.Parse(dt.Rows[0][1].ToString());
+                LogHelper.Log.Info($"【更新物料状态】stock={stock} amounted={amounted}");
                 if (stock <= amounted)
                 {
                     //物料已使用完，更新状态为2
                     var updateSQL = $"UPDATE {DbTable.F_MATERIAL_NAME} SET " +
                         $"{DbTable.F_Material.MATERIAL_STATE} = '2' WHERE " +
                         $"{DbTable.F_Material.MATERIAL_CODE} = '{materialCode}'";
+                    LogHelper.Log.Info($"【更新物料状态】物料已使用完成-更新状态为2");
                     return  SQLServer.ExecuteNonQuery(updateSQL);
                 }
                 return 1;

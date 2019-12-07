@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://192.168.13.240:8086/MesService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://192.168.0.104:8086/MesService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="TestCommunication">
     <xs:complexType>
       <xs:sequence>
@@ -59,6 +59,7 @@
         <xs:element minOccurs="0" name="amounted" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="teamLeader" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="admin" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sn" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -118,6 +119,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="productTypeNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="testMaterialPn" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="actualMaterialPn" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="materialCode" nillable="true" type="xs:string" />
       </xs:sequence>

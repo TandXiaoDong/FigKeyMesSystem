@@ -213,6 +213,9 @@ namespace MesAPI
         [OperationContract]
         DataSet SelectTestResultDetail(string querySN);
 
+        //[OperationContract]
+        //DataSet SelectTestResultDetail(string querySN, int startIndex, int dCount, bool IsQueryLatest);
+
         [OperationContract]
         DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime);
 

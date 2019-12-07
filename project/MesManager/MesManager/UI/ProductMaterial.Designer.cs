@@ -102,7 +102,6 @@
             this.radDock1.Location = new System.Drawing.Point(0, 0);
             this.radDock1.MainDocumentContainer = this.documentContainer1;
             this.radDock1.Name = "radDock1";
-            this.radDock1.Padding = new System.Windows.Forms.Padding(0);
             // 
             // 
             // 
@@ -117,10 +116,10 @@
             this.dw_materialBind.Controls.Add(this.radGridViewBind);
             this.dw_materialBind.Controls.Add(this.toolStrip3);
             this.dw_materialBind.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dw_materialBind.Location = new System.Drawing.Point(5, 27);
+            this.dw_materialBind.Location = new System.Drawing.Point(6, 29);
             this.dw_materialBind.Name = "dw_materialBind";
             this.dw_materialBind.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dw_materialBind.Size = new System.Drawing.Size(1266, 692);
+            this.dw_materialBind.Size = new System.Drawing.Size(1254, 679);
             this.dw_materialBind.Text = "物料绑定";
             // 
             // radGridViewBind
@@ -167,7 +166,7 @@
             this.radGridViewBind.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridViewBind.Name = "radGridViewBind";
             this.radGridViewBind.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.radGridViewBind.Size = new System.Drawing.Size(1266, 663);
+            this.radGridViewBind.Size = new System.Drawing.Size(1254, 650);
             this.radGridViewBind.TabIndex = 19;
             this.radGridViewBind.ThemeName = "Breeze";
             // 
@@ -185,7 +184,7 @@
             this.tool_bind_query});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(1266, 29);
+            this.toolStrip3.Size = new System.Drawing.Size(1254, 29);
             this.toolStrip3.TabIndex = 18;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -279,7 +278,7 @@
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
             this.documentTabStrip1.SelectedIndex = 1;
-            this.documentTabStrip1.Size = new System.Drawing.Size(1276, 724);
+            this.documentTabStrip1.Size = new System.Drawing.Size(1266, 714);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
             this.documentTabStrip1.ThemeName = "Breeze";
@@ -329,7 +328,6 @@
             this.splitPanel1.TabIndex = 0;
             this.splitPanel1.TabStop = false;
             this.splitPanel1.Text = "splitPanel1";
-            this.splitPanel1.ThemeName = "Breeze";
             // 
             // radGridViewStock
             // 
@@ -360,7 +358,6 @@
             this.splitPanel2.TabIndex = 1;
             this.splitPanel2.TabStop = false;
             this.splitPanel2.Text = "splitPanel2";
-            this.splitPanel2.ThemeName = "Breeze";
             // 
             // radGridViewStockOut
             // 

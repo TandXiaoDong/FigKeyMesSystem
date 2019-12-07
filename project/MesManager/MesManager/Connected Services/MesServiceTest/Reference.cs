@@ -34,10 +34,10 @@ namespace MesManager.MesServiceTest {
         System.Threading.Tasks.Task<string[]> SelectLastTestResultAsync(string sn, string station);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateMaterialStatistics", ReplyAction="http://tempuri.org/IMesService/UpdateMaterialStatisticsResponse")]
-        string UpdateMaterialStatistics(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin);
+        string UpdateMaterialStatistics(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin, string sn);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateMaterialStatistics", ReplyAction="http://tempuri.org/IMesService/UpdateMaterialStatisticsResponse")]
-        System.Threading.Tasks.Task<string> UpdateMaterialStatisticsAsync(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin);
+        System.Threading.Tasks.Task<string> UpdateMaterialStatisticsAsync(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin, string sn);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CheckMaterialPutStorage", ReplyAction="http://tempuri.org/IMesService/CheckMaterialPutStorageResponse")]
         string CheckMaterialPutStorage(string materialCode, string teamLeader, string admin);
@@ -58,10 +58,10 @@ namespace MesManager.MesServiceTest {
         System.Threading.Tasks.Task<string> CheckMaterialUseStateAsync(string productTypeNo, string materialCode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CheckMaterialMatch", ReplyAction="http://tempuri.org/IMesService/CheckMaterialMatchResponse")]
-        string CheckMaterialMatch(string productTypeNo, string actualMaterialPn, string materialCode);
+        string CheckMaterialMatch(string productTypeNo, string testMaterialPn, string actualMaterialPn, string materialCode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CheckMaterialMatch", ReplyAction="http://tempuri.org/IMesService/CheckMaterialMatchResponse")]
-        System.Threading.Tasks.Task<string> CheckMaterialMatchAsync(string productTypeNo, string actualMaterialPn, string materialCode);
+        System.Threading.Tasks.Task<string> CheckMaterialMatchAsync(string productTypeNo, string testMaterialPn, string actualMaterialPn, string materialCode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePackageProductBindingMsg", ReplyAction="http://tempuri.org/IMesService/UpdatePackageProductBindingMsgResponse")]
         string[] UpdatePackageProductBindingMsg(string outCaseCode, string snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin);
@@ -253,12 +253,12 @@ namespace MesManager.MesServiceTest {
             return base.Channel.SelectLastTestResultAsync(sn, station);
         }
         
-        public string UpdateMaterialStatistics(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin) {
-            return base.Channel.UpdateMaterialStatistics(typeNo, stationName, materialCode, amounted, teamLeader, admin);
+        public string UpdateMaterialStatistics(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin, string sn) {
+            return base.Channel.UpdateMaterialStatistics(typeNo, stationName, materialCode, amounted, teamLeader, admin, sn);
         }
         
-        public System.Threading.Tasks.Task<string> UpdateMaterialStatisticsAsync(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin) {
-            return base.Channel.UpdateMaterialStatisticsAsync(typeNo, stationName, materialCode, amounted, teamLeader, admin);
+        public System.Threading.Tasks.Task<string> UpdateMaterialStatisticsAsync(string typeNo, string stationName, string materialCode, string amounted, string teamLeader, string admin, string sn) {
+            return base.Channel.UpdateMaterialStatisticsAsync(typeNo, stationName, materialCode, amounted, teamLeader, admin, sn);
         }
         
         public string CheckMaterialPutStorage(string materialCode, string teamLeader, string admin) {
@@ -285,12 +285,12 @@ namespace MesManager.MesServiceTest {
             return base.Channel.CheckMaterialUseStateAsync(productTypeNo, materialCode);
         }
         
-        public string CheckMaterialMatch(string productTypeNo, string actualMaterialPn, string materialCode) {
-            return base.Channel.CheckMaterialMatch(productTypeNo, actualMaterialPn, materialCode);
+        public string CheckMaterialMatch(string productTypeNo, string testMaterialPn, string actualMaterialPn, string materialCode) {
+            return base.Channel.CheckMaterialMatch(productTypeNo, testMaterialPn, actualMaterialPn, materialCode);
         }
         
-        public System.Threading.Tasks.Task<string> CheckMaterialMatchAsync(string productTypeNo, string actualMaterialPn, string materialCode) {
-            return base.Channel.CheckMaterialMatchAsync(productTypeNo, actualMaterialPn, materialCode);
+        public System.Threading.Tasks.Task<string> CheckMaterialMatchAsync(string productTypeNo, string testMaterialPn, string actualMaterialPn, string materialCode) {
+            return base.Channel.CheckMaterialMatchAsync(productTypeNo, testMaterialPn, actualMaterialPn, materialCode);
         }
         
         public string[] UpdatePackageProductBindingMsg(string outCaseCode, string snOutter, string typeNo, string stationName, string bindingState, string remark, string teamLeader, string admin) {
