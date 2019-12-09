@@ -496,17 +496,14 @@ namespace MesManager.UI
         {
             var filter = tb_sn.Text;
             //DataSet ds = (await serviceClient.SelectTestResultUpperAsync(filter, filter, filter, true));
-            LogHelper.Log.Info("开始查询");
             DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter);
-            LogHelper.Log.Info("开始完毕");
-            DataTable dt = ds.Tables[0];
-            this.radGridViewSn.BeginEdit();
             this.radGridViewSn.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridViewSn.BeginEdit();
+            DataTable dt = ds.Tables[0];
             this.radGridViewSn.DataSource = null;
             this.radGridViewSn.DataSource = dt;
             this.radGridViewSn.EndEdit();
             this.radGridViewSn.BestFitColumns();
-            LogHelper.Log.Info("显示完成");
         }
 
         async private void SelectOfPackage(string state)
@@ -669,9 +666,11 @@ namespace MesManager.UI
             //物料信息表
             //物料编码+物料名称+所属型号+在哪个工序/站位消耗+该位置消耗数量
             var ds = await serviceClient.SelectMaterialBasicMsgAsync(this.tb_material.Text);
-            this.radGridViewMaterial.DataSource = ds.Tables[0];
-            //this.radGridViewMaterial.Columns[0].BestFit();
             this.radGridViewMaterial.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridViewMaterial.BeginEdit();
+            this.radGridViewMaterial.DataSource = ds.Tables[0];
+            this.radGridViewMaterial.EndEdit();
+            //this.radGridViewMaterial.Columns[0].BestFit();
             this.radGridViewMaterial.BestFitColumns();
         }
 

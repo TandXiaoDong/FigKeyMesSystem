@@ -436,6 +436,12 @@
     <Compile Include="UI\SearchForm.Designer.cs">
       <DependentUpon>SearchForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SearchProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SearchProduct.designer.cs">
+      <DependentUpon>SearchProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SNCenter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -565,6 +571,9 @@
     <EmbeddedResource Include="UI\SearchForm.resx">
       <DependentUpon>SearchForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\SearchProduct.resx">
+      <DependentUpon>SearchProduct.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\SNCenter.resx">
       <DependentUpon>SNCenter.cs</DependentUpon>
     </EmbeddedResource>
@@ -621,20 +630,20 @@
     <None Include="Connected Services\MesService\MesManager.MesService.Station.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\MesService\MesService.wsdl" />
-    <None Include="Connected Services\MesService\MesService.xsd">
+    <None Include="Connected Services\MesService\MesService1.wsdl" />
+    <None Include="Connected Services\MesService\MesService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService1.xsd">
+    <None Include="Connected Services\MesService\MesService51.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService2.xsd">
+    <None Include="Connected Services\MesService\MesService52.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService3.xsd">
+    <None Include="Connected Services\MesService\MesService53.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService4.xsd">
+    <None Include="Connected Services\MesService\MesService54.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -655,7 +664,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MesService\MesService.disco" />
+    <None Include="Connected Services\MesService\configuration91.svcinfo" />
+    <None Include="Connected Services\MesService\configuration.svcinfo" />
+    <None Include="Connected Services\MesService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\MesService\MesService1.disco" />
     <None Include="Connected Services\MesServiceTest\MesService1.disco" />
     <Content Include="MES修改设计.txt" />
     <Content Include="需求总结.txt" />
@@ -676,12 +691,6 @@
     <None Include="Resources\����-01.jpg" />
     <None Include="Resources\GenericShareFolder_128x128.png" />
     <None Include="Resources\GenericShareFolder_24x24.png" />
-    <None Include="Connected Services\MesService\configuration91.svcinfo" />
-    <None Include="Connected Services\MesService\configuration.svcinfo" />
-    <None Include="Connected Services\MesService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="GenericShareFolder.ico" />
     <Content Include="License-LGPL.txt" />
     <None Include="Resources\update.png" />

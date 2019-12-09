@@ -57,7 +57,6 @@ namespace UnBindProduct
             if (stationName == "")
                 return;
             string[] result = serviceClient.UpdatePackageProductBindingMsg(caseSN, productSN, productTypeNo, stationName, state.ToString(), "单独修改", "wtsys", "wtsys");
-            MessageBox.Show(result[0]);
             if (result[0] == "0X03")
             {
                 MessageBox.Show("解除绑定成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);

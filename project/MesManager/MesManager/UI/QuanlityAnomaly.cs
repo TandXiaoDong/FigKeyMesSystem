@@ -54,6 +54,47 @@ namespace MesManager.UI
             this.btn_allApply.Click += Btn_allApply_Click;
             this.btn_cancel.Click += Btn_cancel_Click;
             this.btn_repaireComplete.Click += Btn_repaireComplete_Click;
+            this.btn_bing.Click += Btn_bing_Click;
+            this.btn_unbind.Click += Btn_unbind_Click;
+            this.cb_typeNo.SelectedIndexChanged += Cb_typeNo_SelectedIndexChanged;
+            this.btn_searchCaseMsg.Click += Btn_searchCaseMsg_Click;
+            this.radDock1.ActiveWindow = this.dw_pcba;
+        }
+
+        private void Btn_searchCaseMsg_Click(object sender, EventArgs e)
+        {
+            SearchProduct searchProduct = new SearchProduct();
+            if (searchProduct.ShowDialog() == DialogResult.OK)
+            {
+                this.tb_caseSN.Text = SearchProduct.currentCaseSN;
+                this.tb_productSN.Text = SearchProduct.currentProductSN;
+            }
+        }
+
+        async private void Cb_typeNo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var currentTypeNo = this.cb_typeNo.Text;
+            if (currentTypeNo == "")
+                return;
+            var stationArray = await serviceClientTest.SelectStationListAsync(currentTypeNo);
+            this.cb_stationName.EditorControl.Rows.Clear();
+            foreach (var station in stationArray)
+            {
+                this.cb_stationName.EditorControl.Rows.Add(station);
+            }
+            this.cb_stationName.EditorControl.ShowColumnHeaders = false;
+            this.cb_stationName.BestFitColumns();
+            this.cb_stationName.Text = "";
+        }
+
+        private void Btn_unbind_Click(object sender, EventArgs e)
+        {
+            UpdateBindState(0);
+        }
+
+        private void Btn_bing_Click(object sender, EventArgs e)
+        {
+            UpdateBindState(1);
         }
 
         private void Btn_allApply_Click(object sender, EventArgs e)
@@ -104,7 +145,6 @@ namespace MesManager.UI
 
         async private void QueryPcbaMsg()
         {
-            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             var dt = (await serviceClientTest.QueryPCBAMesAsync(this.tb_pcbasn.Text)).Tables[0];
             this.radGridView1.BeginEdit();
             DataGridViewCommon.SetRadGridViewProperty(this.radGridView1, false);
@@ -123,6 +163,7 @@ namespace MesManager.UI
                     rowInfo.Cells[7].Style.ForeColor = Color.PaleVioletRed;
             }
             this.radGridView1.EndEdit();
+            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridView1.BestFitColumns();
         }
 
@@ -168,6 +209,19 @@ namespace MesManager.UI
             }
             this.cb_materialCode.AutoCompleteSource = AutoCompleteSource.ListItems;
             this.cb_materialCode.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+
+            //productTypeNo
+            var productTypeNoList = await serviceClientTest.SelectAllTProcessAsync();
+            this.cb_typeNo.MultiColumnComboBoxElement.Columns.Add("typeNo");
+            foreach (var typeNo in productTypeNoList)
+            {
+                this.cb_typeNo.EditorControl.Rows.Add(typeNo);
+            }
+            this.cb_typeNo.EditorControl.ShowColumnHeaders = false;
+            this.cb_typeNo.BestFitColumns();
+            this.cb_typeNo.Text = "";
+
+            this.cb_stationName.MultiColumnComboBoxElement.Columns.Add("stationName");
         }
 
         async private void CommitQuanlityData(List<string> materialCodeList,MaterialStateMentType stateMentType)
@@ -428,6 +482,109 @@ namespace MesManager.UI
             SearchForm searchForm = new SearchForm();
             searchForm.ShowDialog();
             this.cb_materialCode.Text = SearchForm.currentMaterialCode;
+        }
+
+        private void UpdateBindState(int state)
+        {
+            var caseSN = this.tb_caseSN.Text;
+            var productSN = this.tb_productSN.Text;
+            var productTypeNo = this.cb_typeNo.Text;
+            var stationName = this.cb_stationName.Text;
+            var remark = this.tb_remark.Text;
+            if (caseSN == "")
+            {
+                MessageBox.Show("箱子SN不能为空！","Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
+            if (productSN == "")
+            {
+                MessageBox.Show("产品SN不能为空！", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (productTypeNo == "")
+            {
+                MessageBox.Show("产品型号不能为空！", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (stationName == "")
+            {
+                MessageBox.Show("工站名称不能为空！", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string[] result = serviceClientTest.UpdatePackageProductBindingMsg(caseSN, productSN, productTypeNo, stationName, state.ToString(), remark, MESMainForm.currentUser,MESMainForm.currentUser);
+
+            if (result[0] == "0X01")
+            {
+                MessageBox.Show("该箱子已放满！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (result[0] == "0X02")
+            {
+                MessageBox.Show($"该产品已绑定箱子{result[1]}！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (result[0] == "0X03")
+            {
+                if (state == 0)
+                {
+                    MessageBox.Show("解绑成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if(state == 1)
+                {
+                    MessageBox.Show("已存在绑定记录！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (result[0] == "0X04")
+            {
+                //已经存在绑定记录，更新失败
+            }
+            else if (result[0] == "0X05")
+            {
+                //不存在绑定记录--解除绑定--更新成功
+                MessageBox.Show("已解除绑定，更新成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (result[0] == "0X06")
+            {
+                //不存在绑定记录--解除绑定--更新失败
+            }
+            else if (result[0] == "0X07")
+            {
+                MessageBox.Show("重新绑定成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (result[0] == "0X08")
+            {
+                MessageBox.Show("重新绑定失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (result[0] == "0X09")
+            {
+                MessageBox.Show("绑定成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (result[0] == "0X10")
+            {
+                MessageBox.Show("绑定失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (result[0] == "0X11")
+            {
+
+            }
+            else if (result[0] == "0X12")
+            {
+
+            }
+            else if (result[0] == "0X13")
+            {
+
+            }
+            else if (result[0] == "0X14")
+            {
+
+            }
+            else if (result[0] == "0X15")
+            {
+
+            }
+            else if (result[0] == "0X16")
+            {
+
+            }
         }
     }
 }
