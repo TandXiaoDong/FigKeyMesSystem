@@ -729,10 +729,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<System.Data.DataSet> SelectPackageStorageAsync(string queryFilter);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultDetail", ReplyAction="http://tempuri.org/IMesService/SelectTestResultDetailResponse")]
-        System.Data.DataSet SelectTestResultDetail(string querySN);
+        System.Data.DataSet SelectTestResultDetail(string querySN, int pageNumber, int pageSize, bool IsQueryLatest);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultDetail", ReplyAction="http://tempuri.org/IMesService/SelectTestResultDetailResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> SelectTestResultDetailAsync(string querySN);
+        System.Threading.Tasks.Task<System.Data.DataSet> SelectTestResultDetailAsync(string querySN, int pageNumber, int pageSize, bool IsQueryLatest);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultLogDetail", ReplyAction="http://tempuri.org/IMesService/SelectTestResultLogDetailResponse")]
         System.Data.DataSet SelectTestResultLogDetail(string queryFilter, string startTime, string endTime);
@@ -1270,12 +1270,12 @@ namespace MesManager.MesService {
             return base.Channel.SelectPackageStorageAsync(queryFilter);
         }
         
-        public System.Data.DataSet SelectTestResultDetail(string querySN) {
-            return base.Channel.SelectTestResultDetail(querySN);
+        public System.Data.DataSet SelectTestResultDetail(string querySN, int pageNumber, int pageSize, bool IsQueryLatest) {
+            return base.Channel.SelectTestResultDetail(querySN, pageNumber, pageSize, IsQueryLatest);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> SelectTestResultDetailAsync(string querySN) {
-            return base.Channel.SelectTestResultDetailAsync(querySN);
+        public System.Threading.Tasks.Task<System.Data.DataSet> SelectTestResultDetailAsync(string querySN, int pageNumber, int pageSize, bool IsQueryLatest) {
+            return base.Channel.SelectTestResultDetailAsync(querySN, pageNumber, pageSize, IsQueryLatest);
         }
         
         public System.Data.DataSet SelectTestResultLogDetail(string queryFilter, string startTime, string endTime) {

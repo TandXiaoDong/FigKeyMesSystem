@@ -496,12 +496,15 @@ namespace MesManager.UI
         {
             var filter = tb_sn.Text;
             //DataSet ds = (await serviceClient.SelectTestResultUpperAsync(filter, filter, filter, true));
-            DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter);
+            DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter,1,50,true);
             this.radGridViewSn.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridViewSn.BeginEdit();
             DataTable dt = ds.Tables[0];
             this.radGridViewSn.DataSource = null;
             this.radGridViewSn.DataSource = dt;
+
+            bindingSource1.DataSource = dt;
+            this.radBindingNavigator1.BindingSource = bindingSource1;
             this.radGridViewSn.EndEdit();
             this.radGridViewSn.BestFitColumns();
         }
@@ -677,11 +680,18 @@ namespace MesManager.UI
         private void Btn_selectOfSn_Click(object sender, EventArgs e)
         {
             SelectOfSn();
+            //BindNavigator();
         }
 
         private void Btn_selectOfPackage_Click(object sender, EventArgs e)
         {
             SelectOfPackage("1");
+        }
+
+        private void BindNavigator()
+        {
+            bindingSource1.DataSource = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            this.radBindingNavigator1.BindingSource = bindingSource1;
         }
     }
 }
