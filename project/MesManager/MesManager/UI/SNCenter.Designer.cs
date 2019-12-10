@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SNCenter));
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition3 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition4 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition5 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition16 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition17 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition18 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition19 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition20 = new Telerik.WinControls.UI.TableViewDefinition();
             this.chamferedRectShape1 = new Telerik.WinControls.ChamferedRectShape();
             this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
             this.menu_sn_result = new Telerik.WinControls.UI.RadMenuItem();
@@ -43,36 +43,33 @@
             this.menu_productCheck = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_quanlity = new Telerik.WinControls.UI.RadMenuItem();
             this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
-            this.radBindingNavigator1 = new Telerik.WinControls.UI.RadBindingNavigator();
-            this.radBindingNavigator1RowElement = new Telerik.WinControls.UI.CommandBarRowElement();
-            this.radBindingNavigator1FirstStrip = new Telerik.WinControls.UI.CommandBarStripElement();
-            this.radBindingNavigator1MoveFirstItem = new Telerik.WinControls.UI.CommandBarButton();
-            this.radBindingNavigator1MovePreviousItem = new Telerik.WinControls.UI.CommandBarButton();
-            this.radBindingNavigator1PositionItem = new Telerik.WinControls.UI.CommandBarTextBox();
-            this.radBindingNavigator1CountItem = new Telerik.WinControls.UI.CommandBarLabel();
-            this.radBindingNavigator1MoveNextItem = new Telerik.WinControls.UI.CommandBarButton();
-            this.radBindingNavigator1MoveLastItem = new Telerik.WinControls.UI.CommandBarButton();
-            this.commandBarSeparator1 = new Telerik.WinControls.UI.CommandBarSeparator();
-            this.commandBarSeparator2 = new Telerik.WinControls.UI.CommandBarSeparator();
-            this.commandBarSeparator3 = new Telerik.WinControls.UI.CommandBarSeparator();
-            this.commandBarSeparator4 = new Telerik.WinControls.UI.CommandBarSeparator();
-            this.radBindingNavigator1SecondStrip = new Telerik.WinControls.UI.CommandBarStripElement();
-            this.radBindingNavigator1AddNewItem = new Telerik.WinControls.UI.CommandBarButton();
-            this.radBindingNavigator1DeleteItem = new Telerik.WinControls.UI.CommandBarButton();
-            this.commandBarSeparator5 = new Telerik.WinControls.UI.CommandBarSeparator();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
+            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
+            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
+            this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.radDock1 = new Telerik.WinControls.UI.Docking.RadDock();
-            this.documentWindow1 = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.panel_sn = new System.Windows.Forms.Panel();
-            this.radGridViewSn = new Telerik.WinControls.UI.RadGridView();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.tb_sn = new System.Windows.Forms.ToolStripComboBox();
-            this.btn_selectOfSn = new System.Windows.Forms.ToolStripButton();
-            this.tool_SNClearDB = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
-            this.tool_sn_exportFilter = new System.Windows.Forms.ToolStripComboBox();
-            this.tool_sn_export = new System.Windows.Forms.ToolStripButton();
+            this.documentWindow2 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.panel_package = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.radGridViewPackage = new Telerik.WinControls.UI.RadGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.tb_package = new System.Windows.Forms.ToolStripComboBox();
+            this.btn_selectOfPackage = new System.Windows.Forms.ToolStripButton();
+            this.tool_packageClearDB = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel6 = new System.Windows.Forms.ToolStripLabel();
+            this.tool_package_exportFilter = new System.Windows.Forms.ToolStripComboBox();
+            this.tool_package_export = new System.Windows.Forms.ToolStripButton();
             this.documentContainer2 = new Telerik.WinControls.UI.Docking.DocumentContainer();
             this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
             this.documentWindow5 = new Telerik.WinControls.UI.Docking.DocumentWindow();
@@ -111,30 +108,31 @@
             this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
             this.tool_material_exportFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tool_material_export = new System.Windows.Forms.ToolStripButton();
-            this.documentWindow2 = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.panel_package = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.radGridViewPackage = new Telerik.WinControls.UI.RadGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.tb_package = new System.Windows.Forms.ToolStripComboBox();
-            this.btn_selectOfPackage = new System.Windows.Forms.ToolStripButton();
-            this.tool_packageClearDB = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel6 = new System.Windows.Forms.ToolStripLabel();
-            this.tool_package_exportFilter = new System.Windows.Forms.ToolStripComboBox();
-            this.tool_package_export = new System.Windows.Forms.ToolStripButton();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.documentWindow1 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.panel_sn = new System.Windows.Forms.Panel();
+            this.radGridViewSn = new Telerik.WinControls.UI.RadGridView();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.tb_sn = new System.Windows.Forms.ToolStripComboBox();
+            this.btn_selectOfSn = new System.Windows.Forms.ToolStripButton();
+            this.tool_SNClearDB = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
+            this.tool_sn_exportFilter = new System.Windows.Forms.ToolStripComboBox();
+            this.tool_sn_export = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radBindingNavigator1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
+            this.bindingNavigator1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
-            this.documentWindow1.SuspendLayout();
-            this.panel_sn.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSn)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSn.MasterTemplate)).BeginInit();
-            this.panel4.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.documentWindow2.SuspendLayout();
+            this.panel_package.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewPackage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewPackage.MasterTemplate)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer2)).BeginInit();
             this.documentContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
@@ -157,14 +155,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewMaterial.MasterTemplate)).BeginInit();
             this.panel5.SuspendLayout();
             this.toolStrip3.SuspendLayout();
-            this.documentWindow2.SuspendLayout();
-            this.panel_package.SuspendLayout();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewPackage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewPackage.MasterTemplate)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.documentWindow1.SuspendLayout();
+            this.panel_sn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSn.MasterTemplate)).BeginInit();
+            this.panel4.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -232,271 +228,267 @@
             this.menu_quanlity.Name = "menu_quanlity";
             this.menu_quanlity.Text = "异常物料";
             // 
-            // radBindingNavigator1
+            // bindingNavigator1
             // 
-            this.radBindingNavigator1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.radBindingNavigator1.Location = new System.Drawing.Point(0, 698);
-            this.radBindingNavigator1.Name = "radBindingNavigator1";
-            this.radBindingNavigator1.Rows.AddRange(new Telerik.WinControls.UI.CommandBarRowElement[] {
-            this.radBindingNavigator1RowElement});
-            this.radBindingNavigator1.Size = new System.Drawing.Size(1274, 30);
-            this.radBindingNavigator1.TabIndex = 34;
-            this.radBindingNavigator1.ThemeName = "Breeze";
+            this.bindingNavigator1.AddNewItem = this.bindingNavigatorAddNewItem;
+            this.bindingNavigator1.CountItem = this.bindingNavigatorCountItem;
+            this.bindingNavigator1.DeleteItem = this.bindingNavigatorDeleteItem;
+            this.bindingNavigator1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bindingNavigator1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bindingNavigatorMoveFirstItem,
+            this.bindingNavigatorMovePreviousItem,
+            this.bindingNavigatorSeparator,
+            this.bindingNavigatorPositionItem,
+            this.bindingNavigatorCountItem,
+            this.bindingNavigatorSeparator1,
+            this.bindingNavigatorMoveNextItem,
+            this.bindingNavigatorMoveLastItem,
+            this.bindingNavigatorSeparator2,
+            this.bindingNavigatorAddNewItem,
+            this.bindingNavigatorDeleteItem});
+            this.bindingNavigator1.Location = new System.Drawing.Point(0, 703);
+            this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
+            this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
+            this.bindingNavigator1.MoveNextItem = this.bindingNavigatorMoveNextItem;
+            this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
+            this.bindingNavigator1.Name = "bindingNavigator1";
+            this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
+            this.bindingNavigator1.Size = new System.Drawing.Size(1274, 25);
+            this.bindingNavigator1.TabIndex = 36;
+            this.bindingNavigator1.Text = "bindingNavigator1";
             // 
-            // radBindingNavigator1RowElement
+            // bindingNavigatorMoveFirstItem
             // 
-            this.radBindingNavigator1RowElement.MinSize = new System.Drawing.Size(25, 25);
-            this.radBindingNavigator1RowElement.Name = "radBindingNavigator1RowElement";
-            this.radBindingNavigator1RowElement.Strips.AddRange(new Telerik.WinControls.UI.CommandBarStripElement[] {
-            this.radBindingNavigator1FirstStrip,
-            this.radBindingNavigator1SecondStrip});
+            this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
+            this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
+            this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveFirstItem.Text = "首页";
             // 
-            // radBindingNavigator1FirstStrip
+            // bindingNavigatorMovePreviousItem
             // 
-            this.radBindingNavigator1FirstStrip.DisplayName = "radBindingNavigator1FirstStrip";
-            this.radBindingNavigator1FirstStrip.EnableDragging = false;
+            this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
+            this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
+            this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMovePreviousItem.Text = "上一页";
             // 
+            // bindingNavigatorSeparator
             // 
+            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
             // 
-            this.radBindingNavigator1FirstStrip.Grip.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-            this.radBindingNavigator1FirstStrip.Items.AddRange(new Telerik.WinControls.UI.RadCommandBarBaseItem[] {
-            this.radBindingNavigator1MoveFirstItem,
-            this.commandBarSeparator1,
-            this.radBindingNavigator1MovePreviousItem,
-            this.commandBarSeparator2,
-            this.radBindingNavigator1PositionItem,
-            this.radBindingNavigator1CountItem,
-            this.commandBarSeparator3,
-            this.radBindingNavigator1MoveNextItem,
-            this.commandBarSeparator4,
-            this.radBindingNavigator1MoveLastItem});
-            this.radBindingNavigator1FirstStrip.MinSize = new System.Drawing.Size(0, 0);
+            // bindingNavigatorPositionItem
             // 
+            this.bindingNavigatorPositionItem.AccessibleName = "位置";
+            this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
+            this.bindingNavigatorPositionItem.Text = "0";
+            this.bindingNavigatorPositionItem.ToolTipText = "当前页";
             // 
+            // bindingNavigatorCountItem
             // 
-            this.radBindingNavigator1FirstStrip.OverflowButton.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
+            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.ToolTipText = "总页数";
             // 
-            // radBindingNavigator1MoveFirstItem
+            // bindingNavigatorSeparator1
             // 
-            this.radBindingNavigator1MoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("radBindingNavigator1MoveFirstItem.Image")));
-            this.radBindingNavigator1MoveFirstItem.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.radBindingNavigator1MoveFirstItem.Name = "radBindingNavigator1MoveFirstItem";
+            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // radBindingNavigator1MovePreviousItem
+            // bindingNavigatorMoveNextItem
             // 
-            this.radBindingNavigator1MovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("radBindingNavigator1MovePreviousItem.Image")));
-            this.radBindingNavigator1MovePreviousItem.Name = "radBindingNavigator1MovePreviousItem";
+            this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
+            this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
+            this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveNextItem.Text = "下一页";
+            this.bindingNavigatorMoveNextItem.ToolTipText = "下一页";
             // 
-            // radBindingNavigator1PositionItem
+            // bindingNavigatorMoveLastItem
             // 
-            this.radBindingNavigator1PositionItem.Name = "radBindingNavigator1PositionItem";
+            this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
+            this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
+            this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveLastItem.Text = "尾页";
+            this.bindingNavigatorMoveLastItem.ToolTipText = "尾页";
             // 
-            // radBindingNavigator1CountItem
+            // bindingNavigatorSeparator2
             // 
-            this.radBindingNavigator1CountItem.Name = "radBindingNavigator1CountItem";
-            this.radBindingNavigator1CountItem.Text = "of {0}";
+            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // radBindingNavigator1MoveNextItem
+            // bindingNavigatorAddNewItem
             // 
-            this.radBindingNavigator1MoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("radBindingNavigator1MoveNextItem.Image")));
-            this.radBindingNavigator1MoveNextItem.Name = "radBindingNavigator1MoveNextItem";
+            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
+            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
+            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorAddNewItem.Text = "新添";
             // 
-            // radBindingNavigator1MoveLastItem
+            // bindingNavigatorDeleteItem
             // 
-            this.radBindingNavigator1MoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("radBindingNavigator1MoveLastItem.Image")));
-            this.radBindingNavigator1MoveLastItem.Name = "radBindingNavigator1MoveLastItem";
-            // 
-            // commandBarSeparator1
-            // 
-            this.commandBarSeparator1.Name = "commandBarSeparator1";
-            this.commandBarSeparator1.VisibleInOverflowMenu = false;
-            // 
-            // commandBarSeparator2
-            // 
-            this.commandBarSeparator2.Name = "commandBarSeparator2";
-            this.commandBarSeparator2.VisibleInOverflowMenu = false;
-            // 
-            // commandBarSeparator3
-            // 
-            this.commandBarSeparator3.Name = "commandBarSeparator3";
-            this.commandBarSeparator3.VisibleInOverflowMenu = false;
-            // 
-            // commandBarSeparator4
-            // 
-            this.commandBarSeparator4.Name = "commandBarSeparator4";
-            this.commandBarSeparator4.VisibleInOverflowMenu = false;
-            // 
-            // radBindingNavigator1SecondStrip
-            // 
-            this.radBindingNavigator1SecondStrip.DesiredLocation = ((System.Drawing.PointF)(resources.GetObject("radBindingNavigator1SecondStrip.DesiredLocation")));
-            this.radBindingNavigator1SecondStrip.DisplayName = "radBindingNavigator1SecondStrip";
-            this.radBindingNavigator1SecondStrip.EnableDragging = false;
-            // 
-            // 
-            // 
-            this.radBindingNavigator1SecondStrip.Grip.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-            this.radBindingNavigator1SecondStrip.Items.AddRange(new Telerik.WinControls.UI.RadCommandBarBaseItem[] {
-            this.radBindingNavigator1AddNewItem,
-            this.commandBarSeparator5,
-            this.radBindingNavigator1DeleteItem});
-            this.radBindingNavigator1SecondStrip.MinSize = new System.Drawing.Size(0, 0);
-            // 
-            // 
-            // 
-            this.radBindingNavigator1SecondStrip.OverflowButton.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-            // 
-            // radBindingNavigator1AddNewItem
-            // 
-            this.radBindingNavigator1AddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("radBindingNavigator1AddNewItem.Image")));
-            this.radBindingNavigator1AddNewItem.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.radBindingNavigator1AddNewItem.Name = "radBindingNavigator1AddNewItem";
-            // 
-            // radBindingNavigator1DeleteItem
-            // 
-            this.radBindingNavigator1DeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("radBindingNavigator1DeleteItem.Image")));
-            this.radBindingNavigator1DeleteItem.Name = "radBindingNavigator1DeleteItem";
-            // 
-            // commandBarSeparator5
-            // 
-            this.commandBarSeparator5.Name = "commandBarSeparator5";
-            this.commandBarSeparator5.VisibleInOverflowMenu = false;
+            this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
+            this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
+            this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorDeleteItem.Text = "删除";
             // 
             // radDock1
             // 
             this.radDock1.ActiveWindow = this.documentWindow1;
             this.radDock1.Controls.Add(this.documentContainer2);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radDock1.IsCleanUpTarget = true;
             this.radDock1.Location = new System.Drawing.Point(0, 26);
             this.radDock1.MainDocumentContainer = this.documentContainer2;
             this.radDock1.Name = "radDock1";
+            this.radDock1.Padding = new System.Windows.Forms.Padding(0);
             // 
             // 
             // 
             this.radDock1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.radDock1.Size = new System.Drawing.Size(1274, 672);
-            this.radDock1.TabIndex = 35;
+            this.radDock1.Size = new System.Drawing.Size(1274, 677);
+            this.radDock1.TabIndex = 37;
             this.radDock1.TabStop = false;
             this.radDock1.ThemeName = "Breeze";
             // 
-            // documentWindow1
+            // documentWindow2
             // 
-            this.documentWindow1.Controls.Add(this.panel_sn);
-            this.documentWindow1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.documentWindow1.Location = new System.Drawing.Point(5, 27);
-            this.documentWindow1.Name = "documentWindow1";
-            this.documentWindow1.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow1.Size = new System.Drawing.Size(1254, 630);
-            this.documentWindow1.Text = "SN过站记录";
+            this.documentWindow2.Controls.Add(this.panel_package);
+            this.documentWindow2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.documentWindow2.Location = new System.Drawing.Point(5, 27);
+            this.documentWindow2.Name = "documentWindow2";
+            this.documentWindow2.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.documentWindow2.Size = new System.Drawing.Size(1264, 645);
+            this.documentWindow2.Text = "包装信息";
             // 
-            // panel_sn
+            // panel_package
             // 
-            this.panel_sn.Controls.Add(this.radGridViewSn);
-            this.panel_sn.Controls.Add(this.panel4);
-            this.panel_sn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_sn.Location = new System.Drawing.Point(0, 0);
-            this.panel_sn.Name = "panel_sn";
-            this.panel_sn.Size = new System.Drawing.Size(1254, 630);
-            this.panel_sn.TabIndex = 28;
+            this.panel_package.Controls.Add(this.panel3);
+            this.panel_package.Location = new System.Drawing.Point(15, 48);
+            this.panel_package.Name = "panel_package";
+            this.panel_package.Size = new System.Drawing.Size(726, 45);
+            this.panel_package.TabIndex = 29;
             // 
-            // radGridViewSn
+            // panel3
             // 
-            this.radGridViewSn.AutoScroll = true;
-            this.radGridViewSn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridViewSn.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radGridViewSn.Location = new System.Drawing.Point(0, 39);
+            this.panel3.Controls.Add(this.radGridViewPackage);
+            this.panel3.Controls.Add(this.panel1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(726, 45);
+            this.panel3.TabIndex = 8;
+            // 
+            // radGridViewPackage
+            // 
+            this.radGridViewPackage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radGridViewPackage.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radGridViewPackage.Location = new System.Drawing.Point(0, 42);
             // 
             // 
             // 
-            this.radGridViewSn.MasterTemplate.HorizontalScrollState = Telerik.WinControls.UI.ScrollState.AlwaysShow;
-            this.radGridViewSn.MasterTemplate.ViewDefinition = tableViewDefinition1;
-            this.radGridViewSn.Name = "radGridViewSn";
-            this.radGridViewSn.Size = new System.Drawing.Size(1254, 591);
-            this.radGridViewSn.TabIndex = 10;
-            this.radGridViewSn.ThemeName = "Breeze";
+            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition16;
+            this.radGridViewPackage.Name = "radGridViewPackage";
+            this.radGridViewPackage.Size = new System.Drawing.Size(726, 3);
+            this.radGridViewPackage.TabIndex = 32;
+            this.radGridViewPackage.ThemeName = "Breeze";
             // 
-            // panel4
+            // panel1
             // 
-            this.panel4.Controls.Add(this.toolStrip1);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1254, 39);
-            this.panel4.TabIndex = 8;
+            this.panel1.Controls.Add(this.toolStrip2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(726, 42);
+            this.panel1.TabIndex = 34;
             // 
-            // toolStrip1
+            // toolStrip2
             // 
-            this.toolStrip1.BackColor = System.Drawing.Color.SkyBlue;
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolStrip1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.tb_sn,
-            this.btn_selectOfSn,
-            this.tool_SNClearDB,
-            this.toolStripLabel5,
-            this.tool_sn_exportFilter,
-            this.tool_sn_export});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1254, 39);
-            this.toolStrip1.TabIndex = 31;
-            this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip2.BackColor = System.Drawing.Color.SkyBlue;
+            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStrip2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel2,
+            this.tb_package,
+            this.btn_selectOfPackage,
+            this.tool_packageClearDB,
+            this.toolStripLabel6,
+            this.tool_package_exportFilter,
+            this.tool_package_export});
+            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(726, 42);
+            this.toolStrip2.TabIndex = 32;
+            this.toolStrip2.Text = "toolStrip2";
             // 
-            // toolStripLabel1
+            // toolStripLabel2
             // 
-            this.toolStripLabel1.ForeColor = System.Drawing.Color.White;
-            this.toolStripLabel1.LinkColor = System.Drawing.Color.White;
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(160, 36);
-            this.toolStripLabel1.Text = "PCBASN/成品SN：";
+            this.toolStripLabel2.ForeColor = System.Drawing.Color.White;
+            this.toolStripLabel2.LinkColor = System.Drawing.Color.White;
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(132, 39);
+            this.toolStripLabel2.Text = "箱子编码/产品型号：";
             // 
-            // tb_sn
+            // tb_package
             // 
-            this.tb_sn.ForeColor = System.Drawing.Color.Black;
-            this.tb_sn.Name = "tb_sn";
-            this.tb_sn.Size = new System.Drawing.Size(121, 39);
+            this.tb_package.ForeColor = System.Drawing.Color.Black;
+            this.tb_package.Name = "tb_package";
+            this.tb_package.Size = new System.Drawing.Size(121, 42);
             // 
-            // btn_selectOfSn
+            // btn_selectOfPackage
             // 
-            this.btn_selectOfSn.ForeColor = System.Drawing.Color.White;
-            this.btn_selectOfSn.Image = global::MesManager.Properties.Resources.Search_16x16;
-            this.btn_selectOfSn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btn_selectOfSn.Name = "btn_selectOfSn";
-            this.btn_selectOfSn.Size = new System.Drawing.Size(68, 36);
-            this.btn_selectOfSn.Text = "查询";
+            this.btn_selectOfPackage.ForeColor = System.Drawing.Color.White;
+            this.btn_selectOfPackage.Image = global::MesManager.Properties.Resources.Search_16x16;
+            this.btn_selectOfPackage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_selectOfPackage.Name = "btn_selectOfPackage";
+            this.btn_selectOfPackage.Size = new System.Drawing.Size(59, 39);
+            this.btn_selectOfPackage.Text = "查询";
             // 
-            // tool_SNClearDB
+            // tool_packageClearDB
             // 
-            this.tool_SNClearDB.ForeColor = System.Drawing.Color.White;
-            this.tool_SNClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
-            this.tool_SNClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_SNClearDB.Name = "tool_SNClearDB";
-            this.tool_SNClearDB.Size = new System.Drawing.Size(68, 36);
-            this.tool_SNClearDB.Text = "清除";
+            this.tool_packageClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_packageClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_packageClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_packageClearDB.Name = "tool_packageClearDB";
+            this.tool_packageClearDB.Size = new System.Drawing.Size(59, 39);
+            this.tool_packageClearDB.Text = "清除";
             // 
-            // toolStripLabel5
+            // toolStripLabel6
             // 
-            this.toolStripLabel5.ForeColor = System.Drawing.Color.White;
-            this.toolStripLabel5.Name = "toolStripLabel5";
-            this.toolStripLabel5.Size = new System.Drawing.Size(95, 36);
-            this.toolStripLabel5.Text = "导出格式：";
+            this.toolStripLabel6.ForeColor = System.Drawing.Color.White;
+            this.toolStripLabel6.Name = "toolStripLabel6";
+            this.toolStripLabel6.Size = new System.Drawing.Size(74, 39);
+            this.toolStripLabel6.Text = "导出格式：";
             // 
-            // tool_sn_exportFilter
+            // tool_package_exportFilter
             // 
-            this.tool_sn_exportFilter.ForeColor = System.Drawing.Color.Black;
-            this.tool_sn_exportFilter.Name = "tool_sn_exportFilter";
-            this.tool_sn_exportFilter.Size = new System.Drawing.Size(121, 39);
+            this.tool_package_exportFilter.ForeColor = System.Drawing.Color.Black;
+            this.tool_package_exportFilter.Name = "tool_package_exportFilter";
+            this.tool_package_exportFilter.Size = new System.Drawing.Size(121, 42);
             // 
-            // tool_sn_export
+            // tool_package_export
             // 
-            this.tool_sn_export.ForeColor = System.Drawing.Color.White;
-            this.tool_sn_export.Image = global::MesManager.Properties.Resources.Export_16x16;
-            this.tool_sn_export.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_sn_export.Name = "tool_sn_export";
-            this.tool_sn_export.Size = new System.Drawing.Size(68, 36);
-            this.tool_sn_export.Text = "导出";
-            this.tool_sn_export.ToolTipText = "导出";
+            this.tool_package_export.ForeColor = System.Drawing.Color.White;
+            this.tool_package_export.Image = global::MesManager.Properties.Resources.Export_16x16;
+            this.tool_package_export.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_package_export.Name = "tool_package_export";
+            this.tool_package_export.Size = new System.Drawing.Size(59, 39);
+            this.tool_package_export.Text = "导出";
+            this.tool_package_export.ToolTipText = "导出";
             // 
             // documentContainer2
             // 
@@ -524,7 +516,7 @@
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
             this.documentTabStrip1.SelectedIndex = 4;
-            this.documentTabStrip1.Size = new System.Drawing.Size(1264, 662);
+            this.documentTabStrip1.Size = new System.Drawing.Size(1274, 677);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
             this.documentTabStrip1.ThemeName = "Breeze";
@@ -556,7 +548,7 @@
             // 
             // 
             // 
-            this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition2;
+            this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition17;
             this.radGridViewQuanlity.Name = "radGridViewQuanlity";
             this.radGridViewQuanlity.Size = new System.Drawing.Size(726, 3);
             this.radGridViewQuanlity.TabIndex = 10;
@@ -596,7 +588,7 @@
             this.toolStripLabel9.ForeColor = System.Drawing.Color.White;
             this.toolStripLabel9.LinkColor = System.Drawing.Color.White;
             this.toolStripLabel9.Name = "toolStripLabel9";
-            this.toolStripLabel9.Size = new System.Drawing.Size(194, 37);
+            this.toolStripLabel9.Size = new System.Drawing.Size(150, 37);
             this.toolStripLabel9.Text = "物料编码(LOT/RID/PN):";
             // 
             // tb_quanlity_filter
@@ -611,7 +603,7 @@
             this.btn_quanlity.Image = global::MesManager.Properties.Resources.Search_16x16;
             this.btn_quanlity.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btn_quanlity.Name = "btn_quanlity";
-            this.btn_quanlity.Size = new System.Drawing.Size(68, 37);
+            this.btn_quanlity.Size = new System.Drawing.Size(59, 37);
             this.btn_quanlity.Text = "查询";
             // 
             // tool_quanlityClearDB
@@ -620,14 +612,14 @@
             this.tool_quanlityClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
             this.tool_quanlityClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_quanlityClearDB.Name = "tool_quanlityClearDB";
-            this.tool_quanlityClearDB.Size = new System.Drawing.Size(68, 37);
+            this.tool_quanlityClearDB.Size = new System.Drawing.Size(59, 37);
             this.tool_quanlityClearDB.Text = "清除";
             // 
             // toolStripLabel10
             // 
             this.toolStripLabel10.ForeColor = System.Drawing.Color.White;
             this.toolStripLabel10.Name = "toolStripLabel10";
-            this.toolStripLabel10.Size = new System.Drawing.Size(95, 37);
+            this.toolStripLabel10.Size = new System.Drawing.Size(74, 37);
             this.toolStripLabel10.Text = "导出格式：";
             // 
             // tool_quanlity_exportFilter
@@ -642,7 +634,7 @@
             this.tool_quanlity_export.Image = global::MesManager.Properties.Resources.Export_16x16;
             this.tool_quanlity_export.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_quanlity_export.Name = "tool_quanlity_export";
-            this.tool_quanlity_export.Size = new System.Drawing.Size(68, 27);
+            this.tool_quanlity_export.Size = new System.Drawing.Size(59, 37);
             this.tool_quanlity_export.Text = "导出";
             this.tool_quanlity_export.ToolTipText = "导出";
             // 
@@ -673,7 +665,7 @@
             // 
             // 
             // 
-            this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition3;
+            this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition18;
             this.radGridViewCheck.Name = "radGridViewCheck";
             this.radGridViewCheck.Size = new System.Drawing.Size(726, 0);
             this.radGridViewCheck.TabIndex = 11;
@@ -713,7 +705,7 @@
             this.toolStripLabel4.ForeColor = System.Drawing.Color.White;
             this.toolStripLabel4.LinkColor = System.Drawing.Color.White;
             this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(136, 37);
+            this.toolStripLabel4.Size = new System.Drawing.Size(106, 37);
             this.toolStripLabel4.Text = "箱子编码/追溯码";
             // 
             // tb_productCheck
@@ -728,7 +720,7 @@
             this.btn_productCheck.Image = global::MesManager.Properties.Resources.Search_16x16;
             this.btn_productCheck.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btn_productCheck.Name = "btn_productCheck";
-            this.btn_productCheck.Size = new System.Drawing.Size(68, 37);
+            this.btn_productCheck.Size = new System.Drawing.Size(59, 37);
             this.btn_productCheck.Text = "查询";
             // 
             // tool_productCheckClearDB
@@ -737,14 +729,14 @@
             this.tool_productCheckClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
             this.tool_productCheckClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_productCheckClearDB.Name = "tool_productCheckClearDB";
-            this.tool_productCheckClearDB.Size = new System.Drawing.Size(68, 37);
+            this.tool_productCheckClearDB.Size = new System.Drawing.Size(59, 37);
             this.tool_productCheckClearDB.Text = "清除";
             // 
             // toolStripLabel8
             // 
             this.toolStripLabel8.ForeColor = System.Drawing.Color.White;
             this.toolStripLabel8.Name = "toolStripLabel8";
-            this.toolStripLabel8.Size = new System.Drawing.Size(95, 37);
+            this.toolStripLabel8.Size = new System.Drawing.Size(74, 37);
             this.toolStripLabel8.Text = "导出格式：";
             // 
             // tool_productCheck_exportFilter
@@ -759,7 +751,7 @@
             this.tool_productCheck_export.Image = global::MesManager.Properties.Resources.Export_16x16;
             this.tool_productCheck_export.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_productCheck_export.Name = "tool_productCheck_export";
-            this.tool_productCheck_export.Size = new System.Drawing.Size(68, 37);
+            this.tool_productCheck_export.Size = new System.Drawing.Size(59, 37);
             this.tool_productCheck_export.Text = "导出";
             this.tool_productCheck_export.ToolTipText = "导出";
             // 
@@ -790,7 +782,7 @@
             // 
             // 
             // 
-            this.radGridViewMaterial.MasterTemplate.ViewDefinition = tableViewDefinition4;
+            this.radGridViewMaterial.MasterTemplate.ViewDefinition = tableViewDefinition19;
             this.radGridViewMaterial.Name = "radGridViewMaterial";
             this.radGridViewMaterial.Padding = new System.Windows.Forms.Padding(1);
             this.radGridViewMaterial.Size = new System.Drawing.Size(758, 5);
@@ -831,7 +823,7 @@
             this.toolStripLabel3.ForeColor = System.Drawing.Color.White;
             this.toolStripLabel3.LinkColor = System.Drawing.Color.White;
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(286, 34);
+            this.toolStripLabel3.Size = new System.Drawing.Size(222, 34);
             this.toolStripLabel3.Text = "物料编码(LOT/RID/PN)/PCBA/外壳:";
             // 
             // tb_material
@@ -846,7 +838,7 @@
             this.btn_materialSelect.Image = global::MesManager.Properties.Resources.Search_16x16;
             this.btn_materialSelect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btn_materialSelect.Name = "btn_materialSelect";
-            this.btn_materialSelect.Size = new System.Drawing.Size(68, 34);
+            this.btn_materialSelect.Size = new System.Drawing.Size(59, 34);
             this.btn_materialSelect.Text = "查询";
             // 
             // tool_materialClearDB
@@ -855,21 +847,21 @@
             this.tool_materialClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
             this.tool_materialClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_materialClearDB.Name = "tool_materialClearDB";
-            this.tool_materialClearDB.Size = new System.Drawing.Size(68, 34);
+            this.tool_materialClearDB.Size = new System.Drawing.Size(59, 34);
             this.tool_materialClearDB.Text = "清除";
             // 
             // toolStripLabel7
             // 
             this.toolStripLabel7.ForeColor = System.Drawing.Color.White;
             this.toolStripLabel7.Name = "toolStripLabel7";
-            this.toolStripLabel7.Size = new System.Drawing.Size(95, 34);
+            this.toolStripLabel7.Size = new System.Drawing.Size(74, 34);
             this.toolStripLabel7.Text = "导出格式：";
             // 
             // tool_material_exportFilter
             // 
             this.tool_material_exportFilter.ForeColor = System.Drawing.Color.Black;
             this.tool_material_exportFilter.Name = "tool_material_exportFilter";
-            this.tool_material_exportFilter.Size = new System.Drawing.Size(121, 28);
+            this.tool_material_exportFilter.Size = new System.Drawing.Size(121, 37);
             // 
             // tool_material_export
             // 
@@ -877,144 +869,138 @@
             this.tool_material_export.Image = global::MesManager.Properties.Resources.Export_16x16;
             this.tool_material_export.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_material_export.Name = "tool_material_export";
-            this.tool_material_export.Size = new System.Drawing.Size(68, 27);
+            this.tool_material_export.Size = new System.Drawing.Size(59, 34);
             this.tool_material_export.Text = "导出";
             this.tool_material_export.ToolTipText = "导出";
             // 
-            // documentWindow2
+            // documentWindow1
             // 
-            this.documentWindow2.Controls.Add(this.panel_package);
-            this.documentWindow2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.documentWindow2.Location = new System.Drawing.Point(5, 27);
-            this.documentWindow2.Name = "documentWindow2";
-            this.documentWindow2.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow2.Size = new System.Drawing.Size(912, 223);
-            this.documentWindow2.Text = "包装信息";
+            this.documentWindow1.Controls.Add(this.panel_sn);
+            this.documentWindow1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.documentWindow1.Location = new System.Drawing.Point(5, 27);
+            this.documentWindow1.Name = "documentWindow1";
+            this.documentWindow1.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.documentWindow1.Size = new System.Drawing.Size(1264, 645);
+            this.documentWindow1.Text = "SN过站记录";
             // 
-            // panel_package
+            // panel_sn
             // 
-            this.panel_package.Controls.Add(this.panel3);
-            this.panel_package.Location = new System.Drawing.Point(15, 48);
-            this.panel_package.Name = "panel_package";
-            this.panel_package.Size = new System.Drawing.Size(726, 45);
-            this.panel_package.TabIndex = 29;
+            this.panel_sn.Controls.Add(this.radGridViewSn);
+            this.panel_sn.Controls.Add(this.panel4);
+            this.panel_sn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_sn.Location = new System.Drawing.Point(0, 0);
+            this.panel_sn.Name = "panel_sn";
+            this.panel_sn.Size = new System.Drawing.Size(1264, 645);
+            this.panel_sn.TabIndex = 28;
             // 
-            // panel3
+            // radGridViewSn
             // 
-            this.panel3.Controls.Add(this.radGridViewPackage);
-            this.panel3.Controls.Add(this.panel1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(726, 45);
-            this.panel3.TabIndex = 8;
-            // 
-            // radGridViewPackage
-            // 
-            this.radGridViewPackage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridViewPackage.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radGridViewPackage.Location = new System.Drawing.Point(0, 42);
+            this.radGridViewSn.AutoScroll = true;
+            this.radGridViewSn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radGridViewSn.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radGridViewSn.Location = new System.Drawing.Point(0, 39);
             // 
             // 
             // 
-            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition5;
-            this.radGridViewPackage.Name = "radGridViewPackage";
-            this.radGridViewPackage.Size = new System.Drawing.Size(726, 3);
-            this.radGridViewPackage.TabIndex = 32;
-            this.radGridViewPackage.ThemeName = "Breeze";
+            this.radGridViewSn.MasterTemplate.HorizontalScrollState = Telerik.WinControls.UI.ScrollState.AlwaysShow;
+            this.radGridViewSn.MasterTemplate.ViewDefinition = tableViewDefinition20;
+            this.radGridViewSn.Name = "radGridViewSn";
+            this.radGridViewSn.Size = new System.Drawing.Size(1264, 606);
+            this.radGridViewSn.TabIndex = 10;
+            this.radGridViewSn.ThemeName = "Breeze";
             // 
-            // panel1
+            // panel4
             // 
-            this.panel1.Controls.Add(this.toolStrip2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(726, 42);
-            this.panel1.TabIndex = 34;
+            this.panel4.Controls.Add(this.toolStrip1);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1264, 39);
+            this.panel4.TabIndex = 8;
             // 
-            // toolStrip2
+            // toolStrip1
             // 
-            this.toolStrip2.BackColor = System.Drawing.Color.SkyBlue;
-            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolStrip2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel2,
-            this.tb_package,
-            this.btn_selectOfPackage,
-            this.tool_packageClearDB,
-            this.toolStripLabel6,
-            this.tool_package_exportFilter,
-            this.tool_package_export});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(726, 42);
-            this.toolStrip2.TabIndex = 32;
-            this.toolStrip2.Text = "toolStrip2";
+            this.toolStrip1.BackColor = System.Drawing.Color.SkyBlue;
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStrip1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel1,
+            this.tb_sn,
+            this.btn_selectOfSn,
+            this.tool_SNClearDB,
+            this.toolStripLabel5,
+            this.tool_sn_exportFilter,
+            this.tool_sn_export});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1264, 39);
+            this.toolStrip1.TabIndex = 31;
+            this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripLabel2
+            // toolStripLabel1
             // 
-            this.toolStripLabel2.ForeColor = System.Drawing.Color.White;
-            this.toolStripLabel2.LinkColor = System.Drawing.Color.White;
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(170, 39);
-            this.toolStripLabel2.Text = "箱子编码/产品型号：";
+            this.toolStripLabel1.ForeColor = System.Drawing.Color.White;
+            this.toolStripLabel1.LinkColor = System.Drawing.Color.White;
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(126, 36);
+            this.toolStripLabel1.Text = "PCBASN/成品SN：";
             // 
-            // tb_package
+            // tb_sn
             // 
-            this.tb_package.ForeColor = System.Drawing.Color.Black;
-            this.tb_package.Name = "tb_package";
-            this.tb_package.Size = new System.Drawing.Size(121, 42);
+            this.tb_sn.ForeColor = System.Drawing.Color.Black;
+            this.tb_sn.Name = "tb_sn";
+            this.tb_sn.Size = new System.Drawing.Size(121, 39);
             // 
-            // btn_selectOfPackage
+            // btn_selectOfSn
             // 
-            this.btn_selectOfPackage.ForeColor = System.Drawing.Color.White;
-            this.btn_selectOfPackage.Image = global::MesManager.Properties.Resources.Search_16x16;
-            this.btn_selectOfPackage.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btn_selectOfPackage.Name = "btn_selectOfPackage";
-            this.btn_selectOfPackage.Size = new System.Drawing.Size(68, 39);
-            this.btn_selectOfPackage.Text = "查询";
+            this.btn_selectOfSn.ForeColor = System.Drawing.Color.White;
+            this.btn_selectOfSn.Image = global::MesManager.Properties.Resources.Search_16x16;
+            this.btn_selectOfSn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_selectOfSn.Name = "btn_selectOfSn";
+            this.btn_selectOfSn.Size = new System.Drawing.Size(59, 36);
+            this.btn_selectOfSn.Text = "查询";
             // 
-            // tool_packageClearDB
+            // tool_SNClearDB
             // 
-            this.tool_packageClearDB.ForeColor = System.Drawing.Color.White;
-            this.tool_packageClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
-            this.tool_packageClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_packageClearDB.Name = "tool_packageClearDB";
-            this.tool_packageClearDB.Size = new System.Drawing.Size(68, 39);
-            this.tool_packageClearDB.Text = "清除";
+            this.tool_SNClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_SNClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_SNClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_SNClearDB.Name = "tool_SNClearDB";
+            this.tool_SNClearDB.Size = new System.Drawing.Size(59, 36);
+            this.tool_SNClearDB.Text = "清除";
             // 
-            // toolStripLabel6
+            // toolStripLabel5
             // 
-            this.toolStripLabel6.ForeColor = System.Drawing.Color.White;
-            this.toolStripLabel6.Name = "toolStripLabel6";
-            this.toolStripLabel6.Size = new System.Drawing.Size(95, 39);
-            this.toolStripLabel6.Text = "导出格式：";
+            this.toolStripLabel5.ForeColor = System.Drawing.Color.White;
+            this.toolStripLabel5.Name = "toolStripLabel5";
+            this.toolStripLabel5.Size = new System.Drawing.Size(74, 36);
+            this.toolStripLabel5.Text = "导出格式：";
             // 
-            // tool_package_exportFilter
+            // tool_sn_exportFilter
             // 
-            this.tool_package_exportFilter.ForeColor = System.Drawing.Color.Black;
-            this.tool_package_exportFilter.Name = "tool_package_exportFilter";
-            this.tool_package_exportFilter.Size = new System.Drawing.Size(121, 42);
+            this.tool_sn_exportFilter.ForeColor = System.Drawing.Color.Black;
+            this.tool_sn_exportFilter.Name = "tool_sn_exportFilter";
+            this.tool_sn_exportFilter.Size = new System.Drawing.Size(121, 39);
             // 
-            // tool_package_export
+            // tool_sn_export
             // 
-            this.tool_package_export.ForeColor = System.Drawing.Color.White;
-            this.tool_package_export.Image = global::MesManager.Properties.Resources.Export_16x16;
-            this.tool_package_export.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_package_export.Name = "tool_package_export";
-            this.tool_package_export.Size = new System.Drawing.Size(68, 39);
-            this.tool_package_export.Text = "导出";
-            this.tool_package_export.ToolTipText = "导出";
+            this.tool_sn_export.ForeColor = System.Drawing.Color.White;
+            this.tool_sn_export.Image = global::MesManager.Properties.Resources.Export_16x16;
+            this.tool_sn_export.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_sn_export.Name = "tool_sn_export";
+            this.tool_sn_export.Size = new System.Drawing.Size(59, 36);
+            this.tool_sn_export.Text = "导出";
+            this.tool_sn_export.ToolTipText = "导出";
             // 
             // SNCenter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
             this.ClientSize = new System.Drawing.Size(1274, 728);
             this.Controls.Add(this.radDock1);
-            this.Controls.Add(this.radBindingNavigator1);
+            this.Controls.Add(this.bindingNavigator1);
             this.Controls.Add(this.radMenu1);
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1027,17 +1013,21 @@
             this.ThemeName = "Material";
             this.Load += new System.EventHandler(this.SNCenter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radBindingNavigator1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
+            this.bindingNavigator1.ResumeLayout(false);
+            this.bindingNavigator1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).EndInit();
             this.radDock1.ResumeLayout(false);
-            this.documentWindow1.ResumeLayout(false);
-            this.panel_sn.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSn.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSn)).EndInit();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.documentWindow2.ResumeLayout(false);
+            this.panel_package.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewPackage.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewPackage)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer2)).EndInit();
             this.documentContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
@@ -1066,16 +1056,14 @@
             this.panel5.PerformLayout();
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
-            this.documentWindow2.ResumeLayout(false);
-            this.panel_package.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewPackage.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewPackage)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.documentWindow1.ResumeLayout(false);
+            this.panel_sn.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSn.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSn)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1091,36 +1079,33 @@
         private Telerik.WinControls.UI.RadMenu radMenu1;
         private Telerik.WinControls.UI.RadMenuItem menu_quanlity;
         private Telerik.WinControls.Themes.BreezeTheme breezeTheme1;
-        private Telerik.WinControls.UI.RadBindingNavigator radBindingNavigator1;
-        private Telerik.WinControls.UI.CommandBarRowElement radBindingNavigator1RowElement;
-        private Telerik.WinControls.UI.CommandBarStripElement radBindingNavigator1FirstStrip;
-        private Telerik.WinControls.UI.CommandBarButton radBindingNavigator1MoveFirstItem;
-        private Telerik.WinControls.UI.CommandBarSeparator commandBarSeparator1;
-        private Telerik.WinControls.UI.CommandBarButton radBindingNavigator1MovePreviousItem;
-        private Telerik.WinControls.UI.CommandBarSeparator commandBarSeparator2;
-        private Telerik.WinControls.UI.CommandBarTextBox radBindingNavigator1PositionItem;
-        private Telerik.WinControls.UI.CommandBarLabel radBindingNavigator1CountItem;
-        private Telerik.WinControls.UI.CommandBarSeparator commandBarSeparator3;
-        private Telerik.WinControls.UI.CommandBarButton radBindingNavigator1MoveNextItem;
-        private Telerik.WinControls.UI.CommandBarSeparator commandBarSeparator4;
-        private Telerik.WinControls.UI.CommandBarButton radBindingNavigator1MoveLastItem;
-        private Telerik.WinControls.UI.CommandBarStripElement radBindingNavigator1SecondStrip;
-        private Telerik.WinControls.UI.CommandBarButton radBindingNavigator1AddNewItem;
-        private Telerik.WinControls.UI.CommandBarSeparator commandBarSeparator5;
-        private Telerik.WinControls.UI.CommandBarButton radBindingNavigator1DeleteItem;
+        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.BindingNavigator bindingNavigator1;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
+        private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
+        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator;
+        private System.Windows.Forms.ToolStripTextBox bindingNavigatorPositionItem;
+        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator1;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
+        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private Telerik.WinControls.UI.Docking.RadDock radDock1;
-        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow1;
-        private System.Windows.Forms.Panel panel_sn;
-        private Telerik.WinControls.UI.RadGridView radGridViewSn;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripComboBox tb_sn;
-        private System.Windows.Forms.ToolStripButton btn_selectOfSn;
-        private System.Windows.Forms.ToolStripButton tool_SNClearDB;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel5;
-        private System.Windows.Forms.ToolStripComboBox tool_sn_exportFilter;
-        private System.Windows.Forms.ToolStripButton tool_sn_export;
+        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow2;
+        private System.Windows.Forms.Panel panel_package;
+        private System.Windows.Forms.Panel panel3;
+        private Telerik.WinControls.UI.RadGridView radGridViewPackage;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripComboBox tb_package;
+        private System.Windows.Forms.ToolStripButton btn_selectOfPackage;
+        private System.Windows.Forms.ToolStripButton tool_packageClearDB;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel6;
+        private System.Windows.Forms.ToolStripComboBox tool_package_exportFilter;
+        private System.Windows.Forms.ToolStripButton tool_package_export;
         private Telerik.WinControls.UI.Docking.DocumentContainer documentContainer2;
         private Telerik.WinControls.UI.Docking.DocumentTabStrip documentTabStrip1;
         private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow5;
@@ -1159,19 +1144,17 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel7;
         private System.Windows.Forms.ToolStripComboBox tool_material_exportFilter;
         private System.Windows.Forms.ToolStripButton tool_material_export;
-        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow2;
-        private System.Windows.Forms.Panel panel_package;
-        private System.Windows.Forms.Panel panel3;
-        private Telerik.WinControls.UI.RadGridView radGridViewPackage;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-        private System.Windows.Forms.ToolStripComboBox tb_package;
-        private System.Windows.Forms.ToolStripButton btn_selectOfPackage;
-        private System.Windows.Forms.ToolStripButton tool_packageClearDB;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel6;
-        private System.Windows.Forms.ToolStripComboBox tool_package_exportFilter;
-        private System.Windows.Forms.ToolStripButton tool_package_export;
-        private System.Windows.Forms.BindingSource bindingSource1;
+        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow1;
+        private System.Windows.Forms.Panel panel_sn;
+        private Telerik.WinControls.UI.RadGridView radGridViewSn;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripComboBox tb_sn;
+        private System.Windows.Forms.ToolStripButton btn_selectOfSn;
+        private System.Windows.Forms.ToolStripButton tool_SNClearDB;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel5;
+        private System.Windows.Forms.ToolStripComboBox tool_sn_exportFilter;
+        private System.Windows.Forms.ToolStripButton tool_sn_export;
     }
 }

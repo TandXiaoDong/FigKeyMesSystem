@@ -28,6 +28,18 @@ namespace MesManager.UI
         private DataTable dataSourceQuanlity;
         private const string DATA_ORDER = "序号";
         private string currentQueryCondition;
+        /// <summary>
+        /// 当前页
+        /// </summary>
+        private int currentPage = 1;
+        /// <summary>
+        /// 每页的大小
+        /// </summary>
+        private int pageSize = 50;
+        /// <summary>
+        /// 总页数
+        /// </summary>
+        private int pageCount;
 
         #region 物料统计字段
         private const string MATERIAL_PN = "物料号";
@@ -121,6 +133,8 @@ namespace MesManager.UI
             this.tool_packageClearDB.Click += Tool_packageClearDB_Click;
             this.tool_materialClearDB.Click += Tool_materialClearDB_Click;
             this.tool_productCheckClearDB.Click += Tool_productCheckClearDB_Click;
+
+            this.bindingNavigator1.ItemClicked += BindingNavigator1_ItemClicked;
         }
 
         private void Tool_productCheckClearDB_Click(object sender, EventArgs e)
@@ -481,6 +495,10 @@ namespace MesManager.UI
 
             }
             this.tool_SNClearDB.Visible = false;
+
+            //page
+           var pcbaList = serviceClient.SelectUseAllPcbaSN().Length;
+           pageCount = pcbaList / pageSize;
         }
 
         private void SetPanelFalse()
@@ -496,7 +514,7 @@ namespace MesManager.UI
         {
             var filter = tb_sn.Text;
             //DataSet ds = (await serviceClient.SelectTestResultUpperAsync(filter, filter, filter, true));
-            DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter,1,50,true);
+            DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter,currentPage,pageSize,true);
             this.radGridViewSn.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridViewSn.BeginEdit();
             DataTable dt = ds.Tables[0];
@@ -504,9 +522,46 @@ namespace MesManager.UI
             this.radGridViewSn.DataSource = dt;
 
             bindingSource1.DataSource = dt;
-            this.radBindingNavigator1.BindingSource = bindingSource1;
+            this.bindingNavigator1.BindingSource = bindingSource1;
             this.radGridViewSn.EndEdit();
             this.radGridViewSn.BestFitColumns();
+        }
+
+        private void BindingNavigator1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem.Text == "删除")
+            {
+                //删除页
+            }
+            else if (e.ClickedItem.Text == "上一页")
+            {
+                if (currentPage > 1)
+                {
+                    currentPage--;
+                }
+            }
+            else if (e.ClickedItem.Text == "下一页")
+            {
+
+                if (currentPage < pageCount)
+                {
+                    currentPage++;
+                }
+            }
+            else if (e.ClickedItem.Text == "首页")
+            {
+                currentPage = 1;
+                SelectOfSn();
+            }
+            else if (e.ClickedItem.Text == "尾页")
+            {
+                currentPage = pageCount;
+            }
+            else if (e.ClickedItem.Text == "新添")
+            {
+                
+            }
+            SelectOfSn();
         }
 
         async private void SelectOfPackage(string state)
@@ -691,7 +746,8 @@ namespace MesManager.UI
         private void BindNavigator()
         {
             bindingSource1.DataSource = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            this.radBindingNavigator1.BindingSource = bindingSource1;
+            //this.radBindingNavigator1.BindingSource = bindingSource1;
+
         }
     }
 }

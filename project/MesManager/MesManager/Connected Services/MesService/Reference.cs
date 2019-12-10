@@ -793,6 +793,12 @@ namespace MesManager.MesService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteProcess", ReplyAction="http://tempuri.org/IMesService/DeleteProcessResponse")]
         System.Threading.Tasks.Task<int> DeleteProcessAsync(string processName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectUseAllPcbaSN", ReplyAction="http://tempuri.org/IMesService/SelectUseAllPcbaSNResponse")]
+        string[] SelectUseAllPcbaSN();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectUseAllPcbaSN", ReplyAction="http://tempuri.org/IMesService/SelectUseAllPcbaSNResponse")]
+        System.Threading.Tasks.Task<string[]> SelectUseAllPcbaSNAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1356,6 +1362,14 @@ namespace MesManager.MesService {
         
         public System.Threading.Tasks.Task<int> DeleteProcessAsync(string processName) {
             return base.Channel.DeleteProcessAsync(processName);
+        }
+        
+        public string[] SelectUseAllPcbaSN() {
+            return base.Channel.SelectUseAllPcbaSN();
+        }
+        
+        public System.Threading.Tasks.Task<string[]> SelectUseAllPcbaSNAsync() {
+            return base.Channel.SelectUseAllPcbaSNAsync();
         }
     }
 }

@@ -245,5 +245,8 @@ namespace MesAPI
 
         [OperationContract]
         int DeleteProcess(string processName);
+
+        [OperationContract]
+        List<string> SelectUseAllPcbaSN();
     }
 }

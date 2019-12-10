@@ -574,7 +574,7 @@ namespace MesAPI
         /// 第一步，查询所有过站产品SN
         /// </summary>
         /// <returns></returns>
-        private List<string> SelectUseAllPcbaSN()
+        public List<string> SelectUseAllPcbaSN()
         {
             //List<string> pcbaList = new List<string>();
             var selectSQL = $"select {DbTable.F_Test_Result.SN} from {DbTable.F_TEST_RESULT_NAME} " +
