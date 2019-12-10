@@ -120,6 +120,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\telerik\Telerik.WinControls.RadDock.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.WinControls.Scheduler, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.Themes.Aqua, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\telerik\Theme\Telerik.WinControls.Themes.Aqua.dll</HintPath>

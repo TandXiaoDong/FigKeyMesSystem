@@ -211,7 +211,7 @@ namespace MesAPI
         DataSet SelectPackageStorage(string queryFilter);
 
         [OperationContract]
-        DataSet SelectTestResultDetail(string querySN);
+        DataSet SelectTestResultDetail(string querySN,int pageNumber,int pageSize, bool IsQueryLatest);
 
         //[OperationContract]
         //DataSet SelectTestResultDetail(string querySN, int startIndex, int dCount, bool IsQueryLatest);
