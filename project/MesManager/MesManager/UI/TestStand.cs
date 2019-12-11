@@ -167,9 +167,6 @@ namespace MesManager.UI
             if (currentDataType == TestStandDataType.TEST_LIMIT_CONFIG)
             {
                 SelectTestLimitConfig(this.tool_queryCondition.Text);
-                this.radGridView1.Dock = DockStyle.Fill;
-                this.radGridView1.Visible = true;
-                this.panel1.Visible = false;
             }
             else if (currentDataType == TestStandDataType.TEST_LOG_DATA)
             {
@@ -202,16 +199,10 @@ namespace MesManager.UI
                 }
                 //SelectTestLogData(this.tool_queryCondition.Text,startTime,endTime);
                 SelectTestResultDetail(this.tool_queryCondition.Text,startTime,endTime);
-                this.radGridView1.Dock = DockStyle.Fill;
-                this.radGridView1.Visible = true;
-                this.panel1.Visible = false;
             }
             else if (currentDataType == TestStandDataType.TEST_PROGRAME_VERSION)
             {
                 SelectTestProgrameVersion(this.tool_queryCondition.Text);
-                this.radGridView1.Dock = DockStyle.Fill;
-                this.radGridView1.Visible = true;
-                this.panel1.Visible = false;
             }
         }
 
@@ -220,7 +211,6 @@ namespace MesManager.UI
             serviceClient = new MesService.MesServiceClient();
             if (MESMainForm.currentUsetType != 0)
                 this.tool_clearDB.Enabled = false;
-            this.panel1.Visible = false;
             rbtn_today.Checked = true;
             this.radGridView1.Dock = DockStyle.Fill;
             DataGridViewCommon.SetRadGridViewProperty(this.radGridView1,false);
@@ -237,7 +227,7 @@ namespace MesManager.UI
             string path = @"D:\work\project\FigKey\RetrospectiveSystem\project\IIS";
             ImageList imageList = new ImageList();
             imageList.Images.Add("open", Resources.FolderList32);
-            LoadTreeView.SetTreeNoByFilePath(this.treeView1,path,new ImageList());
+            //LoadTreeView.SetTreeNoByFilePath(this.treeView1,path,new ImageList());
             //TreeViewData.PopulateTreeView(path, this.treeView1);
 
             currentDataType = TestStandDataType.TEST_LOG_DATA;
@@ -294,7 +284,9 @@ namespace MesManager.UI
 
         async private void SelectTestResultDetail(string queryFilter, string startTime, string endTime)
         {
+            LogHelper.Log.Info("log查询-开始");
             var ds = await serviceClient.SelectTestResultLogDetailAsync(queryFilter, startTime, endTime);
+            LogHelper.Log.Info("log查询-结果查询完毕");
             if (ds.Tables.Count < 1)
             {
                 this.radGridView1.DataSource = null;
@@ -307,6 +299,7 @@ namespace MesManager.UI
             this.radGridView1.DataSource = dt;
             this.radGridView1.EndEdit();
             this.radGridView1.BestFitColumns();
+            LogHelper.Log.Info("log查询-显示完成");
         }
 
         private void ExportGridViewData()

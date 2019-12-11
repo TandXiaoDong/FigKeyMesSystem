@@ -45,6 +45,7 @@ namespace MesAPI
 
         private static List<string> pcbaCacheList = new List<string>();//用于缓存pcba数据
         private static DataTable pcbaCacheDataSource = new DataTable();//用于缓存PCBA的所有数据信息
+        private static DataTable dtTestResult = new DataTable();//要查询的所有SN主要信息
 
         private int logCount = 0;
 
@@ -864,6 +865,7 @@ namespace MesAPI
                 string[] pcbaArray = new string[pageSize];
                 if (querySN != "" && querySN != null)
                 {
+                    pcbaArray = new string[1];
                     pcbaArray[0] = querySN.Trim();
                 }
                 else
@@ -871,8 +873,16 @@ namespace MesAPI
                     if (IsQueryLatest)
                     {
                         pcbaCacheList = SelectUseAllPcbaSN();//更新PCBA数据
-                        LogHelper.Log.Info($" startIndex={startIndex}");
-                        pcbaCacheList.CopyTo(startIndex, pcbaArray, 0, pageSize);
+                        if (pageNumber * pageSize > pcbaCacheList.Count)
+                        {
+                            pageSize = pcbaCacheList.Count - ((pageNumber - 1) * pageSize);
+                            pcbaArray = new string[pageSize];
+                            pcbaCacheList.CopyTo(startIndex, pcbaArray, 0, pageSize);
+                        }
+                        else
+                        {
+                            pcbaCacheList.CopyTo(startIndex, pcbaArray, 0, pageSize);
+                        }
                     }
                     else
                     {
@@ -1550,50 +1560,66 @@ namespace MesAPI
         public DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime)
         {
             //更新当前工站名称
+            LogHelper.Log.Info("【开始查询过站历史】");
             DataSet ds = new DataSet();
-            var dt = InitTestResultDataTable(true);
+            try
+            {
+                var dt = InitTestResultDataTable(true);//最终结果
+                if (dtTestResult.Rows.Count > 0)
+                {
+                    LogHelper.Log.Info("clear "+dtTestResult.Rows.Count);
+                    dtTestResult.Clear();
+                }
 
-            if (STATION_TURN.Contains(queryFilter) && queryFilter != "")
-            {
-                AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt,true);
+                if (STATION_TURN.Contains(queryFilter) && queryFilter != "")
+                {
+                    AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt, true);
+                }
+                else if (STATION_SENSIBLITY.Contains(queryFilter) && queryFilter != "")
+                {
+                    AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt, true);
+                }
+                else if (STATION_SHELL.Contains(queryFilter) && queryFilter != "")
+                {
+                    AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt, true);
+                }
+                else if (STATION_AIR.Contains(queryFilter) && queryFilter != "")
+                {
+                    AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt, true);
+                }
+                else if (STATION_STENT.Contains(queryFilter) && queryFilter != "")
+                {
+                    AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt, true);
+                }
+                else if (STATION_PRODUCT.Contains(queryFilter) && queryFilter != "")
+                {
+                    AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt, true);
+                }
+                else
+                {
+                    AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt, false);
+                    AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt, false);
+                    AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt, false);
+                    AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt, false);
+                    AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt, false);
+                    AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt, false);
+                }
+                LogHelper.Log.Info("【查询过站记录完成--开始查询log明细】"+dtTestResult.Rows.Count);
+                //开始分页查询
+                StartSelectLogDetail(dt);
+                LogHelper.Log.Info("【查询过站记录完成--查询log明细完毕】" + dtTestResult.Rows.Count + "  " + dt.Rows.Count);
+                ds.Tables.Add(dt);
             }
-            else if (STATION_SENSIBLITY.Contains(queryFilter) && queryFilter != "")
+            catch (Exception ex)
             {
-                AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt,true);
+                LogHelper.Log.Error(ex.Message+ex.StackTrace);
             }
-            else if (STATION_SHELL.Contains(queryFilter) && queryFilter != "")
-            {
-                AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt,true);
-            }
-            else if (STATION_AIR.Contains(queryFilter) && queryFilter != "")
-            {
-                AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt,true);
-            }
-            else if (STATION_STENT.Contains(queryFilter) && queryFilter != "")
-            {
-                AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt,true);
-            }
-            else if (STATION_PRODUCT.Contains(queryFilter) && queryFilter != "")
-            {
-                AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt,true);
-            }
-            else
-            {
-                AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt,false);
-                AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt,false);
-                AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt,false);
-                AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt,false);
-                AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt,false);
-                AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt,false);
-            }
-            ds.Tables.Add(dt);
             return ds;
         }
 
         private void AddTestLogDetail(string station,string queryFilter, string startTime, string endTime,DataTable dt,bool IsQueryOfStation)
         {
             var selectTestResultSQL = "";
-            DataTable dtResult = new DataTable();
             if (queryFilter == "")
             {
                 selectTestResultSQL = $"SELECT " +
@@ -1638,7 +1664,7 @@ namespace MesAPI
                             $"{DbTable.F_Test_Result.UPDATE_DATE} <= '{endTime}' " +
                             $"AND " +
                             $"{DbTable.F_Test_Result.STATION_NAME} like '%{queryFilter}%' ";
-                    dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+                    //dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
                 }
                 else
                 {
@@ -1712,16 +1738,27 @@ namespace MesAPI
                     else
                     {
                         //都为空
-                        return;//查询条件不存在
+                        //return new DataTable();//查询条件不存在
                     }
                 }
             }
-            LogHelper.Log.Info("【开始查询过站历史】" + selectTestResultSQL);
-            dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
-            if (dtResult.Rows.Count > 0)
+            var dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
+            if(dtTestResult.Rows.Count < 0)
+            {
+                dtTestResult = dtResult.Clone();
+            }
+            foreach (DataRow dr in dtResult.Rows)
+            {
+                dtTestResult.ImportRow(dr);
+            }
+        }
+
+        private void StartSelectLogDetail(DataTable dt)
+        {
+            if (dtTestResult.Rows.Count > 0)
             {
                 var shellLen = ReadShellCodeLength();
-                foreach (DataRow dataRow in dtResult.Rows)
+                foreach (DataRow dataRow in dtTestResult.Rows)
                 {
                     DataRow dr = dt.NewRow();
                     var pcbaSNTemp = dataRow[0].ToString();
@@ -1750,7 +1787,7 @@ namespace MesAPI
                     }
                     dr[TestResultItemContent.Order] = logCount + 1;
                     dr[TestResultItemContent.ProductTypeNo] = productTypeNo;
-                    dr[TestResultItemContent.FinalResultValue] = GetProductTestFinalResult(pcbaSN, productSN,shellLen);
+                    dr[TestResultItemContent.FinalResultValue] = GetProductTestFinalResult(pcbaSN, productSN, shellLen);
 
                     #region 烧录工位信息
                     if (STATION_TURN == stationName)
@@ -1849,6 +1886,10 @@ namespace MesAPI
                     dt.Rows.Add(dr);
                     logCount++;
                 }
+            }
+            else
+            {
+                LogHelper.Log.Info("dtTestResult.row=0");
             }
         }
 

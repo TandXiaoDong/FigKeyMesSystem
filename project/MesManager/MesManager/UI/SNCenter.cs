@@ -90,7 +90,6 @@ namespace MesManager.UI
         private void SNCenter_Load(object sender, EventArgs e)
         {
             Init();
-            SelectOfSn();
             EventHandlers();
             //InitStyle();
         }
@@ -107,12 +106,6 @@ namespace MesManager.UI
 
         private void EventHandlers()
         {
-            this.menu_sn_result.Click += Menu_sn_result_Click;
-            this.menu_material.Click += Menu_material_Click;
-            this.menu_package.Click += Menu_package_Click;
-            this.menu_productCheck.Click += Menu_productCheck_Click;
-            this.menu_quanlity.Click += Menu_quanlity_Click;
-
             this.btn_materialSelect.Click += Btn_materialSelect_Click;
             this.btn_selectOfSn.Click += Btn_selectOfSn_Click;
             this.btn_selectOfPackage.Click += Btn_selectOfPackage_Click;
@@ -135,6 +128,7 @@ namespace MesManager.UI
             this.tool_productCheckClearDB.Click += Tool_productCheckClearDB_Click;
 
             this.bindingNavigator1.ItemClicked += BindingNavigator1_ItemClicked;
+            this.bindingNavigatorPositionItem.TextChanged += BindingNavigatorPositionItem_TextChanged;
         }
 
         private void Tool_productCheckClearDB_Click(object sender, EventArgs e)
@@ -398,46 +392,6 @@ namespace MesManager.UI
             SelectOfMaterial();
         }
 
-        private void Menu_quanlity_Click(object sender, EventArgs e)
-        {
-            this.panel_quanlity.Dock = DockStyle.Fill;
-            SetPanelFalse();
-            this.panel_quanlity.Visible = true;
-            SelectOfMaterialQuanlity();
-        }
-
-        private void Menu_productCheck_Click(object sender, EventArgs e)
-        {
-            this.panel_productCheck.Dock = DockStyle.Fill;
-            SetPanelFalse();
-            this.panel_productCheck.Visible = true;
-            SelectOfPackageCheck("0");
-        }
-
-        private void Menu_package_Click(object sender, EventArgs e)
-        {
-            this.panel_package.Dock = DockStyle.Fill;
-            SetPanelFalse();
-            this.panel_package.Visible = true;
-            SelectOfPackage("1");
-        }
-
-        private void Menu_material_Click(object sender, EventArgs e)
-        {
-            this.panel_material.Dock = DockStyle.Fill;
-            SetPanelFalse();
-            this.panel_material.Visible = true;
-            SelectOfMaterial();
-        }
-
-        private void Menu_sn_result_Click(object sender, EventArgs e)
-        {
-            this.panel_sn.Dock = DockStyle.Fill;
-            SetPanelFalse();
-            this.panel_sn.Visible = true;
-            SelectOfSn();
-        }
-
         private void Init()
         {
             serviceClient = new MesService.MesServiceClient();
@@ -451,7 +405,6 @@ namespace MesManager.UI
             this.radGridViewMaterial.ReadOnly = true;
             this.radGridViewCheck.ReadOnly = true;
             this.radGridViewQuanlity.ReadOnly = true;
-            SetPanelFalse();
             InitDataTable();
             this.panel_sn.Visible = true;
             this.panel_sn.Dock = DockStyle.Fill;
@@ -495,36 +448,39 @@ namespace MesManager.UI
 
             }
             this.tool_SNClearDB.Visible = false;
-
-            //page
-           var pcbaList = serviceClient.SelectUseAllPcbaSN().Length;
-           pageCount = pcbaList / pageSize;
-        }
-
-        private void SetPanelFalse()
-        {
-            this.panel_sn.Visible = false;
-            this.panel_material.Visible = false;
-            this.panel_package.Visible = false;
-            this.panel_productCheck.Visible = false;
-            this.panel_quanlity.Visible = false;
+            this.radDock1.ActiveWindow = this.documentWindow1;
         }
 
         async private void SelectOfSn()
         {
+            //page   
+            this.radGridViewSn.DataSource = null;
+            this.radGridViewSn.Update();
+            var pcbaList = serviceClient.SelectUseAllPcbaSN().Length;
+            if (pcbaList % pageSize > 0)
+            {
+                pageCount = pcbaList / pageSize + 1;
+            }
+            else
+            {
+                pageCount = pcbaList / pageSize;
+            }
             var filter = tb_sn.Text;
             //DataSet ds = (await serviceClient.SelectTestResultUpperAsync(filter, filter, filter, true));
             DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter,currentPage,pageSize,true);
             this.radGridViewSn.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridViewSn.BeginEdit();
             DataTable dt = ds.Tables[0];
-            this.radGridViewSn.DataSource = null;
             this.radGridViewSn.DataSource = dt;
-
             bindingSource1.DataSource = dt;
             this.bindingNavigator1.BindingSource = bindingSource1;
             this.radGridViewSn.EndEdit();
             this.radGridViewSn.BestFitColumns();
+        }
+
+        private void BindingNavigatorPositionItem_TextChanged(object sender, EventArgs e)
+        {
+            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
         }
 
         private void BindingNavigator1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -539,6 +495,7 @@ namespace MesManager.UI
                 {
                     currentPage--;
                 }
+                SelectOfSn();
             }
             else if (e.ClickedItem.Text == "下一页")
             {
@@ -547,6 +504,7 @@ namespace MesManager.UI
                 {
                     currentPage++;
                 }
+                SelectOfSn();
             }
             else if (e.ClickedItem.Text == "首页")
             {
@@ -556,12 +514,12 @@ namespace MesManager.UI
             else if (e.ClickedItem.Text == "尾页")
             {
                 currentPage = pageCount;
+                SelectOfSn();
             }
             else if (e.ClickedItem.Text == "新添")
             {
                 
             }
-            SelectOfSn();
         }
 
         async private void SelectOfPackage(string state)
@@ -735,19 +693,11 @@ namespace MesManager.UI
         private void Btn_selectOfSn_Click(object sender, EventArgs e)
         {
             SelectOfSn();
-            //BindNavigator();
         }
 
         private void Btn_selectOfPackage_Click(object sender, EventArgs e)
         {
             SelectOfPackage("1");
-        }
-
-        private void BindNavigator()
-        {
-            bindingSource1.DataSource = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            //this.radBindingNavigator1.BindingSource = bindingSource1;
-
         }
     }
 }

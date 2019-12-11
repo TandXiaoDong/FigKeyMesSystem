@@ -64,9 +64,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(786, 0);
+            this.label2.Location = new System.Drawing.Point(785, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 17);
+            this.label2.Size = new System.Drawing.Size(61, 36);
             this.label2.TabIndex = 7;
             this.label2.Text = "结束日期";
             // 
@@ -74,9 +74,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(527, 0);
+            this.label1.Location = new System.Drawing.Point(526, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 17);
+            this.label1.Size = new System.Drawing.Size(78, 23);
             this.label1.TabIndex = 6;
             this.label1.Text = "开始日期";
             // 
@@ -87,9 +87,9 @@
             this.pickerStartTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pickerStartTime.ForeColor = System.Drawing.Color.Black;
             this.pickerStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.pickerStartTime.Location = new System.Drawing.Point(611, 3);
+            this.pickerStartTime.Location = new System.Drawing.Point(610, 3);
             this.pickerStartTime.Name = "pickerStartTime";
-            this.pickerStartTime.Size = new System.Drawing.Size(169, 23);
+            this.pickerStartTime.Size = new System.Drawing.Size(169, 27);
             this.pickerStartTime.TabIndex = 4;
             this.pickerStartTime.TabStop = false;
             this.pickerStartTime.Text = "2019-08-26 17:09:35";
@@ -101,9 +101,9 @@
             this.pickerEndTime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pickerEndTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pickerEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.pickerEndTime.Location = new System.Drawing.Point(864, 3);
+            this.pickerEndTime.Location = new System.Drawing.Point(863, 3);
             this.pickerEndTime.Name = "pickerEndTime";
-            this.pickerEndTime.Size = new System.Drawing.Size(174, 23);
+            this.pickerEndTime.Size = new System.Drawing.Size(174, 27);
             this.pickerEndTime.TabIndex = 5;
             this.pickerEndTime.TabStop = false;
             this.pickerEndTime.Text = "2019-08-26 17:09:41";
@@ -125,7 +125,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.64179F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.35821F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 841F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 842F));
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tb_queryFiler, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btn_export, 3, 0);
@@ -155,7 +155,7 @@
             this.tb_queryFiler.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tb_queryFiler.Location = new System.Drawing.Point(175, 3);
             this.tb_queryFiler.Name = "tb_queryFiler";
-            this.tb_queryFiler.Size = new System.Drawing.Size(156, 21);
+            this.tb_queryFiler.Size = new System.Drawing.Size(155, 25);
             this.tb_queryFiler.TabIndex = 1;
             // 
             // btn_export
@@ -163,7 +163,7 @@
             this.btn_export.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_export.ForeColor = System.Drawing.Color.White;
             this.btn_export.Image = global::MesManager.Properties.Resources.Export_16x16;
-            this.btn_export.Location = new System.Drawing.Point(437, 3);
+            this.btn_export.Location = new System.Drawing.Point(436, 3);
             this.btn_export.Name = "btn_export";
             this.btn_export.Size = new System.Drawing.Size(72, 24);
             this.btn_export.TabIndex = 9;
@@ -176,7 +176,7 @@
             this.btn_search.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_search.ForeColor = System.Drawing.Color.White;
             this.btn_search.Image = global::MesManager.Properties.Resources.Search_16x16;
-            this.btn_search.Location = new System.Drawing.Point(337, 3);
+            this.btn_search.Location = new System.Drawing.Point(336, 3);
             this.btn_search.Name = "btn_search";
             this.btn_search.Size = new System.Drawing.Size(74, 24);
             this.btn_search.TabIndex = 8;
@@ -196,7 +196,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 78F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 234F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 235F));
             this.tableLayoutPanel2.Controls.Add(this.rbtn_today, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.rbtn_oneMonth, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.rbtn_threeMonth, 2, 0);
@@ -220,7 +220,7 @@
             this.rbtn_today.ForeColor = System.Drawing.Color.White;
             this.rbtn_today.Location = new System.Drawing.Point(3, 3);
             this.rbtn_today.Name = "rbtn_today";
-            this.rbtn_today.Size = new System.Drawing.Size(58, 21);
+            this.rbtn_today.Size = new System.Drawing.Size(57, 27);
             this.rbtn_today.TabIndex = 14;
             this.rbtn_today.TabStop = true;
             this.rbtn_today.Text = "当天";
@@ -230,9 +230,9 @@
             // 
             this.rbtn_oneMonth.AutoSize = true;
             this.rbtn_oneMonth.ForeColor = System.Drawing.Color.White;
-            this.rbtn_oneMonth.Location = new System.Drawing.Point(67, 3);
+            this.rbtn_oneMonth.Location = new System.Drawing.Point(66, 3);
             this.rbtn_oneMonth.Name = "rbtn_oneMonth";
-            this.rbtn_oneMonth.Size = new System.Drawing.Size(106, 21);
+            this.rbtn_oneMonth.Size = new System.Drawing.Size(114, 27);
             this.rbtn_oneMonth.TabIndex = 15;
             this.rbtn_oneMonth.TabStop = true;
             this.rbtn_oneMonth.Text = "最近一个月";
@@ -242,9 +242,9 @@
             // 
             this.rbtn_threeMonth.AutoSize = true;
             this.rbtn_threeMonth.ForeColor = System.Drawing.Color.White;
-            this.rbtn_threeMonth.Location = new System.Drawing.Point(187, 3);
+            this.rbtn_threeMonth.Location = new System.Drawing.Point(186, 3);
             this.rbtn_threeMonth.Name = "rbtn_threeMonth";
-            this.rbtn_threeMonth.Size = new System.Drawing.Size(106, 21);
+            this.rbtn_threeMonth.Size = new System.Drawing.Size(110, 27);
             this.rbtn_threeMonth.TabIndex = 16;
             this.rbtn_threeMonth.TabStop = true;
             this.rbtn_threeMonth.Text = "最近三个月";
@@ -254,9 +254,9 @@
             // 
             this.rbtn_oneYear.AutoSize = true;
             this.rbtn_oneYear.ForeColor = System.Drawing.Color.White;
-            this.rbtn_oneYear.Location = new System.Drawing.Point(303, 3);
+            this.rbtn_oneYear.Location = new System.Drawing.Point(302, 3);
             this.rbtn_oneYear.Name = "rbtn_oneYear";
-            this.rbtn_oneYear.Size = new System.Drawing.Size(90, 21);
+            this.rbtn_oneYear.Size = new System.Drawing.Size(95, 27);
             this.rbtn_oneYear.TabIndex = 18;
             this.rbtn_oneYear.TabStop = true;
             this.rbtn_oneYear.Text = "最近一年";
@@ -266,9 +266,9 @@
             // 
             this.rbtn_custom.AutoSize = true;
             this.rbtn_custom.ForeColor = System.Drawing.Color.White;
-            this.rbtn_custom.Location = new System.Drawing.Point(404, 3);
+            this.rbtn_custom.Location = new System.Drawing.Point(403, 3);
             this.rbtn_custom.Name = "rbtn_custom";
-            this.rbtn_custom.Size = new System.Drawing.Size(106, 21);
+            this.rbtn_custom.Size = new System.Drawing.Size(116, 27);
             this.rbtn_custom.TabIndex = 13;
             this.rbtn_custom.TabStop = true;
             this.rbtn_custom.Text = "自定义日期";
@@ -290,7 +290,7 @@
             // 
             // TestLogDetail
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
             this.ClientSize = new System.Drawing.Size(1276, 586);
