@@ -45,7 +45,6 @@ namespace MesAPI
 
         private static List<string> pcbaCacheList = new List<string>();//用于缓存pcba数据
         private static DataTable pcbaCacheDataSource = new DataTable();//用于缓存PCBA的所有数据信息
-        private static DataTable dtTestResult = new DataTable();//要查询的所有SN主要信息
 
         private int logCount = 0;
 
@@ -1557,56 +1556,51 @@ namespace MesAPI
             return "";
         }
 
-        public DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime)
+        public DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime, int pageNumber, int pageSize)
         {
             //更新当前工站名称
             LogHelper.Log.Info("【开始查询过站历史】");
+            DataTable dtTestResult = new DataTable();//要查询的所有SN主要信息
             DataSet ds = new DataSet();
             try
             {
                 var dt = InitTestResultDataTable(true);//最终结果
-                if (dtTestResult.Rows.Count > 0)
-                {
-                    LogHelper.Log.Info("clear "+dtTestResult.Rows.Count);
-                    dtTestResult.Clear();
-                }
-
                 if (STATION_TURN.Contains(queryFilter) && queryFilter != "")
                 {
-                    AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt, true);
+                    AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt, dtTestResult, true);
                 }
                 else if (STATION_SENSIBLITY.Contains(queryFilter) && queryFilter != "")
                 {
-                    AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt, true);
+                    AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt, dtTestResult, true);
                 }
                 else if (STATION_SHELL.Contains(queryFilter) && queryFilter != "")
                 {
-                    AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt, true);
+                    AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt, dtTestResult, true);
                 }
                 else if (STATION_AIR.Contains(queryFilter) && queryFilter != "")
                 {
-                    AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt, true);
+                    AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt, dtTestResult, true);
                 }
                 else if (STATION_STENT.Contains(queryFilter) && queryFilter != "")
                 {
-                    AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt, true);
+                    AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt, dtTestResult, true);
                 }
                 else if (STATION_PRODUCT.Contains(queryFilter) && queryFilter != "")
                 {
-                    AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt, true);
+                    AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt, dtTestResult, true);
                 }
                 else
                 {
-                    AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt, false);
-                    AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt, false);
-                    AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt, false);
-                    AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt, false);
-                    AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt, false);
-                    AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt, false);
+                    AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt, dtTestResult, false);
+                    AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt, dtTestResult, false);
+                    AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt, dtTestResult, false);
+                    AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt, dtTestResult, false);
+                    AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt, dtTestResult, false);
+                    AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt, dtTestResult, false);
                 }
                 LogHelper.Log.Info("【查询过站记录完成--开始查询log明细】"+dtTestResult.Rows.Count);
                 //开始分页查询
-                StartSelectLogDetail(dt);
+                StartSelectLogDetail(dt,dtTestResult, pageNumber, pageSize);
                 LogHelper.Log.Info("【查询过站记录完成--查询log明细完毕】" + dtTestResult.Rows.Count + "  " + dt.Rows.Count);
                 ds.Tables.Add(dt);
             }
@@ -1617,7 +1611,7 @@ namespace MesAPI
             return ds;
         }
 
-        private void AddTestLogDetail(string station,string queryFilter, string startTime, string endTime,DataTable dt,bool IsQueryOfStation)
+        private void AddTestLogDetail(string station,string queryFilter, string startTime, string endTime,DataTable dt,DataTable dtTestResult, bool IsQueryOfStation)
         {
             var selectTestResultSQL = "";
             if (queryFilter == "")
@@ -1743,17 +1737,13 @@ namespace MesAPI
                 }
             }
             var dtResult = SQLServer.ExecuteDataSet(selectTestResultSQL).Tables[0];
-            if(dtTestResult.Rows.Count < 0)
-            {
-                dtTestResult = dtResult.Clone();
-            }
             foreach (DataRow dr in dtResult.Rows)
             {
                 dtTestResult.ImportRow(dr);
             }
         }
 
-        private void StartSelectLogDetail(DataTable dt)
+        private void StartSelectLogDetail(DataTable dt, DataTable dtTestResult)
         {
             if (dtTestResult.Rows.Count > 0)
             {
@@ -2185,7 +2175,6 @@ namespace MesAPI
             }
             return false;
         }
-
 
         /// <summary>
         /// 删除测试log数据后，检查是否删除/执行删除绑定数据
