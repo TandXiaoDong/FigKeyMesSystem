@@ -217,7 +217,7 @@ namespace MesAPI
         //DataSet SelectTestResultDetail(string querySN);
 
         [OperationContract]
-        DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime);
+        DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime, int pageNumber, int pageSize);
 
         [OperationContract]
         string DeleteTestLogData(string queryCondition, string startTime, string endTime);

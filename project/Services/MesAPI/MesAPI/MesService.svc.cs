@@ -1173,6 +1173,21 @@ namespace MesAPI
 
             return dt;
         }
+
+        private static DataTable InitTestResultLogDataTable()
+        {
+            ////sn/type_no/station_name/test_result/station_in_date/out_date/team_leader/join_date_time
+            DataTable dt = new DataTable();
+            dt.Columns.Add(DbTable.F_Test_Result.SN);
+            dt.Columns.Add(DbTable.F_Test_Result.TYPE_NO);
+            dt.Columns.Add(DbTable.F_Test_Result.STATION_NAME);
+            dt.Columns.Add(DbTable.F_Test_Result.TEST_RESULT);
+            dt.Columns.Add(DbTable.F_Test_Result.STATION_IN_DATE);
+            dt.Columns.Add(DbTable.F_Test_Result.STATION_OUT_DATE);
+            dt.Columns.Add(DbTable.F_Test_Result.TEAM_LEADER);
+            dt.Columns.Add(DbTable.F_Test_Result.JOIN_DATE_TIME);
+            return dt;
+        }
         //查询测试项值与结果
         private static string SelectTestItemValue(string pcbasn,string productSN,string stationName,string testItem)
         {
@@ -1556,14 +1571,14 @@ namespace MesAPI
             return "";
         }
 
-        public DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime)
+        public DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime,int pageNumber, int pageSize)
         {
             //更新当前工站名称
-            DataTable dtTestResult = new DataTable();//要查询的所有SN主要信息
             DataSet ds = new DataSet();
             try
             {
                 var dt = InitTestResultDataTable(true);//最终结果
+                var dtTestResult = InitTestResultLogDataTable();
                 if (STATION_TURN.Contains(queryFilter) && queryFilter != "")
                 {
                     AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt, dtTestResult, true);
@@ -1599,6 +1614,7 @@ namespace MesAPI
                 }
                 //LogHelper.Log.Info("【查询过站记录完成--开始查询log明细】"+dtTestResult.Rows.Count);
                 //开始分页查询
+                //int startIndex = 
                 StartSelectLogDetail(dt,dtTestResult);
                 //LogHelper.Log.Info("【查询过站记录完成--查询log明细完毕】" + dtTestResult.Rows.Count + "  " + dt.Rows.Count);
                 ds.Tables.Add(dt);

@@ -59,18 +59,18 @@ namespace MesAPI.DB
         public class F_Test_Result
         {
             public const string PROCESS_NAME = "[process_name]";
-            public const string SN = "[sn]";
-            public const string TYPE_NO = "[type_no]";
-            public const string STATION_NAME = "[station_name]";
-            public const string TEST_RESULT = "[test_result]";
-            public const string STATION_IN_DATE = "[station_in_date]";
-            public const string STATION_OUT_DATE = "[station_out_date]";
-            public const string CREATE_DATE = "[create_date]";
-            public const string UPDATE_DATE = "[update_date]";
-            public const string REMARK = "[remark]";
+            public const string SN = "sn";
+            public const string TYPE_NO = "type_no";
+            public const string STATION_NAME = "station_name";
+            public const string TEST_RESULT = "test_result";
+            public const string STATION_IN_DATE = "station_in_date";
+            public const string STATION_OUT_DATE = "station_out_date";
+            public const string CREATE_DATE = "create_date";
+            public const string UPDATE_DATE = "update_date";
+            public const string REMARK = "remark";
             public const string TEAM_LEADER = "team_leader";
-            public const string ADMIN = "[admin]";
-            public const string JOIN_DATE_TIME = "[joinDateTime]";
+            public const string ADMIN = "admin";
+            public const string JOIN_DATE_TIME = "joinDateTime";
         }
 
         public class F_TypeNo
