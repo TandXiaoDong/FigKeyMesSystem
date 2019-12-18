@@ -703,7 +703,7 @@ namespace MesAPI
         /// </summary>
         /// <param name="querySN"></param>
         /// <returns></returns>
-        public DataSet SelectTestResultDetail(string querySN, int pageNumber, int pageSize)
+        public DataSet SelectTestResultDetail(string querySN)
         {
             LogHelper.Log.Info("开始查询");
             DataTable dt = InitTestResultDataTable(true);
@@ -1556,10 +1556,9 @@ namespace MesAPI
             return "";
         }
 
-        public DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime, int pageNumber, int pageSize)
+        public DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime)
         {
             //更新当前工站名称
-            LogHelper.Log.Info("【开始查询过站历史】");
             DataTable dtTestResult = new DataTable();//要查询的所有SN主要信息
             DataSet ds = new DataSet();
             try
@@ -1598,10 +1597,10 @@ namespace MesAPI
                     AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt, dtTestResult, false);
                     AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt, dtTestResult, false);
                 }
-                LogHelper.Log.Info("【查询过站记录完成--开始查询log明细】"+dtTestResult.Rows.Count);
+                //LogHelper.Log.Info("【查询过站记录完成--开始查询log明细】"+dtTestResult.Rows.Count);
                 //开始分页查询
-                StartSelectLogDetail(dt,dtTestResult, pageNumber, pageSize);
-                LogHelper.Log.Info("【查询过站记录完成--查询log明细完毕】" + dtTestResult.Rows.Count + "  " + dt.Rows.Count);
+                StartSelectLogDetail(dt,dtTestResult);
+                //LogHelper.Log.Info("【查询过站记录完成--查询log明细完毕】" + dtTestResult.Rows.Count + "  " + dt.Rows.Count);
                 ds.Tables.Add(dt);
             }
             catch (Exception ex)

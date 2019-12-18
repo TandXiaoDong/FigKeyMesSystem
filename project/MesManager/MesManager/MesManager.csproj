@@ -631,20 +631,20 @@
     <None Include="Connected Services\MesService\MesManager.MesService.Station.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\MesService\MesService.wsdl" />
-    <None Include="Connected Services\MesService\MesService.xsd">
+    <None Include="Connected Services\MesService\MesService1.wsdl" />
+    <None Include="Connected Services\MesService\MesService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService1.xsd">
+    <None Include="Connected Services\MesService\MesService51.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService2.xsd">
+    <None Include="Connected Services\MesService\MesService52.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService3.xsd">
+    <None Include="Connected Services\MesService\MesService53.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService4.xsd">
+    <None Include="Connected Services\MesService\MesService54.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -672,7 +672,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Connected Services\MesServiceTest\MesService1.disco" />
-    <None Include="Connected Services\MesService\MesService.disco" />
+    <None Include="Connected Services\MesService\MesService1.disco" />
     <Content Include="MES修改设计.txt" />
     <Content Include="需求总结.txt" />
     <Content Include="测试内容.txt" />
