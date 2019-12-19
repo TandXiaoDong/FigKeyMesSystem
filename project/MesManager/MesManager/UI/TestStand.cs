@@ -28,6 +28,20 @@ namespace MesManager.UI
         private const string LOG_TEST_RESULT = "测试结果";
         private DataTable dataSource;
         private string currentQueryCondition;
+        private string startTime = "";
+        private string endTime = "";
+        /// <summary>
+        /// 当前页
+        /// </summary>
+        private int currentPage = 1;
+        /// <summary>
+        /// 每页的大小
+        /// </summary>
+        private int pageSize = 100;
+        /// <summary>
+        /// 总页数
+        /// </summary>
+        private int pageCount;
 
         public TestStand()
         {
@@ -63,6 +77,9 @@ namespace MesManager.UI
             this.rbtn_oneYear.Click += Rbtn_oneYear_Click;
             this.tool_clearDB.Click += Tool_clearDB_Click;
             this.tool_query.Click += Tool_query_Click;
+            this.bindingNavigator1.ItemClicked += BindingNavigator1_ItemClicked;
+            this.bindingNavigatorCountItem.TextChanged += BindingNavigatorCountItem_TextChanged;
+            this.bindingNavigatorPositionItem.TextChanged += BindingNavigatorPositionItem_TextChanged;
         }
 
         private void Tool_query_Click(object sender, EventArgs e)
@@ -170,35 +187,7 @@ namespace MesManager.UI
             }
             else if (currentDataType == TestStandDataType.TEST_LOG_DATA)
             {
-                var startTime = "";
-                var endTime = "";
-                if (rbtn_today.Checked)
-                {
-                    startTime = DateTime.Now.ToString("yyyy-MM-dd")+" 00:00:00";
-                    endTime = DateTime.Now.ToString("yyyy-MM-dd")+" 23:59:59";
-                }
-                else if (rbtn_oneMonth.Checked)
-                {
-                    startTime = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd") + " 00:00:00";
-                    endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
-                }
-                else if (rbtn_threeMonth.Checked)
-                {
-                    startTime = DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd") + " 00:00:00";
-                    endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
-                }
-                else if (rbtn_oneYear.Checked)
-                {
-                    startTime = DateTime.Now.AddYears(-1).ToString("yyyy-MM-dd") + " 00:00:00";
-                    endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
-                }
-                else if (rbtn_custom.Checked)
-                {
-                    startTime = this.pickerStartTime.Text;
-                    endTime = this.pickerEndTime.Text;
-                }
-                //SelectTestLogData(this.tool_queryCondition.Text,startTime,endTime);
-                SelectTestResultDetail(this.tool_queryCondition.Text,startTime,endTime);
+                SelectTestResultDetail();
             }
             else if (currentDataType == TestStandDataType.TEST_PROGRAME_VERSION)
             {
@@ -239,7 +228,6 @@ namespace MesManager.UI
             this.tool_exportCondition.Items.Add(GridViewExport.ExportFormat.PDF.ToString());
             this.tool_exportCondition.Items.Add(GridViewExport.ExportFormat.CSV.ToString());
             this.tool_exportCondition.SelectedIndex = 0;
-            RefreshUI();
         }
 
         async private void SelectTestLimitConfig(string productTypeNo)
@@ -282,10 +270,55 @@ namespace MesManager.UI
             this.radGridView1.Columns[0].BestFit();
         }
 
-        async private void SelectTestResultDetail(string queryFilter, string startTime, string endTime)
+        async private void SelectTestResultDetail()
         {
             LogHelper.Log.Info("log查询-开始");
-            var ds = await serviceClient.SelectTestResultLogDetailAsync(queryFilter, startTime, endTime);
+
+            this.radGridView1.DataSource = null;
+            this.radGridView1.Update();
+            if (currentPage == 1)
+            {
+                #region update select date
+                if (rbtn_today.Checked)
+                {
+                    startTime = DateTime.Now.ToString("yyyy-MM-dd") + " 00:00:00";
+                    endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
+                }
+                else if (rbtn_oneMonth.Checked)
+                {
+                    startTime = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd") + " 00:00:00";
+                    endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
+                }
+                else if (rbtn_threeMonth.Checked)
+                {
+                    startTime = DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd") + " 00:00:00";
+                    endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
+                }
+                else if (rbtn_oneYear.Checked)
+                {
+                    startTime = DateTime.Now.AddYears(-1).ToString("yyyy-MM-dd") + " 00:00:00";
+                    endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
+                }
+                else if (rbtn_custom.Checked)
+                {
+                    startTime = this.pickerStartTime.Text;
+                    endTime = this.pickerEndTime.Text;
+                }
+                #endregion
+
+                int totalNumber = await serviceClient.SelectTestResultLogLatestPageAsync(this.tool_queryCondition.Text, startTime, endTime);
+                if (totalNumber % pageSize > 0)
+                {
+                    pageCount = totalNumber / pageSize + 1;
+                }
+                else
+                {
+                    pageCount = totalNumber / pageSize;
+                }
+            }
+           
+            var ds = await serviceClient.SelectTestResultLogDetailAsync(currentPage,pageSize);
+
             LogHelper.Log.Info("log查询-结果查询完毕");
             if (ds.Tables.Count < 1)
             {
@@ -297,9 +330,60 @@ namespace MesManager.UI
             this.radGridView1.BeginEdit();
             this.radGridView1.DataSource = null;
             this.radGridView1.DataSource = dt;
+            bindingSource1.DataSource = dt;
+            this.bindingNavigator1.BindingSource = bindingSource1;
             this.radGridView1.EndEdit();
             this.radGridView1.BestFitColumns();
             LogHelper.Log.Info("log查询-显示完成");
+        }
+
+        private void BindingNavigatorPositionItem_TextChanged(object sender, EventArgs e)
+        {
+            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+        }
+
+        private void BindingNavigatorCountItem_TextChanged(object sender, EventArgs e)
+        {
+            this.bindingNavigatorCountItem.Text = "/" + pageCount;
+        }
+
+        private void BindingNavigator1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+            if (e.ClickedItem.Text == "删除")
+            {
+                //删除页
+            }
+            else if (e.ClickedItem.Text == "上一页")
+            {
+                if (currentPage > 1)
+                {
+                    currentPage--;
+                }
+                RefreshUI();
+            }
+            else if (e.ClickedItem.Text == "下一页")
+            {
+                if (currentPage < pageCount)
+                {
+                    currentPage++;
+                }
+                RefreshUI();
+            }
+            else if (e.ClickedItem.Text == "首页")
+            {
+                currentPage = 1;
+                RefreshUI();
+            }
+            else if (e.ClickedItem.Text == "尾页")
+            {
+                currentPage = pageCount;
+                RefreshUI();
+            }
+            else if (e.ClickedItem.Text == "新添")
+            {
+
+            }
         }
 
         private void ExportGridViewData()

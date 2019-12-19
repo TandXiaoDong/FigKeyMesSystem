@@ -128,6 +128,7 @@ namespace MesManager.UI
             this.tool_productCheckClearDB.Click += Tool_productCheckClearDB_Click;
 
             this.bindingNavigator1.ItemClicked += BindingNavigator1_ItemClicked;
+            this.bindingNavigatorCountItem.TextChanged += BindingNavigatorCountItem_TextChanged;
             this.bindingNavigatorPositionItem.TextChanged += BindingNavigatorPositionItem_TextChanged;
         }
 
@@ -481,6 +482,11 @@ namespace MesManager.UI
         private void BindingNavigatorPositionItem_TextChanged(object sender, EventArgs e)
         {
             this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+        }
+
+        private void BindingNavigatorCountItem_TextChanged(object sender, EventArgs e)
+        {
+            this.bindingNavigatorCountItem.Text = "/" + pageCount;
         }
 
         private void BindingNavigator1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

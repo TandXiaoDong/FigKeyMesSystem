@@ -47,7 +47,7 @@ namespace MesManager.UI
         {
             InitConfig();
             RefreshControl();
-            QueryPcbaMsg();
+            //QueryPcbaMsg();
             this.tb_pcbasn.TextChanged += Tb_pcbasn_TextChanged;
             this.tb_pcbasn.KeyDown += Tb_pcbasn_KeyDown;
             this.btn_apply.Click += Btn_apply_Click;
@@ -58,7 +58,13 @@ namespace MesManager.UI
             this.btn_unbind.Click += Btn_unbind_Click;
             this.cb_typeNo.SelectedIndexChanged += Cb_typeNo_SelectedIndexChanged;
             this.btn_searchCaseMsg.Click += Btn_searchCaseMsg_Click;
+            this.btn_queryPCBA.Click += Btn_queryPCBA_Click;
             this.radDock1.ActiveWindow = this.dw_pcba;
+        }
+
+        private void Btn_queryPCBA_Click(object sender, EventArgs e)
+        {
+            QueryPcbaMsg();
         }
 
         private void Btn_searchCaseMsg_Click(object sender, EventArgs e)

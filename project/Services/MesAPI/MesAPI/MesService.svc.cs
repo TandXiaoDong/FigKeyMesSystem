@@ -1571,53 +1571,77 @@ namespace MesAPI
             return "";
         }
 
-        public DataSet SelectTestResultLogDetail(string queryFilter,string startTime,string endTime,int pageNumber, int pageSize)
+        private static  DataTable testLogFinalResult;
+        private static DataTable testResultLogTemp;
+
+        public int SelectTestResultLogLatestPage(string queryFilter, string startTime, string endTime)
         {
-            //更新当前工站名称
+            var dtTestResult = InitTestResultLogDataTable();
+            if (STATION_TURN.Contains(queryFilter) && queryFilter != "")
+            {
+                AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, testLogFinalResult, dtTestResult, true);
+            }
+            else if (STATION_SENSIBLITY.Contains(queryFilter) && queryFilter != "")
+            {
+                AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, testLogFinalResult, dtTestResult, true);
+            }
+            else if (STATION_SHELL.Contains(queryFilter) && queryFilter != "")
+            {
+                AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, testLogFinalResult, dtTestResult, true);
+            }
+            else if (STATION_AIR.Contains(queryFilter) && queryFilter != "")
+            {
+                AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, testLogFinalResult, dtTestResult, true);
+            }
+            else if (STATION_STENT.Contains(queryFilter) && queryFilter != "")
+            {
+                AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, testLogFinalResult, dtTestResult, true);
+            }
+            else if (STATION_PRODUCT.Contains(queryFilter) && queryFilter != "")
+            {
+                AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, testLogFinalResult, dtTestResult, true);
+            }
+            else
+            {
+                AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, testLogFinalResult, dtTestResult, false);
+                AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, testLogFinalResult, dtTestResult, false);
+                AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, testLogFinalResult, dtTestResult, false);
+                AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, testLogFinalResult, dtTestResult, false);
+                AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, testLogFinalResult, dtTestResult, false);
+                AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, testLogFinalResult, dtTestResult, false);
+            }
+
+            if (testResultLogTemp != null)
+            {
+                testResultLogTemp = null;
+            }
+            testResultLogTemp = dtTestResult.Copy();
+            return testResultLogTemp.Rows.Count;
+        }
+        public DataSet SelectTestResultLogDetail(int pageNumber, int pageSize)
+        {
             DataSet ds = new DataSet();
             try
             {
-                var dt = InitTestResultDataTable(true);//最终结果
-                var dtTestResult = InitTestResultLogDataTable();
-                if (STATION_TURN.Contains(queryFilter) && queryFilter != "")
-                {
-                    AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt, dtTestResult, true);
-                }
-                else if (STATION_SENSIBLITY.Contains(queryFilter) && queryFilter != "")
-                {
-                    AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt, dtTestResult, true);
-                }
-                else if (STATION_SHELL.Contains(queryFilter) && queryFilter != "")
-                {
-                    AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt, dtTestResult, true);
-                }
-                else if (STATION_AIR.Contains(queryFilter) && queryFilter != "")
-                {
-                    AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt, dtTestResult, true);
-                }
-                else if (STATION_STENT.Contains(queryFilter) && queryFilter != "")
-                {
-                    AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt, dtTestResult, true);
-                }
-                else if (STATION_PRODUCT.Contains(queryFilter) && queryFilter != "")
-                {
-                    AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt, dtTestResult, true);
-                }
-                else
-                {
-                    AddTestLogDetail(STATION_TURN, queryFilter, startTime, endTime, dt, dtTestResult, false);
-                    AddTestLogDetail(STATION_SENSIBLITY, queryFilter, startTime, endTime, dt, dtTestResult, false);
-                    AddTestLogDetail(STATION_SHELL, queryFilter, startTime, endTime, dt, dtTestResult, false);
-                    AddTestLogDetail(STATION_AIR, queryFilter, startTime, endTime, dt, dtTestResult, false);
-                    AddTestLogDetail(STATION_STENT, queryFilter, startTime, endTime, dt, dtTestResult, false);
-                    AddTestLogDetail(STATION_PRODUCT, queryFilter, startTime, endTime, dt, dtTestResult, false);
-                }
-                //LogHelper.Log.Info("【查询过站记录完成--开始查询log明细】"+dtTestResult.Rows.Count);
+                testLogFinalResult = InitTestResultDataTable(true);//最终结果
                 //开始分页查询
-                //int startIndex = 
-                StartSelectLogDetail(dt,dtTestResult);
+                int startIndex = (pageNumber - 1) * pageSize;
+                DataTable currentResult = testResultLogTemp.Clone();
+                int i = 0;
+                LogHelper.Log.Info("testResultLogTemp:" + testResultLogTemp.Rows.Count);
+                foreach (DataRow dr in testResultLogTemp.Rows)
+                {
+                    if (i >= startIndex && i < pageNumber * pageSize)
+                    {
+                        currentResult.ImportRow(dr);
+                    }
+                    i++;
+                }
+                LogHelper.Log.Info("currentResult:" + currentResult.Rows.Count);
+                StartSelectLogDetail(currentResult);
                 //LogHelper.Log.Info("【查询过站记录完成--查询log明细完毕】" + dtTestResult.Rows.Count + "  " + dt.Rows.Count);
-                ds.Tables.Add(dt);
+                ds.Tables.Add(testLogFinalResult);
+                LogHelper.Log.Info("testLogFinalResult:" + testLogFinalResult.Rows.Count);
             }
             catch (Exception ex)
             {
@@ -1758,14 +1782,14 @@ namespace MesAPI
             }
         }
 
-        private void StartSelectLogDetail(DataTable dt, DataTable dtTestResult)
+        private void StartSelectLogDetail(DataTable dtTestResult)
         {
             if (dtTestResult.Rows.Count > 0)
             {
                 var shellLen = ReadShellCodeLength();
                 foreach (DataRow dataRow in dtTestResult.Rows)
                 {
-                    DataRow dr = dt.NewRow();
+                    DataRow dr = testLogFinalResult.NewRow();
                     var pcbaSNTemp = dataRow[0].ToString();
                     var productTypeNo = dataRow[1].ToString();
                     var stationName = dataRow[2].ToString();
@@ -1888,7 +1912,7 @@ namespace MesAPI
                     }
                     #endregion
 
-                    dt.Rows.Add(dr);
+                    testLogFinalResult.Rows.Add(dr);
                     logCount++;
                 }
             }
@@ -2722,7 +2746,7 @@ namespace MesAPI
             return dataSourceMaterialBasic;
         }
 
-        public DataSet SelectMaterialBasicMsg(string queryCondition)
+        public MaterialResultInfo SelectMaterialBasicMsg(string queryCondition,int pageIndex,int pageSize)
         {
             if (queryCondition == null)
                 queryCondition = "";
@@ -2805,7 +2829,7 @@ namespace MesAPI
             {
                 //查询所有信息
                 LogHelper.Log.Info("【物料查询】--查询所有 " + selectSQL);
-                return SelectMaterialDetail(dataSourceMaterialBasic, selectSQL);
+                return SelectMaterialDetail(dataSourceMaterialBasic, selectSQL,pageIndex,pageSize);
             }
             else
             {
@@ -2814,15 +2838,15 @@ namespace MesAPI
 
                 //根据物料查询
                 LogHelper.Log.Info("【物料查询--selectMsgOfMaterialSQL】" + selectMsgOfMaterialSQL);
-                var detailResult = SelectMaterialDetail(dataSourceMaterialBasic, selectMsgOfMaterialSQL);
-                if (detailResult.Tables[0].Rows.Count < 1)
+                var materialObj = SelectMaterialDetail(dataSourceMaterialBasic, selectMsgOfMaterialSQL, pageIndex, pageSize);
+                if (materialObj.MaterialResultData.Tables[0].Rows.Count < 1)
                 {
                     //根据SN查询
                     LogHelper.Log.Info("【物料查询--selectMsgOfSn】" + selectMsgOfSn);
                     dataSourceMaterialBasic = InitMaterialBasic();
-                    return SelectMaterialDetail(dataSourceMaterialBasic, selectMsgOfSn);
+                    return SelectMaterialDetail(dataSourceMaterialBasic, selectMsgOfSn, pageIndex, pageSize);
                 }
-                return detailResult;
+                return materialObj;
             }
         }
 
@@ -3055,59 +3079,67 @@ namespace MesAPI
             return delCount;
         }
 
-        private DataSet SelectMaterialDetail(DataTable dataSourceMaterialBasic,string selectSQL)
+        private MaterialResultInfo SelectMaterialDetail(DataTable dataSourceMaterialBasic,string selectSQL, int pageIndex, int pageSize)
         {
+            MaterialResultInfo materialResultInfo = new MaterialResultInfo();
             DataSet ds = new DataSet();
             DbDataReader dataReader = SQLServer.ExecuteDataReader(selectSQL);
             if (!dataReader.HasRows)
             {
                 ds.Tables.Add(dataSourceMaterialBasic);
-                return ds;
+                materialResultInfo.MaterialResultData = ds;
+                return materialResultInfo;
             }
-            var i = 0;
             var shellLen = ReadShellCodeLength();
             //物料编码/产品型号/产品SN/当前使用数量/当前剩余数量
+            int i = 0;
+            int startIndex = (pageIndex - 1) * pageSize;
             while (dataReader.Read())
             {
-                DataRow dr = dataSourceMaterialBasic.NewRow();
-                var materialCode = dataReader[0].ToString();//pn/lot/rid/dc/qty
-                var productTypeNo = dataReader[1].ToString();
-                var sn = dataReader[2].ToString();
-                var useAmounted = dataReader[3].ToString();//当前使用数量
-                var currentRemain = dataReader[4].ToString();
-                var snPCBA = GetPCBASn(sn);
-                var snOutter = GetProductSn(sn);
-                if (!materialCode.Contains("&"))
-                    continue;
-                AnalysisMaterialCode analysisMaterial = AnalysisMaterialCode.GetMaterialDetail(materialCode);
-                var pnCode = analysisMaterial.MaterialPN;
-                var lotCode = analysisMaterial.MaterialLOT;
-                var ridCode = analysisMaterial.MaterialRID;
-                var dcCode = analysisMaterial.MaterialDC;
-                //var qtyCode = analysisMaterial.MaterialQTY;
-                var materialName = SelectMaterialName(pnCode);
-                var stockMsg = SelectStockMsg(materialCode);
-                dr[DATA_ORDER] = i + 1;
-                dr[MATERIAL_PN] = pnCode;
-                dr[MATERIAL_LOT] = lotCode;
-                dr[MATERIAL_RID] = ridCode;
-                dr[MATERIAL_DC] = dcCode;
-                dr[MATERIAL_QTY] = stockMsg.ActualStock;
-                dr[MATERIAL_NAME] = materialName;
-                dr[PRODUCT_TYPENO] = productTypeNo;
-                dr[USE_AMOUNTED] = useAmounted;
-                dr[RESIDUE_STOCK] = stockMsg.ActualStock - stockMsg.UseAmounted;
-                dr[CURRENT_RESIDUE_STOCK] = currentRemain;
+                if (i >= startIndex && i < pageSize * pageIndex)
+                {
+                    DataRow dr = dataSourceMaterialBasic.NewRow();
+                    var materialCode = dataReader[0].ToString();//pn/lot/rid/dc/qty
+                    var productTypeNo = dataReader[1].ToString();
+                    var sn = dataReader[2].ToString();
+                    var useAmounted = dataReader[3].ToString();//当前使用数量
+                    var currentRemain = dataReader[4].ToString();
+                    var snPCBA = GetPCBASn(sn);
+                    var snOutter = GetProductSn(sn);
+                    if (!materialCode.Contains("&"))
+                        continue;
+                    AnalysisMaterialCode analysisMaterial = AnalysisMaterialCode.GetMaterialDetail(materialCode);
+                    var pnCode = analysisMaterial.MaterialPN;
+                    var lotCode = analysisMaterial.MaterialLOT;
+                    var ridCode = analysisMaterial.MaterialRID;
+                    var dcCode = analysisMaterial.MaterialDC;
+                    //var qtyCode = analysisMaterial.MaterialQTY;
+                    var materialName = SelectMaterialName(pnCode);
+                    var stockMsg = SelectStockMsg(materialCode);
+                    dr[DATA_ORDER] = i + 1;
+                    dr[MATERIAL_PN] = pnCode;
+                    dr[MATERIAL_LOT] = lotCode;
+                    dr[MATERIAL_RID] = ridCode;
+                    dr[MATERIAL_DC] = dcCode;
+                    dr[MATERIAL_QTY] = stockMsg.ActualStock;
+                    dr[MATERIAL_NAME] = materialName;
+                    dr[PRODUCT_TYPENO] = productTypeNo;
+                    dr[USE_AMOUNTED] = useAmounted;
+                    dr[RESIDUE_STOCK] = stockMsg.ActualStock - stockMsg.UseAmounted;
+                    dr[CURRENT_RESIDUE_STOCK] = currentRemain;
 
-                dr[SN_PCBA] = snPCBA;
-                dr[SN_OUTTER] = snOutter;
-                dr[PCBA_STATUS] = SelectPcbaMsg(snPCBA, snOutter);
-                dataSourceMaterialBasic.Rows.Add(dr);
+                    dr[SN_PCBA] = snPCBA;
+                    dr[SN_OUTTER] = snOutter;
+                    dr[PCBA_STATUS] = SelectPcbaMsg(snPCBA, snOutter);
+                    dataSourceMaterialBasic.Rows.Add(dr);
+                }
                 i++;
             }
             dataReader.Close();
             ds.Tables.Add(dataSourceMaterialBasic);
-            return ds;
+            materialResultInfo.MaterialResultData = ds;
+            materialResultInfo.MaterialRowCount = i;
+            return materialResultInfo;
         }
 
         public DataSet SelectMaterialDetailMsg(string materialCode)

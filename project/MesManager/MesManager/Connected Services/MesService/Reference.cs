@@ -734,11 +734,17 @@ namespace MesManager.MesService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultDetail", ReplyAction="http://tempuri.org/IMesService/SelectTestResultDetailResponse")]
         System.Threading.Tasks.Task<System.Data.DataSet> SelectTestResultDetailAsync(string querySN, int pageNumber, int pageSize, bool IsQueryLatest);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultLogDetail", ReplyAction="http://tempuri.org/IMesService/SelectTestResultLogDetailResponse")]
-        System.Data.DataSet SelectTestResultLogDetail(string queryFilter, string startTime, string endTime);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultLogLatestPage", ReplyAction="http://tempuri.org/IMesService/SelectTestResultLogLatestPageResponse")]
+        int SelectTestResultLogLatestPage(string queryFilter, string startTime, string endTime);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultLogLatestPage", ReplyAction="http://tempuri.org/IMesService/SelectTestResultLogLatestPageResponse")]
+        System.Threading.Tasks.Task<int> SelectTestResultLogLatestPageAsync(string queryFilter, string startTime, string endTime);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultLogDetail", ReplyAction="http://tempuri.org/IMesService/SelectTestResultLogDetailResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> SelectTestResultLogDetailAsync(string queryFilter, string startTime, string endTime);
+        System.Data.DataSet SelectTestResultLogDetail(int pageNumber, int pageSize);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultLogDetail", ReplyAction="http://tempuri.org/IMesService/SelectTestResultLogDetailResponse")]
+        System.Threading.Tasks.Task<System.Data.DataSet> SelectTestResultLogDetailAsync(int pageNumber, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestLogData", ReplyAction="http://tempuri.org/IMesService/DeleteTestLogDataResponse")]
         string DeleteTestLogData(string queryCondition, string startTime, string endTime);
@@ -1284,12 +1290,20 @@ namespace MesManager.MesService {
             return base.Channel.SelectTestResultDetailAsync(querySN, pageNumber, pageSize, IsQueryLatest);
         }
         
-        public System.Data.DataSet SelectTestResultLogDetail(string queryFilter, string startTime, string endTime) {
-            return base.Channel.SelectTestResultLogDetail(queryFilter, startTime, endTime);
+        public int SelectTestResultLogLatestPage(string queryFilter, string startTime, string endTime) {
+            return base.Channel.SelectTestResultLogLatestPage(queryFilter, startTime, endTime);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> SelectTestResultLogDetailAsync(string queryFilter, string startTime, string endTime) {
-            return base.Channel.SelectTestResultLogDetailAsync(queryFilter, startTime, endTime);
+        public System.Threading.Tasks.Task<int> SelectTestResultLogLatestPageAsync(string queryFilter, string startTime, string endTime) {
+            return base.Channel.SelectTestResultLogLatestPageAsync(queryFilter, startTime, endTime);
+        }
+        
+        public System.Data.DataSet SelectTestResultLogDetail(int pageNumber, int pageSize) {
+            return base.Channel.SelectTestResultLogDetail(pageNumber, pageSize);
+        }
+        
+        public System.Threading.Tasks.Task<System.Data.DataSet> SelectTestResultLogDetailAsync(int pageNumber, int pageSize) {
+            return base.Channel.SelectTestResultLogDetailAsync(pageNumber, pageSize);
         }
         
         public string DeleteTestLogData(string queryCondition, string startTime, string endTime) {

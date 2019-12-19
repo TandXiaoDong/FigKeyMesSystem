@@ -1121,12 +1121,27 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="SelectTestResultLogDetail">
+  <xs:element name="SelectTestResultLogLatestPage">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="queryFilter" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="startTime" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="endTime" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectTestResultLogLatestPageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SelectTestResultLogLatestPageResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectTestResultLogDetail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pageNumber" type="xs:int" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

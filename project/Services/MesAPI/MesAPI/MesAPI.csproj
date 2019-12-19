@@ -317,6 +317,7 @@
     <Compile Include="Model\InsertWIPResultEnum.cs" />
     <Compile Include="Model\LoginInfoEnum.cs" />
     <Compile Include="Model\MaterialMsg.cs" />
+    <Compile Include="Model\MaterialResultInfo.cs" />
     <Compile Include="Model\MaterialStockEnum.cs" />
     <Compile Include="Model\PackageProduct.cs" />
     <Compile Include="Model\ProductMaterial.cs" />
