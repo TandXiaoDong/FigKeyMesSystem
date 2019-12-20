@@ -586,46 +586,7 @@ namespace MesManager.UI
             this.dataSourceQuanlity.Clear();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                DataRow dr = dataSourceQuanlity.NewRow();
-                var materialCode = dt.Rows[i][0].ToString();
-                if (!materialCode.Contains("&"))
-                    continue;
-                AnalysisMaterialCode analysisMaterial = AnalysisMaterialCode.GetMaterialDetail(materialCode);
-                var pnCode = analysisMaterial.MaterialPN;
-                var lotCode = analysisMaterial.MaterialLOT;
-                var ridCode = analysisMaterial.MaterialRID;
-                var dcCode = analysisMaterial.MaterialDC;
-                var qtyCode = analysisMaterial.MaterialQTY;
-                dr[DATA_ORDER] = i + 1;
-                dr[MATERIAL_PN] = pnCode;
-                dr[MATERIAL_LOT] = lotCode;
-                dr[MATERIAL_RID] = ridCode;
-                dr[MATERIAL_DC] = dcCode;
-                dr[MATERIAL_QTY] = qtyCode;
-                dr[MATERIAL_NAME] = serviceClient.SelectMaterialName(pnCode);
-                var exType = dt.Rows[i][1].ToString();
-                if (exType == "0")
-                {
-                    dr[EXCEPT_TYPE] = "库存物料异常";
-                }
-                else if (exType == "1")
-                {
-                    dr[EXCEPT_TYPE] = "生产物料异常";
-                }
-                else if (exType == "2")
-                {
-                    dr[EXCEPT_TYPE] = "生产过程异常";
-                }
-                dr[EXCEPT_STOCK] = dt.Rows[i][2].ToString();
-                dr[ACTUAL_STOCK] = dt.Rows[i][3].ToString();
-                var materialState = dt.Rows[i][4].ToString();
-                if (materialState == "3")
-                    materialState = "已结单";
-                dr[MATERIAL_STATE] = materialState;
-                dr[SHUT_REASON] = dt.Rows[i][5].ToString();
-                dr[USER_NAME] = dt.Rows[i][6].ToString();
-                dr[STATEMENT_DATE] = dt.Rows[i][7].ToString();
-                dataSourceQuanlity.Rows.Add(dr);
+                
             }
             this.radGridViewQuanlity.DataSource = dataSourceQuanlity;
             this.radGridViewQuanlity.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
