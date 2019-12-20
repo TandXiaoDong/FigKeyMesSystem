@@ -313,6 +313,7 @@
       <DependentUpon>MesService.svc</DependentUpon>
     </Compile>
     <Compile Include="IMesService.cs" />
+    <Compile Include="Model\CheckPackageProductHistory.cs" />
     <Compile Include="Model\FirstcheckResultEnum.cs" />
     <Compile Include="Model\InsertWIPResultEnum.cs" />
     <Compile Include="Model\LoginInfoEnum.cs" />
@@ -320,6 +321,7 @@
     <Compile Include="Model\MaterialResultInfo.cs" />
     <Compile Include="Model\MaterialStockEnum.cs" />
     <Compile Include="Model\PackageProduct.cs" />
+    <Compile Include="Model\PackageProductHistory.cs" />
     <Compile Include="Model\ProductMaterial.cs" />
     <Compile Include="Model\ProductTestResult.cs" />
     <Compile Include="Model\Station.cs" />

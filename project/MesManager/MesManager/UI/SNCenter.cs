@@ -24,7 +24,6 @@ namespace MesManager.UI
     {
         private MesService.MesServiceClient serviceClient;
         private DataTable dataSourceMaterialBasic;
-        private DataTable dataSourceProductCheck;
         private DataTable dataSourceQuanlity;
         private const string DATA_ORDER = "序号";
         private string currentQueryCondition;
@@ -35,7 +34,7 @@ namespace MesManager.UI
         /// <summary>
         /// 每页的大小
         /// </summary>
-        private int pageSize = 50;
+        private int pageSize = 100;
         /// <summary>
         /// 总页数
         /// </summary>
@@ -66,19 +65,6 @@ namespace MesManager.UI
         private const string SHUT_REASON = "结单原因";
         private const string USER_NAME = "结单用户";
         private const string STATEMENT_DATE = "结单日期";
-        #endregion
-
-        #region 成品抽检字段
-        private const string CHECK_ORDER = "序号";
-        private const string CHECK_SN = "产品SN";
-        private const string CHECK_CASE_CODE = "箱子编码";
-        private const string CHECK_TYPE_NO = "产品型号";
-        private const string CHECK_NUMBER = "数量";
-        private const string CHECK_BINDING_DATE = "修改日期";
-        private const string CHECK_BINDING_STATE = "产品状态";
-        private const string CHECK_REMARK = "描述";
-        private const string CHECK_LEADER = "班组长";
-        private const string CHECK_ADMIN = "管理员";
         #endregion
 
         public SNCenter()
@@ -130,6 +116,14 @@ namespace MesManager.UI
             this.bindingNavigator1.ItemClicked += BindingNavigator1_ItemClicked;
             this.bindingNavigatorCountItem.TextChanged += BindingNavigatorCountItem_TextChanged;
             this.bindingNavigatorPositionItem.TextChanged += BindingNavigatorPositionItem_TextChanged;
+
+            this.radDock1.ActiveWindowChanged += RadDock1_ActiveWindowChanged;
+        }
+
+        private void RadDock1_ActiveWindowChanged(object sender, Telerik.WinControls.UI.Docking.DockWindowEventArgs e)
+        {
+            this.currentPage = 1;
+            this.bindingNavigatorPositionItem.Text = this.currentPage.ToString();
         }
 
         private void Tool_productCheckClearDB_Click(object sender, EventArgs e)
@@ -449,12 +443,18 @@ namespace MesManager.UI
 
             }
             this.tool_SNClearDB.Visible = false;
-            this.radDock1.ActiveWindow = this.documentWindow1;
+            this.radDock1.ActiveWindow = this.dw_snHistory;
         }
 
         async private void SelectOfSn()
         {
-            //page   
+            //page
+            var filter = tb_sn.Text;
+            if (filter != "")
+            {
+                this.currentPage = 1;//根据条件查询
+                this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            }
             this.radGridViewSn.DataSource = null;
             this.radGridViewSn.Update();
             var pcbaList = serviceClient.SelectUseAllPcbaSN().Length;
@@ -466,7 +466,6 @@ namespace MesManager.UI
             {
                 pageCount = pcbaList / pageSize;
             }
-            var filter = tb_sn.Text;
             //DataSet ds = (await serviceClient.SelectTestResultUpperAsync(filter, filter, filter, true));
             DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter,currentPage,pageSize,true);
             this.radGridViewSn.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
@@ -479,98 +478,66 @@ namespace MesManager.UI
             this.radGridViewSn.BestFitColumns();
         }
 
-        private void BindingNavigatorPositionItem_TextChanged(object sender, EventArgs e)
-        {
-            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
-        }
-
-        private void BindingNavigatorCountItem_TextChanged(object sender, EventArgs e)
-        {
-            this.bindingNavigatorCountItem.Text = "/" + pageCount;
-        }
-
-        private void BindingNavigator1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (e.ClickedItem.Text == "删除")
-            {
-                //删除页
-            }
-            else if (e.ClickedItem.Text == "上一页")
-            {
-                if (currentPage > 1)
-                {
-                    currentPage--;
-                }
-                SelectOfSn();
-            }
-            else if (e.ClickedItem.Text == "下一页")
-            {
-
-                if (currentPage < pageCount)
-                {
-                    currentPage++;
-                }
-                SelectOfSn();
-            }
-            else if (e.ClickedItem.Text == "首页")
-            {
-                currentPage = 1;
-                SelectOfSn();
-            }
-            else if (e.ClickedItem.Text == "尾页")
-            {
-                currentPage = pageCount;
-                SelectOfSn();
-            }
-            else if (e.ClickedItem.Text == "新添")
-            {
-                
-            }
-        }
-
         async private void SelectOfPackage(string state)
         {
-            currentQueryCondition = tb_package.Text;
+            this.radGridViewPackage.DataSource = null;
+            this.radGridViewPackage.Update();
+            this.currentQueryCondition = tb_package.Text;
+            if (this.currentQueryCondition != "")
+            {
+                this.currentPage = 1;//根据条件查询
+                this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            }
             //箱子编码/追溯码/型号
-            DataTable dt = (await serviceClient.SelectPackageStorageAsync(currentQueryCondition)).Tables[0];
+            var packageHistory = (await serviceClient.SelectPackageStorageAsync(currentQueryCondition,currentPage,pageSize));
+
+            if (packageHistory.PackageCaseNumber % pageSize > 0)
+            {
+                pageCount = packageHistory.PackageCaseNumber / pageSize + 1;
+            }
+            else
+            {
+                pageCount = packageHistory.PackageCaseNumber / pageSize;
+            }
+            this.radGridViewPackage.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridViewPackage.BeginEdit();
+            var dt = packageHistory.PackageCaseData.Tables[0];
             this.radGridViewPackage.DataSource = dt;
-            this.radGridViewPackage.Columns[0].BestFit();
+            this.bindingSource1.DataSource = dt;
+            this.bindingNavigator1.BindingSource = this.bindingSource1;
+            this.radGridViewPackage.EndEdit();
+            this.radGridViewPackage.BestFitColumns();
         }
 
         async private void SelectOfPackageCheck(string state)
         {
+            this.radGridViewPackage.DataSource = null;
+            this.radGridViewPackage.Update();
+            this.currentQueryCondition = tb_package.Text;
             currentQueryCondition = tb_productCheck.Text;
-            //箱子编码/追溯码/型号
-            DataTable dt = (await serviceClient.SelectPackageProductCheckAsync(currentQueryCondition, state,false)).Tables[0];
-            this.dataSourceProductCheck.Clear();
-            for (int i = 0; i < dt.Rows.Count; i++)
+            if (this.currentQueryCondition != "")
             {
-                var orderID = i + 1;
-                var caseCode = dt.Rows[i][0].ToString();
-                var sn = dt.Rows[i][1].ToString();
-                var typeNo = dt.Rows[i][2].ToString();
-                var teamLeader = dt.Rows[i][3].ToString();
-                var admin = dt.Rows[i][4].ToString();
-                var remark = dt.Rows[i][5].ToString();
-                var bindingDate = dt.Rows[i][6].ToString();
-                var productState = "已解包";
-                DataRow dr = dataSourceProductCheck.NewRow();
-                dr[CHECK_ORDER] = orderID;
-                dr[CHECK_CASE_CODE] = caseCode;
-                dr[CHECK_SN] = sn;
-                dr[CHECK_TYPE_NO] = typeNo;
-                dr[CHECK_BINDING_DATE] = bindingDate;
-                dr[CHECK_LEADER] = teamLeader;
-                dr[CHECK_ADMIN] = admin;
-                dr[CHECK_REMARK] = remark;
-                dr[CHECK_BINDING_STATE] = productState;
-                dr[CHECK_NUMBER] = 1;
-                dataSourceProductCheck.Rows.Add(dr);
+                this.currentPage = 1;//根据条件查询
+                this.bindingNavigatorPositionItem.Text = this.currentPage.ToString();
             }
-            this.radGridViewCheck.DataSource = dataSourceProductCheck;
-            this.radGridViewCheck.Columns[0].BestFit();
-            this.radGridViewCheck.Columns[2].BestFit();
-            this.radGridViewCheck.Columns[9].BestFit();
+            //箱子编码/追溯码/型号
+            var checkPackageProduct = (await serviceClient.SelectPackageProductCheckAsync(currentQueryCondition, state,false,currentPage,pageSize));
+            if (checkPackageProduct.CheckPackageCaseNumber % pageSize > 0)
+            {
+                pageCount = checkPackageProduct.CheckPackageCaseNumber / pageSize + 1;
+            }
+            else
+            {
+                pageCount = checkPackageProduct.CheckPackageCaseNumber / pageSize;
+            }
+            this.radGridViewCheck.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridViewCheck.BeginEdit();
+            var dt = checkPackageProduct.CheckPackageCaseData.Tables[0];
+            this.radGridViewCheck.DataSource = dt;
+            this.bindingSource1.DataSource = dt;
+            this.bindingNavigator1.BindingSource = this.bindingSource1;
+            this.radGridViewCheck.EndEdit();
+            this.radGridViewCheck.BestFitColumns();
         }
 
         private void InitDataTable()
@@ -591,20 +558,6 @@ namespace MesManager.UI
                 dataSourceMaterialBasic.Columns.Add(USE_AMOUNTED);
                 dataSourceMaterialBasic.Columns.Add(CURRENT_RESIDUE_STOCK);
                 dataSourceMaterialBasic.Columns.Add(RESIDUE_STOCK);
-            }
-            if (dataSourceProductCheck == null)
-            {
-                dataSourceProductCheck = new DataTable();
-                dataSourceProductCheck.Columns.Add(CHECK_ORDER);
-                dataSourceProductCheck.Columns.Add(CHECK_CASE_CODE);
-                dataSourceProductCheck.Columns.Add(CHECK_SN);
-                dataSourceProductCheck.Columns.Add(CHECK_TYPE_NO);
-                dataSourceProductCheck.Columns.Add(CHECK_BINDING_STATE);
-                dataSourceProductCheck.Columns.Add(CHECK_NUMBER);
-                dataSourceProductCheck.Columns.Add(CHECK_REMARK);
-                dataSourceProductCheck.Columns.Add(CHECK_LEADER);
-                dataSourceProductCheck.Columns.Add(CHECK_ADMIN);
-                dataSourceProductCheck.Columns.Add(CHECK_BINDING_DATE);
             }
             if (dataSourceQuanlity == null)
             {
@@ -685,12 +638,31 @@ namespace MesManager.UI
         async private void SelectOfMaterial()
         {
             this.currentQueryCondition = this.tb_material.Text;
+            if (this.currentQueryCondition != "")
+            {
+                this.currentPage = 1;//根据条件查询
+                this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            }
             //物料信息表
             //物料编码+物料名称+所属型号+在哪个工序/站位消耗+该位置消耗数量
-            var ds = await serviceClient.SelectMaterialBasicMsgAsync(this.tb_material.Text);
+            var materialObj = await serviceClient.SelectMaterialBasicMsgAsync(this.tb_material.Text,currentPage,pageSize);
+            this.radGridViewMaterial.DataSource = null;
+            this.radGridViewMaterial.Update();
+            if (materialObj.MaterialRowCount % pageSize > 0)
+            {
+                pageCount = materialObj.MaterialRowCount / pageSize + 1;
+            }
+            else
+            {
+                pageCount = materialObj.MaterialRowCount / pageSize;
+            }
+
             this.radGridViewMaterial.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridViewMaterial.BeginEdit();
-            this.radGridViewMaterial.DataSource = ds.Tables[0];
+            var dt = materialObj.MaterialResultData.Tables[0];
+            this.radGridViewMaterial.DataSource = dt;
+            bindingSource1.DataSource = dt;
+            this.bindingNavigator1.BindingSource = bindingSource1;
             this.radGridViewMaterial.EndEdit();
             //this.radGridViewMaterial.Columns[0].BestFit();
             this.radGridViewMaterial.BestFitColumns();
@@ -704,6 +676,75 @@ namespace MesManager.UI
         private void Btn_selectOfPackage_Click(object sender, EventArgs e)
         {
             SelectOfPackage("1");
+        }
+
+        private void BindingNavigatorPositionItem_TextChanged(object sender, EventArgs e)
+        {
+            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+        }
+
+        private void BindingNavigatorCountItem_TextChanged(object sender, EventArgs e)
+        {
+            this.bindingNavigatorCountItem.Text = "/" + pageCount;
+        }
+
+        private void BindingNavigator1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem.Text == "删除")
+            {
+                //删除页
+            }
+            else if (e.ClickedItem.Text == "上一页")
+            {
+                if (currentPage > 1)
+                {
+                    currentPage--;
+                }
+            }
+            else if (e.ClickedItem.Text == "下一页")
+            {
+                if (currentPage < pageCount)
+                {
+                    currentPage++;
+                }
+            }
+            else if (e.ClickedItem.Text == "首页")
+            {
+                currentPage = 1;
+            }
+            else if (e.ClickedItem.Text == "尾页")
+            {
+                currentPage = pageCount;
+            }
+            else if (e.ClickedItem.Text == "新添")
+            {
+
+            }
+            UpdateQueryPageData();
+        }
+
+        private void UpdateQueryPageData()
+        {
+            if (this.radDock1.ActiveWindow == this.dw_snHistory)
+            {
+                SelectOfSn();
+            }
+            else if (this.radDock1.ActiveWindow == this.dw_packageProduct)
+            {
+                SelectOfPackage("1");
+            }
+            else if (this.radDock1.ActiveWindow == this.dw_materialUse)
+            {
+                SelectOfMaterial();
+            }
+            else if (this.radDock1.ActiveWindow == this.dw_productCheck)
+            {
+                SelectOfPackageCheck("0");
+            }
+            else if (this.radDock1.ActiveWindow == this.dw_materialExcept)
+            {
+
+            }
         }
     }
 }

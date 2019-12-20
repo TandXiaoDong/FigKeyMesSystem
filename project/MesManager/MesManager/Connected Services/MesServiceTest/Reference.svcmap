@@ -24,6 +24,7 @@
   <Metadata>
     <MetadataFile FileName="MesService1.wsdl" MetadataType="Wsdl" ID="ade581d4-da20-4a4b-a681-15361c205d6b" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?wsdl" />
     <MetadataFile FileName="MesService1.disco" MetadataType="Disco" ID="8211537b-c35f-419f-ae0d-e99ad55e4ef2" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?disco" />
+    <MetadataFile FileName="MesService4.xsd" MetadataType="Schema" ID="b7db8a72-1d70-4825-b8ba-3fbc2362739f" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?xsd=xsd4" />
     <MetadataFile FileName="MesService.xsd" MetadataType="Schema" ID="7b745f3f-85e8-451f-8644-d0c7892e81d4" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?xsd=xsd1" />
     <MetadataFile FileName="MesService1.xsd" MetadataType="Schema" ID="48784a95-e6e3-467f-a150-e2bbe9091134" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?xsd=xsd0" />
     <MetadataFile FileName="MesService2.xsd" MetadataType="Schema" ID="eec8c13c-fb3e-4062-b261-1bfae0602f28" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?xsd=xsd3" />

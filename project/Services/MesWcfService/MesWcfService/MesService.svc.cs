@@ -707,9 +707,10 @@ namespace MesWcfService
 
         #region pcba解绑与查询
         [SwaggerWcfTag("MesServcie 服务")]
-        public DataSet QueryPCBAMes(string sn)
+        public PCBABindHistory QueryPCBAMes(string sn,int pageIndex,int pageSize)
         {
             DataSet ds = new DataSet();
+            PCBABindHistory pcbaBindHistory = new PCBABindHistory();
             var selectSQL = $"select distinct " +
                 $"{DbTable.F_BINDING_PCBA.PRODUCT_TYPE_NO} 产品型号," +
                 $"{DbTable.F_BINDING_PCBA.SN_PCBA} PCBASN," +
@@ -724,7 +725,14 @@ namespace MesWcfService
                 $"or " +
                 $"{DbTable.F_BINDING_PCBA.SN_OUTTER} like '%{sn}%'";
             //LogHelper.Log.Info("【查询PCBA】"+selectSQL);
-            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            System.Data.Common.DbDataReader dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            if (!dbReader.HasRows)
+            {
+                pcbaBindHistory.BindNumber = 0;
+                pcbaBindHistory.BindHistoryData = ds;
+                return pcbaBindHistory;
+            }
+            #region init datatable
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("序号");
             dataTable.Columns.Add("产品型号");
@@ -735,36 +743,49 @@ namespace MesWcfService
             dataTable.Columns.Add("PCBA状态");
             dataTable.Columns.Add("外壳状态");
             dataTable.Columns.Add("绑定日期");
-            for (int i = 0; i < dt.Rows.Count; i++)
+            #endregion
+
+            int id = 0;
+            int i = 0;
+            int startIndex = (pageIndex - 1) * pageSize;
+            while (dbReader.Read())
             {
-                DataRow dr = dataTable.NewRow();
-                dr["序号"] = i + 1;
-                dr["产品型号"] = dt.Rows[i][0].ToString();
-                dr["当前工位"] = "外壳装配工位";
-                var snPCBA = dt.Rows[i][1].ToString();
-                var outterSn = dt.Rows[i][2].ToString();
-                dr["PCBASN"] = snPCBA;
-                dr["外壳SN"] = outterSn;
-                dr["绑定日期"] = SelectBindingDate(snPCBA, outterSn);
-                var bindingState = dt.Rows[i][3].ToString();
-                if (bindingState == "1")
-                    dr["绑定状态"] = "已绑定";
-                else if (bindingState == "0")
-                    dr["绑定状态"] = "已解除绑定";
-                var pcbaState = dt.Rows[i][4].ToString();
-                if (pcbaState == "0")
-                    dr["PCBA状态"] = "异常";
-                else if (pcbaState == "1")
-                    dr["PCBA状态"] = "正常";
-                var outterState = dt.Rows[i][5].ToString();
-                if (outterState == "0")
-                    dr["外壳状态"] = "异常";
-                else if (outterState == "1")
-                    dr["外壳状态"] = "正常";
-                dataTable.Rows.Add(dr);
+                dbReader[0].ToString();
+                if (i >= startIndex && i < pageIndex * pageSize)
+                {
+                    DataRow dr = dataTable.NewRow();
+                    dr["序号"] = id + 1;
+                    dr["产品型号"] = dbReader[0].ToString();
+                    dr["当前工位"] = "外壳装配工位";
+                    var snPCBA = dbReader[1].ToString();
+                    var outterSn = dbReader[2].ToString();
+                    dr["PCBASN"] = snPCBA;
+                    dr["外壳SN"] = outterSn;
+                    dr["绑定日期"] = SelectBindingDate(snPCBA, outterSn);
+                    var bindingState = dbReader[3].ToString();
+                    if (bindingState == "1")
+                        dr["绑定状态"] = "已绑定";
+                    else if (bindingState == "0")
+                        dr["绑定状态"] = "已解除绑定";
+                    var pcbaState = dbReader[4].ToString();
+                    if (pcbaState == "0")
+                        dr["PCBA状态"] = "异常";
+                    else if (pcbaState == "1")
+                        dr["PCBA状态"] = "正常";
+                    var outterState = dbReader[5].ToString();
+                    if (outterState == "0")
+                        dr["外壳状态"] = "异常";
+                    else if (outterState == "1")
+                        dr["外壳状态"] = "正常";
+                    dataTable.Rows.Add(dr);
+                    id++;
+                }
+                i++;
             }
             ds.Tables.Add(dataTable);
-            return ds;
+            pcbaBindHistory.BindHistoryData = ds;
+            pcbaBindHistory.BindNumber = i;
+            return pcbaBindHistory;
         }
 
         private string SelectBindingDate(string pcbaSn,string outterSn)

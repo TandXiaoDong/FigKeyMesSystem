@@ -46,7 +46,7 @@ namespace MesAPI
         private static List<string> pcbaCacheList = new List<string>();//用于缓存pcba数据
         private static DataTable pcbaCacheDataSource = new DataTable();//用于缓存PCBA的所有数据信息
 
-        private int logCount = 0;
+        private static int logCount = 0;
 
         #region 物料统计字段
         private const string DATA_ORDER = "序号";
@@ -75,6 +75,19 @@ namespace MesAPI
         private const string SHUT_REASON = "结单原因";
         private const string USER_NAME = "结单用户";
         private const string STATEMENT_DATE = "结单日期";
+        #endregion
+
+        #region 成品抽检字段
+        private const string CHECK_ORDER = "序号";
+        private const string CHECK_SN = "产品SN";
+        private const string CHECK_CASE_CODE = "箱子编码";
+        private const string CHECK_TYPE_NO = "产品型号";
+        private const string CHECK_NUMBER = "数量";
+        private const string CHECK_BINDING_DATE = "修改日期";
+        private const string CHECK_BINDING_STATE = "产品状态";
+        private const string CHECK_REMARK = "描述";
+        private const string CHECK_LEADER = "班组长";
+        private const string CHECK_ADMIN = "管理员";
         #endregion
 
         #region 产品打包
@@ -855,6 +868,7 @@ namespace MesAPI
              *分页查询，根据PCBA索引查询数据
              * 
              */
+            int count = 1;
             LogHelper.Log.Info("开始查询");
             DataTable dt = InitTestResultDataTable(true);
             DataSet dataSet = new DataSet();
@@ -910,7 +924,6 @@ namespace MesAPI
                 }
                 //List<TestReulstDetail> testReulstDetailsList = new List<TestReulstDetail>();
                 //List<TestResultBasic> testResultBasicsList = SelectTestResultBasic();
-                int count = 1;
                 if (pcbaArray.Length > 0)
                 {
                     var shellLen = ReadShellCodeLength();
@@ -3093,6 +3106,7 @@ namespace MesAPI
             var shellLen = ReadShellCodeLength();
             //物料编码/产品型号/产品SN/当前使用数量/当前剩余数量
             int i = 0;
+            int id = 0;
             int startIndex = (pageIndex - 1) * pageSize;
             while (dataReader.Read())
             {
@@ -3116,7 +3130,7 @@ namespace MesAPI
                     //var qtyCode = analysisMaterial.MaterialQTY;
                     var materialName = SelectMaterialName(pnCode);
                     var stockMsg = SelectStockMsg(materialCode);
-                    dr[DATA_ORDER] = i + 1;
+                    dr[DATA_ORDER] = id + 1;
                     dr[MATERIAL_PN] = pnCode;
                     dr[MATERIAL_LOT] = lotCode;
                     dr[MATERIAL_RID] = ridCode;
@@ -3132,6 +3146,7 @@ namespace MesAPI
                     dr[SN_OUTTER] = snOutter;
                     dr[PCBA_STATUS] = SelectPcbaMsg(snPCBA, snOutter);
                     dataSourceMaterialBasic.Rows.Add(dr);
+                    id++;
                 }
                 i++;
             }
@@ -3511,9 +3526,26 @@ namespace MesAPI
             return SQLServer.ExecuteDataSet(selectSQL);
         }
 
-        public DataSet SelectPackageProductCheck(string queryFilter, string state, bool IsShowNumber)
+        public CheckPackageProductHistory SelectPackageProductCheck(string queryFilter, string state, bool IsShowNumber,int pageIndex,int pageSize)
         {
             //箱子编码/追溯码查询/产品型号
+            DataSet ds = new DataSet();
+            CheckPackageProductHistory checkPackageProduct = new CheckPackageProductHistory();
+
+            #region init dataTable
+            DataTable dataSourceProductCheck = new DataTable();
+            dataSourceProductCheck.Columns.Add(CHECK_ORDER);
+            dataSourceProductCheck.Columns.Add(CHECK_CASE_CODE);
+            dataSourceProductCheck.Columns.Add(CHECK_SN);
+            dataSourceProductCheck.Columns.Add(CHECK_TYPE_NO);
+            dataSourceProductCheck.Columns.Add(CHECK_BINDING_STATE);
+            dataSourceProductCheck.Columns.Add(CHECK_NUMBER);
+            dataSourceProductCheck.Columns.Add(CHECK_REMARK);
+            dataSourceProductCheck.Columns.Add(CHECK_LEADER);
+            dataSourceProductCheck.Columns.Add(CHECK_ADMIN);
+            dataSourceProductCheck.Columns.Add(CHECK_BINDING_DATE);
+            #endregion
+
             var rowNumber = "";
             if (IsShowNumber)
             {
@@ -3551,8 +3583,8 @@ namespace MesAPI
                      $"{DbTable.F_PRODUCT_PACKAGE.SN_OUTTER} like '%{queryFilter}%'";
             }
             LogHelper.Log.Info(selectSQL);
-            var ds = SQLServer.ExecuteDataSet(selectSQL);
-            if (ds.Tables[0].Rows.Count < 1)
+            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            if (!dbReader.HasRows)
             {
                 selectSQL = $"SELECT {rowNumber}{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} 箱子编码," +
                      $"{DbTable.F_PRODUCT_PACKAGE.SN_OUTTER} 产品SN," +
@@ -3566,9 +3598,52 @@ namespace MesAPI
                      $"WHERE " +
                      $"{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '{state}' AND " +
                      $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} like '%{queryFilter}%'";
-                return SQLServer.ExecuteDataSet(selectSQL);
+                LogHelper.Log.Info(selectSQL);
+                dbReader = SQLServer.ExecuteDataReader(selectSQL);
+                if (!dbReader.HasRows)
+                {
+                    ds.Tables.Add(dataSourceProductCheck);
+                    checkPackageProduct.CheckPackageCaseData = ds;
+                    checkPackageProduct.CheckPackageCaseNumber = 0;
+                    return checkPackageProduct;
+                }
             }
-            return ds;
+            int i = 0;
+            int id = 0;
+            int startIndex = (pageIndex - 1) * pageSize;
+            while (dbReader.Read())
+            {
+                if (i >= startIndex && i < pageSize * pageIndex)
+                {
+                    var orderID = id + 1;
+                    var caseCode = dbReader[0].ToString();
+                    var sn = dbReader[1].ToString();
+                    var typeNo = dbReader[2].ToString();
+                    var teamLeader = dbReader[3].ToString();
+                    var admin = dbReader[4].ToString();
+                    var remark = dbReader[5].ToString();
+                    var bindingDate = dbReader[6].ToString();
+                    var productState = "已解包";
+                    DataRow dr = dataSourceProductCheck.NewRow();
+                    dr[CHECK_ORDER] = orderID;
+                    dr[CHECK_CASE_CODE] = caseCode;
+                    dr[CHECK_SN] = sn;
+                    dr[CHECK_TYPE_NO] = typeNo;
+                    dr[CHECK_BINDING_DATE] = bindingDate;
+                    dr[CHECK_LEADER] = teamLeader;
+                    dr[CHECK_ADMIN] = admin;
+                    dr[CHECK_REMARK] = remark;
+                    dr[CHECK_BINDING_STATE] = productState;
+                    dr[CHECK_NUMBER] = 1;
+                    dataSourceProductCheck.Rows.Add(dr);
+                    id++;
+                }
+                i++;
+            }
+            ds.Tables.Add(dataSourceProductCheck);
+            checkPackageProduct.CheckPackageCaseNumber = i;
+            checkPackageProduct.CheckPackageCaseData = ds;
+            return checkPackageProduct;
         }
 
         public DataSet SelectPackageProductOfCaseCode(string queryFilter, string state, bool IsShowNumber)
@@ -3595,10 +3670,11 @@ namespace MesAPI
             return SQLServer.ExecuteDataSet(selectSQL);
         }
 
-        public DataSet SelectPackageStorage(string queryFilter)
+        public PackageProductHistory SelectPackageStorage(string queryFilter,int pageIndex,int pageSize)
         {
             var selectSQL = "";
             DataTable dataSourceProductPackage = new DataTable();
+            PackageProductHistory packageProductHistory = new PackageProductHistory();
             dataSourceProductPackage.Columns.Add(DATA_ORDER);
             dataSourceProductPackage.Columns.Add(OUT_CASE_CODE);
             dataSourceProductPackage.Columns.Add(CASE_PRODUCT_TYPE_NO);
@@ -3652,26 +3728,36 @@ namespace MesAPI
                 if (!dataReader.HasRows)
                 {
                     ds.Tables.Add(dataSourceProductPackage);
-                    return ds;
+                    packageProductHistory.PackageCaseNumber = 0;
+                    packageProductHistory.PackageCaseData = ds;
+                    return packageProductHistory;
                 }
             }
             int i = 0;
+            int id = 0;
+            int startIndex = (pageIndex - 1) * pageSize;
             while (dataReader.Read())
             {
-                DataRow dr = dataSourceProductPackage.NewRow();
-                var productTypeNo = dataReader[1].ToString();
-                dr[DATA_ORDER] = i + 1;
-                dr[OUT_CASE_CODE] = dataReader[0].ToString();
-                dr[CASE_PRODUCT_TYPE_NO] = productTypeNo;
-                dr[CASE_AMOUNTED] = dataReader[2].ToString();
-                dr[CASE_STORAGE_CAPACITY] = GetProductStorage(productTypeNo);
-                dataSourceProductPackage.Rows.Add(dr);
+                if (i >= startIndex && i < pageSize * pageIndex)
+                {
+                    DataRow dr = dataSourceProductPackage.NewRow();
+                    var productTypeNo = dataReader[1].ToString();
+                    dr[DATA_ORDER] = id + 1;
+                    dr[OUT_CASE_CODE] = dataReader[0].ToString();
+                    dr[CASE_PRODUCT_TYPE_NO] = productTypeNo;
+                    dr[CASE_AMOUNTED] = dataReader[2].ToString();
+                    dr[CASE_STORAGE_CAPACITY] = GetProductStorage(productTypeNo);
+                    dataSourceProductPackage.Rows.Add(dr);
+                    id++;
+                }
                 i++;
             }
             dataReader.Close();
             LogHelper.Log.Info(selectSQL);
             ds.Tables.Add(dataSourceProductPackage);
-            return ds;
+            packageProductHistory.PackageCaseNumber = i;
+            packageProductHistory.PackageCaseData = ds;
+            return packageProductHistory;
         }
 
         private string GetProductStorage(string typeNo)
@@ -4091,9 +4177,12 @@ namespace MesAPI
             return SQLServer.ExecuteNonQuery(updateSQL);
         }
 
-        public DataSet SelectQuanlityManager(string materialCode)
+        public QuanlityHistory SelectQuanlityManager(string materialCode,int pageIndex ,int pageSize)
         {
             var selectSQL = "";
+            QuanlityHistory quanlityHistory = new QuanlityHistory();
+            DataSet ds = new DataSet();
+                 
             if (materialCode == "")
             {
                 selectSQL = $"SELECT {DbTable.F_QUANLITY_MANAGER.MATERIAL_CODE}," +
@@ -4122,7 +4211,58 @@ namespace MesAPI
                             $"ORDER BY {DbTable.F_QUANLITY_MANAGER.UPDATE_DATE} DESC";
             }
 
-            return SQLServer.ExecuteDataSet(selectSQL);
+            int i = 0;
+            int id = 0;
+            int startIndex = 0;
+
+            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            if (!dbReader.HasRows)
+            { 
+
+            }
+            while (dbReader.Read())
+            {
+                DataRow dr = dataSourceQuanlity.NewRow();
+                var materialCode = dt.Rows[i][0].ToString();
+                if (!materialCode.Contains("&"))
+                    continue;
+                AnalysisMaterialCode analysisMaterial = AnalysisMaterialCode.GetMaterialDetail(materialCode);
+                var pnCode = analysisMaterial.MaterialPN;
+                var lotCode = analysisMaterial.MaterialLOT;
+                var ridCode = analysisMaterial.MaterialRID;
+                var dcCode = analysisMaterial.MaterialDC;
+                var qtyCode = analysisMaterial.MaterialQTY;
+                dr[DATA_ORDER] = i + 1;
+                dr[MATERIAL_PN] = pnCode;
+                dr[MATERIAL_LOT] = lotCode;
+                dr[MATERIAL_RID] = ridCode;
+                dr[MATERIAL_DC] = dcCode;
+                dr[MATERIAL_QTY] = qtyCode;
+                dr[MATERIAL_NAME] = serviceClient.SelectMaterialName(pnCode);
+                var exType = dt.Rows[i][1].ToString();
+                if (exType == "0")
+                {
+                    dr[EXCEPT_TYPE] = "库存物料异常";
+                }
+                else if (exType == "1")
+                {
+                    dr[EXCEPT_TYPE] = "生产物料异常";
+                }
+                else if (exType == "2")
+                {
+                    dr[EXCEPT_TYPE] = "生产过程异常";
+                }
+                dr[EXCEPT_STOCK] = dt.Rows[i][2].ToString();
+                dr[ACTUAL_STOCK] = dt.Rows[i][3].ToString();
+                var materialState = dt.Rows[i][4].ToString();
+                if (materialState == "3")
+                    materialState = "已结单";
+                dr[MATERIAL_STATE] = materialState;
+                dr[SHUT_REASON] = dt.Rows[i][5].ToString();
+                dr[USER_NAME] = dt.Rows[i][6].ToString();
+                dr[STATEMENT_DATE] = dt.Rows[i][7].ToString();
+                dataSourceQuanlity.Rows.Add(dr);
+            }
         }
 
         private bool IsExistQuanlityMaterial(string materialCode)

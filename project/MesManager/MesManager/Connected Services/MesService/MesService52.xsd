@@ -90,6 +90,63 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProductMaterial" nillable="true" type="tns:ProductMaterial" />
+  <xs:complexType name="MaterialResultInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MaterialResultData" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="MaterialRowCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MaterialResultInfo" nillable="true" type="tns:MaterialResultInfo" />
+  <xs:complexType name="PackageProductHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PackageCaseData" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="PackageCaseNumber" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PackageProductHistory" nillable="true" type="tns:PackageProductHistory" />
+  <xs:complexType name="CheckPackageProductHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CheckPackageCaseData" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="CheckPackageCaseNumber" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CheckPackageProductHistory" nillable="true" type="tns:CheckPackageProductHistory" />
   <xs:simpleType name="MaterialStockEnum">
     <xs:restriction base="xs:string">
       <xs:enumeration value="STATUS_SUCCESS" />

@@ -274,6 +274,11 @@ namespace MesManager.UI
         {
             LogHelper.Log.Info("log查询-开始");
 
+            if (this.tool_queryCondition.Text != "")
+            {
+                this.currentPage = 1;//根据条件查询
+                this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            }
             this.radGridView1.DataSource = null;
             this.radGridView1.Update();
             if (currentPage == 1)

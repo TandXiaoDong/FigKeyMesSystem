@@ -105,6 +105,7 @@
     <Compile Include="Model\MaterialStatisticsEnum.cs" />
     <Compile Include="Model\PackageProduct.cs" />
     <Compile Include="Model\PackageProductEnum.cs" />
+    <Compile Include="Model\PCBABindHistory.cs" />
     <Compile Include="Model\ProductMaterial.cs" />
     <Compile Include="Model\Station.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

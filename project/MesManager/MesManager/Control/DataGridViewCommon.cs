@@ -21,8 +21,6 @@ namespace MesManager.Control
             radGridView1.MasterTemplate.EnableFiltering = true;
             radGridView1.ShowGroupPanel = true;
             radGridView1.EnableHotTracking = true;
-
-
             radGridView1.TableElement.EndUpdate(false);
 
             radGridView1.TableElement.CellSpacing = -1;

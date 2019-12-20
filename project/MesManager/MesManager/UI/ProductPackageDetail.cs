@@ -53,15 +53,23 @@ namespace MesManager.UI
         private void LoadDataSource(string queryFilter)
         {
             var dt = serviceClient.SelectPackageProductOfCaseCode(queryFilter, "1", true).Tables[0];
+            this.radGridViewPackage.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridViewPackage.BeginEdit();
             this.radGridViewPackage.DataSource = null;
             this.radGridViewPackage.DataSource = dt;
+            this.radGridViewPackage.EndEdit();
+            this.radGridViewPackage.BestFitColumns();
         }
 
         private void QueryDataSource(string queryFilter)
         {
             var dt = serviceClient.SelectPackageProduct(this.outCaseCode,queryFilter, "1", true).Tables[0];
+            this.radGridViewPackage.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridViewPackage.BeginEdit();
             this.radGridViewPackage.DataSource = null;
             this.radGridViewPackage.DataSource = dt;
+            this.radGridViewPackage.EndEdit();
+            this.radGridViewPackage.BestFitColumns();
         }
 
         private void Tool_package_export_Click(object sender, EventArgs e)

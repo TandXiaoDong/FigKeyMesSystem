@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SNCenter));
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition3 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition4 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition5 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition11 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition12 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition13 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition14 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition15 = new Telerik.WinControls.UI.TableViewDefinition();
             this.chamferedRectShape1 = new Telerik.WinControls.ChamferedRectShape();
             this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -51,7 +51,7 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.radDock1 = new Telerik.WinControls.UI.Docking.RadDock();
-            this.documentWindow1 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.dw_snHistory = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.panel_sn = new System.Windows.Forms.Panel();
             this.radGridViewSn = new Telerik.WinControls.UI.RadGridView();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -65,7 +65,7 @@
             this.tool_sn_export = new System.Windows.Forms.ToolStripButton();
             this.documentContainer2 = new Telerik.WinControls.UI.Docking.DocumentContainer();
             this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
-            this.documentWindow2 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.dw_packageProduct = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.panel_package = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.radGridViewPackage = new Telerik.WinControls.UI.RadGridView();
@@ -78,7 +78,7 @@
             this.toolStripLabel6 = new System.Windows.Forms.ToolStripLabel();
             this.tool_package_exportFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tool_package_export = new System.Windows.Forms.ToolStripButton();
-            this.documentWindow3 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.dw_materialUse = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.panel_material = new System.Windows.Forms.Panel();
             this.radGridViewMaterial = new Telerik.WinControls.UI.RadGridView();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -90,7 +90,7 @@
             this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
             this.tool_material_exportFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tool_material_export = new System.Windows.Forms.ToolStripButton();
-            this.documentWindow4 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.dw_productCheck = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.panel_productCheck = new System.Windows.Forms.Panel();
             this.radGridViewCheck = new Telerik.WinControls.UI.RadGridView();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -102,7 +102,7 @@
             this.toolStripLabel8 = new System.Windows.Forms.ToolStripLabel();
             this.tool_productCheck_exportFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tool_productCheck_export = new System.Windows.Forms.ToolStripButton();
-            this.documentWindow5 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.dw_materialExcept = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.panel_quanlity = new System.Windows.Forms.Panel();
             this.radGridViewQuanlity = new Telerik.WinControls.UI.RadGridView();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -114,12 +114,13 @@
             this.toolStripLabel10 = new System.Windows.Forms.ToolStripLabel();
             this.tool_quanlity_exportFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tool_quanlity_export = new System.Windows.Forms.ToolStripButton();
+            this.crystalTheme1 = new Telerik.WinControls.Themes.CrystalTheme();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
-            this.documentWindow1.SuspendLayout();
+            this.dw_snHistory.SuspendLayout();
             this.panel_sn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewSn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewSn.MasterTemplate)).BeginInit();
@@ -129,26 +130,26 @@
             this.documentContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
             this.documentTabStrip1.SuspendLayout();
-            this.documentWindow2.SuspendLayout();
+            this.dw_packageProduct.SuspendLayout();
             this.panel_package.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewPackage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewPackage.MasterTemplate)).BeginInit();
             this.panel1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
-            this.documentWindow3.SuspendLayout();
+            this.dw_materialUse.SuspendLayout();
             this.panel_material.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewMaterial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewMaterial.MasterTemplate)).BeginInit();
             this.panel5.SuspendLayout();
             this.toolStrip3.SuspendLayout();
-            this.documentWindow4.SuspendLayout();
+            this.dw_productCheck.SuspendLayout();
             this.panel_productCheck.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewCheck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewCheck.MasterTemplate)).BeginInit();
             this.panel7.SuspendLayout();
             this.toolStrip4.SuspendLayout();
-            this.documentWindow5.SuspendLayout();
+            this.dw_materialExcept.SuspendLayout();
             this.panel_quanlity.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewQuanlity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewQuanlity.MasterTemplate)).BeginInit();
@@ -282,7 +283,7 @@
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.documentWindow1;
+            this.radDock1.ActiveWindow = this.dw_productCheck;
             this.radDock1.Controls.Add(this.documentContainer2);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radDock1.IsCleanUpTarget = true;
@@ -295,19 +296,20 @@
             // 
             this.radDock1.RootElement.MinSize = new System.Drawing.Size(25, 25);
             this.radDock1.Size = new System.Drawing.Size(1274, 701);
+            this.radDock1.SplitterWidth = 8;
             this.radDock1.TabIndex = 37;
             this.radDock1.TabStop = false;
-            this.radDock1.ThemeName = "Breeze";
+            this.radDock1.ThemeName = "Crystal";
             // 
-            // documentWindow1
+            // dw_snHistory
             // 
-            this.documentWindow1.Controls.Add(this.panel_sn);
-            this.documentWindow1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.documentWindow1.Location = new System.Drawing.Point(5, 27);
-            this.documentWindow1.Name = "documentWindow1";
-            this.documentWindow1.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow1.Size = new System.Drawing.Size(1264, 669);
-            this.documentWindow1.Text = "SN过站记录";
+            this.dw_snHistory.Controls.Add(this.panel_sn);
+            this.dw_snHistory.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dw_snHistory.Location = new System.Drawing.Point(5, 34);
+            this.dw_snHistory.Name = "dw_snHistory";
+            this.dw_snHistory.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dw_snHistory.Size = new System.Drawing.Size(1262, 660);
+            this.dw_snHistory.Text = "SN过站记录";
             // 
             // panel_sn
             // 
@@ -316,7 +318,7 @@
             this.panel_sn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_sn.Location = new System.Drawing.Point(0, 0);
             this.panel_sn.Name = "panel_sn";
-            this.panel_sn.Size = new System.Drawing.Size(1264, 669);
+            this.panel_sn.Size = new System.Drawing.Size(1262, 660);
             this.panel_sn.TabIndex = 28;
             // 
             // radGridViewSn
@@ -329,9 +331,9 @@
             // 
             // 
             this.radGridViewSn.MasterTemplate.HorizontalScrollState = Telerik.WinControls.UI.ScrollState.AlwaysShow;
-            this.radGridViewSn.MasterTemplate.ViewDefinition = tableViewDefinition1;
+            this.radGridViewSn.MasterTemplate.ViewDefinition = tableViewDefinition11;
             this.radGridViewSn.Name = "radGridViewSn";
-            this.radGridViewSn.Size = new System.Drawing.Size(1264, 630);
+            this.radGridViewSn.Size = new System.Drawing.Size(1262, 621);
             this.radGridViewSn.TabIndex = 10;
             this.radGridViewSn.ThemeName = "Breeze";
             // 
@@ -341,12 +343,12 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1264, 39);
+            this.panel4.Size = new System.Drawing.Size(1262, 39);
             this.panel4.TabIndex = 8;
             // 
             // toolStrip1
             // 
-            this.toolStrip1.BackColor = System.Drawing.Color.SkyBlue;
+            this.toolStrip1.BackColor = System.Drawing.Color.CornflowerBlue;
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -360,7 +362,7 @@
             this.tool_sn_export});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1264, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(1262, 39);
             this.toolStrip1.TabIndex = 31;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -428,37 +430,38 @@
             // 
             this.documentContainer2.RootElement.MinSize = new System.Drawing.Size(25, 25);
             this.documentContainer2.SizeInfo.SizeMode = Telerik.WinControls.UI.Docking.SplitPanelSizeMode.Fill;
-            this.documentContainer2.ThemeName = "Breeze";
+            this.documentContainer2.SplitterWidth = 8;
+            this.documentContainer2.ThemeName = "Crystal";
             // 
             // documentTabStrip1
             // 
             this.documentTabStrip1.CanUpdateChildIndex = true;
-            this.documentTabStrip1.Controls.Add(this.documentWindow1);
-            this.documentTabStrip1.Controls.Add(this.documentWindow2);
-            this.documentTabStrip1.Controls.Add(this.documentWindow3);
-            this.documentTabStrip1.Controls.Add(this.documentWindow4);
-            this.documentTabStrip1.Controls.Add(this.documentWindow5);
+            this.documentTabStrip1.Controls.Add(this.dw_snHistory);
+            this.documentTabStrip1.Controls.Add(this.dw_packageProduct);
+            this.documentTabStrip1.Controls.Add(this.dw_materialUse);
+            this.documentTabStrip1.Controls.Add(this.dw_productCheck);
+            this.documentTabStrip1.Controls.Add(this.dw_materialExcept);
             this.documentTabStrip1.Location = new System.Drawing.Point(0, 0);
             this.documentTabStrip1.Name = "documentTabStrip1";
             // 
             // 
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 0;
+            this.documentTabStrip1.SelectedIndex = 3;
             this.documentTabStrip1.Size = new System.Drawing.Size(1274, 701);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
-            this.documentTabStrip1.ThemeName = "Breeze";
+            this.documentTabStrip1.ThemeName = "Crystal";
             // 
-            // documentWindow2
+            // dw_packageProduct
             // 
-            this.documentWindow2.Controls.Add(this.panel_package);
-            this.documentWindow2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.documentWindow2.Location = new System.Drawing.Point(5, 27);
-            this.documentWindow2.Name = "documentWindow2";
-            this.documentWindow2.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow2.Size = new System.Drawing.Size(1264, 669);
-            this.documentWindow2.Text = "包装信息";
+            this.dw_packageProduct.Controls.Add(this.panel_package);
+            this.dw_packageProduct.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dw_packageProduct.Location = new System.Drawing.Point(5, 34);
+            this.dw_packageProduct.Name = "dw_packageProduct";
+            this.dw_packageProduct.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dw_packageProduct.Size = new System.Drawing.Size(1262, 660);
+            this.dw_packageProduct.Text = "包装信息";
             // 
             // panel_package
             // 
@@ -466,7 +469,7 @@
             this.panel_package.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_package.Location = new System.Drawing.Point(0, 0);
             this.panel_package.Name = "panel_package";
-            this.panel_package.Size = new System.Drawing.Size(1264, 669);
+            this.panel_package.Size = new System.Drawing.Size(1262, 660);
             this.panel_package.TabIndex = 29;
             // 
             // panel3
@@ -476,7 +479,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1264, 669);
+            this.panel3.Size = new System.Drawing.Size(1262, 660);
             this.panel3.TabIndex = 8;
             // 
             // radGridViewPackage
@@ -487,9 +490,9 @@
             // 
             // 
             // 
-            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition2;
+            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition12;
             this.radGridViewPackage.Name = "radGridViewPackage";
-            this.radGridViewPackage.Size = new System.Drawing.Size(1264, 627);
+            this.radGridViewPackage.Size = new System.Drawing.Size(1262, 618);
             this.radGridViewPackage.TabIndex = 32;
             this.radGridViewPackage.ThemeName = "Breeze";
             // 
@@ -499,12 +502,12 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1264, 42);
+            this.panel1.Size = new System.Drawing.Size(1262, 42);
             this.panel1.TabIndex = 34;
             // 
             // toolStrip2
             // 
-            this.toolStrip2.BackColor = System.Drawing.Color.SkyBlue;
+            this.toolStrip2.BackColor = System.Drawing.Color.CornflowerBlue;
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -518,7 +521,7 @@
             this.tool_package_export});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1264, 42);
+            this.toolStrip2.Size = new System.Drawing.Size(1262, 42);
             this.toolStrip2.TabIndex = 32;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -577,15 +580,15 @@
             this.tool_package_export.Text = "导出";
             this.tool_package_export.ToolTipText = "导出";
             // 
-            // documentWindow3
+            // dw_materialUse
             // 
-            this.documentWindow3.Controls.Add(this.panel_material);
-            this.documentWindow3.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.documentWindow3.Location = new System.Drawing.Point(5, 27);
-            this.documentWindow3.Name = "documentWindow3";
-            this.documentWindow3.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow3.Size = new System.Drawing.Size(1264, 669);
-            this.documentWindow3.Text = "物料使用";
+            this.dw_materialUse.Controls.Add(this.panel_material);
+            this.dw_materialUse.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dw_materialUse.Location = new System.Drawing.Point(5, 34);
+            this.dw_materialUse.Name = "dw_materialUse";
+            this.dw_materialUse.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dw_materialUse.Size = new System.Drawing.Size(1262, 660);
+            this.dw_materialUse.Text = "物料使用";
             // 
             // panel_material
             // 
@@ -594,7 +597,7 @@
             this.panel_material.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_material.Location = new System.Drawing.Point(0, 0);
             this.panel_material.Name = "panel_material";
-            this.panel_material.Size = new System.Drawing.Size(1264, 669);
+            this.panel_material.Size = new System.Drawing.Size(1262, 660);
             this.panel_material.TabIndex = 27;
             // 
             // radGridViewMaterial
@@ -605,10 +608,10 @@
             // 
             // 
             // 
-            this.radGridViewMaterial.MasterTemplate.ViewDefinition = tableViewDefinition3;
+            this.radGridViewMaterial.MasterTemplate.ViewDefinition = tableViewDefinition13;
             this.radGridViewMaterial.Name = "radGridViewMaterial";
             this.radGridViewMaterial.Padding = new System.Windows.Forms.Padding(1);
-            this.radGridViewMaterial.Size = new System.Drawing.Size(1264, 632);
+            this.radGridViewMaterial.Size = new System.Drawing.Size(1262, 623);
             this.radGridViewMaterial.TabIndex = 8;
             this.radGridViewMaterial.ThemeName = "Breeze";
             // 
@@ -618,12 +621,12 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1264, 37);
+            this.panel5.Size = new System.Drawing.Size(1262, 37);
             this.panel5.TabIndex = 7;
             // 
             // toolStrip3
             // 
-            this.toolStrip3.BackColor = System.Drawing.Color.SkyBlue;
+            this.toolStrip3.BackColor = System.Drawing.Color.CornflowerBlue;
             this.toolStrip3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip3.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStrip3.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -637,7 +640,7 @@
             this.tool_material_export});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(1264, 37);
+            this.toolStrip3.Size = new System.Drawing.Size(1262, 37);
             this.toolStrip3.TabIndex = 32;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -696,15 +699,15 @@
             this.tool_material_export.Text = "导出";
             this.tool_material_export.ToolTipText = "导出";
             // 
-            // documentWindow4
+            // dw_productCheck
             // 
-            this.documentWindow4.Controls.Add(this.panel_productCheck);
-            this.documentWindow4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.documentWindow4.Location = new System.Drawing.Point(5, 27);
-            this.documentWindow4.Name = "documentWindow4";
-            this.documentWindow4.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow4.Size = new System.Drawing.Size(1264, 669);
-            this.documentWindow4.Text = "成品抽检";
+            this.dw_productCheck.Controls.Add(this.panel_productCheck);
+            this.dw_productCheck.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dw_productCheck.Location = new System.Drawing.Point(5, 34);
+            this.dw_productCheck.Name = "dw_productCheck";
+            this.dw_productCheck.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dw_productCheck.Size = new System.Drawing.Size(1262, 660);
+            this.dw_productCheck.Text = "成品抽检";
             // 
             // panel_productCheck
             // 
@@ -713,7 +716,7 @@
             this.panel_productCheck.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_productCheck.Location = new System.Drawing.Point(0, 0);
             this.panel_productCheck.Name = "panel_productCheck";
-            this.panel_productCheck.Size = new System.Drawing.Size(1264, 669);
+            this.panel_productCheck.Size = new System.Drawing.Size(1262, 660);
             this.panel_productCheck.TabIndex = 30;
             // 
             // radGridViewCheck
@@ -724,9 +727,9 @@
             // 
             // 
             // 
-            this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition4;
+            this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition14;
             this.radGridViewCheck.Name = "radGridViewCheck";
-            this.radGridViewCheck.Size = new System.Drawing.Size(1264, 629);
+            this.radGridViewCheck.Size = new System.Drawing.Size(1262, 620);
             this.radGridViewCheck.TabIndex = 11;
             this.radGridViewCheck.ThemeName = "Breeze";
             // 
@@ -736,12 +739,12 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(0, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1264, 40);
+            this.panel7.Size = new System.Drawing.Size(1262, 40);
             this.panel7.TabIndex = 8;
             // 
             // toolStrip4
             // 
-            this.toolStrip4.BackColor = System.Drawing.Color.SkyBlue;
+            this.toolStrip4.BackColor = System.Drawing.Color.CornflowerBlue;
             this.toolStrip4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip4.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStrip4.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -755,7 +758,7 @@
             this.tool_productCheck_export});
             this.toolStrip4.Location = new System.Drawing.Point(0, 0);
             this.toolStrip4.Name = "toolStrip4";
-            this.toolStrip4.Size = new System.Drawing.Size(1264, 40);
+            this.toolStrip4.Size = new System.Drawing.Size(1262, 40);
             this.toolStrip4.TabIndex = 32;
             this.toolStrip4.Text = "toolStrip4";
             // 
@@ -814,15 +817,15 @@
             this.tool_productCheck_export.Text = "导出";
             this.tool_productCheck_export.ToolTipText = "导出";
             // 
-            // documentWindow5
+            // dw_materialExcept
             // 
-            this.documentWindow5.Controls.Add(this.panel_quanlity);
-            this.documentWindow5.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.documentWindow5.Location = new System.Drawing.Point(5, 27);
-            this.documentWindow5.Name = "documentWindow5";
-            this.documentWindow5.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow5.Size = new System.Drawing.Size(1264, 669);
-            this.documentWindow5.Text = "异常物料";
+            this.dw_materialExcept.Controls.Add(this.panel_quanlity);
+            this.dw_materialExcept.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dw_materialExcept.Location = new System.Drawing.Point(5, 34);
+            this.dw_materialExcept.Name = "dw_materialExcept";
+            this.dw_materialExcept.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dw_materialExcept.Size = new System.Drawing.Size(1262, 660);
+            this.dw_materialExcept.Text = "异常物料";
             // 
             // panel_quanlity
             // 
@@ -831,7 +834,7 @@
             this.panel_quanlity.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_quanlity.Location = new System.Drawing.Point(0, 0);
             this.panel_quanlity.Name = "panel_quanlity";
-            this.panel_quanlity.Size = new System.Drawing.Size(1264, 669);
+            this.panel_quanlity.Size = new System.Drawing.Size(1262, 660);
             this.panel_quanlity.TabIndex = 31;
             // 
             // radGridViewQuanlity
@@ -842,9 +845,9 @@
             // 
             // 
             // 
-            this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition5;
+            this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition15;
             this.radGridViewQuanlity.Name = "radGridViewQuanlity";
-            this.radGridViewQuanlity.Size = new System.Drawing.Size(1264, 629);
+            this.radGridViewQuanlity.Size = new System.Drawing.Size(1262, 620);
             this.radGridViewQuanlity.TabIndex = 10;
             this.radGridViewQuanlity.ThemeName = "Breeze";
             // 
@@ -854,12 +857,12 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1264, 40);
+            this.panel6.Size = new System.Drawing.Size(1262, 40);
             this.panel6.TabIndex = 8;
             // 
             // toolStrip5
             // 
-            this.toolStrip5.BackColor = System.Drawing.Color.SkyBlue;
+            this.toolStrip5.BackColor = System.Drawing.Color.CornflowerBlue;
             this.toolStrip5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip5.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStrip5.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -873,7 +876,7 @@
             this.tool_quanlity_export});
             this.toolStrip5.Location = new System.Drawing.Point(0, 0);
             this.toolStrip5.Name = "toolStrip5";
-            this.toolStrip5.Size = new System.Drawing.Size(1264, 40);
+            this.toolStrip5.Size = new System.Drawing.Size(1262, 40);
             this.toolStrip5.TabIndex = 32;
             this.toolStrip5.Text = "toolStrip5";
             // 
@@ -956,7 +959,7 @@
             this.bindingNavigator1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).EndInit();
             this.radDock1.ResumeLayout(false);
-            this.documentWindow1.ResumeLayout(false);
+            this.dw_snHistory.ResumeLayout(false);
             this.panel_sn.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewSn.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewSn)).EndInit();
@@ -968,7 +971,7 @@
             this.documentContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
             this.documentTabStrip1.ResumeLayout(false);
-            this.documentWindow2.ResumeLayout(false);
+            this.dw_packageProduct.ResumeLayout(false);
             this.panel_package.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewPackage.MasterTemplate)).EndInit();
@@ -977,7 +980,7 @@
             this.panel1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
-            this.documentWindow3.ResumeLayout(false);
+            this.dw_materialUse.ResumeLayout(false);
             this.panel_material.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewMaterial.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewMaterial)).EndInit();
@@ -985,7 +988,7 @@
             this.panel5.PerformLayout();
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
-            this.documentWindow4.ResumeLayout(false);
+            this.dw_productCheck.ResumeLayout(false);
             this.panel_productCheck.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewCheck.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewCheck)).EndInit();
@@ -993,7 +996,7 @@
             this.panel7.PerformLayout();
             this.toolStrip4.ResumeLayout(false);
             this.toolStrip4.PerformLayout();
-            this.documentWindow5.ResumeLayout(false);
+            this.dw_materialExcept.ResumeLayout(false);
             this.panel_quanlity.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewQuanlity.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewQuanlity)).EndInit();
@@ -1024,7 +1027,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private Telerik.WinControls.UI.Docking.RadDock radDock1;
-        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow2;
+        private Telerik.WinControls.UI.Docking.DocumentWindow dw_packageProduct;
         private System.Windows.Forms.Panel panel_package;
         private System.Windows.Forms.Panel panel3;
         private Telerik.WinControls.UI.RadGridView radGridViewPackage;
@@ -1039,7 +1042,7 @@
         private System.Windows.Forms.ToolStripButton tool_package_export;
         private Telerik.WinControls.UI.Docking.DocumentContainer documentContainer2;
         private Telerik.WinControls.UI.Docking.DocumentTabStrip documentTabStrip1;
-        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow5;
+        private Telerik.WinControls.UI.Docking.DocumentWindow dw_materialExcept;
         private System.Windows.Forms.Panel panel_quanlity;
         private Telerik.WinControls.UI.RadGridView radGridViewQuanlity;
         private System.Windows.Forms.Panel panel6;
@@ -1051,7 +1054,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel10;
         private System.Windows.Forms.ToolStripComboBox tool_quanlity_exportFilter;
         private System.Windows.Forms.ToolStripButton tool_quanlity_export;
-        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow4;
+        private Telerik.WinControls.UI.Docking.DocumentWindow dw_productCheck;
         private System.Windows.Forms.Panel panel_productCheck;
         private Telerik.WinControls.UI.RadGridView radGridViewCheck;
         private System.Windows.Forms.Panel panel7;
@@ -1063,7 +1066,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel8;
         private System.Windows.Forms.ToolStripComboBox tool_productCheck_exportFilter;
         private System.Windows.Forms.ToolStripButton tool_productCheck_export;
-        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow3;
+        private Telerik.WinControls.UI.Docking.DocumentWindow dw_materialUse;
         private System.Windows.Forms.Panel panel_material;
         private Telerik.WinControls.UI.RadGridView radGridViewMaterial;
         private System.Windows.Forms.Panel panel5;
@@ -1075,7 +1078,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel7;
         private System.Windows.Forms.ToolStripComboBox tool_material_exportFilter;
         private System.Windows.Forms.ToolStripButton tool_material_export;
-        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow1;
+        private Telerik.WinControls.UI.Docking.DocumentWindow dw_snHistory;
         private System.Windows.Forms.Panel panel_sn;
         private Telerik.WinControls.UI.RadGridView radGridViewSn;
         private System.Windows.Forms.Panel panel4;
@@ -1087,5 +1090,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel5;
         private System.Windows.Forms.ToolStripComboBox tool_sn_exportFilter;
         private System.Windows.Forms.ToolStripButton tool_sn_export;
+        private Telerik.WinControls.Themes.CrystalTheme crystalTheme1;
     }
 }

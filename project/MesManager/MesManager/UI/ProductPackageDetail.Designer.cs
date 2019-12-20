@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductPackageDetail));
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.tb_package = new System.Windows.Forms.ToolStripComboBox();
+            this.btn_selectOfPackage = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel6 = new System.Windows.Forms.ToolStripLabel();
             this.tool_package_exportFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tool_package_export = new System.Windows.Forms.ToolStripButton();
-            this.btn_selectOfPackage = new System.Windows.Forms.ToolStripButton();
             this.radGridViewPackage = new Telerik.WinControls.UI.RadGridView();
             this.panel1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -57,7 +57,7 @@
             // 
             // toolStrip2
             // 
-            this.toolStrip2.BackColor = System.Drawing.Color.SteelBlue;
+            this.toolStrip2.BackColor = System.Drawing.Color.CornflowerBlue;
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -87,6 +87,16 @@
             this.tb_package.Name = "tb_package";
             this.tb_package.Size = new System.Drawing.Size(121, 42);
             // 
+            // btn_selectOfPackage
+            // 
+            this.btn_selectOfPackage.ForeColor = System.Drawing.Color.White;
+            this.btn_selectOfPackage.Image = global::MesManager.Properties.Resources.Search_16x16;
+            this.btn_selectOfPackage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_selectOfPackage.Name = "btn_selectOfPackage";
+            this.btn_selectOfPackage.Size = new System.Drawing.Size(55, 39);
+            this.btn_selectOfPackage.Text = "查询";
+            this.btn_selectOfPackage.Click += new System.EventHandler(this.Btn_selectOfPackage_Click);
+            // 
             // toolStripLabel6
             // 
             this.toolStripLabel6.ForeColor = System.Drawing.Color.White;
@@ -111,16 +121,6 @@
             this.tool_package_export.ToolTipText = "导出";
             this.tool_package_export.Click += new System.EventHandler(this.Tool_package_export_Click);
             // 
-            // btn_selectOfPackage
-            // 
-            this.btn_selectOfPackage.ForeColor = System.Drawing.Color.White;
-            this.btn_selectOfPackage.Image = global::MesManager.Properties.Resources.Search_16x16;
-            this.btn_selectOfPackage.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btn_selectOfPackage.Name = "btn_selectOfPackage";
-            this.btn_selectOfPackage.Size = new System.Drawing.Size(55, 39);
-            this.btn_selectOfPackage.Text = "查询";
-            this.btn_selectOfPackage.Click += new System.EventHandler(this.Btn_selectOfPackage_Click);
-            // 
             // radGridViewPackage
             // 
             this.radGridViewPackage.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -129,7 +129,7 @@
             // 
             // 
             // 
-            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition2;
+            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridViewPackage.Name = "radGridViewPackage";
             this.radGridViewPackage.Size = new System.Drawing.Size(1033, 454);
             this.radGridViewPackage.TabIndex = 39;

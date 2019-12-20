@@ -271,7 +271,7 @@ namespace MesWcfService
 
         #region 【接口】 查询PCBA信息//此登录接口文档有问题
         [OperationContract]
-        DataSet QueryPCBAMes(string pcbasn);
+        PCBABindHistory QueryPCBAMes(string pcbasn, int pageIndex, int pageSize);
         #endregion
 
         #region【接口】 更新PCBA状态

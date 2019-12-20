@@ -603,6 +603,9 @@
       <DependentUpon>WelcomeForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <None Include="Connected Services\MesServiceTest\MesManager.MesServiceTest.PCBABindHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\MesServiceTest\MesService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -616,10 +619,22 @@
     <None Include="Connected Services\MesServiceTest\MesService3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\MesServiceTest\MesService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesService\MesManager.MesService.CheckPackageProductHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\MesService\MesManager.MesService.LoginResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\MesService\MesManager.MesService.MaterialResultInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\MesService\MesManager.MesService.MaterialStockEnum.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MesService\MesManager.MesService.PackageProductHistory.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\MesService\MesManager.MesService.ProductMaterial.datasource">

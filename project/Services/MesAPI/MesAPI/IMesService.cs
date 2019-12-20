@@ -128,7 +128,7 @@ namespace MesAPI
             string materialCode, string amount);
 
         [OperationContract]
-        DataSet SelectMaterialBasicMsg(string materialCode);
+        MaterialResultInfo SelectMaterialBasicMsg(string materialCode, int pageIndex, int pageSize);
 
         [OperationContract]
         DataSet SelectMaterialDetailMsg(string materialCode);
@@ -208,7 +208,7 @@ namespace MesAPI
         DataSet SelectTypeNoList();
 
         [OperationContract]
-        DataSet SelectPackageStorage(string queryFilter);
+        PackageProductHistory SelectPackageStorage(string queryFilter, int pageIndex, int pageSize);
 
         [OperationContract]
         DataSet SelectTestResultDetail(string querySN,int pageNumber,int pageSize, bool IsQueryLatest);
@@ -235,7 +235,7 @@ namespace MesAPI
         DataSet SelectPackageProductOfCaseCode(string queryFilter, string state, bool IsShowNumber);
 
         [OperationContract]
-        DataSet SelectPackageProductCheck(string queryFilter, string state, bool IsShowNumber);
+        CheckPackageProductHistory SelectPackageProductCheck(string queryFilter, string state, bool IsShowNumber, int pageIndex, int pageSize);
 
         [OperationContract]
         MaterialStockEnum ModifyMaterialStock(string materialCode, int stock,string describle,string username);

@@ -9,7 +9,70 @@
 //------------------------------------------------------------------------------
 
 namespace MesManager.MesServiceTest {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PCBABindHistory", Namespace="http://schemas.datacontract.org/2004/07/MesWcfService.Model")]
+    [System.SerializableAttribute()]
+    public partial class PCBABindHistory : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Data.DataSet BindHistoryDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int BindNumberField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Data.DataSet BindHistoryData {
+            get {
+                return this.BindHistoryDataField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BindHistoryDataField, value) != true)) {
+                    this.BindHistoryDataField = value;
+                    this.RaisePropertyChanged("BindHistoryData");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int BindNumber {
+            get {
+                return this.BindNumberField;
+            }
+            set {
+                if ((this.BindNumberField.Equals(value) != true)) {
+                    this.BindNumberField = value;
+                    this.RaisePropertyChanged("BindNumber");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MesServiceTest.IMesService")]
@@ -148,10 +211,10 @@ namespace MesManager.MesServiceTest {
         System.Threading.Tasks.Task<string> UpdatePackageStorageAsync(string productTypeNo, int capacity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/QueryPCBAMes", ReplyAction="http://tempuri.org/IMesService/QueryPCBAMesResponse")]
-        System.Data.DataSet QueryPCBAMes(string pcbasn);
+        MesManager.MesServiceTest.PCBABindHistory QueryPCBAMes(string pcbasn, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/QueryPCBAMes", ReplyAction="http://tempuri.org/IMesService/QueryPCBAMesResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> QueryPCBAMesAsync(string pcbasn);
+        System.Threading.Tasks.Task<MesManager.MesServiceTest.PCBABindHistory> QueryPCBAMesAsync(string pcbasn, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePcbaBindingState", ReplyAction="http://tempuri.org/IMesService/UpdatePcbaBindingStateResponse")]
         bool UpdatePcbaBindingState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
@@ -405,12 +468,12 @@ namespace MesManager.MesServiceTest {
             return base.Channel.UpdatePackageStorageAsync(productTypeNo, capacity);
         }
         
-        public System.Data.DataSet QueryPCBAMes(string pcbasn) {
-            return base.Channel.QueryPCBAMes(pcbasn);
+        public MesManager.MesServiceTest.PCBABindHistory QueryPCBAMes(string pcbasn, int pageIndex, int pageSize) {
+            return base.Channel.QueryPCBAMes(pcbasn, pageIndex, pageSize);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> QueryPCBAMesAsync(string pcbasn) {
-            return base.Channel.QueryPCBAMesAsync(pcbasn);
+        public System.Threading.Tasks.Task<MesManager.MesServiceTest.PCBABindHistory> QueryPCBAMesAsync(string pcbasn, int pageIndex, int pageSize) {
+            return base.Channel.QueryPCBAMesAsync(pcbasn, pageIndex, pageSize);
         }
         
         public bool UpdatePcbaBindingState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState) {

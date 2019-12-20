@@ -15,6 +15,18 @@ namespace MesManager.UI
         MesService.MesServiceClient serviceClient;
         public static string currentCaseSN = "";
         public static string currentProductSN = "";
+        /// <summary>
+        /// 当前页
+        /// </summary>
+        private int currentPage = 1;
+        /// <summary>
+        /// 每页的大小
+        /// </summary>
+        private int pageSize = 100;
+        /// <summary>
+        /// 总页数
+        /// </summary>
+        private int pageCount;
 
         public SearchProduct()
         {
@@ -31,6 +43,10 @@ namespace MesManager.UI
             this.rb_unbinded.CheckStateChanged += Rb_unbinded_CheckStateChanged;
             this.btn_apply.Click += Btn_apply_Click;
             this.btn_cancel.Click += Btn_cancel_Click;
+            this.bindingNavigator1.ItemClicked += BindingNavigator1_ItemClicked;
+            this.bindingNavigatorCountItem.TextChanged += BindingNavigatorCountItem_TextChanged;
+            this.bindingNavigatorPositionItem.TextChanged += BindingNavigatorPositionItem_TextChanged;
+
         }
 
         private void Btn_cancel_Click(object sender, EventArgs e)
@@ -75,16 +91,36 @@ namespace MesManager.UI
         async private void SelectProductBindMsg()
         {
             var queryCondition = this.tb_search.Text.Trim();
+            this.radGridView1.DataSource = null;
+            this.radGridView1.Update();
+            if (queryCondition != "")
+            {
+                this.currentPage = 1;//根据条件查询
+                this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            }
             var bindState = "1";
             if (this.rb_binded.CheckState == CheckState.Checked)
                 bindState = "1";
             else if (rb_unbinded.CheckState == CheckState.Checked)
                 bindState = "0";
-            DataSet ds = await serviceClient.SelectPackageProductCheckAsync(queryCondition,bindState,true);
-            this.radGridView1.DataSource = ds.Tables[0];
+            var checkPackage = await serviceClient.SelectPackageProductCheckAsync(queryCondition,bindState,false,currentPage,pageSize);
             RadGridViewProperties.SetRadGridViewProperty(this.radGridView1, false);
+            this.radGridView1.AutoSizeColumnsMode = Telerik.WinControls.UI.GridViewAutoSizeColumnsMode.None;
             this.radGridView1.ReadOnly = true;
-            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = Telerik.WinControls.UI.GridViewAutoSizeColumnsMode.None;
+            if (checkPackage.CheckPackageCaseNumber % pageSize > 0)
+            {
+                pageCount = checkPackage.CheckPackageCaseNumber / pageSize + 1;
+            }
+            else
+            {
+                pageCount = checkPackage.CheckPackageCaseNumber / pageSize;
+            }
+            this.radGridView1.BeginEdit();
+            var dt = checkPackage.CheckPackageCaseData.Tables[0];
+            this.radGridView1.DataSource = dt;
+            this.bindingSource1.DataSource = dt;
+            this.bindingNavigator1.BindingSource = this.bindingSource1;
+            this.radGridView1.EndEdit();
             this.radGridView1.BestFitColumns();
         }
 
@@ -98,6 +134,51 @@ namespace MesManager.UI
                 currentProductSN = this.radGridView1.CurrentRow.Cells[2].Value.ToString();
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void BindingNavigatorPositionItem_TextChanged(object sender, EventArgs e)
+        {
+            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+        }
+
+        private void BindingNavigatorCountItem_TextChanged(object sender, EventArgs e)
+        {
+            this.bindingNavigatorCountItem.Text = "/" + pageCount;
+        }
+
+        private void BindingNavigator1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem.Text == "删除")
+            {
+                //删除页
+            }
+            else if (e.ClickedItem.Text == "上一页")
+            {
+                if (currentPage > 1)
+                {
+                    currentPage--;
+                }
+            }
+            else if (e.ClickedItem.Text == "下一页")
+            {
+                if (currentPage < pageCount)
+                {
+                    currentPage++;
+                }
+            }
+            else if (e.ClickedItem.Text == "首页")
+            {
+                currentPage = 1;
+            }
+            else if (e.ClickedItem.Text == "尾页")
+            {
+                currentPage = pageCount;
+            }
+            else if (e.ClickedItem.Text == "新添")
+            {
+
+            }
+            SelectProductBindMsg();
         }
     }
 }

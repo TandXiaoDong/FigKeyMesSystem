@@ -365,6 +365,189 @@ namespace MesManager.MesService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MaterialResultInfo", Namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model")]
+    [System.SerializableAttribute()]
+    public partial class MaterialResultInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Data.DataSet MaterialResultDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MaterialRowCountField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Data.DataSet MaterialResultData {
+            get {
+                return this.MaterialResultDataField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MaterialResultDataField, value) != true)) {
+                    this.MaterialResultDataField = value;
+                    this.RaisePropertyChanged("MaterialResultData");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MaterialRowCount {
+            get {
+                return this.MaterialRowCountField;
+            }
+            set {
+                if ((this.MaterialRowCountField.Equals(value) != true)) {
+                    this.MaterialRowCountField = value;
+                    this.RaisePropertyChanged("MaterialRowCount");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PackageProductHistory", Namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model")]
+    [System.SerializableAttribute()]
+    public partial class PackageProductHistory : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Data.DataSet PackageCaseDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PackageCaseNumberField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Data.DataSet PackageCaseData {
+            get {
+                return this.PackageCaseDataField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PackageCaseDataField, value) != true)) {
+                    this.PackageCaseDataField = value;
+                    this.RaisePropertyChanged("PackageCaseData");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PackageCaseNumber {
+            get {
+                return this.PackageCaseNumberField;
+            }
+            set {
+                if ((this.PackageCaseNumberField.Equals(value) != true)) {
+                    this.PackageCaseNumberField = value;
+                    this.RaisePropertyChanged("PackageCaseNumber");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CheckPackageProductHistory", Namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model")]
+    [System.SerializableAttribute()]
+    public partial class CheckPackageProductHistory : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Data.DataSet CheckPackageCaseDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CheckPackageCaseNumberField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Data.DataSet CheckPackageCaseData {
+            get {
+                return this.CheckPackageCaseDataField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckPackageCaseDataField, value) != true)) {
+                    this.CheckPackageCaseDataField = value;
+                    this.RaisePropertyChanged("CheckPackageCaseData");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CheckPackageCaseNumber {
+            get {
+                return this.CheckPackageCaseNumberField;
+            }
+            set {
+                if ((this.CheckPackageCaseNumberField.Equals(value) != true)) {
+                    this.CheckPackageCaseNumberField = value;
+                    this.RaisePropertyChanged("CheckPackageCaseNumber");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MaterialStockEnum", Namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model")]
     public enum MaterialStockEnum : int {
@@ -585,10 +768,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<string> InsertMaterialStatisticsAsync(string snInner, string snOutter, string typeNo, string stationName, string materialCode, string amount);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectMaterialBasicMsg", ReplyAction="http://tempuri.org/IMesService/SelectMaterialBasicMsgResponse")]
-        System.Data.DataSet SelectMaterialBasicMsg(string materialCode);
+        MesManager.MesService.MaterialResultInfo SelectMaterialBasicMsg(string materialCode, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectMaterialBasicMsg", ReplyAction="http://tempuri.org/IMesService/SelectMaterialBasicMsgResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> SelectMaterialBasicMsgAsync(string materialCode);
+        System.Threading.Tasks.Task<MesManager.MesService.MaterialResultInfo> SelectMaterialBasicMsgAsync(string materialCode, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectMaterialDetailMsg", ReplyAction="http://tempuri.org/IMesService/SelectMaterialDetailMsgResponse")]
         System.Data.DataSet SelectMaterialDetailMsg(string materialCode);
@@ -723,10 +906,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<System.Data.DataSet> SelectTypeNoListAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectPackageStorage", ReplyAction="http://tempuri.org/IMesService/SelectPackageStorageResponse")]
-        System.Data.DataSet SelectPackageStorage(string queryFilter);
+        MesManager.MesService.PackageProductHistory SelectPackageStorage(string queryFilter, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectPackageStorage", ReplyAction="http://tempuri.org/IMesService/SelectPackageStorageResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> SelectPackageStorageAsync(string queryFilter);
+        System.Threading.Tasks.Task<MesManager.MesService.PackageProductHistory> SelectPackageStorageAsync(string queryFilter, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultDetail", ReplyAction="http://tempuri.org/IMesService/SelectTestResultDetailResponse")]
         System.Data.DataSet SelectTestResultDetail(string querySN, int pageNumber, int pageSize, bool IsQueryLatest);
@@ -771,10 +954,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<System.Data.DataSet> SelectPackageProductOfCaseCodeAsync(string queryFilter, string state, bool IsShowNumber);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectPackageProductCheck", ReplyAction="http://tempuri.org/IMesService/SelectPackageProductCheckResponse")]
-        System.Data.DataSet SelectPackageProductCheck(string queryFilter, string state, bool IsShowNumber);
+        MesManager.MesService.CheckPackageProductHistory SelectPackageProductCheck(string queryFilter, string state, bool IsShowNumber, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectPackageProductCheck", ReplyAction="http://tempuri.org/IMesService/SelectPackageProductCheckResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> SelectPackageProductCheckAsync(string queryFilter, string state, bool IsShowNumber);
+        System.Threading.Tasks.Task<MesManager.MesService.CheckPackageProductHistory> SelectPackageProductCheckAsync(string queryFilter, string state, bool IsShowNumber, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/ModifyMaterialStock", ReplyAction="http://tempuri.org/IMesService/ModifyMaterialStockResponse")]
         MesManager.MesService.MaterialStockEnum ModifyMaterialStock(string materialCode, int stock, string describle, string username);
@@ -1090,12 +1273,12 @@ namespace MesManager.MesService {
             return base.Channel.InsertMaterialStatisticsAsync(snInner, snOutter, typeNo, stationName, materialCode, amount);
         }
         
-        public System.Data.DataSet SelectMaterialBasicMsg(string materialCode) {
-            return base.Channel.SelectMaterialBasicMsg(materialCode);
+        public MesManager.MesService.MaterialResultInfo SelectMaterialBasicMsg(string materialCode, int pageIndex, int pageSize) {
+            return base.Channel.SelectMaterialBasicMsg(materialCode, pageIndex, pageSize);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> SelectMaterialBasicMsgAsync(string materialCode) {
-            return base.Channel.SelectMaterialBasicMsgAsync(materialCode);
+        public System.Threading.Tasks.Task<MesManager.MesService.MaterialResultInfo> SelectMaterialBasicMsgAsync(string materialCode, int pageIndex, int pageSize) {
+            return base.Channel.SelectMaterialBasicMsgAsync(materialCode, pageIndex, pageSize);
         }
         
         public System.Data.DataSet SelectMaterialDetailMsg(string materialCode) {
@@ -1274,12 +1457,12 @@ namespace MesManager.MesService {
             return base.Channel.SelectTypeNoListAsync();
         }
         
-        public System.Data.DataSet SelectPackageStorage(string queryFilter) {
-            return base.Channel.SelectPackageStorage(queryFilter);
+        public MesManager.MesService.PackageProductHistory SelectPackageStorage(string queryFilter, int pageIndex, int pageSize) {
+            return base.Channel.SelectPackageStorage(queryFilter, pageIndex, pageSize);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> SelectPackageStorageAsync(string queryFilter) {
-            return base.Channel.SelectPackageStorageAsync(queryFilter);
+        public System.Threading.Tasks.Task<MesManager.MesService.PackageProductHistory> SelectPackageStorageAsync(string queryFilter, int pageIndex, int pageSize) {
+            return base.Channel.SelectPackageStorageAsync(queryFilter, pageIndex, pageSize);
         }
         
         public System.Data.DataSet SelectTestResultDetail(string querySN, int pageNumber, int pageSize, bool IsQueryLatest) {
@@ -1338,12 +1521,12 @@ namespace MesManager.MesService {
             return base.Channel.SelectPackageProductOfCaseCodeAsync(queryFilter, state, IsShowNumber);
         }
         
-        public System.Data.DataSet SelectPackageProductCheck(string queryFilter, string state, bool IsShowNumber) {
-            return base.Channel.SelectPackageProductCheck(queryFilter, state, IsShowNumber);
+        public MesManager.MesService.CheckPackageProductHistory SelectPackageProductCheck(string queryFilter, string state, bool IsShowNumber, int pageIndex, int pageSize) {
+            return base.Channel.SelectPackageProductCheck(queryFilter, state, IsShowNumber, pageIndex, pageSize);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> SelectPackageProductCheckAsync(string queryFilter, string state, bool IsShowNumber) {
-            return base.Channel.SelectPackageProductCheckAsync(queryFilter, state, IsShowNumber);
+        public System.Threading.Tasks.Task<MesManager.MesService.CheckPackageProductHistory> SelectPackageProductCheckAsync(string queryFilter, string state, bool IsShowNumber, int pageIndex, int pageSize) {
+            return base.Channel.SelectPackageProductCheckAsync(queryFilter, state, IsShowNumber, pageIndex, pageSize);
         }
         
         public MesManager.MesService.MaterialStockEnum ModifyMaterialStock(string materialCode, int stock, string describle, string username) {

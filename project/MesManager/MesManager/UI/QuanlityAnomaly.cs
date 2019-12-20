@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using MesManager.Control;
+using CommonUtils.Logger;
 
 namespace MesManager.UI
 {
@@ -15,6 +16,18 @@ namespace MesManager.UI
     {
         private MesService.MesServiceClient serviceClient;
         private MesServiceTest.MesServiceClient serviceClientTest;
+        /// <summary>
+        /// 当前页
+        /// </summary>
+        private int currentPage = 1;
+        /// <summary>
+        /// 每页的大小
+        /// </summary>
+        private int pageSize = 50;
+        /// <summary>
+        /// 总页数
+        /// </summary>
+        private int pageCount;
 
         public QuanlityAnomaly()
         {
@@ -60,6 +73,17 @@ namespace MesManager.UI
             this.btn_searchCaseMsg.Click += Btn_searchCaseMsg_Click;
             this.btn_queryPCBA.Click += Btn_queryPCBA_Click;
             this.radDock1.ActiveWindow = this.dw_pcba;
+            this.btn_query.Click += Btn_query_Click;
+            this.bindingNavigator.ItemClicked += BindingNavigator1_ItemClicked;
+            this.bindingNavigatorCountItem.TextChanged += BindingNavigatorCountItem_TextChanged;
+            this.bindingNavigatorPositionItem.TextChanged += BindingNavigatorPositionItem_TextChanged;
+        }
+
+        private void Btn_query_Click(object sender, EventArgs e)
+        {
+            SearchForm searchForm = new SearchForm();
+            searchForm.ShowDialog();
+            this.cb_materialCode.Text = SearchForm.currentMaterialCode;
         }
 
         private void Btn_queryPCBA_Click(object sender, EventArgs e)
@@ -151,10 +175,29 @@ namespace MesManager.UI
 
         async private void QueryPcbaMsg()
         {
-            var dt = (await serviceClientTest.QueryPCBAMesAsync(this.tb_pcbasn.Text)).Tables[0];
+            LogHelper.Log.Info("start...");
+            if (this.tb_pcbasn.Text != "")
+            {
+                this.currentPage = 1;//根据条件查询
+                this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            }
+            this.radGridView1.DataSource = null;
+            this.radGridView1.Update();
+            var pcbaMesObj = (await serviceClientTest.QueryPCBAMesAsync(this.tb_pcbasn.Text,currentPage,pageSize));
+            if (pcbaMesObj.BindNumber % pageSize > 0)
+            {
+                pageCount = pcbaMesObj.BindNumber / pageSize + 1;
+            }
+            else
+            {
+                pageCount = pcbaMesObj.BindNumber / pageSize;
+            }
             this.radGridView1.BeginEdit();
             DataGridViewCommon.SetRadGridViewProperty(this.radGridView1, false);
+            var dt = pcbaMesObj.BindHistoryData.Tables[0];
             this.radGridView1.DataSource = dt;
+            bindingSource.DataSource = dt;
+            this.bindingNavigator.BindingSource = bindingSource;
             this.radGridView1.ReadOnly = true;
             foreach (var rowInfo in this.radGridView1.Rows)
             {
@@ -483,13 +526,6 @@ namespace MesManager.UI
             CancelPcbaBinding();
         }
 
-        private void btn_query_Click(object sender, EventArgs e)
-        {
-            SearchForm searchForm = new SearchForm();
-            searchForm.ShowDialog();
-            this.cb_materialCode.Text = SearchForm.currentMaterialCode;
-        }
-
         private void UpdateBindState(int state)
         {
             var caseSN = this.tb_caseSN.Text;
@@ -591,6 +627,51 @@ namespace MesManager.UI
             {
 
             }
+        }
+        private void BindingNavigatorPositionItem_TextChanged(object sender, EventArgs e)
+        {
+            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+        }
+
+        private void BindingNavigatorCountItem_TextChanged(object sender, EventArgs e)
+        {
+            this.bindingNavigatorCountItem.Text = "/"+pageCount;
+        }
+
+        private void BindingNavigator1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+            if (e.ClickedItem.Text == "删除")
+            {
+                //删除页
+            }
+            else if (e.ClickedItem.Text == "上一页")
+            {
+                if (currentPage > 1)
+                {
+                    currentPage--;
+                }
+            }
+            else if (e.ClickedItem.Text == "下一页")
+            {
+                if (currentPage < pageCount)
+                {
+                    currentPage++;
+                }
+            }
+            else if (e.ClickedItem.Text == "首页")
+            {
+                currentPage = 1;
+            }
+            else if (e.ClickedItem.Text == "尾页")
+            {
+                currentPage = pageCount;
+            }
+            else if (e.ClickedItem.Text == "新添")
+            {
+
+            }
+            QueryPcbaMsg();
         }
     }
 }
