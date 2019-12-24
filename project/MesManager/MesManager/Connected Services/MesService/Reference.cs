@@ -436,10 +436,31 @@ namespace MesManager.MesService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AdminField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProductTypeNoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Data.DataSet ProgrameDataSetField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ProgrameHistoryNumberField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProgrameNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProgramePathField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StationNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TeamLeaderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UpdateDateField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -448,6 +469,32 @@ namespace MesManager.MesService {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Admin {
+            get {
+                return this.AdminField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AdminField, value) != true)) {
+                    this.AdminField = value;
+                    this.RaisePropertyChanged("Admin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProductTypeNo {
+            get {
+                return this.ProductTypeNoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductTypeNoField, value) != true)) {
+                    this.ProductTypeNoField = value;
+                    this.RaisePropertyChanged("ProductTypeNo");
+                }
             }
         }
         
@@ -477,6 +524,71 @@ namespace MesManager.MesService {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProgrameName {
+            get {
+                return this.ProgrameNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProgrameNameField, value) != true)) {
+                    this.ProgrameNameField = value;
+                    this.RaisePropertyChanged("ProgrameName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProgramePath {
+            get {
+                return this.ProgramePathField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProgramePathField, value) != true)) {
+                    this.ProgramePathField = value;
+                    this.RaisePropertyChanged("ProgramePath");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StationName {
+            get {
+                return this.StationNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StationNameField, value) != true)) {
+                    this.StationNameField = value;
+                    this.RaisePropertyChanged("StationName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TeamLeader {
+            get {
+                return this.TeamLeaderField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TeamLeaderField, value) != true)) {
+                    this.TeamLeaderField = value;
+                    this.RaisePropertyChanged("TeamLeader");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UpdateDate {
+            get {
+                return this.UpdateDateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UpdateDateField, value) != true)) {
+                    this.UpdateDateField = value;
+                    this.RaisePropertyChanged("UpdateDate");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -497,10 +609,31 @@ namespace MesManager.MesService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AdminField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LimitValueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProductTypeNoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Data.DataSet SpecDataSetField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int SpecHistoryNumberField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StationNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TeamLeaderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TestItemField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UpdateDateField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -509,6 +642,45 @@ namespace MesManager.MesService {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Admin {
+            get {
+                return this.AdminField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AdminField, value) != true)) {
+                    this.AdminField = value;
+                    this.RaisePropertyChanged("Admin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LimitValue {
+            get {
+                return this.LimitValueField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LimitValueField, value) != true)) {
+                    this.LimitValueField = value;
+                    this.RaisePropertyChanged("LimitValue");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProductTypeNo {
+            get {
+                return this.ProductTypeNoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductTypeNoField, value) != true)) {
+                    this.ProductTypeNoField = value;
+                    this.RaisePropertyChanged("ProductTypeNo");
+                }
             }
         }
         
@@ -534,6 +706,58 @@ namespace MesManager.MesService {
                 if ((this.SpecHistoryNumberField.Equals(value) != true)) {
                     this.SpecHistoryNumberField = value;
                     this.RaisePropertyChanged("SpecHistoryNumber");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StationName {
+            get {
+                return this.StationNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StationNameField, value) != true)) {
+                    this.StationNameField = value;
+                    this.RaisePropertyChanged("StationName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TeamLeader {
+            get {
+                return this.TeamLeaderField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TeamLeaderField, value) != true)) {
+                    this.TeamLeaderField = value;
+                    this.RaisePropertyChanged("TeamLeader");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TestItem {
+            get {
+                return this.TestItemField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TestItemField, value) != true)) {
+                    this.TestItemField = value;
+                    this.RaisePropertyChanged("TestItem");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UpdateDate {
+            get {
+                return this.UpdateDateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UpdateDateField, value) != true)) {
+                    this.UpdateDateField = value;
+                    this.RaisePropertyChanged("UpdateDate");
                 }
             }
         }
@@ -752,6 +976,163 @@ namespace MesManager.MesService {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         STATUS_STOCK_NOT_SMALLER_AMOUNTED = 5,
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TestLogResultHistory", Namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model")]
+    [System.SerializableAttribute()]
+    public partial class TestLogResultHistory : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Data.DataSet HistoryDataSetField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int HistoryLogNumberField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string JoinDateTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PcbaSNField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProcessNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProductSNField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StationInDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StationNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Data.DataSet HistoryDataSet {
+            get {
+                return this.HistoryDataSetField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HistoryDataSetField, value) != true)) {
+                    this.HistoryDataSetField = value;
+                    this.RaisePropertyChanged("HistoryDataSet");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int HistoryLogNumber {
+            get {
+                return this.HistoryLogNumberField;
+            }
+            set {
+                if ((this.HistoryLogNumberField.Equals(value) != true)) {
+                    this.HistoryLogNumberField = value;
+                    this.RaisePropertyChanged("HistoryLogNumber");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string JoinDateTime {
+            get {
+                return this.JoinDateTimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.JoinDateTimeField, value) != true)) {
+                    this.JoinDateTimeField = value;
+                    this.RaisePropertyChanged("JoinDateTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PcbaSN {
+            get {
+                return this.PcbaSNField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PcbaSNField, value) != true)) {
+                    this.PcbaSNField = value;
+                    this.RaisePropertyChanged("PcbaSN");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProcessName {
+            get {
+                return this.ProcessNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProcessNameField, value) != true)) {
+                    this.ProcessNameField = value;
+                    this.RaisePropertyChanged("ProcessName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProductSN {
+            get {
+                return this.ProductSNField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductSNField, value) != true)) {
+                    this.ProductSNField = value;
+                    this.RaisePropertyChanged("ProductSN");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StationInDate {
+            get {
+                return this.StationInDateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StationInDateField, value) != true)) {
+                    this.StationInDateField = value;
+                    this.RaisePropertyChanged("StationInDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StationName {
+            get {
+                return this.StationNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StationNameField, value) != true)) {
+                    this.StationNameField = value;
+                    this.RaisePropertyChanged("StationName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1017,10 +1398,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<MesManager.MesService.ProgramVersionHistory> SelectTestProgrameVersionAsync(string productTypeNo, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestProgrameVersion", ReplyAction="http://tempuri.org/IMesService/DeleteTestProgrameVersionResponse")]
-        int DeleteTestProgrameVersion(string productTypeNo);
+        int DeleteTestProgrameVersion(MesManager.MesService.ProgramVersionHistory[] programeList);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestProgrameVersion", ReplyAction="http://tempuri.org/IMesService/DeleteTestProgrameVersionResponse")]
-        System.Threading.Tasks.Task<int> DeleteTestProgrameVersionAsync(string productTypeNo);
+        System.Threading.Tasks.Task<int> DeleteTestProgrameVersionAsync(MesManager.MesService.ProgramVersionHistory[] programeList);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestLimitConfig", ReplyAction="http://tempuri.org/IMesService/SelectTestLimitConfigResponse")]
         MesManager.MesService.TestStandSpecHistory SelectTestLimitConfig(string productTypeNo, int pageIndex, int pageSize);
@@ -1029,10 +1410,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<MesManager.MesService.TestStandSpecHistory> SelectTestLimitConfigAsync(string productTypeNo, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestLimitConfig", ReplyAction="http://tempuri.org/IMesService/DeleteTestLimitConfigResponse")]
-        int DeleteTestLimitConfig(string productTypeNo);
+        int DeleteTestLimitConfig(MesManager.MesService.TestStandSpecHistory[] specList);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestLimitConfig", ReplyAction="http://tempuri.org/IMesService/DeleteTestLimitConfigResponse")]
-        System.Threading.Tasks.Task<int> DeleteTestLimitConfigAsync(string productTypeNo);
+        System.Threading.Tasks.Task<int> DeleteTestLimitConfigAsync(MesManager.MesService.TestStandSpecHistory[] specList);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestLogDataDetail", ReplyAction="http://tempuri.org/IMesService/SelectTestLogDataDetailResponse")]
         System.Data.DataSet SelectTestLogDataDetail(string queryFilter, string startDate, string endDate);
@@ -1171,6 +1552,12 @@ namespace MesManager.MesService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectUseAllPcbaSN", ReplyAction="http://tempuri.org/IMesService/SelectUseAllPcbaSNResponse")]
         System.Threading.Tasks.Task<string[]> SelectUseAllPcbaSNAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestLogHistory", ReplyAction="http://tempuri.org/IMesService/DeleteTestLogHistoryResponse")]
+        int DeleteTestLogHistory(MesManager.MesService.TestLogResultHistory[] logList);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestLogHistory", ReplyAction="http://tempuri.org/IMesService/DeleteTestLogHistoryResponse")]
+        System.Threading.Tasks.Task<int> DeleteTestLogHistoryAsync(MesManager.MesService.TestLogResultHistory[] logList);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1544,12 +1931,12 @@ namespace MesManager.MesService {
             return base.Channel.SelectTestProgrameVersionAsync(productTypeNo, pageIndex, pageSize);
         }
         
-        public int DeleteTestProgrameVersion(string productTypeNo) {
-            return base.Channel.DeleteTestProgrameVersion(productTypeNo);
+        public int DeleteTestProgrameVersion(MesManager.MesService.ProgramVersionHistory[] programeList) {
+            return base.Channel.DeleteTestProgrameVersion(programeList);
         }
         
-        public System.Threading.Tasks.Task<int> DeleteTestProgrameVersionAsync(string productTypeNo) {
-            return base.Channel.DeleteTestProgrameVersionAsync(productTypeNo);
+        public System.Threading.Tasks.Task<int> DeleteTestProgrameVersionAsync(MesManager.MesService.ProgramVersionHistory[] programeList) {
+            return base.Channel.DeleteTestProgrameVersionAsync(programeList);
         }
         
         public MesManager.MesService.TestStandSpecHistory SelectTestLimitConfig(string productTypeNo, int pageIndex, int pageSize) {
@@ -1560,12 +1947,12 @@ namespace MesManager.MesService {
             return base.Channel.SelectTestLimitConfigAsync(productTypeNo, pageIndex, pageSize);
         }
         
-        public int DeleteTestLimitConfig(string productTypeNo) {
-            return base.Channel.DeleteTestLimitConfig(productTypeNo);
+        public int DeleteTestLimitConfig(MesManager.MesService.TestStandSpecHistory[] specList) {
+            return base.Channel.DeleteTestLimitConfig(specList);
         }
         
-        public System.Threading.Tasks.Task<int> DeleteTestLimitConfigAsync(string productTypeNo) {
-            return base.Channel.DeleteTestLimitConfigAsync(productTypeNo);
+        public System.Threading.Tasks.Task<int> DeleteTestLimitConfigAsync(MesManager.MesService.TestStandSpecHistory[] specList) {
+            return base.Channel.DeleteTestLimitConfigAsync(specList);
         }
         
         public System.Data.DataSet SelectTestLogDataDetail(string queryFilter, string startDate, string endDate) {
@@ -1750,6 +2137,14 @@ namespace MesManager.MesService {
         
         public System.Threading.Tasks.Task<string[]> SelectUseAllPcbaSNAsync() {
             return base.Channel.SelectUseAllPcbaSNAsync();
+        }
+        
+        public int DeleteTestLogHistory(MesManager.MesService.TestLogResultHistory[] logList) {
+            return base.Channel.DeleteTestLogHistory(logList);
+        }
+        
+        public System.Threading.Tasks.Task<int> DeleteTestLogHistoryAsync(MesManager.MesService.TestLogResultHistory[] logList) {
+            return base.Channel.DeleteTestLogHistoryAsync(logList);
         }
     }
 }

@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestStand));
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition3 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition10 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition11 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition12 = new Telerik.WinControls.UI.TableViewDefinition();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tool_queryCondition = new System.Windows.Forms.ToolStripComboBox();
@@ -74,6 +74,7 @@
             this.crystalTheme1 = new Telerik.WinControls.Themes.CrystalTheme();
             this.gridSpec = new Telerik.WinControls.UI.RadGridView();
             this.gridProgrameVersion = new Telerik.WinControls.UI.RadGridView();
+            this.label_delStatus = new Telerik.WinControls.UI.RadLabel();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -97,6 +98,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridSpec.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridProgrameVersion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridProgrameVersion.MasterTemplate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.label_delStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -282,7 +284,7 @@
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.tool_programv;
+            this.radDock1.ActiveWindow = this.tool_logData;
             this.radDock1.Controls.Add(this.documentContainer2);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radDock1.IsCleanUpTarget = true;
@@ -319,7 +321,7 @@
             // 
             // 
             // 
-            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition2;
+            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition10;
             this.radGridView1.Name = "radGridView1";
             this.radGridView1.Size = new System.Drawing.Size(1264, 506);
             this.radGridView1.TabIndex = 19;
@@ -327,6 +329,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label_delStatus);
             this.panel2.Controls.Add(this.tableLayoutPanel1);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.label2);
@@ -341,11 +344,11 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.79058F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.20942F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 107F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 96F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 196F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.29412F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.70588F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 93F));
             this.tableLayoutPanel1.Controls.Add(this.rbtn_threeMonth, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbtn_oneMonth, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbtn_today, 0, 0);
@@ -356,7 +359,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(583, 55);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(419, 55);
             this.tableLayoutPanel1.TabIndex = 16;
             // 
             // rbtn_threeMonth
@@ -364,9 +367,9 @@
             this.rbtn_threeMonth.AutoSize = true;
             this.rbtn_threeMonth.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_threeMonth.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_threeMonth.Location = new System.Drawing.Point(186, 3);
+            this.rbtn_threeMonth.Location = new System.Drawing.Point(156, 3);
             this.rbtn_threeMonth.Name = "rbtn_threeMonth";
-            this.rbtn_threeMonth.Size = new System.Drawing.Size(101, 49);
+            this.rbtn_threeMonth.Size = new System.Drawing.Size(84, 49);
             this.rbtn_threeMonth.TabIndex = 16;
             this.rbtn_threeMonth.TabStop = true;
             this.rbtn_threeMonth.Text = "最近三个月";
@@ -377,9 +380,9 @@
             this.rbtn_oneMonth.AutoSize = true;
             this.rbtn_oneMonth.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_oneMonth.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_oneMonth.Location = new System.Drawing.Point(76, 3);
+            this.rbtn_oneMonth.Location = new System.Drawing.Point(57, 3);
             this.rbtn_oneMonth.Name = "rbtn_oneMonth";
-            this.rbtn_oneMonth.Size = new System.Drawing.Size(104, 49);
+            this.rbtn_oneMonth.Size = new System.Drawing.Size(93, 49);
             this.rbtn_oneMonth.TabIndex = 15;
             this.rbtn_oneMonth.TabStop = true;
             this.rbtn_oneMonth.Text = "最近一个月";
@@ -392,7 +395,7 @@
             this.rbtn_today.ForeColor = System.Drawing.Color.Black;
             this.rbtn_today.Location = new System.Drawing.Point(3, 3);
             this.rbtn_today.Name = "rbtn_today";
-            this.rbtn_today.Size = new System.Drawing.Size(67, 49);
+            this.rbtn_today.Size = new System.Drawing.Size(48, 49);
             this.rbtn_today.TabIndex = 14;
             this.rbtn_today.TabStop = true;
             this.rbtn_today.Text = "当天";
@@ -403,9 +406,9 @@
             this.rbtn_oneYear.AutoSize = true;
             this.rbtn_oneYear.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_oneYear.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_oneYear.Location = new System.Drawing.Point(293, 3);
+            this.rbtn_oneYear.Location = new System.Drawing.Point(246, 3);
             this.rbtn_oneYear.Name = "rbtn_oneYear";
-            this.rbtn_oneYear.Size = new System.Drawing.Size(90, 49);
+            this.rbtn_oneYear.Size = new System.Drawing.Size(76, 49);
             this.rbtn_oneYear.TabIndex = 18;
             this.rbtn_oneYear.TabStop = true;
             this.rbtn_oneYear.Text = "最近一年";
@@ -416,9 +419,9 @@
             this.rbtn_custom.AutoSize = true;
             this.rbtn_custom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_custom.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_custom.Location = new System.Drawing.Point(389, 3);
+            this.rbtn_custom.Location = new System.Drawing.Point(328, 3);
             this.rbtn_custom.Name = "rbtn_custom";
-            this.rbtn_custom.Size = new System.Drawing.Size(191, 49);
+            this.rbtn_custom.Size = new System.Drawing.Size(88, 49);
             this.rbtn_custom.TabIndex = 13;
             this.rbtn_custom.TabStop = true;
             this.rbtn_custom.Text = "自定义日期";
@@ -428,7 +431,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(589, 26);
+            this.label1.Location = new System.Drawing.Point(425, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 12);
             this.label1.TabIndex = 6;
@@ -438,7 +441,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(856, 26);
+            this.label2.Location = new System.Drawing.Point(673, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 12);
             this.label2.TabIndex = 7;
@@ -451,7 +454,7 @@
             this.pickerEndTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pickerEndTime.ForeColor = System.Drawing.Color.SteelBlue;
             this.pickerEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.pickerEndTime.Location = new System.Drawing.Point(940, 20);
+            this.pickerEndTime.Location = new System.Drawing.Point(744, 15);
             this.pickerEndTime.Name = "pickerEndTime";
             this.pickerEndTime.Size = new System.Drawing.Size(169, 25);
             this.pickerEndTime.TabIndex = 5;
@@ -467,7 +470,7 @@
             this.pickerStartTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pickerStartTime.ForeColor = System.Drawing.Color.SteelBlue;
             this.pickerStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.pickerStartTime.Location = new System.Drawing.Point(673, 19);
+            this.pickerStartTime.Location = new System.Drawing.Point(496, 15);
             this.pickerStartTime.Name = "pickerStartTime";
             this.pickerStartTime.Size = new System.Drawing.Size(171, 25);
             this.pickerStartTime.TabIndex = 4;
@@ -500,7 +503,7 @@
             // 
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 2;
+            this.documentTabStrip1.SelectedIndex = 0;
             this.documentTabStrip1.Size = new System.Drawing.Size(1276, 602);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
@@ -534,7 +537,7 @@
             // 
             // 
             // 
-            this.gridSpec.MasterTemplate.ViewDefinition = tableViewDefinition3;
+            this.gridSpec.MasterTemplate.ViewDefinition = tableViewDefinition11;
             this.gridSpec.Name = "gridSpec";
             this.gridSpec.Size = new System.Drawing.Size(1264, 561);
             this.gridSpec.TabIndex = 20;
@@ -548,11 +551,20 @@
             // 
             // 
             // 
-            this.gridProgrameVersion.MasterTemplate.ViewDefinition = tableViewDefinition1;
+            this.gridProgrameVersion.MasterTemplate.ViewDefinition = tableViewDefinition12;
             this.gridProgrameVersion.Name = "gridProgrameVersion";
             this.gridProgrameVersion.Size = new System.Drawing.Size(1264, 561);
             this.gridProgrameVersion.TabIndex = 20;
             this.gridProgrameVersion.ThemeName = "Breeze";
+            // 
+            // label_delStatus
+            // 
+            this.label_delStatus.Location = new System.Drawing.Point(935, 17);
+            this.label_delStatus.Name = "label_delStatus";
+            this.label_delStatus.Size = new System.Drawing.Size(68, 20);
+            this.label_delStatus.TabIndex = 17;
+            this.label_delStatus.Text = "radLabel1";
+            this.label_delStatus.ThemeName = "Crystal";
             // 
             // TestStand
             // 
@@ -599,6 +611,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridSpec)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridProgrameVersion.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridProgrameVersion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.label_delStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -647,5 +660,6 @@
         private Telerik.WinControls.Themes.CrystalTheme crystalTheme1;
         private Telerik.WinControls.UI.RadGridView gridProgrameVersion;
         private Telerik.WinControls.UI.RadGridView gridSpec;
+        private Telerik.WinControls.UI.RadLabel label_delStatus;
     }
 }

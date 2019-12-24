@@ -111,6 +111,8 @@
   <xs:element name="MaterialResultInfo" nillable="true" type="tns:MaterialResultInfo" />
   <xs:complexType name="ProgramVersionHistory">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Admin" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductTypeNo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ProgrameDataSet" nillable="true">
         <xs:complexType>
           <xs:annotation>
@@ -125,11 +127,25 @@
         </xs:complexType>
       </xs:element>
       <xs:element minOccurs="0" name="ProgrameHistoryNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="ProgrameName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProgramePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TeamLeader" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpdateDate" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProgramVersionHistory" nillable="true" type="tns:ProgramVersionHistory" />
+  <xs:complexType name="ArrayOfProgramVersionHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProgramVersionHistory" nillable="true" type="tns:ProgramVersionHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProgramVersionHistory" nillable="true" type="tns:ArrayOfProgramVersionHistory" />
   <xs:complexType name="TestStandSpecHistory">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Admin" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LimitValue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductTypeNo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SpecDataSet" nillable="true">
         <xs:complexType>
           <xs:annotation>
@@ -144,9 +160,19 @@
         </xs:complexType>
       </xs:element>
       <xs:element minOccurs="0" name="SpecHistoryNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="StationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TeamLeader" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TestItem" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpdateDate" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TestStandSpecHistory" nillable="true" type="tns:TestStandSpecHistory" />
+  <xs:complexType name="ArrayOfTestStandSpecHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TestStandSpecHistory" nillable="true" type="tns:TestStandSpecHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTestStandSpecHistory" nillable="true" type="tns:ArrayOfTestStandSpecHistory" />
   <xs:complexType name="QuanlityHistory">
     <xs:sequence>
       <xs:element minOccurs="0" name="HistoryNumber" type="xs:int" />
@@ -215,4 +241,35 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="MaterialStockEnum" nillable="true" type="tns:MaterialStockEnum" />
+  <xs:complexType name="ArrayOfTestLogResultHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TestLogResultHistory" nillable="true" type="tns:TestLogResultHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTestLogResultHistory" nillable="true" type="tns:ArrayOfTestLogResultHistory" />
+  <xs:complexType name="TestLogResultHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HistoryDataSet" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="HistoryLogNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="JoinDateTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PcbaSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProcessName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StationInDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StationName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TestLogResultHistory" nillable="true" type="tns:TestLogResultHistory" />
 </xs:schema>

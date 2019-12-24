@@ -2198,6 +2198,53 @@ namespace MesAPI
             }
         }
 
+        public int DeleteTestLogHistory(List<TestLogResultHistory> logList)
+        {
+            if (logList.Count < 1)
+                return 0;
+            int delRow = 0;
+            foreach (var logItem in logList)
+            {
+                var joinDateTime = "";
+                var selectJoinTimeSQL = $"SELECT {DbTable.F_Test_Result.JOIN_DATE_TIME} FROM " +
+                            $"{DbTable.F_TEST_RESULT_NAME} WHERE " +
+                            $"{DbTable.F_Test_Result.PROCESS_NAME} = '{logItem.ProcessName}' " +
+                            $"AND ({DbTable.F_Test_Result.SN} = '{logItem.PcbaSN}' " +
+                            $"OR {DbTable.F_Test_Result.SN} = '{logItem.ProductSN}') " +
+                            $"AND {DbTable.F_Test_Result.STATION_NAME} = '{logItem.StationName}' " +
+                            $"AND {DbTable.F_Test_Result.STATION_IN_DATE} = '{logItem.StationInDate}'";
+                var dt = SQLServer.ExecuteDataSet(selectJoinTimeSQL).Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    joinDateTime = dt.Rows[0][0].ToString();
+                    //delete
+                    var deleteLogResultSQL = $"DELETE FROM {DbTable.F_TEST_LOG_DATA_NAME} WHERE " +
+                            $"{DbTable.F_TEST_LOG_DATA.TYPE_NO} = '{logItem.ProcessName}' " +
+                            $"AND ({DbTable.F_TEST_LOG_DATA.PRODUCT_SN} = '{logItem.PcbaSN}' " +
+                            $"OR {DbTable.F_TEST_LOG_DATA.PRODUCT_SN} = '{logItem.ProductSN}') " +
+                            $"AND {DbTable.F_TEST_LOG_DATA.STATION_NAME} = '{logItem.StationName}' " +
+                            $"AND {DbTable.F_TEST_LOG_DATA.JOIN_DATE_TIME} = '{joinDateTime}'";
+                    LogHelper.Log.Info("deleteLogResultSQL=" + deleteLogResultSQL);
+                    var dr2 = SQLServer.ExecuteNonQuery(deleteLogResultSQL);
+                    if (dr2 > 0)
+                    {
+                        var deleteResultSQL = $"DELETE FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
+                            $"{DbTable.F_Test_Result.PROCESS_NAME} = '{logItem.ProcessName}' " +
+                            $"AND ({DbTable.F_Test_Result.SN} = '{logItem.PcbaSN}' " +
+                            $"OR {DbTable.F_Test_Result.SN} = '{logItem.ProductSN}') " +
+                            $"AND {DbTable.F_Test_Result.STATION_NAME} = '{logItem.StationName}' " +
+                            $"AND {DbTable.F_Test_Result.STATION_IN_DATE} = '{logItem.StationInDate}'";
+                        var dr1 = SQLServer.ExecuteNonQuery(deleteResultSQL);
+                        if (dr1 > 0 && dr2 > 0)
+                        {
+                            delRow++;
+                        }
+                    }
+                }
+            }
+            return delRow;
+        }
+
         private int CheckTestLogDeleteRemainData()
         {
             var deleteSQL = $"delete from {DbTable.F_TEST_LOG_DATA_NAME}";
@@ -4041,18 +4088,25 @@ namespace MesAPI
             return testStandSpecHistory;
         }
 
-        public int DeleteTestLimitConfig(string productTypeNo)
+        public int DeleteTestLimitConfig(List<TestStandSpecHistory> specList)
         {
-            var deleteSQL = "";
-            if (productTypeNo == "")
+            if (specList.Count < 1)
+                return 0;
+            int delRow = 0;
+            foreach (var specItem in specList)
             {
-                deleteSQL = $"delete from {DbTable.F_TEST_LIMIT_CONFIG_NAME} ";
+                var deleteSQL = $"delete from {DbTable.F_TEST_LIMIT_CONFIG_NAME} " +
+                    $"where " +
+                    $"{DbTable.F_TEST_LIMIT_CONFIG.TYPE_NO} = '{specItem.ProductTypeNo}' " +
+                    $"AND {DbTable.F_TEST_LIMIT_CONFIG.STATION_NAME} = '{specItem.StationName}' " +
+                    $"AND {DbTable.F_TEST_LIMIT_CONFIG.TEST_ITEM} = '{specItem.TestItem}' " +
+                    $"AND {DbTable.F_TEST_LIMIT_CONFIG.LIMIT} = '{specItem.LimitValue}' " +
+                    $"AND {DbTable.F_TEST_LIMIT_CONFIG.TEAM_LEADER} = '{specItem.TeamLeader}' " +
+                    $"AND {DbTable.F_TEST_LIMIT_CONFIG.ADMIN} = '{specItem.Admin}' " +
+                    $"AND {DbTable.F_TEST_LIMIT_CONFIG.UPDATE_DATE} = '{specItem.UpdateDate}'";
+                delRow += SQLServer.ExecuteNonQuery(deleteSQL);
             }
-            else
-            {
-                deleteSQL = $"delete from {DbTable.F_TEST_LIMIT_CONFIG_NAME} where {DbTable.F_TEST_LIMIT_CONFIG.TYPE_NO} = '{productTypeNo}'";
-            }
-            return SQLServer.ExecuteNonQuery(deleteSQL);
+            return delRow;
         }
         public ProgramVersionHistory SelectTestProgrameVersion(string productTypeNo,int pageIndex,int pageSize)
         {
@@ -4132,19 +4186,25 @@ namespace MesAPI
             return programVersionHistory;
         }
 
-        public int DeleteTestProgrameVersion(string productTypeNo)
+        public int DeleteTestProgrameVersion(List<ProgramVersionHistory> programeList)
         {
-            var deleteSQL = $"";
-            if (productTypeNo == "")
+            if (programeList.Count < 1)
+                return 0;
+            int delRow = 0;
+            foreach (var programeItem in programeList)
             {
-                deleteSQL = $"delete from {DbTable.F_TEST_PROGRAME_VERSION_NAME} ";
+                var deleteSQL = $"delete from {DbTable.F_TEST_PROGRAME_VERSION_NAME} " +
+                    $"where " +
+                    $"{DbTable.F_TEST_PROGRAME_VERSION.TYPE_NO} = '{programeItem.ProductTypeNo}' " +
+                    $"AND {DbTable.F_TEST_PROGRAME_VERSION.STATION_NAME} = '{programeItem.StationName}' " +
+                    $"AND {DbTable.F_TEST_PROGRAME_VERSION.PROGRAME_NAME} = '{programeItem.ProgramePath}' " +
+                    $"AND {DbTable.F_TEST_PROGRAME_VERSION.PROGRAME_VERSION} = '{programeItem.ProgrameName}' " +
+                    $"AND {DbTable.F_TEST_PROGRAME_VERSION.TEAM_LEADER} = '{programeItem.TeamLeader}' " +
+                    $"AND {DbTable.F_TEST_PROGRAME_VERSION.ADMIN} = '{programeItem.Admin}' " +
+                    $"AND {DbTable.F_TEST_PROGRAME_VERSION.UPDATE_DATE} = '{programeItem.UpdateDate}'";
+                delRow += SQLServer.ExecuteNonQuery(deleteSQL);
             }
-            else
-            {
-                deleteSQL = $"delete from {DbTable.F_TEST_PROGRAME_VERSION_NAME} where " +
-                    $"{DbTable.F_TEST_PROGRAME_VERSION.TYPE_NO} = '{productTypeNo}'";
-            }
-            return SQLServer.ExecuteNonQuery(deleteSQL);
+            return delRow;
         }
 
         public DataSet SelectTodayTestLogData(string queryFilter,string startTime,string endTime)

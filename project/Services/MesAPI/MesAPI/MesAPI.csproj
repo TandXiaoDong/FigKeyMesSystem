@@ -328,6 +328,7 @@
     <Compile Include="Model\QuanlityHistory.cs" />
     <Compile Include="Model\Station.cs" />
     <Compile Include="Model\StockMsg.cs" />
+    <Compile Include="Model\TestLogResultHistory.cs" />
     <Compile Include="Model\TestResultBasic.cs" />
     <Compile Include="Model\TestReulstDetail.cs" />
     <Compile Include="Model\TestStandSpecHistory.cs" />

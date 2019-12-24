@@ -256,8 +256,11 @@ namespace MesManager.UI
         {
             if (!IsLoginAuthon())
                 return;
-            TestStand testStand = new TestStand();
-            testStand.ShowDialog();
+            this.BeginInvoke(new Action(()=>
+            {
+                TestStand testStand = new TestStand();
+                testStand.ShowDialog();
+            }));
         }
         private void MainReportData_Click(object sender, EventArgs e)
         {

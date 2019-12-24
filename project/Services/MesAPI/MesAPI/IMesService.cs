@@ -171,13 +171,13 @@ namespace MesAPI
         ProgramVersionHistory SelectTestProgrameVersion(string productTypeNo, int pageIndex, int pageSize);
 
         [OperationContract]
-        int DeleteTestProgrameVersion(string productTypeNo);
+        int DeleteTestProgrameVersion(List<ProgramVersionHistory> programeList);
 
         [OperationContract]
         TestStandSpecHistory SelectTestLimitConfig(string productTypeNo, int pageIndex, int pageSize);
 
         [OperationContract]
-        int DeleteTestLimitConfig(string productTypeNo);
+        int DeleteTestLimitConfig(List<TestStandSpecHistory> specList);
 
         [OperationContract]
         DataSet SelectTestLogDataDetail(string queryFilter,string startDate, string endDate);
@@ -251,5 +251,8 @@ namespace MesAPI
 
         [OperationContract]
         List<string> SelectUseAllPcbaSN();
+
+        [OperationContract]
+        int DeleteTestLogHistory(List<TestLogResultHistory> logList);
     }
 }
