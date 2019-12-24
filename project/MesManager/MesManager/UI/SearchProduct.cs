@@ -28,6 +28,11 @@ namespace MesManager.UI
         /// </summary>
         private int pageCount;
 
+        /// <summary>
+        /// 绑定分页总页数
+        /// </summary>
+        private DataTable bindRowSource;
+
         public SearchProduct()
         {
             InitializeComponent();
@@ -88,6 +93,27 @@ namespace MesManager.UI
             SelectProductBindMsg();
         }
 
+        private DataTable InitBindRowSource()
+        {
+            if (bindRowSource == null)
+            {
+                bindRowSource = new DataTable();
+                bindRowSource.Columns.Add("ID");
+            }
+            if (pageCount < 1)
+                return bindRowSource;
+            if (this.bindRowSource.Rows.Count != this.pageCount)
+            {
+                this.bindRowSource.Clear();
+                for (int i = 0; i < pageCount; i++)
+                {
+                    DataRow dr = bindRowSource.NewRow();
+                    dr["ID"] = i + 1;
+                    bindRowSource.Rows.Add(dr);
+                }
+            }
+            return bindRowSource;
+        }
         async private void SelectProductBindMsg()
         {
             var queryCondition = this.tb_search.Text.Trim();
@@ -115,11 +141,12 @@ namespace MesManager.UI
             {
                 pageCount = checkPackage.CheckPackageCaseNumber / pageSize;
             }
+            var dtSource = InitBindRowSource();
             this.radGridView1.BeginEdit();
             var dt = checkPackage.CheckPackageCaseData.Tables[0];
             this.radGridView1.DataSource = dt;
-            this.bindingSource1.DataSource = dt;
-            this.bindingNavigator1.BindingSource = this.bindingSource1;
+            this.bindingSource1.DataSource = dtSource;
+            this.bindingNavigator1.BindingSource = this.bindingSource1; 
             this.radGridView1.EndEdit();
             this.radGridView1.BestFitColumns();
         }
@@ -138,12 +165,12 @@ namespace MesManager.UI
 
         private void BindingNavigatorPositionItem_TextChanged(object sender, EventArgs e)
         {
-            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            //this.bindingNavigatorPositionItem.Text = currentPage.ToString();
         }
 
         private void BindingNavigatorCountItem_TextChanged(object sender, EventArgs e)
         {
-            this.bindingNavigatorCountItem.Text = "/" + pageCount;
+            //this.bindingNavigatorCountItem.Text = "/" + pageCount;
         }
 
         private void BindingNavigator1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

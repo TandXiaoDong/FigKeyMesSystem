@@ -23,12 +23,13 @@ namespace MesManager.UI
         /// <summary>
         /// 每页的大小
         /// </summary>
-        private int pageSize = 50;
+        private int pageSize = 100;
         /// <summary>
         /// 总页数
         /// </summary>
         private int pageCount;
 
+        private DataTable bindRowSource;
         public QuanlityAnomaly()
         {
             InitializeComponent();
@@ -173,6 +174,27 @@ namespace MesManager.UI
             QueryPcbaMsg();
         }
 
+        private DataTable InitBindRowSource()
+        {
+            if (bindRowSource == null)
+            {
+                bindRowSource = new DataTable();
+                bindRowSource.Columns.Add("ID");
+            }
+            if (pageCount < 1)
+                return bindRowSource;
+            if (this.bindRowSource.Rows.Count != this.pageCount)
+            {
+                this.bindRowSource.Clear();
+                for (int i = 0; i < pageCount; i++)
+                {
+                    DataRow dr = bindRowSource.NewRow();
+                    dr["ID"] = i + 1;
+                    bindRowSource.Rows.Add(dr);
+                }
+            }
+            return bindRowSource;
+        }
         async private void QueryPcbaMsg()
         {
             LogHelper.Log.Info("start...");
@@ -192,11 +214,13 @@ namespace MesManager.UI
             {
                 pageCount = pcbaMesObj.BindNumber / pageSize;
             }
+            var dtSource = InitBindRowSource();
             this.radGridView1.BeginEdit();
             DataGridViewCommon.SetRadGridViewProperty(this.radGridView1, false);
+            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             var dt = pcbaMesObj.BindHistoryData.Tables[0];
             this.radGridView1.DataSource = dt;
-            bindingSource.DataSource = dt;
+            bindingSource.DataSource = dtSource;
             this.bindingNavigator.BindingSource = bindingSource;
             this.radGridView1.ReadOnly = true;
             foreach (var rowInfo in this.radGridView1.Rows)
@@ -212,7 +236,6 @@ namespace MesManager.UI
                     rowInfo.Cells[7].Style.ForeColor = Color.PaleVioletRed;
             }
             this.radGridView1.EndEdit();
-            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridView1.BestFitColumns();
         }
 
@@ -630,12 +653,12 @@ namespace MesManager.UI
         }
         private void BindingNavigatorPositionItem_TextChanged(object sender, EventArgs e)
         {
-            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            //this.bindingNavigatorPositionItem.Text = currentPage.ToString();
         }
 
         private void BindingNavigatorCountItem_TextChanged(object sender, EventArgs e)
         {
-            this.bindingNavigatorCountItem.Text = "/"+pageCount;
+            //this.bindingNavigatorCountItem.Text = "/"+pageCount;
         }
 
         private void BindingNavigator1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

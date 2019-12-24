@@ -46,8 +46,6 @@ namespace MesAPI
         private static List<string> pcbaCacheList = new List<string>();//用于缓存pcba数据
         private static DataTable pcbaCacheDataSource = new DataTable();//用于缓存PCBA的所有数据信息
 
-        private static int logCount = 0;
-
         #region 物料统计字段
         private const string DATA_ORDER = "序号";
         private const string MATERIAL_PN = "物料号";
@@ -95,6 +93,28 @@ namespace MesAPI
         public const string CASE_PRODUCT_TYPE_NO = "产品型号";
         public const string CASE_STORAGE_CAPACITY = "箱子容量";
         public const string CASE_AMOUNTED = "产品实际数据";
+        #endregion
+
+        #region spec
+        private const string SPEC_ORDER = "序号";
+        private const string SPEC_TYPE_NO = "产品型号";
+        private const string SPEC_STATION_NAME = "工站名称";
+        private const string SPEC_TEST_ITEM = "测试项";
+        private const string SPEC_LIMIT_VALUE = "limit值";
+        private const string SPEC_TEAM_LEADER = "班组长";
+        private const string SPEC_ADMIN = "管理员";
+        private const string SPEC_UPDATE_DATE = "更新日期";
+        #endregion
+
+        #region programe version
+        private const string VERSION_ORDER = "序号";
+        private const string VERSION_TYPE_NO = "产品型号";
+        private const string VERSION_STATION_NAME = "工站名称";
+        private const string VERSION_PROGRAME_PATH = "程序路径";
+        private const string VERSION_PROGRAME_NAME = "程序名称";
+        private const string VERSION_TEAM_LEADER = "班组长";
+        private const string VERSION_ADMIN = "管理员";
+        private const string VERSION_UPDATE_DATE = "更新日期";
         #endregion
 
         private string GetDateTimeNow()
@@ -1641,7 +1661,6 @@ namespace MesAPI
                 int startIndex = (pageNumber - 1) * pageSize;
                 DataTable currentResult = testResultLogTemp.Clone();
                 int i = 0;
-                LogHelper.Log.Info("testResultLogTemp:" + testResultLogTemp.Rows.Count);
                 foreach (DataRow dr in testResultLogTemp.Rows)
                 {
                     if (i >= startIndex && i < pageNumber * pageSize)
@@ -1650,11 +1669,9 @@ namespace MesAPI
                     }
                     i++;
                 }
-                LogHelper.Log.Info("currentResult:" + currentResult.Rows.Count);
                 StartSelectLogDetail(currentResult);
                 //LogHelper.Log.Info("【查询过站记录完成--查询log明细完毕】" + dtTestResult.Rows.Count + "  " + dt.Rows.Count);
                 ds.Tables.Add(testLogFinalResult);
-                LogHelper.Log.Info("testLogFinalResult:" + testLogFinalResult.Rows.Count);
             }
             catch (Exception ex)
             {
@@ -1800,6 +1817,7 @@ namespace MesAPI
             if (dtTestResult.Rows.Count > 0)
             {
                 var shellLen = ReadShellCodeLength();
+                int logCount = 0;
                 foreach (DataRow dataRow in dtTestResult.Rows)
                 {
                     DataRow dr = testLogFinalResult.NewRow();
@@ -3946,12 +3964,25 @@ namespace MesAPI
         #endregion
 
         #region 测试台数据
-        public DataSet SelectTestLimitConfig(string productTypeNo)
+        public TestStandSpecHistory SelectTestLimitConfig(string productTypeNo,int pageIndex,int pageSize)
         {
             var selectSQL = "";
+            TestStandSpecHistory testStandSpecHistory = new TestStandSpecHistory();
+            DataSet ds = new DataSet();
+            #region init DataTable
+            DataTable dt = new DataTable();
+            dt.Columns.Add(SPEC_ORDER);
+            dt.Columns.Add(SPEC_TYPE_NO);
+            dt.Columns.Add(SPEC_STATION_NAME);
+            dt.Columns.Add(SPEC_TEST_ITEM);
+            dt.Columns.Add(SPEC_LIMIT_VALUE);
+            dt.Columns.Add(SPEC_TEAM_LEADER);
+            dt.Columns.Add(SPEC_ADMIN);
+            dt.Columns.Add(SPEC_UPDATE_DATE);
+            #endregion
             if (productTypeNo == "")
             {
-                selectSQL = $"SELECT ROW_NUMBER() OVER(ORDER BY {DbTable.F_TEST_LIMIT_CONFIG.UPDATE_DATE} DESC) 序号," +
+                selectSQL = $"SELECT " +
                     $"{DbTable.F_TEST_LIMIT_CONFIG.TYPE_NO} 产品型号," +
                     $"{DbTable.F_TEST_LIMIT_CONFIG.STATION_NAME} 工站名称," +
                     $"{DbTable.F_TEST_LIMIT_CONFIG.TEST_ITEM} 测试项," +
@@ -3963,7 +3994,7 @@ namespace MesAPI
             }
             else
             {
-                selectSQL = $"SELECT ROW_NUMBER() OVER(ORDER BY {DbTable.F_TEST_LIMIT_CONFIG.UPDATE_DATE}) 序号," +
+                selectSQL = $"SELECT " +
                     $"{DbTable.F_TEST_LIMIT_CONFIG.TYPE_NO} 产品型号," +
                     $"{DbTable.F_TEST_LIMIT_CONFIG.STATION_NAME} 工站名称," +
                     $"{DbTable.F_TEST_LIMIT_CONFIG.TEST_ITEM} 测试项," +
@@ -3974,7 +4005,40 @@ namespace MesAPI
                     $"{DbTable.F_TEST_LIMIT_CONFIG_NAME} WHERE " +
                     $"{DbTable.F_TEST_LIMIT_CONFIG.TYPE_NO} = '{productTypeNo}' ";
             }
-            return SQLServer.ExecuteDataSet(selectSQL);
+            int i = 0;
+            int id = 0;
+            int startIndex = (pageIndex - 1) * pageSize;
+            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            if (!dbReader.HasRows)
+            {
+                ds.Tables.Add(dt);
+                testStandSpecHistory.SpecDataSet = ds;
+                testStandSpecHistory.SpecHistoryNumber = 0;
+                return testStandSpecHistory;
+            }
+            while (dbReader.Read())
+            {
+                if (i >= startIndex && i < pageSize * pageIndex)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr[SPEC_ORDER] = id + 1;
+                    dr[SPEC_TYPE_NO] = dbReader[0].ToString();
+                    dr[SPEC_STATION_NAME] = dbReader[1].ToString();
+                    dr[SPEC_TEST_ITEM] = dbReader[2].ToString();
+                    dr[SPEC_LIMIT_VALUE] = dbReader[3].ToString();
+                    dr[SPEC_TEAM_LEADER] = dbReader[4].ToString();
+                    dr[SPEC_ADMIN] = dbReader[5].ToString();
+                    dr[SPEC_UPDATE_DATE] = dbReader[6].ToString();
+                    dt.Rows.Add(dr);
+                    id++;
+                }
+                i++;
+            }
+
+            ds.Tables.Add(dt);
+            testStandSpecHistory.SpecDataSet = ds;
+            testStandSpecHistory.SpecHistoryNumber = i;
+            return testStandSpecHistory;
         }
 
         public int DeleteTestLimitConfig(string productTypeNo)
@@ -3990,13 +4054,14 @@ namespace MesAPI
             }
             return SQLServer.ExecuteNonQuery(deleteSQL);
         }
-
-        public DataSet SelectTestProgrameVersion(string productTypeNo)
+        public ProgramVersionHistory SelectTestProgrameVersion(string productTypeNo,int pageIndex,int pageSize)
         {
             var selectSQL = "";
+            ProgramVersionHistory programVersionHistory = new ProgramVersionHistory();
+            DataSet ds = new DataSet();
             if (productTypeNo == "")
             {
-                selectSQL = $"SELECT ROW_NUMBER() OVER(ORDER BY {DbTable.F_TEST_PROGRAME_VERSION.UPDATE_DATE } DESC) 序号," +
+                selectSQL = $"SELECT " +
                     $"{DbTable.F_TEST_PROGRAME_VERSION.TYPE_NO} 产品型号," +
                     $"{DbTable.F_TEST_PROGRAME_VERSION.STATION_NAME} 工站名称," +
                     $"{DbTable.F_TEST_PROGRAME_VERSION.PROGRAME_NAME} 程序路径," +
@@ -4008,7 +4073,7 @@ namespace MesAPI
             }
             else
             {
-                selectSQL = $"SELECT ROW_NUMBER() OVER(ORDER BY {DbTable.F_TEST_PROGRAME_VERSION.UPDATE_DATE} DESC) 序号," +
+                selectSQL = $"SELECT " +
                     $"{DbTable.F_TEST_PROGRAME_VERSION.TYPE_NO} 产品型号," +
                     $"{DbTable.F_TEST_PROGRAME_VERSION.STATION_NAME} 工站名称," +
                     $"{DbTable.F_TEST_PROGRAME_VERSION.PROGRAME_NAME} 程序路径," +
@@ -4019,8 +4084,52 @@ namespace MesAPI
                     $"{DbTable.F_TEST_PROGRAME_VERSION_NAME} WHERE " +
                     $"{DbTable.F_TEST_PROGRAME_VERSION.TYPE_NO} = '{productTypeNo}' ";
             }
-            
-            return SQLServer.ExecuteDataSet(selectSQL);
+
+            #region init DataTable
+            DataTable dt = new DataTable();
+            dt.Columns.Add(VERSION_ORDER);
+            dt.Columns.Add(VERSION_TYPE_NO);
+            dt.Columns.Add(VERSION_STATION_NAME);
+            dt.Columns.Add(VERSION_PROGRAME_PATH);
+            dt.Columns.Add(VERSION_PROGRAME_NAME);
+            dt.Columns.Add(VERSION_TEAM_LEADER);
+            dt.Columns.Add(VERSION_ADMIN);
+            dt.Columns.Add(VERSION_UPDATE_DATE);
+            #endregion
+
+            int i = 0;
+            int id = 0;
+            int startIndex = (pageIndex - 1) * pageSize;
+            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            if (!dbReader.HasRows)
+            {
+                ds.Tables.Add(dt);
+                programVersionHistory.ProgrameDataSet = ds;
+                programVersionHistory.ProgrameHistoryNumber = 0;
+                return programVersionHistory;
+            }
+            while (dbReader.Read())
+            {
+                if (i >= startIndex && i < pageIndex * pageSize)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr[VERSION_ORDER] = id + 1;
+                    dr[VERSION_TYPE_NO] = dbReader[0].ToString();
+                    dr[VERSION_STATION_NAME] = dbReader[1].ToString();
+                    dr[VERSION_PROGRAME_PATH] = dbReader[2].ToString();
+                    dr[VERSION_PROGRAME_NAME] = dbReader[3].ToString();
+                    dr[VERSION_TEAM_LEADER] = dbReader[4].ToString();
+                    dr[VERSION_ADMIN] = dbReader[5].ToString();
+                    dr[VERSION_UPDATE_DATE] = dbReader[6].ToString();
+                    dt.Rows.Add(dr);
+                    id++;
+                }
+                i++;
+            }
+            ds.Tables.Add(dt);
+            programVersionHistory.ProgrameDataSet = ds;
+            programVersionHistory.ProgrameHistoryNumber = i;
+            return programVersionHistory;
         }
 
         public int DeleteTestProgrameVersion(string productTypeNo)
@@ -4182,7 +4291,24 @@ namespace MesAPI
             var selectSQL = "";
             QuanlityHistory quanlityHistory = new QuanlityHistory();
             DataSet ds = new DataSet();
-                 
+            #region init dataTable
+            DataTable dataSourceQuanlity = new DataTable();
+            dataSourceQuanlity.Columns.Add(DATA_ORDER);
+            dataSourceQuanlity.Columns.Add(MATERIAL_PN);
+            dataSourceQuanlity.Columns.Add(MATERIAL_LOT);
+            dataSourceQuanlity.Columns.Add(MATERIAL_RID);
+            dataSourceQuanlity.Columns.Add(MATERIAL_DC);
+            dataSourceQuanlity.Columns.Add(MATERIAL_NAME);
+            dataSourceQuanlity.Columns.Add(EXCEPT_TYPE);
+            dataSourceQuanlity.Columns.Add(MATERIAL_QTY);
+            dataSourceQuanlity.Columns.Add(ACTUAL_STOCK);
+            dataSourceQuanlity.Columns.Add(EXCEPT_STOCK);
+            dataSourceQuanlity.Columns.Add(MATERIAL_STATE);
+            dataSourceQuanlity.Columns.Add(SHUT_REASON);
+            dataSourceQuanlity.Columns.Add(USER_NAME);
+            dataSourceQuanlity.Columns.Add(STATEMENT_DATE);
+            #endregion
+
             if (materialCode == "")
             {
                 selectSQL = $"SELECT {DbTable.F_QUANLITY_MANAGER.MATERIAL_CODE}," +
@@ -4213,56 +4339,68 @@ namespace MesAPI
 
             int i = 0;
             int id = 0;
-            int startIndex = 0;
+            int startIndex = (pageIndex - 1) * pageSize;
 
             var dbReader = SQLServer.ExecuteDataReader(selectSQL);
             if (!dbReader.HasRows)
-            { 
-
+            {
+                ds.Tables.Add(dataSourceQuanlity);
+                quanlityHistory.QuanlityHistoryData = ds;
+                quanlityHistory.HistoryNumber = 0;
+                return quanlityHistory;
             }
             while (dbReader.Read())
             {
-                DataRow dr = dataSourceQuanlity.NewRow();
-                var materialCode = dt.Rows[i][0].ToString();
-                if (!materialCode.Contains("&"))
-                    continue;
-                AnalysisMaterialCode analysisMaterial = AnalysisMaterialCode.GetMaterialDetail(materialCode);
-                var pnCode = analysisMaterial.MaterialPN;
-                var lotCode = analysisMaterial.MaterialLOT;
-                var ridCode = analysisMaterial.MaterialRID;
-                var dcCode = analysisMaterial.MaterialDC;
-                var qtyCode = analysisMaterial.MaterialQTY;
-                dr[DATA_ORDER] = i + 1;
-                dr[MATERIAL_PN] = pnCode;
-                dr[MATERIAL_LOT] = lotCode;
-                dr[MATERIAL_RID] = ridCode;
-                dr[MATERIAL_DC] = dcCode;
-                dr[MATERIAL_QTY] = qtyCode;
-                dr[MATERIAL_NAME] = serviceClient.SelectMaterialName(pnCode);
-                var exType = dt.Rows[i][1].ToString();
-                if (exType == "0")
+                if (i >= startIndex && i < pageIndex * pageSize)
                 {
-                    dr[EXCEPT_TYPE] = "库存物料异常";
+                    DataRow dr = dataSourceQuanlity.NewRow();
+                    var mcode = dbReader[0].ToString();
+                    if (!mcode.Contains("&"))
+                        continue;
+                    AnalysisMaterialCode analysisMaterial = AnalysisMaterialCode.GetMaterialDetail(mcode);
+                    var pnCode = analysisMaterial.MaterialPN;
+                    var lotCode = analysisMaterial.MaterialLOT;
+                    var ridCode = analysisMaterial.MaterialRID;
+                    var dcCode = analysisMaterial.MaterialDC;
+                    var qtyCode = analysisMaterial.MaterialQTY;
+                    dr[DATA_ORDER] = id + 1;
+                    dr[MATERIAL_PN] = pnCode;
+                    dr[MATERIAL_LOT] = lotCode;
+                    dr[MATERIAL_RID] = ridCode;
+                    dr[MATERIAL_DC] = dcCode;
+                    dr[MATERIAL_QTY] = qtyCode;
+                    dr[MATERIAL_NAME] = SelectMaterialName(pnCode);
+                    var exType = dbReader[1].ToString();
+                    if (exType == "0")
+                    {
+                        dr[EXCEPT_TYPE] = "库存物料异常";
+                    }
+                    else if (exType == "1")
+                    {
+                        dr[EXCEPT_TYPE] = "生产物料异常";
+                    }
+                    else if (exType == "2")
+                    {
+                        dr[EXCEPT_TYPE] = "生产过程异常";
+                    }
+                    dr[EXCEPT_STOCK] = dbReader[2].ToString();
+                    dr[ACTUAL_STOCK] = dbReader[3].ToString();
+                    var materialState = dbReader[4].ToString();
+                    if (materialState == "3")
+                        materialState = "已结单";
+                    dr[MATERIAL_STATE] = materialState;
+                    dr[SHUT_REASON] = dbReader[5].ToString();
+                    dr[USER_NAME] = dbReader[6].ToString();
+                    dr[STATEMENT_DATE] = dbReader[7].ToString();
+                    dataSourceQuanlity.Rows.Add(dr);
+                    id++;
                 }
-                else if (exType == "1")
-                {
-                    dr[EXCEPT_TYPE] = "生产物料异常";
-                }
-                else if (exType == "2")
-                {
-                    dr[EXCEPT_TYPE] = "生产过程异常";
-                }
-                dr[EXCEPT_STOCK] = dt.Rows[i][2].ToString();
-                dr[ACTUAL_STOCK] = dt.Rows[i][3].ToString();
-                var materialState = dt.Rows[i][4].ToString();
-                if (materialState == "3")
-                    materialState = "已结单";
-                dr[MATERIAL_STATE] = materialState;
-                dr[SHUT_REASON] = dt.Rows[i][5].ToString();
-                dr[USER_NAME] = dt.Rows[i][6].ToString();
-                dr[STATEMENT_DATE] = dt.Rows[i][7].ToString();
-                dataSourceQuanlity.Rows.Add(dr);
+                i++;
             }
+            ds.Tables.Add(dataSourceQuanlity);
+            quanlityHistory.QuanlityHistoryData = ds;
+            quanlityHistory.HistoryNumber = i;
+            return quanlityHistory;
         }
 
         private bool IsExistQuanlityMaterial(string materialCode)

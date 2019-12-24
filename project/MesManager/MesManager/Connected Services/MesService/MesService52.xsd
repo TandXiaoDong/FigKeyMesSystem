@@ -109,6 +109,63 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="MaterialResultInfo" nillable="true" type="tns:MaterialResultInfo" />
+  <xs:complexType name="ProgramVersionHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ProgrameDataSet" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="ProgrameHistoryNumber" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProgramVersionHistory" nillable="true" type="tns:ProgramVersionHistory" />
+  <xs:complexType name="TestStandSpecHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="SpecDataSet" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="SpecHistoryNumber" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TestStandSpecHistory" nillable="true" type="tns:TestStandSpecHistory" />
+  <xs:complexType name="QuanlityHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HistoryNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="QuanlityHistoryData" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QuanlityHistory" nillable="true" type="tns:QuanlityHistory" />
   <xs:complexType name="PackageProductHistory">
     <xs:sequence>
       <xs:element minOccurs="0" name="PackageCaseData" nillable="true">

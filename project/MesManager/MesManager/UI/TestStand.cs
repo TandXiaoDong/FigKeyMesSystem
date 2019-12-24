@@ -20,7 +20,6 @@ namespace MesManager.UI
     public partial class TestStand : RadForm
     {
         private MesService.MesServiceClient serviceClient;
-        private TestStandDataType currentDataType;
         private const string LOG_ORDER = "序号";
         private const string LOG_TYPE_NO = "产品型号";
         private const string LOG_SN = "产品SN";
@@ -42,6 +41,11 @@ namespace MesManager.UI
         /// 总页数
         /// </summary>
         private int pageCount;
+
+        /// <summary>
+        /// 绑定分页总页数
+        /// </summary>
+        private DataTable bindRowSource;
 
         public TestStand()
         {
@@ -65,9 +69,7 @@ namespace MesManager.UI
 
         private void EventHandlers()
         {
-            tool_logData.Click += Tool_logData_Click;
-            tool_specCfg.Click += Tool_specCfg_Click;
-            tool_programv.Click += Tool_refresh_Click;
+            this.radDock1.ActiveWindowChanged += RadDock1_ActiveWindowChanged;
             tool_queryCondition.SelectedIndexChanged += Tool_productTypeNo_SelectedIndexChanged;
             this.radGridView1.CellDoubleClick += RadGridView1_CellDoubleClick;
             this.tool_export.Click += Tool_export_Click;
@@ -84,22 +86,23 @@ namespace MesManager.UI
 
         private void Tool_query_Click(object sender, EventArgs e)
         {
+            ResetCurrentPage();
             RefreshUI();
         }
 
         private void Tool_clearDB_Click(object sender, EventArgs e)
         {
-            if (currentDataType == TestStandDataType.TEST_LIMIT_CONFIG)
-            {
-                DeleteTestLimitConfig();
-            }
-            else if (currentDataType == TestStandDataType.TEST_LOG_DATA)
+            if (this.radDock1.ActiveWindow == this.tool_logData)
             {
                 TestLogDetailDelete();
             }
-            else if (currentDataType == TestStandDataType.TEST_PROGRAME_VERSION)
+            else if (this.radDock1.ActiveWindow == this.tool_programv)
             {
                 DeleteTestProgramVersion();
+            }
+            else if (this.radDock1.ActiveWindow == this.tool_specCfg)
+            {
+                DeleteTestLimitConfig();
             }
         }
 
@@ -143,8 +146,6 @@ namespace MesManager.UI
 
         private void RadGridView1_CellDoubleClick(object sender, GridViewCellEventArgs e)
         {
-            if (currentDataType != TestStandDataType.TEST_LOG_DATA)
-                return;
             var productTypeNo = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
             var productSN = this.radGridView1.CurrentRow.Cells[2].Value.ToString();
             var stationName = this.radGridView1.CurrentRow.Cells[3].Value.ToString();
@@ -157,41 +158,36 @@ namespace MesManager.UI
             RefreshUI();
         }
 
-        private void Tool_refresh_Click(object sender, EventArgs e)
+        private void RadDock1_ActiveWindowChanged(object sender, Telerik.WinControls.UI.Docking.DockWindowEventArgs e)
         {
-            currentDataType = TestStandDataType.TEST_PROGRAME_VERSION;
-            this.panel2.Visible = false;
-            RefreshUI();
-        }
-
-        private void Tool_logData_Click(object sender, EventArgs e)
-        {
-            currentDataType = TestStandDataType.TEST_LOG_DATA;
-            this.panel2.Visible = true;
-            RefreshUI();
-        }
-
-        private void Tool_specCfg_Click(object sender, EventArgs e)
-        {
-            currentDataType = TestStandDataType.TEST_LIMIT_CONFIG;
-            this.panel2.Visible = false;
-            RefreshUI();
+            if (this.radDock1.ActiveWindow == this.tool_logData)
+            {
+                
+            }
+            else if (this.radDock1.ActiveWindow == this.tool_specCfg)
+            {
+                
+            }
+            else if (this.radDock1.ActiveWindow == this.tool_programv)
+            {
+                
+            }
         }
 
         private void RefreshUI()
         {
             currentQueryCondition = this.tool_queryCondition.Text;
-            if (currentDataType == TestStandDataType.TEST_LIMIT_CONFIG)
-            {
-                SelectTestLimitConfig(this.tool_queryCondition.Text);
-            }
-            else if (currentDataType == TestStandDataType.TEST_LOG_DATA)
+            if (this.radDock1.ActiveWindow == this.tool_logData)
             {
                 SelectTestResultDetail();
             }
-            else if (currentDataType == TestStandDataType.TEST_PROGRAME_VERSION)
+            else if (this.radDock1.ActiveWindow == this.tool_specCfg)
             {
-                SelectTestProgrameVersion(this.tool_queryCondition.Text);
+                SelectTestLimitConfig();
+            }
+            else if (this.radDock1.ActiveWindow == this.tool_programv)
+            {
+                SelectTestProgrameVersion();
             }
         }
 
@@ -203,7 +199,11 @@ namespace MesManager.UI
             rbtn_today.Checked = true;
             this.radGridView1.Dock = DockStyle.Fill;
             DataGridViewCommon.SetRadGridViewProperty(this.radGridView1,false);
+            DataGridViewCommon.SetRadGridViewProperty(this.gridProgrameVersion, false);
+            DataGridViewCommon.SetRadGridViewProperty(this.gridSpec, false);
             this.radGridView1.ReadOnly = true;
+            this.gridSpec.ReadOnly = true;
+            this.gridProgrameVersion.ReadOnly = true;
             var dt = (await serviceClient.SelectProductContinairCapacityAsync("")).Tables[0];
             if (dt.Rows.Count > 0)
             {
@@ -218,9 +218,6 @@ namespace MesManager.UI
             imageList.Images.Add("open", Resources.FolderList32);
             //LoadTreeView.SetTreeNoByFilePath(this.treeView1,path,new ImageList());
             //TreeViewData.PopulateTreeView(path, this.treeView1);
-
-            currentDataType = TestStandDataType.TEST_LOG_DATA;
-            this.panel2.Visible = true;
             this.pickerStartTime.Text = DateTime.Now.ToString("yyyy-MM-dd") + " 00:00:00";
             this.pickerEndTime.Text = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
             this.tool_exportCondition.Items.Add(GridViewExport.ExportFormat.EXCEL.ToString());
@@ -228,24 +225,8 @@ namespace MesManager.UI
             this.tool_exportCondition.Items.Add(GridViewExport.ExportFormat.PDF.ToString());
             this.tool_exportCondition.Items.Add(GridViewExport.ExportFormat.CSV.ToString());
             this.tool_exportCondition.SelectedIndex = 0;
-        }
 
-        async private void SelectTestLimitConfig(string productTypeNo)
-        {
-            var dt = (await serviceClient.SelectTestLimitConfigAsync(productTypeNo)).Tables[0];
-            this.radGridView1.DataSource = null;
-            this.radGridView1.DataSource = dt;
-            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
-            this.radGridView1.Columns[0].BestFit();
-        }
-
-        async private void SelectTestProgrameVersion(string productTypeNo)
-        {
-            var dt = (await serviceClient.SelectTestProgrameVersionAsync(productTypeNo)).Tables[0];
-            this.radGridView1.DataSource = null;
-            this.radGridView1.DataSource = dt;
-            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
-            this.radGridView1.Columns[0].BestFit();
+            this.radDock1.ActiveWindow = this.tool_logData;
         }
 
         async private void SelectTestLogData(string queryFilter,string startTime,string endTime)
@@ -268,6 +249,68 @@ namespace MesManager.UI
             }
             this.radGridView1.DataSource = dataSource;
             this.radGridView1.Columns[0].BestFit();
+        }
+
+        async private void SelectTestLimitConfig()
+        {
+            if (this.tool_queryCondition.Text != "")
+            {
+                this.currentPage = 1;//根据条件查询
+                this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            }
+            this.gridSpec.DataSource = null;
+            this.gridSpec.Update();
+            var specLimitObj = (await serviceClient.SelectTestLimitConfigAsync(this.tool_queryCondition.Text, currentPage,pageSize));
+            if (specLimitObj.SpecHistoryNumber % pageSize > 0)
+            {
+                pageCount = specLimitObj.SpecHistoryNumber / pageSize + 1;
+            }
+            else
+            {
+                pageCount = specLimitObj.SpecHistoryNumber / pageSize;
+            }
+            //bindSource
+            var dtSource = InitBindRowSource();
+            bindingSource1.DataSource = dtSource;
+            this.bindingNavigator1.BindingSource = bindingSource1;
+            this.gridSpec.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
+            this.gridSpec.BeginEdit();
+            this.gridSpec.DataSource = null;
+            var dt = specLimitObj.SpecDataSet.Tables[0];
+            this.gridSpec.DataSource = dt;
+            this.gridSpec.EndEdit();
+            this.gridSpec.Columns[0].BestFit();
+        }
+
+        async private void SelectTestProgrameVersion()
+        {
+            if (this.tool_queryCondition.Text != "")
+            {
+                this.currentPage = 1;//根据条件查询
+                this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            }
+            this.gridProgrameVersion.DataSource = null;
+            this.gridProgrameVersion.Update();
+            var programeObj = (await serviceClient.SelectTestProgrameVersionAsync(this.tool_queryCondition.Text,currentPage,pageSize));
+            if (programeObj.ProgrameHistoryNumber % pageSize > 0)
+            {
+                pageCount = programeObj.ProgrameHistoryNumber / pageSize + 1;
+            }
+            else
+            {
+                pageCount = programeObj.ProgrameHistoryNumber / pageSize;
+            }
+            //bindSource
+            var dtSource = InitBindRowSource();
+            bindingSource1.DataSource = dtSource;
+            this.bindingNavigator1.BindingSource = bindingSource1;
+            var dt = programeObj.ProgrameDataSet.Tables[0];
+            this.gridProgrameVersion.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
+            this.gridProgrameVersion.BeginEdit();
+            this.gridProgrameVersion.DataSource = null;
+            this.gridProgrameVersion.DataSource = dt;
+            this.gridProgrameVersion.EndEdit();
+            this.gridProgrameVersion.Columns[0].BestFit();
         }
 
         async private void SelectTestResultDetail()
@@ -320,36 +363,66 @@ namespace MesManager.UI
                 {
                     pageCount = totalNumber / pageSize;
                 }
+                //bindSource
+                var dtSource = InitBindRowSource();
+                bindingSource1.DataSource = dtSource;
+                this.bindingNavigator1.BindingSource = bindingSource1;
             }
-           
             var ds = await serviceClient.SelectTestResultLogDetailAsync(currentPage,pageSize);
-
-            LogHelper.Log.Info("log查询-结果查询完毕");
             if (ds.Tables.Count < 1)
             {
                 this.radGridView1.DataSource = null;
                 return;
             }
+            LogHelper.Log.Info("log查询-结果查询完毕");
             var dt = ds.Tables[0];
             this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridView1.BeginEdit();
             this.radGridView1.DataSource = null;
             this.radGridView1.DataSource = dt;
-            bindingSource1.DataSource = dt;
-            this.bindingNavigator1.BindingSource = bindingSource1;
+            //this.bindingSource1.DataSource = dt;
+            //this.bindingNavigator1.BindingSource = bindingSource1;
             this.radGridView1.EndEdit();
             this.radGridView1.BestFitColumns();
             LogHelper.Log.Info("log查询-显示完成");
         }
 
+        private DataTable InitBindRowSource()
+        {
+            if (bindRowSource == null)
+            {
+                bindRowSource = new DataTable();
+                bindRowSource.Columns.Add("ID");
+            }
+            if (pageCount < 1)
+                return bindRowSource;
+            if (this.bindRowSource.Rows.Count != this.pageCount)
+            {
+                this.bindRowSource.Clear();
+                for (int i = 0; i < pageCount; i++)
+                {
+                    DataRow dr = bindRowSource.NewRow();
+                    dr["ID"] = i + 1;
+                    bindRowSource.Rows.Add(dr);
+                }
+            }
+            return bindRowSource;
+        }
+
         private void BindingNavigatorPositionItem_TextChanged(object sender, EventArgs e)
         {
-            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            //this.bindingNavigatorPositionItem.Text = currentPage.ToString();
         }
 
         private void BindingNavigatorCountItem_TextChanged(object sender, EventArgs e)
         {
-            this.bindingNavigatorCountItem.Text = "/" + pageCount;
+            //this.bindingNavigatorCountItem.Text = "/" + pageCount;
+        }
+
+        private void ResetCurrentPage()
+        {
+            this.currentPage = 1;//根据条件查询/点击查询-刷新最新数据
+            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
         }
 
         private void BindingNavigator1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -395,7 +468,18 @@ namespace MesManager.UI
         {
             GridViewExport.ExportFormat exportFormat = GridViewExport.ExportFormat.EXCEL;
             Enum.TryParse(tool_queryCondition.Text, out exportFormat);
-            GridViewExport.ExportGridViewData(exportFormat, this.radGridView1);
+            if (this.radDock1.ActiveWindow == this.tool_logData)
+            {
+                GridViewExport.ExportGridViewData(exportFormat, this.radGridView1);
+            }
+            else if (this.radDock1.ActiveWindow == this.tool_specCfg)
+            {
+                GridViewExport.ExportGridViewData(exportFormat, this.gridSpec);
+            }
+            else if (this.radDock1.ActiveWindow == this.tool_programv)
+            {
+                GridViewExport.ExportGridViewData(exportFormat, this.gridProgrameVersion);
+            }
         }
 
         private void TestLogDetailDelete()

@@ -324,11 +324,13 @@
     <Compile Include="Model\PackageProductHistory.cs" />
     <Compile Include="Model\ProductMaterial.cs" />
     <Compile Include="Model\ProductTestResult.cs" />
+    <Compile Include="Model\ProgramVersionHistory.cs" />
     <Compile Include="Model\QuanlityHistory.cs" />
     <Compile Include="Model\Station.cs" />
     <Compile Include="Model\StockMsg.cs" />
     <Compile Include="Model\TestResultBasic.cs" />
     <Compile Include="Model\TestReulstDetail.cs" />
+    <Compile Include="Model\TestStandSpecHistory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

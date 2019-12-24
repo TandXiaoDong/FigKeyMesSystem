@@ -640,10 +640,19 @@
     <None Include="Connected Services\MesService\MesManager.MesService.ProductMaterial.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\MesService\MesManager.MesService.ProgramVersionHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MesService\MesManager.MesService.QuanlityHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\MesService\MesManager.MesService.RegisterResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\MesService\MesManager.MesService.Station.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MesService\MesManager.MesService.TestStandSpecHistory.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\MesService\MesService1.wsdl" />

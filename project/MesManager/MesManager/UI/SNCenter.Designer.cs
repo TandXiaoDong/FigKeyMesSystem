@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SNCenter));
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition5 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition3 = new Telerik.WinControls.UI.TableViewDefinition();
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition4 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition5 = new Telerik.WinControls.UI.TableViewDefinition();
             this.chamferedRectShape1 = new Telerik.WinControls.ChamferedRectShape();
             this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -51,18 +51,18 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.radDock1 = new Telerik.WinControls.UI.Docking.RadDock();
-            this.dw_productCheck = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.panel_productCheck = new System.Windows.Forms.Panel();
-            this.radGridViewCheck = new Telerik.WinControls.UI.RadGridView();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.toolStrip4 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
-            this.tb_productCheck = new System.Windows.Forms.ToolStripComboBox();
-            this.btn_productCheck = new System.Windows.Forms.ToolStripButton();
-            this.tool_productCheckClearDB = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel8 = new System.Windows.Forms.ToolStripLabel();
-            this.tool_productCheck_exportFilter = new System.Windows.Forms.ToolStripComboBox();
-            this.tool_productCheck_export = new System.Windows.Forms.ToolStripButton();
+            this.dw_materialExcept = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.panel_quanlity = new System.Windows.Forms.Panel();
+            this.radGridViewQuanlity = new Telerik.WinControls.UI.RadGridView();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.toolStrip5 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel9 = new System.Windows.Forms.ToolStripLabel();
+            this.tb_quanlity_filter = new System.Windows.Forms.ToolStripComboBox();
+            this.btn_quanlity = new System.Windows.Forms.ToolStripButton();
+            this.tool_quanlityClearDB = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel10 = new System.Windows.Forms.ToolStripLabel();
+            this.tool_quanlity_exportFilter = new System.Windows.Forms.ToolStripComboBox();
+            this.tool_quanlity_export = new System.Windows.Forms.ToolStripButton();
             this.documentContainer2 = new Telerik.WinControls.UI.Docking.DocumentContainer();
             this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
             this.dw_snHistory = new Telerik.WinControls.UI.Docking.DocumentWindow();
@@ -102,30 +102,30 @@
             this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
             this.tool_material_exportFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tool_material_export = new System.Windows.Forms.ToolStripButton();
-            this.dw_materialExcept = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.panel_quanlity = new System.Windows.Forms.Panel();
-            this.radGridViewQuanlity = new Telerik.WinControls.UI.RadGridView();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.toolStrip5 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel9 = new System.Windows.Forms.ToolStripLabel();
-            this.tb_quanlity_filter = new System.Windows.Forms.ToolStripComboBox();
-            this.btn_quanlity = new System.Windows.Forms.ToolStripButton();
-            this.tool_quanlityClearDB = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel10 = new System.Windows.Forms.ToolStripLabel();
-            this.tool_quanlity_exportFilter = new System.Windows.Forms.ToolStripComboBox();
-            this.tool_quanlity_export = new System.Windows.Forms.ToolStripButton();
+            this.dw_productCheck = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.panel_productCheck = new System.Windows.Forms.Panel();
+            this.radGridViewCheck = new Telerik.WinControls.UI.RadGridView();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.toolStrip4 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.tb_productCheck = new System.Windows.Forms.ToolStripComboBox();
+            this.btn_productCheck = new System.Windows.Forms.ToolStripButton();
+            this.tool_productCheckClearDB = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel8 = new System.Windows.Forms.ToolStripLabel();
+            this.tool_productCheck_exportFilter = new System.Windows.Forms.ToolStripComboBox();
+            this.tool_productCheck_export = new System.Windows.Forms.ToolStripButton();
             this.crystalTheme1 = new Telerik.WinControls.Themes.CrystalTheme();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
-            this.dw_productCheck.SuspendLayout();
-            this.panel_productCheck.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewCheck)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewCheck.MasterTemplate)).BeginInit();
-            this.panel7.SuspendLayout();
-            this.toolStrip4.SuspendLayout();
+            this.dw_materialExcept.SuspendLayout();
+            this.panel_quanlity.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewQuanlity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewQuanlity.MasterTemplate)).BeginInit();
+            this.panel6.SuspendLayout();
+            this.toolStrip5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer2)).BeginInit();
             this.documentContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
@@ -149,12 +149,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewMaterial.MasterTemplate)).BeginInit();
             this.panel5.SuspendLayout();
             this.toolStrip3.SuspendLayout();
-            this.dw_materialExcept.SuspendLayout();
-            this.panel_quanlity.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewQuanlity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewQuanlity.MasterTemplate)).BeginInit();
-            this.panel6.SuspendLayout();
-            this.toolStrip5.SuspendLayout();
+            this.dw_productCheck.SuspendLayout();
+            this.panel_productCheck.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewCheck)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewCheck.MasterTemplate)).BeginInit();
+            this.panel7.SuspendLayout();
+            this.toolStrip4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -301,123 +301,123 @@
             this.radDock1.TabStop = false;
             this.radDock1.ThemeName = "Crystal";
             // 
-            // dw_productCheck
+            // dw_materialExcept
             // 
-            this.dw_productCheck.Controls.Add(this.panel_productCheck);
-            this.dw_productCheck.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dw_productCheck.Location = new System.Drawing.Point(5, 34);
-            this.dw_productCheck.Name = "dw_productCheck";
-            this.dw_productCheck.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dw_productCheck.Size = new System.Drawing.Size(1262, 660);
-            this.dw_productCheck.Text = "成品抽检";
+            this.dw_materialExcept.Controls.Add(this.panel_quanlity);
+            this.dw_materialExcept.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dw_materialExcept.Location = new System.Drawing.Point(5, 34);
+            this.dw_materialExcept.Name = "dw_materialExcept";
+            this.dw_materialExcept.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dw_materialExcept.Size = new System.Drawing.Size(1262, 660);
+            this.dw_materialExcept.Text = "异常物料";
             // 
-            // panel_productCheck
+            // panel_quanlity
             // 
-            this.panel_productCheck.Controls.Add(this.radGridViewCheck);
-            this.panel_productCheck.Controls.Add(this.panel7);
-            this.panel_productCheck.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_productCheck.Location = new System.Drawing.Point(0, 0);
-            this.panel_productCheck.Name = "panel_productCheck";
-            this.panel_productCheck.Size = new System.Drawing.Size(1262, 660);
-            this.panel_productCheck.TabIndex = 30;
+            this.panel_quanlity.Controls.Add(this.radGridViewQuanlity);
+            this.panel_quanlity.Controls.Add(this.panel6);
+            this.panel_quanlity.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_quanlity.Location = new System.Drawing.Point(0, 0);
+            this.panel_quanlity.Name = "panel_quanlity";
+            this.panel_quanlity.Size = new System.Drawing.Size(1262, 660);
+            this.panel_quanlity.TabIndex = 31;
             // 
-            // radGridViewCheck
+            // radGridViewQuanlity
             // 
-            this.radGridViewCheck.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridViewCheck.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radGridViewCheck.Location = new System.Drawing.Point(0, 40);
+            this.radGridViewQuanlity.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radGridViewQuanlity.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radGridViewQuanlity.Location = new System.Drawing.Point(0, 40);
             // 
             // 
             // 
-            this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition5;
-            this.radGridViewCheck.Name = "radGridViewCheck";
-            this.radGridViewCheck.Size = new System.Drawing.Size(1262, 620);
-            this.radGridViewCheck.TabIndex = 11;
-            this.radGridViewCheck.ThemeName = "Breeze";
+            this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition1;
+            this.radGridViewQuanlity.Name = "radGridViewQuanlity";
+            this.radGridViewQuanlity.Size = new System.Drawing.Size(1262, 620);
+            this.radGridViewQuanlity.TabIndex = 10;
+            this.radGridViewQuanlity.ThemeName = "Breeze";
             // 
-            // panel7
+            // panel6
             // 
-            this.panel7.Controls.Add(this.toolStrip4);
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel7.Location = new System.Drawing.Point(0, 0);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1262, 40);
-            this.panel7.TabIndex = 8;
+            this.panel6.Controls.Add(this.toolStrip5);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(1262, 40);
+            this.panel6.TabIndex = 8;
             // 
-            // toolStrip4
+            // toolStrip5
             // 
-            this.toolStrip4.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.toolStrip4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolStrip4.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.toolStrip4.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel4,
-            this.tb_productCheck,
-            this.btn_productCheck,
-            this.tool_productCheckClearDB,
-            this.toolStripLabel8,
-            this.tool_productCheck_exportFilter,
-            this.tool_productCheck_export});
-            this.toolStrip4.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip4.Name = "toolStrip4";
-            this.toolStrip4.Size = new System.Drawing.Size(1262, 40);
-            this.toolStrip4.TabIndex = 32;
-            this.toolStrip4.Text = "toolStrip4";
+            this.toolStrip5.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.toolStrip5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStrip5.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.toolStrip5.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip5.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel9,
+            this.tb_quanlity_filter,
+            this.btn_quanlity,
+            this.tool_quanlityClearDB,
+            this.toolStripLabel10,
+            this.tool_quanlity_exportFilter,
+            this.tool_quanlity_export});
+            this.toolStrip5.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip5.Name = "toolStrip5";
+            this.toolStrip5.Size = new System.Drawing.Size(1262, 40);
+            this.toolStrip5.TabIndex = 32;
+            this.toolStrip5.Text = "toolStrip5";
             // 
-            // toolStripLabel4
+            // toolStripLabel9
             // 
-            this.toolStripLabel4.ForeColor = System.Drawing.Color.White;
-            this.toolStripLabel4.LinkColor = System.Drawing.Color.White;
-            this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(106, 37);
-            this.toolStripLabel4.Text = "箱子编码/追溯码";
+            this.toolStripLabel9.ForeColor = System.Drawing.Color.White;
+            this.toolStripLabel9.LinkColor = System.Drawing.Color.White;
+            this.toolStripLabel9.Name = "toolStripLabel9";
+            this.toolStripLabel9.Size = new System.Drawing.Size(150, 37);
+            this.toolStripLabel9.Text = "物料编码(LOT/RID/PN):";
             // 
-            // tb_productCheck
+            // tb_quanlity_filter
             // 
-            this.tb_productCheck.ForeColor = System.Drawing.Color.Black;
-            this.tb_productCheck.Name = "tb_productCheck";
-            this.tb_productCheck.Size = new System.Drawing.Size(121, 40);
+            this.tb_quanlity_filter.ForeColor = System.Drawing.Color.Black;
+            this.tb_quanlity_filter.Name = "tb_quanlity_filter";
+            this.tb_quanlity_filter.Size = new System.Drawing.Size(121, 40);
             // 
-            // btn_productCheck
+            // btn_quanlity
             // 
-            this.btn_productCheck.ForeColor = System.Drawing.Color.White;
-            this.btn_productCheck.Image = global::MesManager.Properties.Resources.Search_16x16;
-            this.btn_productCheck.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btn_productCheck.Name = "btn_productCheck";
-            this.btn_productCheck.Size = new System.Drawing.Size(59, 37);
-            this.btn_productCheck.Text = "查询";
+            this.btn_quanlity.ForeColor = System.Drawing.Color.White;
+            this.btn_quanlity.Image = global::MesManager.Properties.Resources.Search_16x16;
+            this.btn_quanlity.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_quanlity.Name = "btn_quanlity";
+            this.btn_quanlity.Size = new System.Drawing.Size(59, 37);
+            this.btn_quanlity.Text = "查询";
             // 
-            // tool_productCheckClearDB
+            // tool_quanlityClearDB
             // 
-            this.tool_productCheckClearDB.ForeColor = System.Drawing.Color.White;
-            this.tool_productCheckClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
-            this.tool_productCheckClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_productCheckClearDB.Name = "tool_productCheckClearDB";
-            this.tool_productCheckClearDB.Size = new System.Drawing.Size(59, 37);
-            this.tool_productCheckClearDB.Text = "清除";
+            this.tool_quanlityClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_quanlityClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_quanlityClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_quanlityClearDB.Name = "tool_quanlityClearDB";
+            this.tool_quanlityClearDB.Size = new System.Drawing.Size(59, 37);
+            this.tool_quanlityClearDB.Text = "清除";
             // 
-            // toolStripLabel8
+            // toolStripLabel10
             // 
-            this.toolStripLabel8.ForeColor = System.Drawing.Color.White;
-            this.toolStripLabel8.Name = "toolStripLabel8";
-            this.toolStripLabel8.Size = new System.Drawing.Size(74, 37);
-            this.toolStripLabel8.Text = "导出格式：";
+            this.toolStripLabel10.ForeColor = System.Drawing.Color.White;
+            this.toolStripLabel10.Name = "toolStripLabel10";
+            this.toolStripLabel10.Size = new System.Drawing.Size(74, 37);
+            this.toolStripLabel10.Text = "导出格式：";
             // 
-            // tool_productCheck_exportFilter
+            // tool_quanlity_exportFilter
             // 
-            this.tool_productCheck_exportFilter.ForeColor = System.Drawing.Color.Black;
-            this.tool_productCheck_exportFilter.Name = "tool_productCheck_exportFilter";
-            this.tool_productCheck_exportFilter.Size = new System.Drawing.Size(121, 40);
+            this.tool_quanlity_exportFilter.ForeColor = System.Drawing.Color.Black;
+            this.tool_quanlity_exportFilter.Name = "tool_quanlity_exportFilter";
+            this.tool_quanlity_exportFilter.Size = new System.Drawing.Size(121, 40);
             // 
-            // tool_productCheck_export
+            // tool_quanlity_export
             // 
-            this.tool_productCheck_export.ForeColor = System.Drawing.Color.White;
-            this.tool_productCheck_export.Image = global::MesManager.Properties.Resources.Export_16x16;
-            this.tool_productCheck_export.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_productCheck_export.Name = "tool_productCheck_export";
-            this.tool_productCheck_export.Size = new System.Drawing.Size(59, 37);
-            this.tool_productCheck_export.Text = "导出";
-            this.tool_productCheck_export.ToolTipText = "导出";
+            this.tool_quanlity_export.ForeColor = System.Drawing.Color.White;
+            this.tool_quanlity_export.Image = global::MesManager.Properties.Resources.Export_16x16;
+            this.tool_quanlity_export.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_quanlity_export.Name = "tool_quanlity_export";
+            this.tool_quanlity_export.Size = new System.Drawing.Size(59, 37);
+            this.tool_quanlity_export.Text = "导出";
+            this.tool_quanlity_export.ToolTipText = "导出";
             // 
             // documentContainer2
             // 
@@ -817,123 +817,123 @@
             this.tool_material_export.Text = "导出";
             this.tool_material_export.ToolTipText = "导出";
             // 
-            // dw_materialExcept
+            // dw_productCheck
             // 
-            this.dw_materialExcept.Controls.Add(this.panel_quanlity);
-            this.dw_materialExcept.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dw_materialExcept.Location = new System.Drawing.Point(5, 34);
-            this.dw_materialExcept.Name = "dw_materialExcept";
-            this.dw_materialExcept.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dw_materialExcept.Size = new System.Drawing.Size(1262, 660);
-            this.dw_materialExcept.Text = "异常物料";
+            this.dw_productCheck.Controls.Add(this.panel_productCheck);
+            this.dw_productCheck.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dw_productCheck.Location = new System.Drawing.Point(5, 34);
+            this.dw_productCheck.Name = "dw_productCheck";
+            this.dw_productCheck.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dw_productCheck.Size = new System.Drawing.Size(1262, 660);
+            this.dw_productCheck.Text = "成品抽检";
             // 
-            // panel_quanlity
+            // panel_productCheck
             // 
-            this.panel_quanlity.Controls.Add(this.radGridViewQuanlity);
-            this.panel_quanlity.Controls.Add(this.panel6);
-            this.panel_quanlity.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_quanlity.Location = new System.Drawing.Point(0, 0);
-            this.panel_quanlity.Name = "panel_quanlity";
-            this.panel_quanlity.Size = new System.Drawing.Size(1262, 660);
-            this.panel_quanlity.TabIndex = 31;
+            this.panel_productCheck.Controls.Add(this.radGridViewCheck);
+            this.panel_productCheck.Controls.Add(this.panel7);
+            this.panel_productCheck.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_productCheck.Location = new System.Drawing.Point(0, 0);
+            this.panel_productCheck.Name = "panel_productCheck";
+            this.panel_productCheck.Size = new System.Drawing.Size(1262, 660);
+            this.panel_productCheck.TabIndex = 30;
             // 
-            // radGridViewQuanlity
+            // radGridViewCheck
             // 
-            this.radGridViewQuanlity.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridViewQuanlity.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radGridViewQuanlity.Location = new System.Drawing.Point(0, 40);
+            this.radGridViewCheck.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radGridViewCheck.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radGridViewCheck.Location = new System.Drawing.Point(0, 40);
             // 
             // 
             // 
-            this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition1;
-            this.radGridViewQuanlity.Name = "radGridViewQuanlity";
-            this.radGridViewQuanlity.Size = new System.Drawing.Size(1262, 620);
-            this.radGridViewQuanlity.TabIndex = 10;
-            this.radGridViewQuanlity.ThemeName = "Breeze";
+            this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition5;
+            this.radGridViewCheck.Name = "radGridViewCheck";
+            this.radGridViewCheck.Size = new System.Drawing.Size(1262, 620);
+            this.radGridViewCheck.TabIndex = 11;
+            this.radGridViewCheck.ThemeName = "Breeze";
             // 
-            // panel6
+            // panel7
             // 
-            this.panel6.Controls.Add(this.toolStrip5);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel6.Location = new System.Drawing.Point(0, 0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1262, 40);
-            this.panel6.TabIndex = 8;
+            this.panel7.Controls.Add(this.toolStrip4);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel7.Location = new System.Drawing.Point(0, 0);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(1262, 40);
+            this.panel7.TabIndex = 8;
             // 
-            // toolStrip5
+            // toolStrip4
             // 
-            this.toolStrip5.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.toolStrip5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolStrip5.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.toolStrip5.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip5.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel9,
-            this.tb_quanlity_filter,
-            this.btn_quanlity,
-            this.tool_quanlityClearDB,
-            this.toolStripLabel10,
-            this.tool_quanlity_exportFilter,
-            this.tool_quanlity_export});
-            this.toolStrip5.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip5.Name = "toolStrip5";
-            this.toolStrip5.Size = new System.Drawing.Size(1262, 40);
-            this.toolStrip5.TabIndex = 32;
-            this.toolStrip5.Text = "toolStrip5";
+            this.toolStrip4.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.toolStrip4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStrip4.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.toolStrip4.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel4,
+            this.tb_productCheck,
+            this.btn_productCheck,
+            this.tool_productCheckClearDB,
+            this.toolStripLabel8,
+            this.tool_productCheck_exportFilter,
+            this.tool_productCheck_export});
+            this.toolStrip4.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip4.Name = "toolStrip4";
+            this.toolStrip4.Size = new System.Drawing.Size(1262, 40);
+            this.toolStrip4.TabIndex = 32;
+            this.toolStrip4.Text = "toolStrip4";
             // 
-            // toolStripLabel9
+            // toolStripLabel4
             // 
-            this.toolStripLabel9.ForeColor = System.Drawing.Color.White;
-            this.toolStripLabel9.LinkColor = System.Drawing.Color.White;
-            this.toolStripLabel9.Name = "toolStripLabel9";
-            this.toolStripLabel9.Size = new System.Drawing.Size(150, 37);
-            this.toolStripLabel9.Text = "物料编码(LOT/RID/PN):";
+            this.toolStripLabel4.ForeColor = System.Drawing.Color.White;
+            this.toolStripLabel4.LinkColor = System.Drawing.Color.White;
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(106, 37);
+            this.toolStripLabel4.Text = "箱子编码/追溯码";
             // 
-            // tb_quanlity_filter
+            // tb_productCheck
             // 
-            this.tb_quanlity_filter.ForeColor = System.Drawing.Color.Black;
-            this.tb_quanlity_filter.Name = "tb_quanlity_filter";
-            this.tb_quanlity_filter.Size = new System.Drawing.Size(121, 40);
+            this.tb_productCheck.ForeColor = System.Drawing.Color.Black;
+            this.tb_productCheck.Name = "tb_productCheck";
+            this.tb_productCheck.Size = new System.Drawing.Size(121, 40);
             // 
-            // btn_quanlity
+            // btn_productCheck
             // 
-            this.btn_quanlity.ForeColor = System.Drawing.Color.White;
-            this.btn_quanlity.Image = global::MesManager.Properties.Resources.Search_16x16;
-            this.btn_quanlity.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btn_quanlity.Name = "btn_quanlity";
-            this.btn_quanlity.Size = new System.Drawing.Size(59, 37);
-            this.btn_quanlity.Text = "查询";
+            this.btn_productCheck.ForeColor = System.Drawing.Color.White;
+            this.btn_productCheck.Image = global::MesManager.Properties.Resources.Search_16x16;
+            this.btn_productCheck.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_productCheck.Name = "btn_productCheck";
+            this.btn_productCheck.Size = new System.Drawing.Size(59, 37);
+            this.btn_productCheck.Text = "查询";
             // 
-            // tool_quanlityClearDB
+            // tool_productCheckClearDB
             // 
-            this.tool_quanlityClearDB.ForeColor = System.Drawing.Color.White;
-            this.tool_quanlityClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
-            this.tool_quanlityClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_quanlityClearDB.Name = "tool_quanlityClearDB";
-            this.tool_quanlityClearDB.Size = new System.Drawing.Size(59, 37);
-            this.tool_quanlityClearDB.Text = "清除";
+            this.tool_productCheckClearDB.ForeColor = System.Drawing.Color.White;
+            this.tool_productCheckClearDB.Image = global::MesManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_productCheckClearDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_productCheckClearDB.Name = "tool_productCheckClearDB";
+            this.tool_productCheckClearDB.Size = new System.Drawing.Size(59, 37);
+            this.tool_productCheckClearDB.Text = "清除";
             // 
-            // toolStripLabel10
+            // toolStripLabel8
             // 
-            this.toolStripLabel10.ForeColor = System.Drawing.Color.White;
-            this.toolStripLabel10.Name = "toolStripLabel10";
-            this.toolStripLabel10.Size = new System.Drawing.Size(74, 37);
-            this.toolStripLabel10.Text = "导出格式：";
+            this.toolStripLabel8.ForeColor = System.Drawing.Color.White;
+            this.toolStripLabel8.Name = "toolStripLabel8";
+            this.toolStripLabel8.Size = new System.Drawing.Size(74, 37);
+            this.toolStripLabel8.Text = "导出格式：";
             // 
-            // tool_quanlity_exportFilter
+            // tool_productCheck_exportFilter
             // 
-            this.tool_quanlity_exportFilter.ForeColor = System.Drawing.Color.Black;
-            this.tool_quanlity_exportFilter.Name = "tool_quanlity_exportFilter";
-            this.tool_quanlity_exportFilter.Size = new System.Drawing.Size(121, 40);
+            this.tool_productCheck_exportFilter.ForeColor = System.Drawing.Color.Black;
+            this.tool_productCheck_exportFilter.Name = "tool_productCheck_exportFilter";
+            this.tool_productCheck_exportFilter.Size = new System.Drawing.Size(121, 40);
             // 
-            // tool_quanlity_export
+            // tool_productCheck_export
             // 
-            this.tool_quanlity_export.ForeColor = System.Drawing.Color.White;
-            this.tool_quanlity_export.Image = global::MesManager.Properties.Resources.Export_16x16;
-            this.tool_quanlity_export.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_quanlity_export.Name = "tool_quanlity_export";
-            this.tool_quanlity_export.Size = new System.Drawing.Size(59, 37);
-            this.tool_quanlity_export.Text = "导出";
-            this.tool_quanlity_export.ToolTipText = "导出";
+            this.tool_productCheck_export.ForeColor = System.Drawing.Color.White;
+            this.tool_productCheck_export.Image = global::MesManager.Properties.Resources.Export_16x16;
+            this.tool_productCheck_export.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_productCheck_export.Name = "tool_productCheck_export";
+            this.tool_productCheck_export.Size = new System.Drawing.Size(59, 37);
+            this.tool_productCheck_export.Text = "导出";
+            this.tool_productCheck_export.ToolTipText = "导出";
             // 
             // SNCenter
             // 
@@ -959,14 +959,14 @@
             this.bindingNavigator1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).EndInit();
             this.radDock1.ResumeLayout(false);
-            this.dw_productCheck.ResumeLayout(false);
-            this.panel_productCheck.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewCheck.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewCheck)).EndInit();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            this.toolStrip4.ResumeLayout(false);
-            this.toolStrip4.PerformLayout();
+            this.dw_materialExcept.ResumeLayout(false);
+            this.panel_quanlity.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewQuanlity.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewQuanlity)).EndInit();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.toolStrip5.ResumeLayout(false);
+            this.toolStrip5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer2)).EndInit();
             this.documentContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
@@ -996,14 +996,14 @@
             this.panel5.PerformLayout();
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
-            this.dw_materialExcept.ResumeLayout(false);
-            this.panel_quanlity.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewQuanlity.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewQuanlity)).EndInit();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            this.toolStrip5.ResumeLayout(false);
-            this.toolStrip5.PerformLayout();
+            this.dw_productCheck.ResumeLayout(false);
+            this.panel_productCheck.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewCheck.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewCheck)).EndInit();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.toolStrip4.ResumeLayout(false);
+            this.toolStrip4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

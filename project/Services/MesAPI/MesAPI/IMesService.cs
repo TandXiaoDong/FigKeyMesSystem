@@ -168,13 +168,13 @@ namespace MesAPI
         #endregion
 
         [OperationContract]
-        DataSet SelectTestProgrameVersion(string productTypeNo);
+        ProgramVersionHistory SelectTestProgrameVersion(string productTypeNo, int pageIndex, int pageSize);
 
         [OperationContract]
         int DeleteTestProgrameVersion(string productTypeNo);
 
         [OperationContract]
-        DataSet SelectTestLimitConfig(string productTypeNo);
+        TestStandSpecHistory SelectTestLimitConfig(string productTypeNo, int pageIndex, int pageSize);
 
         [OperationContract]
         int DeleteTestLimitConfig(string productTypeNo);
@@ -193,7 +193,7 @@ namespace MesAPI
         int UpdateMaterialStateMent(string materialCode, int state);
 
         [OperationContract]
-        DataSet SelectQuanlityManager(string materialCode);
+        QuanlityHistory SelectQuanlityManager(string materialCode, int pageIndex, int pageSize);
 
         [OperationContract]
         string SelectMaterialName(string materialPN);

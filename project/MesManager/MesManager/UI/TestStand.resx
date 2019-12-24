@@ -120,25 +120,13 @@
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>162, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="tool_logData.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAH6SURBVDhPpVJNSxtRFB0kfkaNJhpUuuu+iO505R+wP8AP
-        9D9U1DRmonQhxCxsdy4CgaIoBMwkExVcWEUKbY0WuqmiaFJiJlM1arAJRo73PqeLmLhoPXDe3PfOuffd
-        995Iz0bLu7VtixyB2an+EzmHcyUO/hecK9VOqGIijSzDNBZEucGK8b9UClhOZC+jzqVCqqeBweZBJYmB
-        4KngUCiJ4bBWTFVHzduQyGnkDixU4JYmlVTZ+13HzG4K3j0d3XOfUedUUON42Nlk7F5J82oqYHaGYJ9a
-        hdQgq9D+AKbRZVRRF9WOIMxkqCXDt9QdthJcvhBbiTx2dKBpkjqw0XB0CRykgUMix7EMqE0F0dQtyqb3
-        8fs8jYWAIsgxr+2RZuUj2EeXNrhSI3XCtDLdEVhcYawfZ9H64RCado6jxIUgx7y2fpKFjXz8K7wkdj6m
-        za0i8PMGr3wn8H85xXFMF+SY11hrMgqUBHfl+5FBz/wvdH2Mo9MfR4c/JuKe+bjQxB08hWYS30ev8TqQ
-        wCK9zAPusBBNopfWWGOPYS+GnUTP12v0R3ScnV1hbFxGTLsUd9CnpoTGHsNejJapFXh2bjCySc+Sz2HW
-        60Eul0M+m8GbT2mhscewF6PNsbTBBj5ng3sVlsk11Mv0dUXE7bP2Ql65MuwlUfJ1Cim13wOU3SMzm0C4
-        TgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="bindingNavigator1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>272, 17</value>
+  <metadata name="bindingSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
   </metadata>
+  <metadata name="bindingNavigator1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>435, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="bindingNavigatorAddNewItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS
@@ -203,8 +191,11 @@
         8l/FYwIYQ4UGBWBgAAC+0b+zuQxOnAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="bindingSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+  <metadata name="crystalTheme1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>598, 17</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>61</value>
   </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

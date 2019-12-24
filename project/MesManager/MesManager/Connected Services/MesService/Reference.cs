@@ -428,6 +428,189 @@ namespace MesManager.MesService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProgramVersionHistory", Namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model")]
+    [System.SerializableAttribute()]
+    public partial class ProgramVersionHistory : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Data.DataSet ProgrameDataSetField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ProgrameHistoryNumberField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Data.DataSet ProgrameDataSet {
+            get {
+                return this.ProgrameDataSetField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProgrameDataSetField, value) != true)) {
+                    this.ProgrameDataSetField = value;
+                    this.RaisePropertyChanged("ProgrameDataSet");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ProgrameHistoryNumber {
+            get {
+                return this.ProgrameHistoryNumberField;
+            }
+            set {
+                if ((this.ProgrameHistoryNumberField.Equals(value) != true)) {
+                    this.ProgrameHistoryNumberField = value;
+                    this.RaisePropertyChanged("ProgrameHistoryNumber");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TestStandSpecHistory", Namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model")]
+    [System.SerializableAttribute()]
+    public partial class TestStandSpecHistory : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Data.DataSet SpecDataSetField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SpecHistoryNumberField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Data.DataSet SpecDataSet {
+            get {
+                return this.SpecDataSetField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SpecDataSetField, value) != true)) {
+                    this.SpecDataSetField = value;
+                    this.RaisePropertyChanged("SpecDataSet");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SpecHistoryNumber {
+            get {
+                return this.SpecHistoryNumberField;
+            }
+            set {
+                if ((this.SpecHistoryNumberField.Equals(value) != true)) {
+                    this.SpecHistoryNumberField = value;
+                    this.RaisePropertyChanged("SpecHistoryNumber");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="QuanlityHistory", Namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model")]
+    [System.SerializableAttribute()]
+    public partial class QuanlityHistory : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int HistoryNumberField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Data.DataSet QuanlityHistoryDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int HistoryNumber {
+            get {
+                return this.HistoryNumberField;
+            }
+            set {
+                if ((this.HistoryNumberField.Equals(value) != true)) {
+                    this.HistoryNumberField = value;
+                    this.RaisePropertyChanged("HistoryNumber");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Data.DataSet QuanlityHistoryData {
+            get {
+                return this.QuanlityHistoryDataField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.QuanlityHistoryDataField, value) != true)) {
+                    this.QuanlityHistoryDataField = value;
+                    this.RaisePropertyChanged("QuanlityHistoryData");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="PackageProductHistory", Namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model")]
     [System.SerializableAttribute()]
     public partial class PackageProductHistory : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -828,10 +1011,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<System.Data.DataSet> SelectPackageProductAsync(string casecode, string queryFilter, string state, bool IsShowNumber);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestProgrameVersion", ReplyAction="http://tempuri.org/IMesService/SelectTestProgrameVersionResponse")]
-        System.Data.DataSet SelectTestProgrameVersion(string productTypeNo);
+        MesManager.MesService.ProgramVersionHistory SelectTestProgrameVersion(string productTypeNo, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestProgrameVersion", ReplyAction="http://tempuri.org/IMesService/SelectTestProgrameVersionResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> SelectTestProgrameVersionAsync(string productTypeNo);
+        System.Threading.Tasks.Task<MesManager.MesService.ProgramVersionHistory> SelectTestProgrameVersionAsync(string productTypeNo, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestProgrameVersion", ReplyAction="http://tempuri.org/IMesService/DeleteTestProgrameVersionResponse")]
         int DeleteTestProgrameVersion(string productTypeNo);
@@ -840,10 +1023,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<int> DeleteTestProgrameVersionAsync(string productTypeNo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestLimitConfig", ReplyAction="http://tempuri.org/IMesService/SelectTestLimitConfigResponse")]
-        System.Data.DataSet SelectTestLimitConfig(string productTypeNo);
+        MesManager.MesService.TestStandSpecHistory SelectTestLimitConfig(string productTypeNo, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestLimitConfig", ReplyAction="http://tempuri.org/IMesService/SelectTestLimitConfigResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> SelectTestLimitConfigAsync(string productTypeNo);
+        System.Threading.Tasks.Task<MesManager.MesService.TestStandSpecHistory> SelectTestLimitConfigAsync(string productTypeNo, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestLimitConfig", ReplyAction="http://tempuri.org/IMesService/DeleteTestLimitConfigResponse")]
         int DeleteTestLimitConfig(string productTypeNo);
@@ -876,10 +1059,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<int> UpdateMaterialStateMentAsync(string materialCode, int state);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectQuanlityManager", ReplyAction="http://tempuri.org/IMesService/SelectQuanlityManagerResponse")]
-        System.Data.DataSet SelectQuanlityManager(string materialCode);
+        MesManager.MesService.QuanlityHistory SelectQuanlityManager(string materialCode, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectQuanlityManager", ReplyAction="http://tempuri.org/IMesService/SelectQuanlityManagerResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> SelectQuanlityManagerAsync(string materialCode);
+        System.Threading.Tasks.Task<MesManager.MesService.QuanlityHistory> SelectQuanlityManagerAsync(string materialCode, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectMaterialName", ReplyAction="http://tempuri.org/IMesService/SelectMaterialNameResponse")]
         string SelectMaterialName(string materialPN);
@@ -1353,12 +1536,12 @@ namespace MesManager.MesService {
             return base.Channel.SelectPackageProductAsync(casecode, queryFilter, state, IsShowNumber);
         }
         
-        public System.Data.DataSet SelectTestProgrameVersion(string productTypeNo) {
-            return base.Channel.SelectTestProgrameVersion(productTypeNo);
+        public MesManager.MesService.ProgramVersionHistory SelectTestProgrameVersion(string productTypeNo, int pageIndex, int pageSize) {
+            return base.Channel.SelectTestProgrameVersion(productTypeNo, pageIndex, pageSize);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> SelectTestProgrameVersionAsync(string productTypeNo) {
-            return base.Channel.SelectTestProgrameVersionAsync(productTypeNo);
+        public System.Threading.Tasks.Task<MesManager.MesService.ProgramVersionHistory> SelectTestProgrameVersionAsync(string productTypeNo, int pageIndex, int pageSize) {
+            return base.Channel.SelectTestProgrameVersionAsync(productTypeNo, pageIndex, pageSize);
         }
         
         public int DeleteTestProgrameVersion(string productTypeNo) {
@@ -1369,12 +1552,12 @@ namespace MesManager.MesService {
             return base.Channel.DeleteTestProgrameVersionAsync(productTypeNo);
         }
         
-        public System.Data.DataSet SelectTestLimitConfig(string productTypeNo) {
-            return base.Channel.SelectTestLimitConfig(productTypeNo);
+        public MesManager.MesService.TestStandSpecHistory SelectTestLimitConfig(string productTypeNo, int pageIndex, int pageSize) {
+            return base.Channel.SelectTestLimitConfig(productTypeNo, pageIndex, pageSize);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> SelectTestLimitConfigAsync(string productTypeNo) {
-            return base.Channel.SelectTestLimitConfigAsync(productTypeNo);
+        public System.Threading.Tasks.Task<MesManager.MesService.TestStandSpecHistory> SelectTestLimitConfigAsync(string productTypeNo, int pageIndex, int pageSize) {
+            return base.Channel.SelectTestLimitConfigAsync(productTypeNo, pageIndex, pageSize);
         }
         
         public int DeleteTestLimitConfig(string productTypeNo) {
@@ -1417,12 +1600,12 @@ namespace MesManager.MesService {
             return base.Channel.UpdateMaterialStateMentAsync(materialCode, state);
         }
         
-        public System.Data.DataSet SelectQuanlityManager(string materialCode) {
-            return base.Channel.SelectQuanlityManager(materialCode);
+        public MesManager.MesService.QuanlityHistory SelectQuanlityManager(string materialCode, int pageIndex, int pageSize) {
+            return base.Channel.SelectQuanlityManager(materialCode, pageIndex, pageSize);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> SelectQuanlityManagerAsync(string materialCode) {
-            return base.Channel.SelectQuanlityManagerAsync(materialCode);
+        public System.Threading.Tasks.Task<MesManager.MesService.QuanlityHistory> SelectQuanlityManagerAsync(string materialCode, int pageIndex, int pageSize) {
+            return base.Channel.SelectQuanlityManagerAsync(materialCode, pageIndex, pageSize);
         }
         
         public string SelectMaterialName(string materialPN) {

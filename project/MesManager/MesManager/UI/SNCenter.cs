@@ -24,7 +24,6 @@ namespace MesManager.UI
     {
         private MesService.MesServiceClient serviceClient;
         private DataTable dataSourceMaterialBasic;
-        private DataTable dataSourceQuanlity;
         private const string DATA_ORDER = "序号";
         private string currentQueryCondition;
         /// <summary>
@@ -39,6 +38,8 @@ namespace MesManager.UI
         /// 总页数
         /// </summary>
         private int pageCount;
+
+        private DataTable bindRowSource;
 
         #region 物料统计字段
         private const string MATERIAL_PN = "物料号";
@@ -466,18 +467,20 @@ namespace MesManager.UI
             {
                 pageCount = pcbaList / pageSize;
             }
+            var dtSource = InitBindRowSource();
             //DataSet ds = (await serviceClient.SelectTestResultUpperAsync(filter, filter, filter, true));
             DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter,currentPage,pageSize,true);
             this.radGridViewSn.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridViewSn.BeginEdit();
             DataTable dt = ds.Tables[0];
             this.radGridViewSn.DataSource = dt;
-            bindingSource1.DataSource = dt;
+            bindingSource1.DataSource = dtSource;
             this.bindingNavigator1.BindingSource = bindingSource1;
             this.radGridViewSn.EndEdit();
             this.radGridViewSn.BestFitColumns();
         }
 
+        
         async private void SelectOfPackage(string state)
         {
             this.radGridViewPackage.DataSource = null;
@@ -499,11 +502,12 @@ namespace MesManager.UI
             {
                 pageCount = packageHistory.PackageCaseNumber / pageSize;
             }
-            this.radGridViewPackage.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            var dtSource = InitBindRowSource();
+            this.radGridViewPackage.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
             this.radGridViewPackage.BeginEdit();
             var dt = packageHistory.PackageCaseData.Tables[0];
             this.radGridViewPackage.DataSource = dt;
-            this.bindingSource1.DataSource = dt;
+            this.bindingSource1.DataSource = dtSource;
             this.bindingNavigator1.BindingSource = this.bindingSource1;
             this.radGridViewPackage.EndEdit();
             this.radGridViewPackage.BestFitColumns();
@@ -530,11 +534,12 @@ namespace MesManager.UI
             {
                 pageCount = checkPackageProduct.CheckPackageCaseNumber / pageSize;
             }
+            var dtSource = InitBindRowSource();
             this.radGridViewCheck.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridViewCheck.BeginEdit();
             var dt = checkPackageProduct.CheckPackageCaseData.Tables[0];
             this.radGridViewCheck.DataSource = dt;
-            this.bindingSource1.DataSource = dt;
+            this.bindingSource1.DataSource = dtSource;
             this.bindingNavigator1.BindingSource = this.bindingSource1;
             this.radGridViewCheck.EndEdit();
             this.radGridViewCheck.BestFitColumns();
@@ -559,37 +564,56 @@ namespace MesManager.UI
                 dataSourceMaterialBasic.Columns.Add(CURRENT_RESIDUE_STOCK);
                 dataSourceMaterialBasic.Columns.Add(RESIDUE_STOCK);
             }
-            if (dataSourceQuanlity == null)
+        }
+
+        private DataTable InitBindRowSource()
+        {
+            if (bindRowSource == null)
             {
-                dataSourceQuanlity = new DataTable();
-                dataSourceQuanlity.Columns.Add(DATA_ORDER);
-                dataSourceQuanlity.Columns.Add(MATERIAL_PN);
-                dataSourceQuanlity.Columns.Add(MATERIAL_LOT);
-                dataSourceQuanlity.Columns.Add(MATERIAL_RID);
-                dataSourceQuanlity.Columns.Add(MATERIAL_DC);
-                dataSourceQuanlity.Columns.Add(MATERIAL_NAME);
-                dataSourceQuanlity.Columns.Add(EXCEPT_TYPE);
-                dataSourceQuanlity.Columns.Add(MATERIAL_QTY);
-                dataSourceQuanlity.Columns.Add(ACTUAL_STOCK);
-                dataSourceQuanlity.Columns.Add(EXCEPT_STOCK);
-                dataSourceQuanlity.Columns.Add(MATERIAL_STATE);
-                dataSourceQuanlity.Columns.Add(SHUT_REASON);
-                dataSourceQuanlity.Columns.Add(USER_NAME);
-                dataSourceQuanlity.Columns.Add(STATEMENT_DATE);
+                bindRowSource = new DataTable();
+                bindRowSource.Columns.Add("ID");
             }
+            if (pageCount < 1)
+                return bindRowSource;
+            if (this.bindRowSource.Rows.Count != this.pageCount)
+            {
+                this.bindRowSource.Clear();
+                for (int i = 0; i < pageCount; i++)
+                {
+                    DataRow dr = bindRowSource.NewRow();
+                    dr["ID"] = i + 1;
+                    bindRowSource.Rows.Add(dr);
+                }
+            }
+            return bindRowSource;
         }
 
         async private void SelectOfMaterialQuanlity()
         {
             currentQueryCondition = this.tb_quanlity_filter.Text;
-            var dt = (await serviceClient.SelectQuanlityManagerAsync(currentQueryCondition)).Tables[0];
-            this.dataSourceQuanlity.Clear();
-            for (int i = 0; i < dt.Rows.Count; i++)
+            if (this.currentQueryCondition != "")
             {
-                
+                this.currentPage = 1;//根据条件查询
+                this.bindingNavigatorPositionItem.Text = currentPage.ToString();
             }
-            this.radGridViewQuanlity.DataSource = dataSourceQuanlity;
+            var quanlityObj = (await serviceClient.SelectQuanlityManagerAsync(currentQueryCondition,currentPage,pageSize));
+            this.radGridViewQuanlity.DataSource = null;
+            this.radGridViewQuanlity.Update();
+            if (quanlityObj.HistoryNumber % pageSize > 0)
+            {
+                pageCount = quanlityObj.HistoryNumber / pageSize + 1;
+            }
+            else
+            {
+                pageCount = quanlityObj.HistoryNumber / pageSize;
+            }
+            var dtSource = InitBindRowSource();
             this.radGridViewQuanlity.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridViewQuanlity.BeginEdit();
+            var dt = quanlityObj.QuanlityHistoryData.Tables[0];
+            this.radGridViewQuanlity.DataSource = dt;
+            this.bindingSource1.DataSource = dtSource;
+            this.bindingNavigator1.BindingSource = this.bindingSource1;
             this.radGridViewQuanlity.BestFitColumns();
         }
 
@@ -617,12 +641,12 @@ namespace MesManager.UI
             {
                 pageCount = materialObj.MaterialRowCount / pageSize;
             }
-
+            var dtSource = InitBindRowSource();
             this.radGridViewMaterial.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridViewMaterial.BeginEdit();
             var dt = materialObj.MaterialResultData.Tables[0];
             this.radGridViewMaterial.DataSource = dt;
-            bindingSource1.DataSource = dt;
+            bindingSource1.DataSource = dtSource;
             this.bindingNavigator1.BindingSource = bindingSource1;
             this.radGridViewMaterial.EndEdit();
             //this.radGridViewMaterial.Columns[0].BestFit();
@@ -631,6 +655,7 @@ namespace MesManager.UI
 
         private void Btn_selectOfSn_Click(object sender, EventArgs e)
         {
+            ResetCurrentPage();
             SelectOfSn();
         }
 
@@ -641,12 +666,12 @@ namespace MesManager.UI
 
         private void BindingNavigatorPositionItem_TextChanged(object sender, EventArgs e)
         {
-            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            //this.bindingNavigatorPositionItem.Text = currentPage.ToString();
         }
 
         private void BindingNavigatorCountItem_TextChanged(object sender, EventArgs e)
         {
-            this.bindingNavigatorCountItem.Text = "/" + pageCount;
+            //this.bindingNavigatorCountItem.Text = "/" + pageCount;
         }
 
         private void BindingNavigator1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -684,6 +709,11 @@ namespace MesManager.UI
             UpdateQueryPageData();
         }
 
+        private void ResetCurrentPage()
+        {
+            this.currentPage = 1;//根据条件查询/点击查询-刷新最新数据
+            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+        }
         private void UpdateQueryPageData()
         {
             if (this.radDock1.ActiveWindow == this.dw_snHistory)
@@ -704,7 +734,7 @@ namespace MesManager.UI
             }
             else if (this.radDock1.ActiveWindow == this.dw_materialExcept)
             {
-
+                SelectOfMaterialQuanlity();
             }
         }
     }
