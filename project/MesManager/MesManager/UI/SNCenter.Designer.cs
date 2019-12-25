@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SNCenter));
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition3 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition4 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition5 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition21 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition22 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition23 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition24 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition25 = new Telerik.WinControls.UI.TableViewDefinition();
             this.chamferedRectShape1 = new Telerik.WinControls.ChamferedRectShape();
             this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -329,7 +329,7 @@
             // 
             // 
             // 
-            this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition1;
+            this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition21;
             this.radGridViewQuanlity.Name = "radGridViewQuanlity";
             this.radGridViewQuanlity.Size = new System.Drawing.Size(1262, 620);
             this.radGridViewQuanlity.TabIndex = 10;
@@ -481,7 +481,7 @@
             // 
             // 
             this.radGridViewSn.MasterTemplate.HorizontalScrollState = Telerik.WinControls.UI.ScrollState.AlwaysShow;
-            this.radGridViewSn.MasterTemplate.ViewDefinition = tableViewDefinition2;
+            this.radGridViewSn.MasterTemplate.ViewDefinition = tableViewDefinition22;
             this.radGridViewSn.Name = "radGridViewSn";
             this.radGridViewSn.Size = new System.Drawing.Size(1262, 621);
             this.radGridViewSn.TabIndex = 10;
@@ -608,7 +608,7 @@
             // 
             // 
             // 
-            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition3;
+            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition23;
             this.radGridViewPackage.Name = "radGridViewPackage";
             this.radGridViewPackage.Size = new System.Drawing.Size(1262, 618);
             this.radGridViewPackage.TabIndex = 32;
@@ -726,7 +726,7 @@
             // 
             // 
             // 
-            this.radGridViewMaterial.MasterTemplate.ViewDefinition = tableViewDefinition4;
+            this.radGridViewMaterial.MasterTemplate.ViewDefinition = tableViewDefinition24;
             this.radGridViewMaterial.Name = "radGridViewMaterial";
             this.radGridViewMaterial.Padding = new System.Windows.Forms.Padding(1);
             this.radGridViewMaterial.Size = new System.Drawing.Size(1262, 623);
@@ -845,7 +845,7 @@
             // 
             // 
             // 
-            this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition5;
+            this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition25;
             this.radGridViewCheck.Name = "radGridViewCheck";
             this.radGridViewCheck.Size = new System.Drawing.Size(1262, 620);
             this.radGridViewCheck.TabIndex = 11;

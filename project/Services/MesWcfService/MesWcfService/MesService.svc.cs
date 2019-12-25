@@ -710,6 +710,20 @@ namespace MesWcfService
         public PCBABindHistory QueryPCBAMes(string sn,int pageIndex,int pageSize)
         {
             DataSet ds = new DataSet();
+
+            #region init datatable
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("序号");
+            dataTable.Columns.Add("产品型号");
+            dataTable.Columns.Add("当前工位");
+            dataTable.Columns.Add("PCBASN");
+            dataTable.Columns.Add("外壳SN");
+            dataTable.Columns.Add("绑定状态");
+            dataTable.Columns.Add("PCBA状态");
+            dataTable.Columns.Add("外壳状态");
+            dataTable.Columns.Add("绑定日期");
+            #endregion
+
             PCBABindHistory pcbaBindHistory = new PCBABindHistory();
             var selectSQL = $"select distinct " +
                 $"{DbTable.F_BINDING_PCBA.PRODUCT_TYPE_NO} 产品型号," +
@@ -728,23 +742,11 @@ namespace MesWcfService
             System.Data.Common.DbDataReader dbReader = SQLServer.ExecuteDataReader(selectSQL);
             if (!dbReader.HasRows)
             {
+                ds.Tables.Add(dataTable);
                 pcbaBindHistory.BindNumber = 0;
                 pcbaBindHistory.BindHistoryData = ds;
                 return pcbaBindHistory;
             }
-            #region init datatable
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("序号");
-            dataTable.Columns.Add("产品型号");
-            dataTable.Columns.Add("当前工位");
-            dataTable.Columns.Add("PCBASN");
-            dataTable.Columns.Add("外壳SN");
-            dataTable.Columns.Add("绑定状态");
-            dataTable.Columns.Add("PCBA状态");
-            dataTable.Columns.Add("外壳状态");
-            dataTable.Columns.Add("绑定日期");
-            #endregion
-
             int id = 0;
             int i = 0;
             int startIndex = (pageIndex - 1) * pageSize;

@@ -429,6 +429,24 @@
   <wsdl:message name="IMesService_DeleteTestLogHistory_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteTestLogHistoryResponse" />
   </wsdl:message>
+  <wsdl:message name="IMesService_DeleteMaterialBasicHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMaterialBasicHistory" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_DeleteMaterialBasicHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMaterialBasicHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_DeleteProductPackageHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProductPackageHistory" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_DeleteProductPackageHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProductPackageHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_DeleteCheckProductPackageHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCheckProductPackageHistory" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_DeleteCheckProductPackageHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCheckProductPackageHistoryResponse" />
+  </wsdl:message>
   <wsdl:portType name="IMesService">
     <wsdl:operation name="TestCommunication">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/TestCommunication" message="tns:IMesService_TestCommunication_InputMessage" />
@@ -709,6 +727,18 @@
     <wsdl:operation name="DeleteTestLogHistory">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteTestLogHistory" message="tns:IMesService_DeleteTestLogHistory_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/DeleteTestLogHistoryResponse" message="tns:IMesService_DeleteTestLogHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMaterialBasicHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteMaterialBasicHistory" message="tns:IMesService_DeleteMaterialBasicHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/DeleteMaterialBasicHistoryResponse" message="tns:IMesService_DeleteMaterialBasicHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProductPackageHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteProductPackageHistory" message="tns:IMesService_DeleteProductPackageHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/DeleteProductPackageHistoryResponse" message="tns:IMesService_DeleteProductPackageHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCheckProductPackageHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/DeleteCheckProductPackageHistory" message="tns:IMesService_DeleteCheckProductPackageHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/DeleteCheckProductPackageHistoryResponse" message="tns:IMesService_DeleteCheckProductPackageHistory_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMesService" type="tns:IMesService">
@@ -1336,6 +1366,33 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteTestLogHistory">
       <soap:operation soapAction="http://tempuri.org/IMesService/DeleteTestLogHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMaterialBasicHistory">
+      <soap:operation soapAction="http://tempuri.org/IMesService/DeleteMaterialBasicHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProductPackageHistory">
+      <soap:operation soapAction="http://tempuri.org/IMesService/DeleteProductPackageHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCheckProductPackageHistory">
+      <soap:operation soapAction="http://tempuri.org/IMesService/DeleteCheckProductPackageHistory" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

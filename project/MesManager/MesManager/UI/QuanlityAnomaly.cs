@@ -70,6 +70,8 @@ namespace MesManager.UI
             this.btn_repaireComplete.Click += Btn_repaireComplete_Click;
             this.btn_bing.Click += Btn_bing_Click;
             this.btn_unbind.Click += Btn_unbind_Click;
+            this.btn_cancelBinding.Click += Btn_cancelBinding_Click;
+            this.btn_exit.Click += Btn_exit_Click;
             this.cb_typeNo.SelectedIndexChanged += Cb_typeNo_SelectedIndexChanged;
             this.btn_searchCaseMsg.Click += Btn_searchCaseMsg_Click;
             this.btn_queryPCBA.Click += Btn_queryPCBA_Click;
@@ -78,6 +80,16 @@ namespace MesManager.UI
             this.bindingNavigator.ItemClicked += BindingNavigator1_ItemClicked;
             this.bindingNavigatorCountItem.TextChanged += BindingNavigatorCountItem_TextChanged;
             this.bindingNavigatorPositionItem.TextChanged += BindingNavigatorPositionItem_TextChanged;
+        }
+
+        private void Btn_exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Btn_cancelBinding_Click(object sender, EventArgs e)
+        {
+            CancelPcbaBinding();
         }
 
         private void Btn_query_Click(object sender, EventArgs e)
@@ -363,11 +375,6 @@ namespace MesManager.UI
             }
         }
 
-        private void btn_exit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void ReCoverPcbaBinding()
         {
             if (this.radGridView1.RowCount < 1)
@@ -542,11 +549,6 @@ namespace MesManager.UI
                 return;
             }
             MessageBox.Show("解除绑定失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-
-        private void btn_cancelBinding_Click(object sender, EventArgs e)
-        {
-            CancelPcbaBinding();
         }
 
         private void UpdateBindState(int state)

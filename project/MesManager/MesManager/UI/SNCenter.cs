@@ -136,14 +136,25 @@ namespace MesManager.UI
             }
             if (MessageBox.Show("确认要清除当前数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
-            var delRow = serviceClient.DeleteProductPackage(this.currentQueryCondition,0);
+            //var delRow = serviceClient.DeleteProductPackage(this.currentQueryCondition,0);
+            List<MesService.CheckPackageProductHistory> packageProductHistoryList = new List<MesService.CheckPackageProductHistory>();
+            foreach (var rowInfo in this.radGridViewCheck.Rows)
+            {
+                MesService.CheckPackageProductHistory packageProductHistory = new MesService.CheckPackageProductHistory();
+                packageProductHistory.OutCaseCode = rowInfo.Cells[1].Value.ToString();
+                packageProductHistory.ProductSN = rowInfo.Cells[2].Value.ToString();
+                packageProductHistory.ProductTypeNo = rowInfo.Cells[3].Value.ToString();
+                packageProductHistory.BindState = "0";
+                packageProductHistoryList.Add(packageProductHistory);
+            }
+            var delRow = serviceClient.DeleteCheckProductPackageHistory(packageProductHistoryList.ToArray());
             if (delRow > 0)
             {
-                MessageBox.Show("删除数据完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"已删除产品{delRow}条！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("删除数据未完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("未删除任何产品！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             SelectOfPackageCheck("0");
         }
@@ -157,14 +168,27 @@ namespace MesManager.UI
             }
             if (MessageBox.Show("确认要清除当前数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
-            var delRow = serviceClient.DeleteMaterialBasicMsg(this.currentQueryCondition);
+            //var delRow = serviceClient.DeleteMaterialBasicMsg(this.currentQueryCondition);
+            List<MesService.MaterialResultInfo> materialResultInfoList = new List<MesService.MaterialResultInfo>();
+            foreach (var rowInfo in this.radGridViewMaterial.Rows)
+            {
+                MesService.MaterialResultInfo materialResultInfo = new MesService.MaterialResultInfo();
+                var ridCode = rowInfo.Cells[3].Value.ToString();
+                var materialCode = serviceClient.GetMaterialCode(ridCode);
+                materialResultInfo.MaterialCode = materialCode;
+                materialResultInfo.ProductTypeNo = rowInfo.Cells[6].Value.ToString();
+                materialResultInfo.PcbaSN = rowInfo.Cells[7].Value.ToString();
+                materialResultInfo.ProductSN = rowInfo.Cells[8].Value.ToString();
+                materialResultInfoList.Add(materialResultInfo);
+            }
+            var delRow = serviceClient.DeleteMaterialBasicHistory(materialResultInfoList.ToArray());
             if (delRow > 0)
             {
-                MessageBox.Show("删除数据完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"已删除数据{delRow}条！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("删除数据未完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("未删除任何数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             SelectOfMaterial();
         }
@@ -178,14 +202,24 @@ namespace MesManager.UI
             }
             if (MessageBox.Show("确认要清除当前数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
-            var delRow = serviceClient.DeleteProductPackage(this.currentQueryCondition,1);
+            //var delRow = serviceClient.DeleteProductPackage(this.currentQueryCondition,1);
+            List<MesService.PackageProductHistory> packageProductHistoryList = new List<MesService.PackageProductHistory>();
+            foreach (var rowInfo in this.radGridViewPackage.Rows)
+            {
+                MesService.PackageProductHistory packageProductHistory = new MesService.PackageProductHistory();
+                packageProductHistory.OutCaseCode = rowInfo.Cells[1].Value.ToString();
+                packageProductHistory.ProductTypeNo = rowInfo.Cells[2].Value.ToString();
+                packageProductHistory.BindState = "1";
+                packageProductHistoryList.Add(packageProductHistory);
+            }
+            var delRow = serviceClient.DeleteProductPackageHistory(packageProductHistoryList.ToArray());
             if (delRow > 0)
             {
-                MessageBox.Show("删除数据完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"已删除{delRow}箱数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("删除数据未完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("未删除任何数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             SelectOfPackage("1");
         }
@@ -199,14 +233,23 @@ namespace MesManager.UI
             }
             if (MessageBox.Show("确认要清除当前数据？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
-            var delRow = serviceClient.DeleteQuanlityMsg(this.currentQueryCondition);
+            List<MesService.QuanlityHistory> quanlityHistoryList = new List<MesService.QuanlityHistory>();
+            foreach (var rowInfo in this.radGridViewQuanlity.Rows)
+            {
+                MesService.QuanlityHistory quanlityHistory = new MesService.QuanlityHistory();
+                var ridCode = rowInfo.Cells[3].Value.ToString();
+                var materialCode = serviceClient.GetMaterialCode(ridCode);
+                quanlityHistory.MaterialCode = materialCode;
+                quanlityHistoryList.Add(quanlityHistory);
+            }
+            var delRow = serviceClient.DeleteQuanlityMsg(quanlityHistoryList.ToArray());
             if (delRow > 0)
             {
-                MessageBox.Show("删除数据完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"已删除数据{delRow}条！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("删除数据未完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("未删除任何数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             SelectOfMaterialQuanlity();
         }
@@ -449,6 +492,7 @@ namespace MesManager.UI
 
         async private void SelectOfSn()
         {
+            LogHelper.Log.Info("开始查询...");
             //page
             var filter = tb_sn.Text;
             if (filter != "")
@@ -458,28 +502,31 @@ namespace MesManager.UI
             }
             this.radGridViewSn.DataSource = null;
             this.radGridViewSn.Update();
-            var pcbaList = serviceClient.SelectUseAllPcbaSN().Length;
-            if (pcbaList % pageSize > 0)
+            //var pcbaHis = (await serviceClient.SelectUseAllPcbaSNAsync());
+            //MessageBox.Show(pcbaHis.Length+"");
+            var testResultObj = await serviceClient.SelectTestResultDetailAsync(filter, currentPage, pageSize);
+            if (testResultObj.TestResultNumber % pageSize > 0)
             {
-                pageCount = pcbaList / pageSize + 1;
+                pageCount = testResultObj.TestResultNumber / pageSize + 1;
             }
             else
             {
-                pageCount = pcbaList / pageSize;
+                pageCount = testResultObj.TestResultNumber / pageSize;
             }
             var dtSource = InitBindRowSource();
+            LogHelper.Log.Info("init bindRow source over...");
             //DataSet ds = (await serviceClient.SelectTestResultUpperAsync(filter, filter, filter, true));
-            DataSet ds = await serviceClient.SelectTestResultDetailAsync(filter,currentPage,pageSize,true);
+            //LogHelper.Log.Info("查询结果完毕...");
             this.radGridViewSn.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridViewSn.BeginEdit();
-            DataTable dt = ds.Tables[0];
+            DataTable dt = testResultObj.TestResultDataSet.Tables[0];
             this.radGridViewSn.DataSource = dt;
             bindingSource1.DataSource = dtSource;
             this.bindingNavigator1.BindingSource = bindingSource1;
             this.radGridViewSn.EndEdit();
             this.radGridViewSn.BestFitColumns();
+            LogHelper.Log.Info("显示完毕...");
         }
-
         
         async private void SelectOfPackage(string state)
         {

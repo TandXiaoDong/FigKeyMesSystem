@@ -10,5 +10,7 @@ namespace MesAPI.Model
         public int HistoryNumber { get; set; }
 
         public System.Data.DataSet QuanlityHistoryData { get; set; }
+
+        public string MaterialCode { get; set; }
     }
 }

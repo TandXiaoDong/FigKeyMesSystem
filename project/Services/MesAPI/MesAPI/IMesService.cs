@@ -100,7 +100,7 @@ namespace MesAPI
         int DeleteMaterialBasicMsg(string queryCondition);
 
         [OperationContract]
-        int DeleteQuanlityMsg(string materialCode);
+        int DeleteQuanlityMsg(List<QuanlityHistory> quanlityList);
 
         [OperationContract]
         int DeleteMaterial(string materialCode);
@@ -211,7 +211,7 @@ namespace MesAPI
         PackageProductHistory SelectPackageStorage(string queryFilter, int pageIndex, int pageSize);
 
         [OperationContract]
-        DataSet SelectTestResultDetail(string querySN,int pageNumber,int pageSize, bool IsQueryLatest);
+        TestResultHistory SelectTestResultDetail(string querySN, int pageIndex, int pageSize);
 
         //[OperationContract]
         //DataSet SelectTestResultDetail(string querySN);
@@ -250,9 +250,18 @@ namespace MesAPI
         int DeleteProcess(string processName);
 
         [OperationContract]
-        List<string> SelectUseAllPcbaSN();
+        List<TestResultHistory> SelectUseAllPcbaSN();
 
         [OperationContract]
         int DeleteTestLogHistory(List<TestLogResultHistory> logList);
+
+        [OperationContract]
+        int DeleteMaterialBasicHistory(List<MaterialResultInfo> materialList);
+
+        [OperationContract]
+        int DeleteProductPackageHistory(List<PackageProductHistory> packageList);
+
+        [OperationContract]
+        int DeleteCheckProductPackageHistory(List<CheckPackageProductHistory> packageList);
     }
 }

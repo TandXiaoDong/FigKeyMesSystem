@@ -652,6 +652,9 @@
     <None Include="Connected Services\MesService\MesManager.MesService.Station.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\MesService\MesManager.MesService.TestResultHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\MesService\MesManager.MesService.TestStandSpecHistory.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

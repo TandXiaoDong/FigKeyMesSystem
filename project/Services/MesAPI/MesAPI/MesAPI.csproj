@@ -330,6 +330,7 @@
     <Compile Include="Model\StockMsg.cs" />
     <Compile Include="Model\TestLogResultHistory.cs" />
     <Compile Include="Model\TestResultBasic.cs" />
+    <Compile Include="Model\TestResultHistory.cs" />
     <Compile Include="Model\TestReulstDetail.cs" />
     <Compile Include="Model\TestStandSpecHistory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

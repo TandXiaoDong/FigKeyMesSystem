@@ -71,6 +71,32 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="MaterialStockState" nillable="true" type="tns:MaterialStockState" />
+  <xs:complexType name="ArrayOfQuanlityHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="QuanlityHistory" nillable="true" type="tns:QuanlityHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfQuanlityHistory" nillable="true" type="tns:ArrayOfQuanlityHistory" />
+  <xs:complexType name="QuanlityHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HistoryNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="MaterialCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QuanlityHistoryData" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QuanlityHistory" nillable="true" type="tns:QuanlityHistory" />
   <xs:complexType name="ArrayOfProductMaterial">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductMaterial" nillable="true" type="tns:ProductMaterial" />
@@ -92,6 +118,7 @@
   <xs:element name="ProductMaterial" nillable="true" type="tns:ProductMaterial" />
   <xs:complexType name="MaterialResultInfo">
     <xs:sequence>
+      <xs:element minOccurs="0" name="MaterialCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MaterialResultData" nillable="true">
         <xs:complexType>
           <xs:annotation>
@@ -106,6 +133,9 @@
         </xs:complexType>
       </xs:element>
       <xs:element minOccurs="0" name="MaterialRowCount" type="xs:int" />
+      <xs:element minOccurs="0" name="PcbaSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductTypeNo" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="MaterialResultInfo" nillable="true" type="tns:MaterialResultInfo" />
@@ -173,27 +203,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfTestStandSpecHistory" nillable="true" type="tns:ArrayOfTestStandSpecHistory" />
-  <xs:complexType name="QuanlityHistory">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="HistoryNumber" type="xs:int" />
-      <xs:element minOccurs="0" name="QuanlityHistoryData" nillable="true">
-        <xs:complexType>
-          <xs:annotation>
-            <xs:appinfo>
-              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
-            </xs:appinfo>
-          </xs:annotation>
-          <xs:sequence>
-            <xs:element ref="xs:schema" />
-            <xs:any />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="QuanlityHistory" nillable="true" type="tns:QuanlityHistory" />
   <xs:complexType name="PackageProductHistory">
     <xs:sequence>
+      <xs:element minOccurs="0" name="BindState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OutCaseCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PackageCaseData" nillable="true">
         <xs:complexType>
           <xs:annotation>
@@ -208,11 +221,34 @@
         </xs:complexType>
       </xs:element>
       <xs:element minOccurs="0" name="PackageCaseNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="ProductTypeNo" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PackageProductHistory" nillable="true" type="tns:PackageProductHistory" />
+  <xs:complexType name="TestResultHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PcbaSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductTypeNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TestResultDataSet" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="TestResultNumber" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TestResultHistory" nillable="true" type="tns:TestResultHistory" />
   <xs:complexType name="CheckPackageProductHistory">
     <xs:sequence>
+      <xs:element minOccurs="0" name="BindState" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CheckPackageCaseData" nillable="true">
         <xs:complexType>
           <xs:annotation>
@@ -227,6 +263,9 @@
         </xs:complexType>
       </xs:element>
       <xs:element minOccurs="0" name="CheckPackageCaseNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="OutCaseCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductTypeNo" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CheckPackageProductHistory" nillable="true" type="tns:CheckPackageProductHistory" />
@@ -241,6 +280,12 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="MaterialStockEnum" nillable="true" type="tns:MaterialStockEnum" />
+  <xs:complexType name="ArrayOfTestResultHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TestResultHistory" nillable="true" type="tns:TestResultHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTestResultHistory" nillable="true" type="tns:ArrayOfTestResultHistory" />
   <xs:complexType name="ArrayOfTestLogResultHistory">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="TestLogResultHistory" nillable="true" type="tns:TestLogResultHistory" />
@@ -272,4 +317,22 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TestLogResultHistory" nillable="true" type="tns:TestLogResultHistory" />
+  <xs:complexType name="ArrayOfMaterialResultInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MaterialResultInfo" nillable="true" type="tns:MaterialResultInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMaterialResultInfo" nillable="true" type="tns:ArrayOfMaterialResultInfo" />
+  <xs:complexType name="ArrayOfPackageProductHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PackageProductHistory" nillable="true" type="tns:PackageProductHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPackageProductHistory" nillable="true" type="tns:ArrayOfPackageProductHistory" />
+  <xs:complexType name="ArrayOfCheckPackageProductHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CheckPackageProductHistory" nillable="true" type="tns:CheckPackageProductHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCheckPackageProductHistory" nillable="true" type="tns:ArrayOfCheckPackageProductHistory" />
 </xs:schema>
