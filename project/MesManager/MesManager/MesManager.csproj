@@ -278,10 +278,12 @@
     <Compile Include="Control\TreeViewUI\TreeViewData.cs" />
     <Compile Include="Control\ZedGraph.cs" />
     <Compile Include="DB\Config.cs" />
+    <Compile Include="DB\DbTable.cs" />
     <Compile Include="DB\Order.cs" />
     <Compile Include="DB\OrderItem.cs" />
-    <Compile Include="DB\SQLServer.cs" />
+    <Compile Include="DB\SQLServer1.cs" />
     <Compile Include="CommonEnum\PorterRateEnum.cs" />
+    <Compile Include="DB\TestResultQuery.cs" />
     <Compile Include="FigKeyLog.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -309,6 +311,8 @@
     <Compile Include="Model\ShellConfig.cs" />
     <Compile Include="Model\StandCommon.cs" />
     <Compile Include="Model\StentConfig.cs" />
+    <Compile Include="Model\TestResultBasic.cs" />
+    <Compile Include="Model\TestReulstDetail.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -606,20 +610,20 @@
     <None Include="Connected Services\MesServiceTest\MesManager.MesServiceTest.PCBABindHistory.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService.wsdl" />
+    <None Include="Connected Services\MesServiceTest\MesService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService1.wsdl" />
-    <None Include="Connected Services\MesServiceTest\MesService1.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService51.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService2.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService52.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService3.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService53.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService4.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService54.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\MesService\MesManager.MesService.CheckPackageProductHistory.datasource">
@@ -658,20 +662,20 @@
     <None Include="Connected Services\MesService\MesManager.MesService.TestStandSpecHistory.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\MesService\MesService1.wsdl" />
-    <None Include="Connected Services\MesService\MesService5.xsd">
+    <None Include="Connected Services\MesService\MesService.wsdl" />
+    <None Include="Connected Services\MesService\MesService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService51.xsd">
+    <None Include="Connected Services\MesService\MesService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService52.xsd">
+    <None Include="Connected Services\MesService\MesService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService53.xsd">
+    <None Include="Connected Services\MesService\MesService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService54.xsd">
+    <None Include="Connected Services\MesService\MesService4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -698,8 +702,8 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService1.disco" />
-    <None Include="Connected Services\MesService\MesService1.disco" />
+    <None Include="Connected Services\MesService\MesService.disco" />
+    <None Include="Connected Services\MesServiceTest\MesService.disco" />
     <Content Include="MES修改设计.txt" />
     <Content Include="需求总结.txt" />
     <Content Include="测试内容.txt" />

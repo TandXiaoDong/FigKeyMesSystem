@@ -959,6 +959,7 @@ namespace MesAPI
                     if (pageIndex == 1)
                     {
                         pcbaCacheList = SelectUseAllPcbaSN();//更新PCBA数据
+                        LogHelper.Log.Info("查询所有PCBA完毕...");
                     }
                     if (pageIndex * pageSize > pcbaCacheList.Count)
                     {
@@ -998,11 +999,11 @@ namespace MesAPI
                     //}
                     #endregion
                 }
-
                 //List<TestReulstDetail> testReulstDetailsList = new List<TestReulstDetail>();
                 //List<TestResultBasic> testResultBasicsList = SelectTestResultBasic();
+                LogHelper.Log.Info("开始查询明细...");
                 testResultHistory.TestResultDataSet = SelectTestResultDetail1(pcbaArray);
-                LogHelper.Log.Info("查询结束");
+                LogHelper.Log.Info("查询明细结束...");
                 return testResultHistory;
             }
             catch (Exception ex)

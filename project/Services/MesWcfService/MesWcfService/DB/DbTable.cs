@@ -23,6 +23,8 @@ namespace MesWcfService.DB
         public const string F_BINDING_PCBA_NAME             = "[WT_SCL].[dbo].[f_binding_pcba]";
         public const string F_MATERIAL_PN_NAME              = "[WT_SCL].[dbo].[f_material_pn]";
         public const string F_PCBA_NAME                     = "[WT_SCL].[dbo].[f_pcba]";
+        public const string F_TEST_PCBA_NAME                = "[WT_SCL].[dbo].[f_testPCBA]";
+        public const string F_TEST_RESULT_HISTORY_NAME      = "[WT_SCL].[dbo].[f_testResultHistory]";
 
         public class F_User
         {
@@ -221,6 +223,84 @@ namespace MesWcfService.DB
             public const string SN_OUTTER = "sn_outter";
             public const string PCBA_STATE = "pcba_state";
             public const string OUTTER_STATE = "shell_state";
+        }
+
+        public class F_TEST_PCBA
+        {
+            public const string PCBA_SN = "[pcbaSN]";
+            public const string PRODUCT_SN = "productSN";
+        }
+
+        public class F_TEST_RESULT_HISTORY
+        {
+            //65 column
+            public const string id = "[ID]";
+            public const string updateDate = "[updateDate]";
+            public const string pcbaSN = "[pcbaSN]";
+            public const string productSN = "[productSN]";
+            public const string productTypeNo = "[productTypeNo]";
+            public const string burnStationName = "[burnStationName]";
+            public const string burnDateIn = "[burnDateIn]";
+            public const string burnDateOut = "[burnDateOut]";
+            public const string burnTestResult = "[burnTestResult]";
+            public const string burnOperator = "[burnOperator]";
+            public const string burnItem_burn = "[burnItem_burn]";
+            public const string burnItem_voltage13_5 = "[burnItem_voltage13-5]";
+            public const string burnItem_voltage5 = "[burnItem_voltage5]";
+            public const string burnItem_voltage3_3_1 = "[burnItem_voltage3-3_1]";
+            public const string burnItem_softVersion = "[burnItem_softVersion]";
+            public const string sensibilityStationName = "[sensibilityStationName]";
+            public const string sensibilityDateIn = "[sensibilityDateIn]";
+            public const string sensibilityDateOut = "[sensibilityDateOut]";
+            public const string sensibilityTestResult = "[sensibilityTestResult]";
+            public const string sensibilityOperator = "[sensibilityOperator]";
+            public const string sensibilityItem_workElect = "[sensibilityItem_workElect]";
+            public const string sensibilityItem_partNumber = "[sensibilityItem_partNumber]";
+            public const string sensibilityItem_hardwareVersion = "[sensibilityItem_hardwareVersion]";
+            public const string sensibilityItem_softVersion = "[sensibilityItem_softVersion]";
+            public const string sensibilityItem_EcuID = "[sensibilityItem_EcuID]";
+            public const string sensibilityItem_bootloader = "[sensibilityItem_bootloader]";
+            public const string sensibilityItem_radioFreq = "[sensibilityItem_radioFreq]";
+            public const string sensibilityItem_dormantElect = "[sensibilityItem_dormantElect]";
+            public const string shellStationName = "[shellStationName]";
+            public const string shellDateIn = "[shellDateIn]";
+            public const string shellDateOut = "[shellDateOut]";
+            public const string shellTestResult = "[shellTestResult]";
+            public const string shellOperator = "[shellOperator]";
+            public const string shellItem_frontCover = "[shellItem_frontCover]";
+            public const string shellItem_backCover = "[shellItem_backCover]";
+            public const string shellItem_pcbScrew1 = "[shellItem_pcbScrew1]";
+            public const string shellItem_pcbScrew2 = "[shellItem_pcbScrew2]";
+            public const string shellItem_pcbScrew3 = "[shellItem_pcbScrew3]";
+            public const string shellItem_pcbScrew4 = "[shellItem_pcbScrew4]";
+            public const string shellItem_shellScrew1 = "[shellItem_shellScrew1]";
+            public const string shellItem_shellScrew2 = "[shellItem_shellScrew2]";
+            public const string shellItem_shellScrew3 = "[shellItem_shellScrew3]";
+            public const string shellItem_shellScrew4 = "[shellItem_shellScrew4]";
+            public const string airtageStationName = "[airtageStationName]";
+            public const string airtageDateIn = "[airtageDateIn]";
+            public const string airtageDateOut = "[airtageDateOut]";
+            public const string airtageTestResult = "[airtageTestResult]";
+            public const string airtageOperator = "[airtageOperator]";
+            public const string airtageItem_airTest = "[airtageItem_airTest]";
+            public const string stentStationName = "[stentStationName]";
+            public const string stentDateIn = "[stentDateIn]";
+            public const string stentDateOut = "[stentDateOut]";
+            public const string stentTestResult = "[stentTestResult]";
+            public const string stentOperator = "[stentOperator]";
+            public const string stentItem_stentScrew1 = "[stentItem_stentScrew1]";
+            public const string stentItem_stentScrew2 = "[stentItem_stentScrew2]";
+            public const string stentItem_stent = "[stentItem_stent]";
+            public const string stentItem_leftStent = "[stentItem_leftStent]";
+            public const string stentItem_rightStent = "[stentItem_rightStent]";
+            public const string productStationName = "[productStationName]";
+            public const string productDateIn = "[productDateIn]";
+            public const string productDateOut = "[productDateOut]";
+            public const string productTestResult = "[productTestResult]";
+            public const string productOperator = "[productOperator]";
+            public const string productItem_workElect = "[productItem_workElect]";
+            public const string productItem_dormantElect = "[productItem_dormantElect]";
+            public const string productItem_inspectResult = "[productItem_inspectResult]";
         }
     }
 }

@@ -17,6 +17,10 @@ using System.Threading;
 using Telerik.WinControls.Themes;
 using Sunisoft.IrisSkin;
 using MesManager.Common;
+using CommonUtils.DB;
+using System.Configuration;
+using MesManager.DB;
+using System.Threading.Tasks;
 
 namespace MesManager.UI
 {
@@ -72,6 +76,7 @@ namespace MesManager.UI
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterParent;
+            SQLServer.SqlConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
         }
 
         private void SNCenter_Load(object sender, EventArgs e)
@@ -490,9 +495,9 @@ namespace MesManager.UI
             this.radDock1.ActiveWindow = this.dw_snHistory;
         }
 
-        async private void SelectOfSn()
+        private async void SelectOfSn()
         {
-            LogHelper.Log.Info("开始查询...");
+            //LogHelper.Log.Info("开始查询...");
             //page
             var filter = tb_sn.Text;
             if (filter != "")
@@ -504,7 +509,14 @@ namespace MesManager.UI
             this.radGridViewSn.Update();
             //var pcbaHis = (await serviceClient.SelectUseAllPcbaSNAsync());
             //MessageBox.Show(pcbaHis.Length+"");
-            var testResultObj = await serviceClient.SelectTestResultDetailAsync(filter, currentPage, pageSize);
+            //LogHelper.Log.Info("清空显示完毕...");
+            //var testResultObj = await serviceClient.SelectTestResultDetailAsync(filter, currentPage, pageSize);
+            TestResultQuery.TestResultHistory testResultObj = null;
+            await Task.Run(() =>
+            {
+                testResultObj = TestResultQuery.SelectTestResultDetail(filter,currentPage,pageSize);
+            });
+            //LogHelper.Log.Info("查询数据完毕...");
             if (testResultObj.TestResultNumber % pageSize > 0)
             {
                 pageCount = testResultObj.TestResultNumber / pageSize + 1;
@@ -514,7 +526,7 @@ namespace MesManager.UI
                 pageCount = testResultObj.TestResultNumber / pageSize;
             }
             var dtSource = InitBindRowSource();
-            LogHelper.Log.Info("init bindRow source over...");
+            //LogHelper.Log.Info("init bindRow source over...");
             //DataSet ds = (await serviceClient.SelectTestResultUpperAsync(filter, filter, filter, true));
             //LogHelper.Log.Info("查询结果完毕...");
             this.radGridViewSn.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
@@ -525,7 +537,7 @@ namespace MesManager.UI
             this.bindingNavigator1.BindingSource = bindingSource1;
             this.radGridViewSn.EndEdit();
             this.radGridViewSn.BestFitColumns();
-            LogHelper.Log.Info("显示完毕...");
+            //LogHelper.Log.Info("显示完毕...");
         }
         
         async private void SelectOfPackage(string state)

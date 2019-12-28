@@ -4,14 +4,26 @@ using System.Linq;
 using System.Web;
 using CommonUtils.DB;
 using CommonUtils.Logger;
+using CommonUtils.FileHelper;
 using MesWcfService.DB;
 using System;
 using MesWcfService;
+using System.Configuration;
 
 namespace MesWcfService.MessageQueue.RemoteClient
 {
     public class TestResult
     {
+        private PcbaTestResultStatusEnum pcbaTestResultStatusEnum;
+        private string pcbaID = "";
+
+        private enum PcbaTestResultStatusEnum
+        {
+            none,
+            pcbaNotExist,
+            currentStationExist,
+            currentStationNotExist
+        }
         private enum UpdateTestResultEnum
         {
             STATUS_SUCCESS = 0,
@@ -106,6 +118,435 @@ namespace MesWcfService.MessageQueue.RemoteClient
             return SQLServer.ExecuteNonQuery(insertSQL);
         }
 
+        private static void UpdateTestResultHistory(string sn, string processName,string station)
+        {
+            var insertSQL = "";
+            var updateSQL = "";
+            //int shellCodeLen = ReadShellCodeLength();
+            //int pcbaCodeLen = ReadPCBACodeLength();
+            var currentDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            if (station == "烧录工站")
+            {
+                insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.pcbaSN}," +
+                         $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.burnStationName}," +
+                         $"{DbTable.F_TEST_RESULT_HISTORY.burnDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
+                         $"VALUES('{sn}','{processName}','{station}','{currentDate}','{currentDate}')";
+                var recordStatus = IsExistBurnStationRecord(sn, station);
+                if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
+                {
+                    //insert new row
+                    SQLServer.ExecuteNonQuery(insertSQL);
+                }
+                else if(recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationNotExist)
+                {
+                    //update
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.burnStationName} = '{station}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.burnDateIn} = '{currentDate}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
+                    SQLServer.ExecuteNonQuery(updateSQL);
+                }
+            }
+            else if (station == "灵敏度测试工站")
+            {
+                insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.pcbaSN}," +
+                       $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName}," +
+                       $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
+                       $"VALUES('{sn}','{processName}','{station}','{currentDate}','{currentDate}')";
+                var recordStatus = IsExistBurnStationRecord(sn, station);
+                if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
+                {
+                    //insert new row
+                    SQLServer.ExecuteNonQuery(insertSQL);
+                }
+                else if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationNotExist)
+                {
+                    //update
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName} = '{station}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn} = '{currentDate}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
+                    SQLServer.ExecuteNonQuery(updateSQL);
+                }
+            }
+            else if (station == "外壳装配工站")
+            {
+                insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.pcbaSN}," +
+                          $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.shellStationName}," +
+                          $"{DbTable.F_TEST_RESULT_HISTORY.shellDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
+                          $"VALUES('{sn}','{processName}','{station}','{currentDate}','{currentDate}')";
+                var recordStatus = IsExistBurnStationRecord(sn, station);
+                if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
+                {
+                    //insert new row
+                    SQLServer.ExecuteNonQuery(insertSQL);
+                }
+                else if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationNotExist)
+                {
+                    //update
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{station}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.shellDateIn} = '{currentDate}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
+                    SQLServer.ExecuteNonQuery(updateSQL);
+                }
+            }
+            else if (station == "气密测试工站")
+            {
+                insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.productSN}," +
+                      $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.airtageStationName}," +
+                      $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
+                      $"VALUES('{sn}','{processName}','{station}','{currentDate}','{currentDate}')";
+                var recordStatus = IsExistBurnStationRecord(sn, station);
+                if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
+                {
+                    //insert new row
+                    SQLServer.ExecuteNonQuery(insertSQL);
+                }
+                else if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationNotExist)
+                {
+                    //update
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateIn} = '{currentDate}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
+                    SQLServer.ExecuteNonQuery(updateSQL);
+                }
+            }
+            else if (station == "支架装配工站")
+            {
+                insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.productSN}," +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.stentStationName}," +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.stentDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
+                        $"VALUES('{sn}','{processName}','{station}','{currentDate}','{currentDate}')";
+                var recordStatus = IsExistBurnStationRecord(sn, station);
+                if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
+                {
+                    //insert new row
+                    SQLServer.ExecuteNonQuery(insertSQL);
+                }
+                else if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationNotExist)
+                {
+                    //update
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.stentDateIn} = '{currentDate}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
+                    SQLServer.ExecuteNonQuery(updateSQL);
+                }
+            }
+            else if (station == "成品测试工站")
+            {
+                insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.productSN}," +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.productStationName}," +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
+                        $"VALUES('{sn}','{processName}','{station}','{currentDate}','{currentDate}')";
+                var recordStatus = IsExistBurnStationRecord(sn, station);
+                if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
+                {
+                    //insert new row
+                    SQLServer.ExecuteNonQuery(insertSQL);
+                }
+                else if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationNotExist)
+                {
+                    //update
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productDateIn} = '{currentDate}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
+                    SQLServer.ExecuteNonQuery(updateSQL);
+                }
+            }
+        }
+
+        private static int ReadShellCodeLength()
+        {
+            try
+            {
+                int shellLen = 0;
+                var defaultRoot = ConfigurationManager.AppSettings["shellCodeRoot"].ToString();
+                var process = new MesService().SelectCurrentTProcess();
+                string configPath = defaultRoot + ":\\StationConfig\\外壳装配工站\\" + process + "\\" + "外壳装配工站_" + process + "_config.ini";
+                int.TryParse(INIFile.GetValue(process, "设置外壳条码长度位数", configPath).Trim(), out shellLen);
+                //LogHelper.Log.Info("【配置文件路径】" + configPath + "len="+shellLen);
+                return shellLen;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error("读取配置长度错误！" + ex.Message + ex.StackTrace + "\r\n");
+                return 0;
+            }
+        }
+
+        private static int ReadPCBACodeLength()
+        {
+            try
+            {
+                int shellLen = 0;
+                var defaultRoot = ConfigurationManager.AppSettings["shellCodeRoot"].ToString();
+                var process = new MesService().SelectCurrentTProcess();
+                string configPath = defaultRoot + ":\\StationConfig\\外壳装配工站\\" + process + "\\" + "外壳装配工站_" + process + "_config.ini";
+                int.TryParse(INIFile.GetValue(process, "设置PCB条码长度位数", configPath).Trim(), out shellLen);
+                LogHelper.Log.Info("【配置文件路径】" + configPath + "len=" + shellLen);
+                return shellLen;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error("读取配置长度错误！" + ex.Message + ex.StackTrace + "\r\n");
+                return 16;
+            }
+        }
+
+        #region 查询工站是否有记录
+        /// <summary>
+        /// 查询烧录工站是否存在记录
+        /// </summary>
+        /// <param name="pcba"></param>
+        /// <param name="station"></param>
+        /// <returns></returns>
+        private static TestResult IsExistBurnStationRecord(string pcba, string station)
+        {
+            //根据PCBA查询最新记录
+            //存在-查询当前工站，是否已插入数据
+            //不存在数据，则更新上去；否则插入数据
+            TestResult testResult = new TestResult();
+            var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
+                $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+            var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
+            if (dtPcbaData.Rows.Count > 0)
+            {
+                //查询该工站是否有数据
+                var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
+                $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.burnStationName} = '{station}' " +
+                $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+                var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
+                if (dtStationData.Rows.Count > 0)
+                {
+                    testResult.pcbaTestResultStatusEnum = PcbaTestResultStatusEnum.currentStationExist;
+                    return testResult;
+                }
+                testResult.pcbaTestResultStatusEnum =  PcbaTestResultStatusEnum.currentStationNotExist;
+                testResult.pcbaID = dtPcbaData.Rows[0][0].ToString();
+                return testResult;
+            }
+            testResult.pcbaTestResultStatusEnum =  PcbaTestResultStatusEnum.pcbaNotExist;
+            return testResult;
+        }
+
+        /// <summary>
+        /// 查询灵敏度工站是否存在记录
+        /// </summary>
+        /// <param name="pcba"></param>
+        /// <param name="station"></param>
+        /// <returns></returns>
+        private static TestResult IsExistSensibilityStationRecord(string pcba,string station)
+        {
+            //根据PCBA查询最新记录
+            //存在-查询当前工站，是否已插入数据
+            //不存在数据，则更新上去；否则插入数据
+            TestResult testResult = new TestResult();
+            var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
+                $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+            var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
+            if (dtPcbaData.Rows.Count > 0)
+            {
+                //查询该工站是否有数据
+                var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName} " +
+                $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName} = '{station}'";
+                var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
+                if (dtStationData.Rows.Count > 0)
+                {
+                    testResult.pcbaTestResultStatusEnum = PcbaTestResultStatusEnum.currentStationExist;
+                    return testResult;
+                }
+                testResult.pcbaTestResultStatusEnum =  PcbaTestResultStatusEnum.currentStationNotExist;
+                testResult.pcbaID = dtPcbaData.Rows[0][0].ToString();
+                return testResult;
+            }
+            testResult.pcbaTestResultStatusEnum =  PcbaTestResultStatusEnum.pcbaNotExist;
+            return testResult;
+        }
+
+        /// <summary>
+        /// 查询外壳工站是否存在记录
+        /// </summary>
+        /// <param name="pcba"></param>
+        /// <param name="station"></param>
+        /// <returns></returns>
+        private static TestResult IsExistShellStationRecord(string pcba, string station)
+        {
+            //根据PCBA查询最新记录
+            //存在-查询当前工站，是否已插入数据
+            //不存在数据，则更新上去；否则插入数据
+            TestResult testResult = new TestResult();
+            var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
+                $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+            var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
+            if (dtPcbaData.Rows.Count > 0)
+            {
+                //查询该工站是否有数据
+                var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.shellStationName} " +
+                $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{station}'";
+                var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
+                if (dtStationData.Rows.Count > 0)
+                {
+                    testResult.pcbaTestResultStatusEnum = PcbaTestResultStatusEnum.currentStationExist;
+                    return testResult;
+                }
+                testResult.pcbaTestResultStatusEnum =  PcbaTestResultStatusEnum.currentStationNotExist;
+                testResult.pcbaID = dtPcbaData.Rows[0][0].ToString();
+                return testResult;
+            }
+            testResult.pcbaTestResultStatusEnum =  PcbaTestResultStatusEnum.pcbaNotExist;
+            return testResult;
+        }
+
+        /// <summary>
+        /// 查询气密工站是否存在记录
+        /// </summary>
+        /// <param name="pcba"></param>
+        /// <param name="station"></param>
+        /// <returns></returns>
+        private static TestResult IsExistAirtageStationRecord(string pcba, string station)
+        {
+            //根据PCBA查询最新记录
+            //存在-查询当前工站，是否已插入数据
+            //不存在数据，则更新上去；否则插入数据
+            TestResult testResult = new TestResult();
+            var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
+                $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+            var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
+            if (dtPcbaData.Rows.Count > 0)
+            {
+                //查询该工站是否有数据
+                var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.airtageStationName} " +
+                $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}'";
+                var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
+                if (dtStationData.Rows.Count > 0)
+                {
+                    testResult.pcbaTestResultStatusEnum = PcbaTestResultStatusEnum.currentStationExist;
+                    return testResult;
+                }
+                testResult.pcbaTestResultStatusEnum =  PcbaTestResultStatusEnum.currentStationNotExist;
+                testResult.pcbaID = dtPcbaData.Rows[0][0].ToString();
+                return testResult;
+            }
+            testResult.pcbaTestResultStatusEnum =  PcbaTestResultStatusEnum.pcbaNotExist;
+            return testResult;
+        }
+
+        /// <summary>
+        /// 查询支架工站是否存在记录
+        /// </summary>
+        /// <param name="pcba"></param>
+        /// <param name="station"></param>
+        /// <returns></returns>
+        private static TestResult IsExistStentStationRecord(string pcba, string station)
+        {
+            //根据PCBA查询最新记录
+            //存在-查询当前工站，是否已插入数据
+            //不存在数据，则更新上去；否则插入数据
+            TestResult testResult = new TestResult();
+            var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
+                $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+            var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
+            if (dtPcbaData.Rows.Count > 0)
+            {
+                //查询该工站是否有数据
+                var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.stentStationName} " +
+                $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}'";
+                var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
+                if (dtStationData.Rows.Count > 0)
+                {
+                    testResult.pcbaTestResultStatusEnum = PcbaTestResultStatusEnum.currentStationExist;
+                    testResult.pcbaID = dtStationData.Rows[0][0].ToString();
+                    return testResult;
+                }
+                testResult.pcbaTestResultStatusEnum =  PcbaTestResultStatusEnum.currentStationNotExist;
+                testResult.pcbaID = dtPcbaData.Rows[0][0].ToString();
+                return testResult;
+            }
+            testResult.pcbaTestResultStatusEnum =  PcbaTestResultStatusEnum.pcbaNotExist;
+            return testResult;
+        }
+
+        /// <summary>
+        /// 查询成品工站是否存在记录
+        /// </summary>
+        /// <param name="pcba"></param>
+        /// <param name="station"></param>
+        /// <returns></returns>
+        private static TestResult IsExistProductStationRecord(string pcba, string station)
+        {
+            //根据PCBA查询最新记录
+            //存在-查询当前工站，是否已插入数据
+            //不存在数据，则更新上去；否则插入数据
+            TestResult testResult = new TestResult();
+            var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
+                $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+            var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
+            if (dtPcbaData.Rows.Count > 0)
+            {
+                //查询该工站是否有数据
+                var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.productStationName} " +
+                $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}'";
+                var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
+                if (dtStationData.Rows.Count > 0)
+                {
+                    testResult.pcbaTestResultStatusEnum = PcbaTestResultStatusEnum.currentStationExist;
+                    return testResult;
+                }
+                testResult.pcbaTestResultStatusEnum =  PcbaTestResultStatusEnum.currentStationNotExist;
+                testResult.pcbaID = dtPcbaData.Rows[0][0].ToString();
+                return testResult;
+            }
+            testResult.pcbaTestResultStatusEnum =  PcbaTestResultStatusEnum.pcbaNotExist;
+            return testResult;
+        }
+        #endregion
+
         private static int UpdateTestResult(string sn ,string typeNo,string station,
             string result,string teamder,string admin,string joinDateTime)
         {
@@ -174,6 +615,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     int row = InsertTestResult(sn, processName, currentStation);
                     if (row > 0)
                     {
+                        UpdateTestResultHistory(sn,processName,currentStation);
                         LogHelper.Log.Info("【插入进站记录-第一站】成功");
                     }
                     else
@@ -314,6 +756,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                                 int row = InsertTestResult(sn, processName, currentStation);
                                 if (row > 0)
                                 {
+                                    UpdateTestResultHistory(sn, processName, currentStation);
                                     LogHelper.Log.Info("【插入进站记录-】成功");
                                 }
                                 else
@@ -345,6 +788,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     int row = InsertTestResult(sn,processName,currentStation);
                     if (row > 0)
                     {
+                        UpdateTestResultHistory(sn, processName, currentStation);
                         LogHelper.Log.Info("【插入进站记录】成功");
                     }
                     else
@@ -371,6 +815,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 return queryResult;
             }
         }
+
         public static string SelectSN(string snOutter)
         {
             /*

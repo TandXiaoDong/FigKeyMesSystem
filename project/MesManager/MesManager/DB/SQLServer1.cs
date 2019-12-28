@@ -8,9 +8,9 @@ using CommonUtils.Logger;
 
 namespace MesManager.DB
 {
-    class SQLServer
+    class SQLServer1
     {
-        public SQLServer()
+        public SQLServer1()
         {
             Init();
         }

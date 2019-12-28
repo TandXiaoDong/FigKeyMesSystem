@@ -271,6 +271,7 @@ namespace MesWcfService
 
         #region 【接口】 查询PCBA信息//此登录接口文档有问题
         [OperationContract]
+        //[SwaggerWcfPath("QueryPCBAMes", "查询PCBA信息")]
         PCBABindHistory QueryPCBAMes(string pcbasn, int pageIndex, int pageSize);
         #endregion
 

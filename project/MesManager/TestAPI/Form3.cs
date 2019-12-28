@@ -28,8 +28,7 @@ namespace TestAPI
             //ScrollText scrollText = new ScrollText(this.radLabel1,this.panel1,ScrollText.RoolDirection.Left);
             //ScrollText scrollText2 = new ScrollText(this.radLabel2, this.panel1, ScrollText.RoolDirection.Left);
             mesServiceTest = new MesServiceTest.MesServiceClient();
-            this.tb_testResult_num.Text = "1";
-            this.tb_sign.Text = "test_";
+          
         }
 
         private void InsertTestResult()
@@ -152,6 +151,21 @@ namespace TestAPI
         private void btn_insert_Click(object sender, EventArgs e)
         {
             InsertTestResult();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //进站
+            var sn = textBox1.Text;
+            mesServiceTest.SelectLastTestResult(sn, "灵敏度测试工站");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //出站
+            var sn = textBox1.Text;
+            var result = mesServiceTest.UpdateTestResultData(sn, "HTS-B2004-03-02", "烧录工站", "PASS","user1","","2019-12-16-01");
+            MessageBox.Show(result);
         }
     }
 }
