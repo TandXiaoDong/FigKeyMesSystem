@@ -743,7 +743,7 @@ namespace MesAPI
             return testResultsList;
         }
 
-        private int ReadShellCodeLength()
+        private static int ReadShellCodeLength()
         {
             try
             {
@@ -762,7 +762,7 @@ namespace MesAPI
             }
         }
 
-        private int ReadPCBACodeLength()
+        private static int ReadPCBACodeLength()
         {
             try
             {
@@ -1015,6 +1015,308 @@ namespace MesAPI
             testResultHistory.TestResultNumber = 0;
             testResultHistory.TestResultDataSet = dataSet;
             return testResultHistory;
+        }
+
+        public TestResultHistory SelectTestResultHistory(string querySN,int pageIndex,int pageSize)
+        {
+            TestResultHistory testResultHistory = new TestResultHistory();
+            DataSet ds = new DataSet();
+            DataTable dt = InitTestResultDataTable(true);
+            var selectPCBA = $"select {DbTable.F_TEST_PCBA.PCBA_SN} from {DbTable.F_TEST_PCBA_NAME} ";
+            var dbReader = SQLServer.ExecuteDataReader(selectPCBA);
+            if (dbReader.HasRows)
+            {
+                int i = 0;
+                int id = 0;
+                int startIndex = (pageIndex - 1) * pageSize;
+                while (dbReader.Read())
+                {
+                    if (i >= startIndex && i < pageIndex * pageSize)
+                    {
+                        var pid = dbReader[0].ToString();
+                        AddTestResultHistory(dt,id,pid);
+                        id++;
+                    }
+                    i++;
+                }
+                ds.Tables.Add(dt);
+                testResultHistory.TestResultNumber = i;
+                testResultHistory.TestResultDataSet = ds;
+                return testResultHistory;
+            }
+            ds.Tables.Add(dt);
+            testResultHistory.TestResultNumber = 0;
+            testResultHistory.TestResultDataSet = ds;
+            return testResultHistory;
+        }
+
+        private void AddTestResultHistory(DataTable resultData,int count,string pid)
+        {
+            DataRow dr = resultData.NewRow();
+            dr[TestResultItemContent.Order] = count;
+            Dictionary<string, string> keyValues = new Dictionary<string, string>();
+            var productTypeNo = "";
+            var productSN = "";
+
+            #region 烧录工位信息
+            var selectDetailSQL = $"select top 1 {DbTable.F_TEST_RESULT_HISTORY.productSN}," +
+                $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}," +
+                $"{DbTable.F_TEST_RESULT_HISTORY.burnDateIn},{DbTable.F_TEST_RESULT_HISTORY.burnDateOut}," +
+                $"{DbTable.F_TEST_RESULT_HISTORY.burnTestResult},{DbTable.F_TEST_RESULT_HISTORY.burnOperator}," +
+                $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_burn},{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage13_5}," +
+                $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage5},{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage3_3_1}," +
+                $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage3_3_2},{DbTable.F_TEST_RESULT_HISTORY.burnItem_softVersion} " +
+                $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.burnDateIn}";
+            var stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
+            if (stationResultData.Rows.Count > 0)
+            {
+                productSN = stationResultData.Rows[0][0].ToString();
+                productTypeNo = stationResultData.Rows[0][1].ToString();
+                dr[TestResultItemContent.PcbaSN] = pid;
+                dr[TestResultItemContent.ProductSN] = productSN;
+                dr[TestResultItemContent.ProductTypeNo] = productTypeNo;
+                dr[STATION_TURN + TestResultItemContent.StationInDate_turn] = stationResultData.Rows[0][2].ToString();
+                dr[STATION_TURN + TestResultItemContent.StationOutDate_turn] = stationResultData.Rows[0][3].ToString();
+                dr[STATION_TURN + TestResultItemContent.UserTeamLeader_turn] = stationResultData.Rows[0][5].ToString();
+                var testResult = stationResultData.Rows[0][4].ToString();
+                keyValues.Add("烧录工站",testResult);
+                dr[STATION_TURN + TestResultItemContent.TestResultValue_turn] = testResult;
+
+                dr[STATION_TURN + TestResultItemContent.Turn_TurnItem] = AnalysisTestItemValue(stationResultData.Rows[0][6].ToString());
+                dr[STATION_TURN + TestResultItemContent.Turn_Voltage_12V_Item] = AnalysisTestItemValue(stationResultData.Rows[0][7].ToString());
+                dr[STATION_TURN + TestResultItemContent.Turn_Voltage_5V_Item] = AnalysisTestItemValue(stationResultData.Rows[0][8].ToString());
+                dr[STATION_TURN + TestResultItemContent.Turn_Voltage_33_1V_Item] = AnalysisTestItemValue(stationResultData.Rows[0][9].ToString());
+                dr[STATION_TURN + TestResultItemContent.Turn_Voltage_33_2V_Item] = AnalysisTestItemValue(stationResultData.Rows[0][10].ToString());
+                dr[STATION_TURN + TestResultItemContent.Turn_SoftVersion] = AnalysisTestItemValue(stationResultData.Rows[0][11].ToString());
+            }
+            #endregion
+
+            #region 灵敏度
+            selectDetailSQL = $"select top 1 " +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn},{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateOut}," +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityOperator},{DbTable.F_TEST_RESULT_HISTORY.sensibilityTestResult}," +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_workElect},{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_partNumber}," +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_hardwareVersion},{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_softVersion}," +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_EcuID},{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_bootloader}, " +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_radioFreq},{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_dormantElect} " +
+                 $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn}";
+            stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
+            if (stationResultData.Rows.Count > 0)
+            {
+                dr[STATION_SENSIBLITY + TestResultItemContent.StationInDate_sen] = stationResultData.Rows[0][0].ToString();
+                dr[STATION_SENSIBLITY + TestResultItemContent.StationOutDate_sen] = stationResultData.Rows[0][1].ToString();
+                dr[STATION_SENSIBLITY + TestResultItemContent.UserTeamLeader_sen] = stationResultData.Rows[0][2].ToString();
+                var testResult = stationResultData.Rows[0][3].ToString();
+                keyValues.Add("灵敏度测试工站", testResult);
+                dr[STATION_SENSIBLITY + TestResultItemContent.TestResultValue_sen] = testResult;
+
+                dr[STATION_SENSIBLITY + TestResultItemContent.Sen_Work_Electric_Test] = AnalysisTestItemValue(stationResultData.Rows[0][4].ToString());
+                dr[STATION_SENSIBLITY + TestResultItemContent.Sen_PartNumber] = AnalysisTestItemValue(stationResultData.Rows[0][5].ToString());
+                dr[STATION_SENSIBLITY + TestResultItemContent.Sen_HardWareVersion] = AnalysisTestItemValue(stationResultData.Rows[0][6].ToString());
+                dr[STATION_SENSIBLITY + TestResultItemContent.Sen_SoftVersion] = AnalysisTestItemValue(stationResultData.Rows[0][7].ToString());
+                dr[STATION_SENSIBLITY + TestResultItemContent.Sen_ECUID] = AnalysisTestItemValue(stationResultData.Rows[0][8].ToString());
+                dr[STATION_SENSIBLITY + TestResultItemContent.Sen_BootloaderVersion] = AnalysisTestItemValue(stationResultData.Rows[0][9].ToString());
+                dr[STATION_SENSIBLITY + TestResultItemContent.Sen_RadioFreq] = AnalysisTestItemValue(stationResultData.Rows[0][10].ToString());
+                dr[STATION_SENSIBLITY + TestResultItemContent.Sen_DormantElect] = AnalysisTestItemValue(stationResultData.Rows[0][11].ToString());
+            }
+            #endregion
+
+            #region 外壳
+            selectDetailSQL = $"select top 1 " +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.shellDateIn},{DbTable.F_TEST_RESULT_HISTORY.shellDateOut}," +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.shellOperator},{DbTable.F_TEST_RESULT_HISTORY.shellTestResult}," +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_frontCover},{DbTable.F_TEST_RESULT_HISTORY.shellItem_backCover}," +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_pcbScrew1},{DbTable.F_TEST_RESULT_HISTORY.shellItem_pcbScrew2}," +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_pcbScrew3},{DbTable.F_TEST_RESULT_HISTORY.shellItem_pcbScrew4}, " +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_shellScrew1},{DbTable.F_TEST_RESULT_HISTORY.shellItem_shellScrew2}," +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_shellScrew3},{DbTable.F_TEST_RESULT_HISTORY.shellItem_shellScrew4} " +
+                 $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.shellDateIn}";
+            stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
+
+            if (stationResultData.Rows.Count > 0)
+            {
+                dr[STATION_SHELL + TestResultItemContent.StationInDate_shell] = stationResultData.Rows[0][0].ToString();
+                dr[STATION_SHELL + TestResultItemContent.StationOutDate_shell] = stationResultData.Rows[0][1].ToString();
+                dr[STATION_SHELL + TestResultItemContent.UserTeamLeader_shell] = stationResultData.Rows[0][2].ToString();
+                var testResult = stationResultData.Rows[0][3].ToString();
+                keyValues.Add("外壳装配工站", testResult);
+                dr[STATION_SHELL + TestResultItemContent.TestResultValue_shell] = testResult;
+
+                dr[STATION_SHELL + TestResultItemContent.Shell_FrontCover] = AnalysisTestItemValue(stationResultData.Rows[0][4].ToString());
+                dr[STATION_SHELL + TestResultItemContent.Shell_BackCover] = AnalysisTestItemValue(stationResultData.Rows[0][5].ToString());
+                dr[STATION_SHELL + TestResultItemContent.Shell_PCBScrew1] = AnalysisTestItemValue(stationResultData.Rows[0][6].ToString());
+                dr[STATION_SHELL + TestResultItemContent.Shell_PCBScrew2] = AnalysisTestItemValue(stationResultData.Rows[0][7].ToString());
+                dr[STATION_SHELL + TestResultItemContent.Shell_PCBScrew3] = AnalysisTestItemValue(stationResultData.Rows[0][8].ToString());
+                dr[STATION_SHELL + TestResultItemContent.Shell_PCBScrew4] = AnalysisTestItemValue(stationResultData.Rows[0][9].ToString());
+                dr[STATION_SHELL + TestResultItemContent.Shell_ShellScrew1] = AnalysisTestItemValue(stationResultData.Rows[0][10].ToString());
+                dr[STATION_SHELL + TestResultItemContent.Shell_ShellScrew2] = AnalysisTestItemValue(stationResultData.Rows[0][11].ToString());
+                dr[STATION_SHELL + TestResultItemContent.Shell_ShellScrew3] = AnalysisTestItemValue(stationResultData.Rows[0][12].ToString());
+                dr[STATION_SHELL + TestResultItemContent.Shell_ShellScrew4] = AnalysisTestItemValue(stationResultData.Rows[0][13].ToString());
+            }
+            #endregion
+
+            #region 气密
+            selectDetailSQL = $"select top 1 " +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateIn},{DbTable.F_TEST_RESULT_HISTORY.airtageDateOut}," +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.airtageOperator},{DbTable.F_TEST_RESULT_HISTORY.airtageTestResult}," +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.airtageItem_airTest} " +
+                 $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.airtageDateIn}";
+            stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
+            if (stationResultData.Rows.Count > 0)
+            {
+                dr[STATION_AIR + TestResultItemContent.StationInDate_air] = stationResultData.Rows[0][0].ToString();
+                dr[STATION_AIR + TestResultItemContent.StationOutDate_air] = stationResultData.Rows[0][1].ToString();
+                dr[STATION_AIR + TestResultItemContent.UserTeamLeader_air] = stationResultData.Rows[0][2].ToString();
+                var testResult = stationResultData.Rows[0][3].ToString();
+                keyValues.Add("气密测试工站", testResult);
+                dr[STATION_AIR + TestResultItemContent.TestResultValue_air] = testResult;
+                dr[STATION_AIR + TestResultItemContent.Air_AirtightTest] = AnalysisTestItemValue(stationResultData.Rows[0][4].ToString());
+            }
+            #endregion
+
+            #region 支架
+            selectDetailSQL = $"select top 1 " +
+              $"{DbTable.F_TEST_RESULT_HISTORY.stentDateIn},{DbTable.F_TEST_RESULT_HISTORY.stentDateOut}," +
+              $"{DbTable.F_TEST_RESULT_HISTORY.stentOperator},{DbTable.F_TEST_RESULT_HISTORY.stentTestResult}," +
+              $"{DbTable.F_TEST_RESULT_HISTORY.stentItem_stentScrew1},{DbTable.F_TEST_RESULT_HISTORY.stentItem_stentScrew2}," +
+              $"{DbTable.F_TEST_RESULT_HISTORY.stentItem_stent},{DbTable.F_TEST_RESULT_HISTORY.stentItem_leftStent}," +
+              $"{DbTable.F_TEST_RESULT_HISTORY.stentItem_rightStent} " +
+              $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+              $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.stentDateIn}";
+            stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
+
+            if (stationResultData.Rows.Count > 0)
+            {
+                dr[STATION_STENT + TestResultItemContent.StationInDate_stent] = stationResultData.Rows[0][0].ToString();
+                dr[STATION_STENT + TestResultItemContent.StationOutDate_stent] = stationResultData.Rows[0][1].ToString();
+                dr[STATION_STENT + TestResultItemContent.UserTeamLeader_stent] = stationResultData.Rows[0][2].ToString();
+                var testResult = stationResultData.Rows[0][3].ToString();
+                keyValues.Add("支架装配工站", testResult);
+                dr[STATION_STENT + TestResultItemContent.TestResultValue_stent] = testResult;
+
+                dr[STATION_STENT + TestResultItemContent.Stent_Screw1] = stationResultData.Rows[0][4].ToString();
+                dr[STATION_STENT + TestResultItemContent.Stent_Screw2] = stationResultData.Rows[0][5].ToString();
+                dr[STATION_STENT + TestResultItemContent.Stent_Stent] = stationResultData.Rows[0][6].ToString();
+                dr[STATION_STENT + TestResultItemContent.Stent_LeftStent] = stationResultData.Rows[0][7].ToString();
+                dr[STATION_STENT + TestResultItemContent.Stent_RightStent] = stationResultData.Rows[0][8].ToString();
+            }
+            #endregion
+
+            #region 成品
+            selectDetailSQL = $"select top 1 " +
+              $"{DbTable.F_TEST_RESULT_HISTORY.productDateIn},{DbTable.F_TEST_RESULT_HISTORY.productDateOut}," +
+              $"{DbTable.F_TEST_RESULT_HISTORY.productOperator},{DbTable.F_TEST_RESULT_HISTORY.productTestResult}," +
+              $"{DbTable.F_TEST_RESULT_HISTORY.productItem_workElect},{DbTable.F_TEST_RESULT_HISTORY.productItem_dormantElect}," +
+              $"{DbTable.F_TEST_RESULT_HISTORY.productItem_inspectResult} " +
+              $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+              $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.productDateIn}";
+            stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
+
+            if (stationResultData.Rows.Count > 0)
+            {
+                dr[STATION_PRODUCT + TestResultItemContent.StationInDate_product] = stationResultData.Rows[0][0].ToString();
+                dr[STATION_PRODUCT + TestResultItemContent.StationOutDate_product] = stationResultData.Rows[0][1].ToString();
+                dr[STATION_PRODUCT + TestResultItemContent.UserTeamLeader_product] = stationResultData.Rows[0][2].ToString();
+                var testResult = stationResultData.Rows[0][3].ToString();
+                keyValues.Add("成品测试工站", testResult);
+                dr[STATION_PRODUCT + TestResultItemContent.TestResultValue_product] = testResult;
+
+                dr[STATION_PRODUCT + TestResultItemContent.Product_Work_Electric_Test] = stationResultData.Rows[0][4].ToString();
+                dr[STATION_PRODUCT + TestResultItemContent.Product_DormantElect] = stationResultData.Rows[0][5].ToString();
+                dr[STATION_PRODUCT + TestResultItemContent.Product_Inspect_Result] = stationResultData.Rows[0][6].ToString();
+            }
+            #endregion
+
+            dr[TestResultItemContent.FinalResultValue] = CalProductTestFinalResult(productTypeNo,pid,productSN,keyValues);
+            resultData.Rows.Add(dr);
+        }
+
+        private static string AnalysisTestItemValue(string testItemString)
+        {
+            //testItem + "," + limit + "," + curValue + "," + testResult;
+            var showTestResult = "";
+            if (testItemString.Contains(","))
+            {
+                var itemArray = testItemString.Split(new char[] { ','},StringSplitOptions.None);
+                var testCurrentValue = itemArray[2];
+                var testResult = itemArray[3];
+                var currentValue = testCurrentValue.Trim().ToLower();
+                if (currentValue == "true" || currentValue == "passed")
+                {
+                    showTestResult = "Passed";
+                }
+                else if (currentValue == "failed" || currentValue == "false")
+                {
+                    showTestResult = "Failed";
+                }
+                else
+                {
+                    showTestResult = testResult + "," + testCurrentValue;
+                }
+            }
+            return showTestResult;
+        }
+
+        public string CalProductTestFinalResult(string productTypeNo,string pid,string sid,Dictionary<string,string> keyValues)
+        {
+            bool IsFinalResultPass = true;
+            var shellLen = ReadShellCodeLength();
+            var pcbaLen = ReadPCBACodeLength();
+            DataTable stationList = SelectStationList(productTypeNo).Tables[0];
+            //判断当前工艺流程是否没有外壳装配工站---即不能完成绑定关系,前后分开计算最终结果
+            /*
+             * 1）将有PCBA的几个工站进行计算
+             * 2）将有外壳SN的几个工站进行计算
+             */
+            var stationRow = stationList.Select($"{DbTable.F_Test_Result.STATION_NAME} = '外壳装配工站'");
+            if (stationRow.Length < 1)
+            {
+                //不包含外壳装配工站，重新生成计算工站
+                var cirticalID = CalCirticalStationID();
+                if (pid.Length == shellLen && sid == "")
+                {
+                    //只计算外壳装配之后的工站--临界点
+                    LogHelper.Log.Info("【只计算外壳装配之后的工站】" + pid);
+                    stationList = SelectCirticalStationList(productTypeNo, cirticalID, false).Tables[0];
+                }
+                else if (pid.Length < shellLen && sid == "")
+                {
+                    //只计算外壳装配之前的工站
+                    LogHelper.Log.Info("【只计算外壳装配之前的工站】" + pid);
+                    stationList = SelectCirticalStationList(productTypeNo, cirticalID, true).Tables[0];
+                }
+            }
+            if (stationList.Rows.Count > 0)
+            {
+                if (keyValues.Count > 0)
+                {
+                    foreach (var item in keyValues)
+                    {
+                        var tResult = item.Value.Trim().ToLower();
+                        foreach (DataRow dr in stationList.Rows)
+                        {
+                            if (dr[1].ToString() == item.Key)
+                            {
+                                if (tResult != "pass")
+                                    IsFinalResultPass = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (IsFinalResultPass)
+            {
+                return "PASS";
+            }
+            else
+            {
+                return "FAIL";
+            }
         }
 
         private DataSet SelectTestResultDetail1(TestResultHistory[] pcbaArray)
@@ -1506,6 +1808,7 @@ namespace MesAPI
             }
             return "";
         }
+
         public string GetProductSn(string sn)
         {
             //传入值为PCBA
@@ -2479,7 +2782,7 @@ namespace MesAPI
 
         private static bool IsExistStation(string stationName)
         {
-            var currentProcess = new MesService().SelectCurrentTProcess();
+            var currentProcess = SelectCurrentTProcess();
             var selectSQL = $"SELECT * FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} " +
                 $"WHERE " +
                 $"{DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} = '{currentProcess}' " +
@@ -4888,6 +5191,7 @@ namespace MesAPI
                 $"{DbTable.F_PRODUCT_PACKAGE_STORAGE_NAME} ";
             return SQLServer.ExecuteDataSet(selectSQL);
         }
+
         public string GetMaterialPN(string materialCode)
         {
             //A19083100008&S2.118&1.2.11.111&20&20190831&1T20190831001
@@ -5012,7 +5316,7 @@ namespace MesAPI
             //LogHelper.Log.Info("【产品型号】F_BINDING_PCBA 更新数量=" + row);
         }
 
-        private string SelectCurrentTProcess()
+        private static string SelectCurrentTProcess()
         {
             string selectSQL = $"SELECT DISTINCT {DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_NAME} " +
                 $"FROM {DbTable.F_TECHNOLOGICAL_PROCESS_NAME} WHERE {DbTable.F_TECHNOLOGICAL_PROCESS.PROCESS_STATE} = '1'";

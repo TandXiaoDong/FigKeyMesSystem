@@ -228,7 +228,8 @@ namespace MesWcfService.DB
         public class F_TEST_PCBA
         {
             public const string PCBA_SN = "[pcbaSN]";
-            public const string PRODUCT_SN = "productSN";
+            public const string PRODUCT_SN = "[productSN]";
+            public const string UPDATE_DATE = "[updateDate]";
         }
 
         public class F_TEST_RESULT_HISTORY
@@ -248,6 +249,7 @@ namespace MesWcfService.DB
             public const string burnItem_voltage13_5 = "[burnItem_voltage13-5]";
             public const string burnItem_voltage5 = "[burnItem_voltage5]";
             public const string burnItem_voltage3_3_1 = "[burnItem_voltage3-3_1]";
+            public const string burnItem_voltage3_3_2 = "[burnItem_voltage3-3_2]";
             public const string burnItem_softVersion = "[burnItem_softVersion]";
             public const string sensibilityStationName = "[sensibilityStationName]";
             public const string sensibilityDateIn = "[sensibilityDateIn]";
@@ -301,6 +303,7 @@ namespace MesWcfService.DB
             public const string productItem_workElect = "[productItem_workElect]";
             public const string productItem_dormantElect = "[productItem_dormantElect]";
             public const string productItem_inspectResult = "[productItem_inspectResult]";
+            public const string productItem_inspectItem = "[productItem_inspectItem]";
         }
     }
 }

@@ -164,8 +164,14 @@ namespace TestAPI
         {
             //出站
             var sn = textBox1.Text;
-            var result = mesServiceTest.UpdateTestResultData(sn, "HTS-B2004-03-02", "烧录工站", "PASS","user1","","2019-12-16-01");
+            var result = mesServiceTest.UpdateTestResultData("017 B19C20033703", "HTS-B2004-03-02", "灵敏度测试工站", "PASS","user1","","2019-12-16-01");
             MessageBox.Show(result);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var dr = mesServiceTest.UpdateTestLog("HTS-B2004-03-02","烧录工站", "017 B19C20033703", "13.5V电压测试", "12848","23","Passed","ad","ds", "2019-12-16-01");
+            MessageBox.Show(dr);
         }
     }
 }

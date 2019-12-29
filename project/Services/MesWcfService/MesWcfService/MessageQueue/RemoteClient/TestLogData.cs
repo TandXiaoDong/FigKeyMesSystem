@@ -11,6 +11,19 @@ namespace MesWcfService.MessageQueue.RemoteClient
 
     public class TestLogData
     {
+        public PcbaTestStationInStatusEnum pcbaTestStationInStatus;
+        public string pcbaID = "";
+
+        //进站-出站/进站-未出站/未进站
+        public enum PcbaTestStationInStatusEnum
+        {
+            none,
+            stationIn_not_stationOut,
+            staionIn_stationOut,
+            not_stationIn
+        }
+
+        #region testItem name
         public const string BurnStation = "烧录工站";
         public const string SensibilityStation = "灵敏度测试工站";
         public const string ShellStation = "外壳装配工站";
@@ -57,6 +70,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
         public const string Product_DormantElect = "休眠电流";
         public const string Product_Inspect_Result = "目检结果";
         public const string Product_InspectItem = "目检";
+        #endregion
 
         private static List<string> BurnTestItemList()
         {
@@ -184,6 +198,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     if (!ProductTestItemList().Contains(testItem))
                         return "OK";
                 }
+
                 var insertSQL = $"INSERT INTO {DbTable.F_TEST_LOG_DATA_NAME}(" +
                     $"{DbTable.F_TEST_LOG_DATA.TYPE_NO}," +
                     $"{DbTable.F_TEST_LOG_DATA.STATION_NAME}," +
@@ -203,7 +218,10 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 //    return "OK";
                 var res = SQLServer.ExecuteNonQuery(insertSQL);
                 if (res > 0)
+                {
+                    UpdateTestLogHistory(productSN,typeNo,stationName,testItem,limit,currentValue,testResult,teamLeader);
                     return "OK";
+                }
                 else
                 {
                     LogHelper.Log.Info(insertSQL);
@@ -234,5 +252,328 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 return true;
             return false;
         }
+
+        private static void UpdateTestLogHistory(string sn, string typeNo, string station, string testItem, string limit,
+            string curValue, string testResult, string user)
+        {
+            //根据pcbaSN 与产品型号/ 工站名称 查询是否已经进站，并且未出站，此时，更新测试项，并更新最终结果
+            //否则，未进站--不更新测试项与结果；进站但已经更新测试项与结果--进站失败 - 不能修改以前的进站记录
+            //testItem+limit+currentValue+testItemResult 逗号隔开
+            var updateSQL = "";
+            var testItemString = testItem + "," + limit + "," + curValue + "," + testResult;
+            var testLog = IsExistStationInRecord(sn, typeNo, station);
+            if (station == "烧录工站")
+            {
+                #region testItem type
+                if (testItem == Turn_TurnItem)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_burn} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Turn_SoftVersion)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_softVersion} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Turn_Voltage_12V_Item)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage13_5} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Turn_Voltage_5V_Item)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage5} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Turn_Voltage_33_1V_Item)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage3_3_1} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Turn_Voltage_33_2V_Item)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage3_3_2} = '{testItemString}' WHERE " +
+                      $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                #endregion
+            }
+            else if (station == "灵敏度测试工站")
+            {
+                #region testItem sen type
+                if (testItem == Sen_BootloaderVersion)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_bootloader} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Sen_DormantElect)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_dormantElect} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Sen_ECUID)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_EcuID} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Sen_HardWareVersion)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_hardwareVersion} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Sen_PartNumber)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_partNumber} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Sen_RadioFreq)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_radioFreq} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Sen_SoftVersion)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_softVersion} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Sen_Work_Electric_Test)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_workElect} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                #endregion
+            }
+            else if (station == "外壳装配工站")
+            {
+                #region shell testItem type
+                if (testItem == Shell_BackCover)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_backCover} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Shell_FrontCover)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_frontCover} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Shell_PCBScrew1)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_pcbScrew1} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Shell_PCBScrew2)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_pcbScrew2} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Shell_PCBScrew3)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_pcbScrew3} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Shell_PCBScrew4)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_pcbScrew4} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Shell_ShellScrew1)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_shellScrew1} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Shell_ShellScrew2)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_shellScrew2} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Shell_ShellScrew3)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_shellScrew3} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Shell_ShellScrew4)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_shellScrew4} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                #endregion
+            }
+            else if (station == "气密测试工站")
+            {
+                if (testItem == Air_AirtightTest)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.airtageItem_airTest} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+            }
+            else if (station == "支架装配工站")
+            {
+                #region stent testItem type
+                if (testItem == Stent_LeftStent)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.stentItem_leftStent} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Stent_RightStent)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.stentItem_rightStent} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Stent_Screw1)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.stentItem_stentScrew1} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Stent_Screw2)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.stentItem_stentScrew2} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Stent_Stent)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.stentItem_stent} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                #endregion
+            }
+            else if (station == "成品测试工站")
+            {
+                #region product testItem type
+                if (testItem == Product_DormantElect)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.productItem_dormantElect} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Product_InspectItem)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.productItem_inspectItem} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Product_Inspect_Result)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.productItem_inspectResult} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                else if (testItem == Product_Work_Electric_Test)
+                {
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.productItem_workElect} = '{testItemString}' WHERE " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+                }
+                #endregion
+            }
+
+            if (testLog.pcbaTestStationInStatus == PcbaTestStationInStatusEnum.stationIn_not_stationOut)
+            {
+                //update testItem
+                var upRow = SQLServer.ExecuteNonQuery(updateSQL);
+                LogHelper.Log.Info($"【更新测试项新表】{station} 影响行数=" + upRow);
+            }
+        }
+
+        #region 查询工站是否进站且未出站
+
+        /// <summary>
+        /// 查询烧录工站是否进站且未出站
+        /// </summary>
+        /// <param name="pcba"></param>
+        /// <param name="productTypeNo"></param>
+        /// <param name="station"></param>
+        /// <returns></returns>
+        public static TestLogData IsExistStationInRecord(string pcba, string productTypeNo, string station)
+        {
+            //根据PCBA查询最新记录
+            //存在-查询当前工站，是否已插入数据
+            //不存在数据，则更新上去；否则插入数据
+            TestLogData testLogResult = new TestLogData();
+            var selectPCBALastestSQL = "";
+            if (station == "烧录工站")
+            {
+                selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id}," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.burnDateOut},{DbTable.F_TEST_RESULT_HISTORY.burnTestResult} " +
+                    $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{productTypeNo}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.burnStationName} = '{station}' ORDER BY " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+            }
+            else if (station == "灵敏度测试工站")
+            {
+                selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id}," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateOut},{DbTable.F_TEST_RESULT_HISTORY.sensibilityTestResult} " +
+                    $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{productTypeNo}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName} = '{station}' ORDER BY " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+            }
+            else if (station == "外壳装配工站")
+            {
+                selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id}," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.shellDateOut},{DbTable.F_TEST_RESULT_HISTORY.shellTestResult} " +
+                    $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{productTypeNo}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{station}' ORDER BY " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+            }
+            else if (station == "气密测试工站")
+            {
+                selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id}," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateOut},{DbTable.F_TEST_RESULT_HISTORY.airtageTestResult} " +
+                    $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{productTypeNo}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}' ORDER BY " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+            }
+            else if (station == "支架装配工站")
+            {
+                selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id}," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.stentDateOut},{DbTable.F_TEST_RESULT_HISTORY.stentTestResult} " +
+                    $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{productTypeNo}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}' ORDER BY " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+            }
+            else if (station == "成品测试工站")
+            {
+                selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id}," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productDateOut},{DbTable.F_TEST_RESULT_HISTORY.productTestResult} " +
+                    $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{productTypeNo}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}' ORDER BY " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+            }
+
+            var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
+            if (dtPcbaData.Rows.Count > 0)
+            {
+                //已进站
+                //判断是否出站
+                var pid = dtPcbaData.Rows[0][0].ToString();
+                var stationOutDate = dtPcbaData.Rows[0][1].ToString();
+                var testResultValue = dtPcbaData.Rows[0][2].ToString();
+                if (stationOutDate == "" && testResultValue == "")
+                {
+                    //未出站，更新数据
+                    testLogResult.pcbaID = pid;
+                    testLogResult.pcbaTestStationInStatus = PcbaTestStationInStatusEnum.stationIn_not_stationOut;
+                }
+                else
+                {
+                    //已出站/不更新
+                    testLogResult.pcbaTestStationInStatus = PcbaTestStationInStatusEnum.staionIn_stationOut;
+                }
+            }
+            else
+            {
+                //未进站
+                testLogResult.pcbaTestStationInStatus = PcbaTestStationInStatusEnum.not_stationIn;
+            }
+            return testLogResult;
+        }
+
+        #endregion
     }
 }

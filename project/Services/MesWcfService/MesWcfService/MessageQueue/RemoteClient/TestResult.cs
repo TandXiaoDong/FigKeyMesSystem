@@ -17,6 +17,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
         private PcbaTestResultStatusEnum pcbaTestResultStatusEnum;
         private string pcbaID = "";
 
+
         private enum PcbaTestResultStatusEnum
         {
             none,
@@ -88,6 +89,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             if (row > 0)
             {
                 LogHelper.Log.Info("【更新出站结果】STATUS_SUCCESS=0X00");
+                UpdateStationOutResult(sn,typeNo,station,result);
                 return ConvertTestResultCode(UpdateTestResultEnum.STATUS_SUCCESS);
             }
             else
@@ -118,8 +120,15 @@ namespace MesWcfService.MessageQueue.RemoteClient
             return SQLServer.ExecuteNonQuery(insertSQL);
         }
 
+        /// <summary>
+        /// 进站时更新进站记录
+        /// </summary>
+        /// <param name="sn"></param>
+        /// <param name="processName"></param>
+        /// <param name="station"></param>
         private static void UpdateTestResultHistory(string sn, string processName,string station)
         {
+            UpdatePcbaTestHistory(sn);
             var insertSQL = "";
             var updateSQL = "";
             //int shellCodeLen = ReadShellCodeLength();
@@ -276,6 +285,40 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 }
             }
         }
+
+        private static void UpdatePcbaTestHistory(string sn)
+        {
+            //根据传入SN查询是否已经存在
+            //历史表不存在且绑定记录表不存在-则插入
+            //历史表不存在且绑定记录表存在--此SN为外壳SN--不插入
+            //历史表存在--不插入
+            var selectSQL = $"select top 1 * from {DbTable.F_TEST_PCBA_NAME} where " +
+                $"{DbTable.F_TEST_PCBA.PRODUCT_SN} = '{sn}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                //已存在数据/不插入
+            }
+            else
+            {
+                //不存在数据，查询是否已绑定
+                selectSQL = $"select top 1 * from {DbTable.F_BINDING_PCBA_NAME} where " +
+                    $"({DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}' OR {DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}') AND {DbTable.F_BINDING_PCBA.BINDING_STATE} = '1'";
+                dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    //已存在绑定记录/不插入
+                }
+                else
+                {
+                    //不存在绑定记录/插入
+                    var insertSQL = $"insert into {DbTable.F_TEST_PCBA_NAME}({DbTable.F_TEST_PCBA.PCBA_SN}," +
+                        $"{DbTable.F_TEST_PCBA.UPDATE_DATE}) values('{sn}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
+                    SQLServer.ExecuteNonQuery(insertSQL);
+                }
+            }
+        }
+             
 
         private static int ReadShellCodeLength()
         {
@@ -437,7 +480,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
         /// <param name="pcba"></param>
         /// <param name="station"></param>
         /// <returns></returns>
-        private static TestResult IsExistAirtageStationRecord(string pcba, string station)
+        private static TestResult IsExistAirtageStationRecord(string sn, string station)
         {
             //根据PCBA查询最新记录
             //存在-查询当前工站，是否已插入数据
@@ -445,7 +488,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             TestResult testResult = new TestResult();
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' ORDER BY " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
@@ -453,7 +496,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 //查询该工站是否有数据
                 var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.airtageStationName} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}'";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
@@ -475,7 +518,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
         /// <param name="pcba"></param>
         /// <param name="station"></param>
         /// <returns></returns>
-        private static TestResult IsExistStentStationRecord(string pcba, string station)
+        private static TestResult IsExistStentStationRecord(string sn, string station)
         {
             //根据PCBA查询最新记录
             //存在-查询当前工站，是否已插入数据
@@ -483,7 +526,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             TestResult testResult = new TestResult();
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' ORDER BY " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
@@ -491,7 +534,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 //查询该工站是否有数据
                 var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.stentStationName} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}'";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
@@ -514,7 +557,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
         /// <param name="pcba"></param>
         /// <param name="station"></param>
         /// <returns></returns>
-        private static TestResult IsExistProductStationRecord(string pcba, string station)
+        private static TestResult IsExistProductStationRecord(string sn, string station)
         {
             //根据PCBA查询最新记录
             //存在-查询当前工站，是否已插入数据
@@ -522,7 +565,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             TestResult testResult = new TestResult();
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' ORDER BY " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
@@ -530,7 +573,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 //查询该工站是否有数据
                 var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.productStationName} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}'";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
@@ -546,6 +589,59 @@ namespace MesWcfService.MessageQueue.RemoteClient
             return testResult;
         }
         #endregion
+
+        private static void UpdateStationOutResult(string sn,string typeNo,string station,string testResult)
+        {
+            var updateSQL = "";
+            var currentDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var testLog = TestLogData.IsExistStationInRecord(sn, typeNo, station);
+
+            #region station type
+            if (station == "烧录工站")
+            {
+                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.burnTestResult} = '{testResult}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.burnDateOut} = '{currentDate}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+            }
+            else if (station == "灵敏度测试工站")
+            {
+                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.sensibilityTestResult} = '{testResult}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateOut} = '{currentDate}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+            }
+            else if (station == "外壳装配工站")
+            {
+                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{testResult}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.shellDateOut} = '{currentDate}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+            }
+            else if (station == "气密测试工站")
+            {
+                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.airtageTestResult} = '{testResult}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateOut} = '{currentDate}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+            }
+            else if (station == "支架装配工站")
+            {
+                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.stentTestResult} = '{testResult}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.stentDateOut} = '{currentDate}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+            }
+            else if (station == "成品测试工站")
+            {
+                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.productTestResult} = '{testResult}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productDateOut} = '{currentDate}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+            }
+            #endregion
+
+            if (testLog.pcbaTestStationInStatus == TestLogData.PcbaTestStationInStatusEnum.stationIn_not_stationOut)
+            {
+                //update testItem
+                var upRow = SQLServer.ExecuteNonQuery(updateSQL);
+                LogHelper.Log.Info($"【更新测试项新表】{station} 影响行数=" + upRow);
+            }
+        }
 
         private static int UpdateTestResult(string sn ,string typeNo,string station,
             string result,string teamder,string admin,string joinDateTime)

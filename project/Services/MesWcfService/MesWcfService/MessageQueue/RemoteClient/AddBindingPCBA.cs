@@ -19,6 +19,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var sn_outter = array[1].Trim();
             var materialCode = array[2].Trim();
             var productTypeNo = array[3].Trim();
+            AddTestResultHistoryBindSN(sn_pcba,sn_outter);
             if (sn_pcba == "")
             {
                 sn_pcba = SelectPcba(sn_outter);
@@ -104,6 +105,20 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     LogHelper.Log.Info("【PCB绑定失败】" + insertSQL);
                     return "FAIL";
                 }
+            }
+        }
+
+        private static void AddTestResultHistoryBindSN(string pcbsn,string shellsn)
+        {
+            var selectSQL = $"select top 1 * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcbsn}' AND {DbTable.F_TEST_RESULT_HISTORY.productSN} = '{shellsn}'";
+            var updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.productSN} WHERE {DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcbsn}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count < 1)
+            {
+                //不存在绑定关系，添加绑定外壳
+                SQLServer.ExecuteNonQuery(updateSQL);
             }
         }
 
