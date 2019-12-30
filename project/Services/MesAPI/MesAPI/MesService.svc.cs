@@ -1022,7 +1022,12 @@ namespace MesAPI
             TestResultHistory testResultHistory = new TestResultHistory();
             DataSet ds = new DataSet();
             DataTable dt = InitTestResultDataTable(true);
-            var selectPCBA = $"select {DbTable.F_TEST_PCBA.PCBA_SN} from {DbTable.F_TEST_PCBA_NAME} ";
+            var selectPCBA = "";
+            if(querySN == "")
+                selectPCBA = $"select {DbTable.F_TEST_PCBA.PCBA_SN} from {DbTable.F_TEST_PCBA_NAME} ";
+            else 
+                selectPCBA = $"select {DbTable.F_TEST_PCBA.PCBA_SN} from {DbTable.F_TEST_PCBA_NAME} where {DbTable.F_TEST_PCBA.PCBA_SN} like '%{querySN}%'";
+            
             var dbReader = SQLServer.ExecuteDataReader(selectPCBA);
             if (dbReader.HasRows)
             {
@@ -1039,6 +1044,152 @@ namespace MesAPI
                     }
                     i++;
                 }
+                ds.Tables.Add(dt);
+                testResultHistory.TestResultNumber = i;
+                testResultHistory.TestResultDataSet = ds;
+                return testResultHistory;
+            }
+            ds.Tables.Add(dt);
+            testResultHistory.TestResultNumber = 0;
+            testResultHistory.TestResultDataSet = ds;
+            return testResultHistory;
+        }
+
+        public TestResultHistory SelectTestResultLogHistory(string querySN, string startTime, string endTime, int pageIndex, int pageSize)
+        {
+            TestResultHistory testResultHistory = new TestResultHistory();
+            DataSet ds = new DataSet();
+            DataTable dt = InitTestResultDataTable(true);
+            Dictionary<string, string> keyValues = new Dictionary<string, string>();
+            var selectLog = "";
+            if (querySN == "")
+                selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' && {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}'";
+            else
+                selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_PCBA.PCBA_SN} like '%{querySN}%' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' && {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}'";
+            var dbReader = SQLServer.ExecuteDataReader(selectLog);
+            if (dbReader.HasRows)
+            {
+                int i = 0;
+                int id = 0;
+                int startIndex = (pageIndex - 1) * pageSize;
+                while (dbReader.Read())
+                {
+                    if (i >= startIndex && i < pageIndex * pageSize)
+                    {
+                        var pid = dbReader[1].ToString();
+                        var sid = dbReader[2].ToString();
+                        var typeNo = dbReader[3].ToString();
+                        var bindState = dbReader["bindState"].ToString();
+                        DataRow dr = dt.NewRow();
+                        dr[TestResultItemContent.Order] = id + 1;
+                        dr[TestResultItemContent.PcbaSN] = pid;
+                        dr[TestResultItemContent.ProductSN] = sid;
+                        dr[TestResultItemContent.ProductTypeNo] = typeNo;
+
+                        #region 烧录工站
+                        dr[STATION_TURN + TestResultItemContent.StationInDate_turn] = dbReader[5].ToString();
+                        dr[STATION_TURN + TestResultItemContent.StationOutDate_turn] = dbReader[6].ToString();
+                        dr[STATION_TURN + TestResultItemContent.UserTeamLeader_turn] = dbReader[8].ToString();
+                        var testResult = dbReader[7].ToString();
+                        keyValues.Add("烧录工站", testResult);
+                        dr[STATION_TURN + TestResultItemContent.TestResultValue_turn] = testResult;
+
+                        dr[STATION_TURN + TestResultItemContent.Turn_TurnItem] = AnalysisTestItemValue(dbReader[9].ToString());
+                        dr[STATION_TURN + TestResultItemContent.Turn_Voltage_12V_Item] = AnalysisTestItemValue(dbReader[10].ToString());
+                        dr[STATION_TURN + TestResultItemContent.Turn_Voltage_5V_Item] = AnalysisTestItemValue(dbReader[11].ToString());
+                        dr[STATION_TURN + TestResultItemContent.Turn_Voltage_33_1V_Item] = AnalysisTestItemValue(dbReader[12].ToString());
+                        dr[STATION_TURN + TestResultItemContent.Turn_Voltage_33_2V_Item] = AnalysisTestItemValue(dbReader[13].ToString());
+                        dr[STATION_TURN + TestResultItemContent.Turn_SoftVersion] = AnalysisTestItemValue(dbReader[14].ToString());
+                        #endregion
+
+                        #region 灵敏度
+                        dr[STATION_SENSIBLITY + TestResultItemContent.StationInDate_sen] = dbReader[16].ToString();
+                        dr[STATION_SENSIBLITY + TestResultItemContent.StationOutDate_sen] = dbReader[17].ToString();
+                        dr[STATION_SENSIBLITY + TestResultItemContent.UserTeamLeader_sen] = dbReader[19].ToString();
+                        testResult = dbReader[18].ToString();
+                        keyValues.Add("灵敏度测试工站", testResult);
+                        dr[STATION_SENSIBLITY + TestResultItemContent.TestResultValue_sen] = testResult;
+
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_Work_Electric_Test] = AnalysisTestItemValue(dbReader[20].ToString());
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_PartNumber] = AnalysisTestItemValue(dbReader[21].ToString());
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_HardWareVersion] = AnalysisTestItemValue(dbReader[22].ToString());
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_SoftVersion] = AnalysisTestItemValue(dbReader[23].ToString());
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_ECUID] = AnalysisTestItemValue(dbReader[24].ToString());
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_BootloaderVersion] = AnalysisTestItemValue(dbReader[25].ToString());
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_RadioFreq] = AnalysisTestItemValue(dbReader[26].ToString());
+                        dr[STATION_SENSIBLITY + TestResultItemContent.Sen_DormantElect] = AnalysisTestItemValue(dbReader[27].ToString());
+                        #endregion
+
+                        #region 外壳
+
+                        dr[STATION_SHELL + TestResultItemContent.StationInDate_shell] = dbReader[29].ToString();
+                        dr[STATION_SHELL + TestResultItemContent.StationOutDate_shell] = dbReader[30].ToString();
+                        dr[STATION_SHELL + TestResultItemContent.UserTeamLeader_shell] = dbReader[32].ToString();
+                        testResult = dbReader[31].ToString();
+                        keyValues.Add("外壳装配工站", testResult);
+                        dr[STATION_SHELL + TestResultItemContent.TestResultValue_shell] = testResult;
+
+                        dr[STATION_SHELL + TestResultItemContent.Shell_FrontCover] = AnalysisTestItemValue(dbReader[33].ToString());
+                        dr[STATION_SHELL + TestResultItemContent.Shell_BackCover] = AnalysisTestItemValue(dbReader[34].ToString());
+                        dr[STATION_SHELL + TestResultItemContent.Shell_PCBScrew1] = AnalysisTestItemValue(dbReader[35].ToString());
+                        dr[STATION_SHELL + TestResultItemContent.Shell_PCBScrew2] = AnalysisTestItemValue(dbReader[36].ToString());
+                        dr[STATION_SHELL + TestResultItemContent.Shell_PCBScrew3] = AnalysisTestItemValue(dbReader[37].ToString());
+                        dr[STATION_SHELL + TestResultItemContent.Shell_PCBScrew4] = AnalysisTestItemValue(dbReader[38].ToString());
+                        dr[STATION_SHELL + TestResultItemContent.Shell_ShellScrew1] = AnalysisTestItemValue(dbReader[39].ToString());
+                        dr[STATION_SHELL + TestResultItemContent.Shell_ShellScrew2] = AnalysisTestItemValue(dbReader[40].ToString());
+                        dr[STATION_SHELL + TestResultItemContent.Shell_ShellScrew3] = AnalysisTestItemValue(dbReader[41].ToString());
+                        dr[STATION_SHELL + TestResultItemContent.Shell_ShellScrew4] = AnalysisTestItemValue(dbReader[42].ToString());
+                        #endregion
+
+                        #region 气密
+
+                        dr[STATION_AIR + TestResultItemContent.StationInDate_air] = dbReader[44].ToString();
+                        dr[STATION_AIR + TestResultItemContent.StationOutDate_air] = dbReader[45].ToString();
+                        dr[STATION_AIR + TestResultItemContent.UserTeamLeader_air] = dbReader[47].ToString();
+                        testResult = dbReader[46].ToString();
+                        keyValues.Add("气密测试工站", testResult);
+                        dr[STATION_AIR + TestResultItemContent.TestResultValue_air] = testResult;
+
+                        dr[STATION_AIR + TestResultItemContent.Air_AirtightTest] = AnalysisTestItemValue(dbReader[48].ToString());
+                        #endregion
+
+                        #region 支架
+
+                        dr[STATION_STENT + TestResultItemContent.StationInDate_stent] = dbReader[50].ToString();
+                        dr[STATION_STENT + TestResultItemContent.StationOutDate_stent] = dbReader[51].ToString();
+                        dr[STATION_STENT + TestResultItemContent.UserTeamLeader_stent] = dbReader[53].ToString();
+                        testResult = dbReader[52].ToString();
+                        keyValues.Add("支架装配工站", testResult);
+                        dr[STATION_STENT + TestResultItemContent.TestResultValue_stent] = testResult;
+
+                        dr[STATION_STENT + TestResultItemContent.Stent_Screw1] = AnalysisTestItemValue(dbReader[54].ToString());
+                        dr[STATION_STENT + TestResultItemContent.Stent_Screw2] = AnalysisTestItemValue(dbReader[55].ToString());
+                        dr[STATION_STENT + TestResultItemContent.Stent_Stent] = AnalysisTestItemValue(dbReader[56].ToString());
+                        dr[STATION_STENT + TestResultItemContent.Stent_LeftStent] = AnalysisTestItemValue(dbReader[57].ToString());
+                        dr[STATION_STENT + TestResultItemContent.Stent_RightStent] = AnalysisTestItemValue(dbReader[58].ToString());
+                        #endregion
+
+                        #region 成品
+
+                        dr[STATION_PRODUCT + TestResultItemContent.StationInDate_product] = dbReader[60].ToString();
+                        dr[STATION_PRODUCT + TestResultItemContent.StationOutDate_product] = dbReader[61].ToString();
+                        dr[STATION_PRODUCT + TestResultItemContent.UserTeamLeader_product] = dbReader[63].ToString();
+                        testResult = dbReader[62].ToString();
+                        keyValues.Add("成品测试工站", testResult);
+                        dr[STATION_PRODUCT + TestResultItemContent.TestResultValue_product] = testResult;
+
+                        dr[STATION_PRODUCT + TestResultItemContent.Product_Work_Electric_Test] = AnalysisTestItemValue(dbReader[64].ToString());
+                        dr[STATION_PRODUCT + TestResultItemContent.Product_DormantElect] = AnalysisTestItemValue(dbReader[65].ToString());
+                        dr[STATION_PRODUCT + TestResultItemContent.Product_Inspect_Result] = AnalysisTestItemValue(dbReader[66].ToString());
+                        #endregion
+
+                        dr[TestResultItemContent.FinalResultValue] = CalProductTestFinalResult(typeNo,pid,sid, keyValues);
+                        dt.Rows.Add(dr);
+                        id++;
+                    }
+                    i++;
+                }
+
                 ds.Tables.Add(dt);
                 testResultHistory.TestResultNumber = i;
                 testResultHistory.TestResultDataSet = ds;
@@ -1067,7 +1218,7 @@ namespace MesAPI
                 $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage5},{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage3_3_1}," +
                 $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage3_3_2},{DbTable.F_TEST_RESULT_HISTORY.burnItem_softVersion} " +
                 $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.burnDateIn}";
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' and {DbTable.F_TEST_RESULT_HISTORY.bindState} = '1' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.burnDateIn}";
             var stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
             if (stationResultData.Rows.Count > 0)
             {
@@ -1101,7 +1252,7 @@ namespace MesAPI
                  $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_EcuID},{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_bootloader}, " +
                  $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_radioFreq},{DbTable.F_TEST_RESULT_HISTORY.sensibilityItem_dormantElect} " +
                  $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
-                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn}";
+                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' and {DbTable.F_TEST_RESULT_HISTORY.bindState} = '1'  ORDER BY {DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn}";
             stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
             if (stationResultData.Rows.Count > 0)
             {
@@ -1133,7 +1284,7 @@ namespace MesAPI
                  $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_shellScrew1},{DbTable.F_TEST_RESULT_HISTORY.shellItem_shellScrew2}," +
                  $"{DbTable.F_TEST_RESULT_HISTORY.shellItem_shellScrew3},{DbTable.F_TEST_RESULT_HISTORY.shellItem_shellScrew4} " +
                  $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
-                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.shellDateIn}";
+                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' and {DbTable.F_TEST_RESULT_HISTORY.bindState} = '1'  ORDER BY {DbTable.F_TEST_RESULT_HISTORY.shellDateIn}";
             stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
 
             if (stationResultData.Rows.Count > 0)
@@ -1164,7 +1315,7 @@ namespace MesAPI
                  $"{DbTable.F_TEST_RESULT_HISTORY.airtageOperator},{DbTable.F_TEST_RESULT_HISTORY.airtageTestResult}," +
                  $"{DbTable.F_TEST_RESULT_HISTORY.airtageItem_airTest} " +
                  $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
-                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.airtageDateIn}";
+                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}'  and {DbTable.F_TEST_RESULT_HISTORY.bindState} = '1' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.airtageDateIn}";
             stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
             if (stationResultData.Rows.Count > 0)
             {
@@ -1186,7 +1337,7 @@ namespace MesAPI
               $"{DbTable.F_TEST_RESULT_HISTORY.stentItem_stent},{DbTable.F_TEST_RESULT_HISTORY.stentItem_leftStent}," +
               $"{DbTable.F_TEST_RESULT_HISTORY.stentItem_rightStent} " +
               $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
-              $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.stentDateIn}";
+              $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' and {DbTable.F_TEST_RESULT_HISTORY.bindState} = '1'  ORDER BY {DbTable.F_TEST_RESULT_HISTORY.stentDateIn}";
             stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
 
             if (stationResultData.Rows.Count > 0)
@@ -1198,11 +1349,11 @@ namespace MesAPI
                 keyValues.Add("支架装配工站", testResult);
                 dr[STATION_STENT + TestResultItemContent.TestResultValue_stent] = testResult;
 
-                dr[STATION_STENT + TestResultItemContent.Stent_Screw1] = stationResultData.Rows[0][4].ToString();
-                dr[STATION_STENT + TestResultItemContent.Stent_Screw2] = stationResultData.Rows[0][5].ToString();
-                dr[STATION_STENT + TestResultItemContent.Stent_Stent] = stationResultData.Rows[0][6].ToString();
-                dr[STATION_STENT + TestResultItemContent.Stent_LeftStent] = stationResultData.Rows[0][7].ToString();
-                dr[STATION_STENT + TestResultItemContent.Stent_RightStent] = stationResultData.Rows[0][8].ToString();
+                dr[STATION_STENT + TestResultItemContent.Stent_Screw1] = AnalysisTestItemValue(stationResultData.Rows[0][4].ToString());
+                dr[STATION_STENT + TestResultItemContent.Stent_Screw2] = AnalysisTestItemValue(stationResultData.Rows[0][5].ToString());
+                dr[STATION_STENT + TestResultItemContent.Stent_Stent] = AnalysisTestItemValue(stationResultData.Rows[0][6].ToString());
+                dr[STATION_STENT + TestResultItemContent.Stent_LeftStent] = AnalysisTestItemValue(stationResultData.Rows[0][7].ToString());
+                dr[STATION_STENT + TestResultItemContent.Stent_RightStent] = AnalysisTestItemValue(stationResultData.Rows[0][8].ToString());
             }
             #endregion
 
@@ -1213,7 +1364,7 @@ namespace MesAPI
               $"{DbTable.F_TEST_RESULT_HISTORY.productItem_workElect},{DbTable.F_TEST_RESULT_HISTORY.productItem_dormantElect}," +
               $"{DbTable.F_TEST_RESULT_HISTORY.productItem_inspectResult} " +
               $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
-              $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.productDateIn}";
+              $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' and {DbTable.F_TEST_RESULT_HISTORY.bindState} = '1'  ORDER BY {DbTable.F_TEST_RESULT_HISTORY.productDateIn}";
             stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
 
             if (stationResultData.Rows.Count > 0)
@@ -1225,9 +1376,9 @@ namespace MesAPI
                 keyValues.Add("成品测试工站", testResult);
                 dr[STATION_PRODUCT + TestResultItemContent.TestResultValue_product] = testResult;
 
-                dr[STATION_PRODUCT + TestResultItemContent.Product_Work_Electric_Test] = stationResultData.Rows[0][4].ToString();
-                dr[STATION_PRODUCT + TestResultItemContent.Product_DormantElect] = stationResultData.Rows[0][5].ToString();
-                dr[STATION_PRODUCT + TestResultItemContent.Product_Inspect_Result] = stationResultData.Rows[0][6].ToString();
+                dr[STATION_PRODUCT + TestResultItemContent.Product_Work_Electric_Test] = AnalysisTestItemValue(stationResultData.Rows[0][4].ToString());
+                dr[STATION_PRODUCT + TestResultItemContent.Product_DormantElect] = AnalysisTestItemValue(stationResultData.Rows[0][5].ToString());
+                dr[STATION_PRODUCT + TestResultItemContent.Product_Inspect_Result] = AnalysisTestItemValue(stationResultData.Rows[0][6].ToString());
             }
             #endregion
 

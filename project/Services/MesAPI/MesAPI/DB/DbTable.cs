@@ -253,6 +253,7 @@ namespace MesAPI.DB
             public const string updateDate = "[updateDate]";
             public const string pcbaSN = "[pcbaSN]";
             public const string productSN = "[productSN]";
+            public const string bindState = "[bindState]";
             public const string productTypeNo = "[productTypeNo]";
             public const string burnStationName = "[burnStationName]";
             public const string burnDateIn = "[burnDateIn]";

@@ -144,6 +144,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="ExportDat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportDat.Designer.cs">
+      <DependentUpon>ExportDat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +191,9 @@
     <Compile Include="TestTreeView.Designer.cs">
       <DependentUpon>TestTreeView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ExportDat.resx">
+      <DependentUpon>ExportDat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -214,48 +223,49 @@
     <EmbeddedResource Include="TestTreeView.resx">
       <DependentUpon>TestTreeView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Connected Services\MesServiceTest\MesService.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService.wsdl" />
+    <None Include="Connected Services\MesServiceTest\MesService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService1.wsdl" />
-    <None Include="Connected Services\MesServiceTest\MesService1.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService41.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService2.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService42.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService3.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService43.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService.wsdl" />
-    <None Include="Connected Services\MesService\MesService.xsd">
+    <None Include="Connected Services\MesServiceTest\MesService44.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService1.xsd">
+    <None Include="Connected Services\MesService\MesService1.wsdl" />
+    <None Include="Connected Services\MesService\MesService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService2.xsd">
+    <None Include="Connected Services\MesService\MesService51.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService3.xsd">
+    <None Include="Connected Services\MesService\MesService52.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService4.xsd">
+    <None Include="Connected Services\MesService\MesService53.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\TestAPI.MesService.LoginResult.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\MesService\TestAPI.MesService.MaterialStockEnum.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\MesService\TestAPI.MesService.ProductMaterial.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\MesService\TestAPI.MesService.RegisterResult.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
+    <None Include="Connected Services\MesService\MesService54.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\MesManager.MesService.CheckPackageProductHistory.datasource" />
+    <None Include="Properties\DataSources\MesManager.MesService.MaterialResultInfo.datasource" />
+    <None Include="Properties\DataSources\MesManager.MesService.PackageProductHistory.datasource" />
+    <None Include="Properties\DataSources\MesManager.MesService.ProductMaterial.datasource" />
+    <None Include="Properties\DataSources\MesManager.MesService.ProgramVersionHistory.datasource" />
+    <None Include="Properties\DataSources\MesManager.MesService.QuanlityHistory.datasource" />
+    <None Include="Properties\DataSources\MesManager.MesService.Station.datasource" />
+    <None Include="Properties\DataSources\MesManager.MesService.TestResultHistory.datasource" />
+    <None Include="Properties\DataSources\MesManager.MesService.TestStandSpecHistory.datasource" />
+    <None Include="Properties\DataSources\MesManager.MesServiceTest.PCBABindHistory.datasource" />
     <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -317,10 +327,20 @@
     <Folder Include="gridview\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MesService\MesService.disco" />
+    <ProjectReference Include="..\..\..\..\..\CommonRepository\MyCommonLibrary001\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{71fb8504-3725-4f87-9224-021ddf4f2dda}</Project>
+      <Name>CommonUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MesManager\MesManager.csproj">
+      <Project>{ff199236-d643-4121-a3ed-cf7ae76d1ddc}</Project>
+      <Name>MesManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MesServiceTest\MesService1.disco" />
+    <None Include="Connected Services\MesServiceTest\MesService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MesService\MesService1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

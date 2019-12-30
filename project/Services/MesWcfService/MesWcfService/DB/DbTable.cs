@@ -228,7 +228,7 @@ namespace MesWcfService.DB
         public class F_TEST_PCBA
         {
             public const string PCBA_SN = "[pcbaSN]";
-            public const string PRODUCT_SN = "[productSN]";
+            //public const string PRODUCT_SN = "[productSN]";
             public const string UPDATE_DATE = "[updateDate]";
         }
 
@@ -239,6 +239,7 @@ namespace MesWcfService.DB
             public const string updateDate = "[updateDate]";
             public const string pcbaSN = "[pcbaSN]";
             public const string productSN = "[productSN]";
+            public const string bindState = "[bindState]";
             public const string productTypeNo = "[productTypeNo]";
             public const string burnStationName = "[burnStationName]";
             public const string burnDateIn = "[burnDateIn]";

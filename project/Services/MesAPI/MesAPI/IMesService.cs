@@ -263,5 +263,11 @@ namespace MesAPI
 
         [OperationContract]
         int DeleteCheckProductPackageHistory(List<CheckPackageProductHistory> packageList);
+
+        [OperationContract]
+        TestResultHistory SelectTestResultLogHistory(string querySN, string startTime, string endTime, int pageIndex, int pageSize);
+
+        [OperationContract]
+        TestResultHistory SelectTestResultHistory(string querySN, int pageIndex, int pageSize);
     }
 }

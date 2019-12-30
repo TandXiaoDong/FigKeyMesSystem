@@ -349,6 +349,9 @@ namespace MesWcfService
    RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         string[] DeleteUser(string username);
         #endregion
+
+        [OperationContract]
+        void CopyDataSource();
     }
 
     // 使用下面示例中说明的数据约定将复合类型添加到服务操作。

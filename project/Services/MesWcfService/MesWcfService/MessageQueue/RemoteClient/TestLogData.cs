@@ -5,6 +5,7 @@ using System.Web;
 using CommonUtils.DB;
 using CommonUtils.Logger;
 using MesWcfService.DB;
+using System.Data;
 
 namespace MesWcfService.MessageQueue.RemoteClient
 {
@@ -13,6 +14,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
     {
         public PcbaTestStationInStatusEnum pcbaTestStationInStatus;
         public string pcbaID = "";
+        private string testItem, limit, currentValue, testResult;
 
         //进站-出站/进站-未出站/未进站
         public enum PcbaTestStationInStatusEnum
@@ -465,7 +467,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             {
                 //update testItem
                 var upRow = SQLServer.ExecuteNonQuery(updateSQL);
-                LogHelper.Log.Info($"【更新测试项新表】{station} 影响行数=" + upRow);
+                //LogHelper.Log.Info($"【更新测试项新表】{station} 影响行数=" + upRow);
             }
         }
 
@@ -574,6 +576,211 @@ namespace MesWcfService.MessageQueue.RemoteClient
             return testLogResult;
         }
 
+        #endregion
+
+        #region 复制旧表数据到新表
+        public static void CopyDataSource2NewTable()
+        {
+            try
+            {
+                var selectSQL = $"select * from {DbTable.F_TEST_RESULT_NAME} ";
+                var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    int i = 0;
+                    foreach (DataRow dbReader in dt.Rows)
+                    {
+                        var typeNo = dbReader[0].ToString();
+                        var pid = dbReader[1].ToString();
+                        var station = dbReader[3].ToString();
+                        var result = dbReader[4].ToString();
+                        var dateIn = dbReader[5].ToString();
+                        var dateOut = dbReader[6].ToString();
+                        var updateDate = dbReader[8].ToString();
+                        var user = dbReader[10].ToString();
+                        var joinDate = dbReader[12].ToString();
+                        LogHelper.Log.Info($"开始更新...第{i}条 {pid} {typeNo} {station} {result} {dateIn} {dateOut} {updateDate} {user}");
+                        //1）更新进站记录
+                        TestResult.UpdateTestResultHistory(pid, typeNo, station, dateIn, updateDate);
+
+                        //4)更新绑定关系
+                        AddTestResultHistoryBindSN(pid);//pcb/shell
+                        //2）更新测试项
+                        #region 烧录工站
+                        SelectTestItem(pid,typeNo,station, Turn_TurnItem,joinDate,user);
+                        SelectTestItem(pid, typeNo, station, Turn_SoftVersion, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Turn_Voltage_12V_Item, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Turn_Voltage_5V_Item, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Turn_Voltage_33_1V_Item, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Turn_Voltage_33_2V_Item, joinDate, user);
+                        #endregion
+
+                        #region 灵敏度
+                        SelectTestItem(pid, typeNo, station, Sen_BootloaderVersion, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Sen_DormantElect, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Sen_ECUID, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Sen_HardWareVersion, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Sen_PartNumber, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Sen_RadioFreq, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Sen_SoftVersion, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Sen_Work_Electric_Test, joinDate, user);
+                        #endregion
+
+                        #region 外壳
+                        SelectTestItem(pid, typeNo, station, Shell_BackCover, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Shell_FrontCover, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Shell_PCBScrew1, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Shell_PCBScrew2, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Shell_PCBScrew3, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Shell_PCBScrew4, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Shell_ShellScrew1, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Shell_ShellScrew2, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Shell_ShellScrew3, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Shell_ShellScrew4, joinDate, user);
+                        #endregion
+
+                        #region 气密
+                        SelectTestItem(pid, typeNo, station, Air_AirtightTest, joinDate, user);
+                        #endregion
+
+                        #region 支架
+                        SelectTestItem(pid, typeNo, station, Stent_LeftStent, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Stent_RightStent, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Stent_Screw1, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Stent_Screw2, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Stent_Stent, joinDate, user);
+                        #endregion
+
+                        #region 成品
+                        SelectTestItem(pid, typeNo, station, Product_DormantElect, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Product_Inspect_Result, joinDate, user);
+                        SelectTestItem(pid, typeNo, station, Product_Work_Electric_Test, joinDate, user);
+                        #endregion
+
+                        //3）更新出战结果
+                        TestResult.UpdateStationOutResult(pid, typeNo, station, result, dateOut, updateDate);
+
+                        //更新完毕
+                        i++;
+                        if (i == 10)
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Info(ex.Message+ex.StackTrace);
+            }
+        }
+
+        private static void AddTestResultHistoryBindSN(string sn)
+        {
+            var selectPidSQL = $"select top 1 {DbTable.F_TEST_RESULT_HISTORY.id}," +
+                $"{DbTable.F_TEST_RESULT_HISTORY.productSN} from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}'";
+            var selectTidSQL = $"select top 1 {DbTable.F_TEST_RESULT_HISTORY.id}," +
+               $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+               $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}'";
+
+            var selectPidBind = $"select top 1 {DbTable.F_BINDING_PCBA.SN_OUTTER} from {DbTable.F_BINDING_PCBA_NAME} " +
+                $"where {DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}'";
+            var selectTidBind = $"select top 1 {DbTable.F_BINDING_PCBA.SN_PCBA} from {DbTable.F_BINDING_PCBA_NAME} " +
+                $"where {DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}'";
+
+            var dt = SQLServer.ExecuteDataSet(selectPidSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow dbReader in dt.Rows)
+                {
+                    var kid = dbReader[0].ToString();
+                    var tid = dbReader[1].ToString();
+                    if (tid == "")
+                    {
+                        //pcb=null,shell is not null
+                        //新表不存在绑定关系
+                        //查询旧表是否存在绑定关系
+                        dt = SQLServer.ExecuteDataSet(selectPidBind).Tables[0];
+                        if (dt.Rows.Count > 0)
+                        {
+                            //有绑定关系，也许后面会解绑，最后更新所有数据的最终关系
+                            foreach (DataRow dr in dt.Rows)
+                            {
+                                var shellID = dr[0].ToString();
+                                if (shellID != "")
+                                {
+                                    var updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
+                                   $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{shellID}' " +
+                                   $"WHERE {DbTable.F_TEST_RESULT_HISTORY.id} = '{kid}'";
+                                    SQLServer.ExecuteNonQuery(updateSQL);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                dt = SQLServer.ExecuteDataSet(selectTidSQL).Tables[0];
+                foreach (DataRow dbReader in dt.Rows)
+                {
+                    var kid = dbReader[0].ToString();
+                    var pid = dbReader[1].ToString();
+                    if (pid == "")
+                    {
+                        //pcb=null,shell is not null
+                        //新表不存在绑定关系
+                        //查询旧表是否存在绑定关系
+                        dt = SQLServer.ExecuteDataSet(selectTidBind).Tables[0];
+                        if (dt.Rows.Count > 0)
+                        {
+                            //有绑定关系，也许后面会解绑，最后更新所有数据的最终关系
+                            foreach (DataRow dr in dt.Rows)
+                            {
+                                var pcbID = dr[0].ToString();
+                                if (pcbID != "")
+                                {
+                                    var updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
+                                   $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcbID}' " +
+                                   $"WHERE {DbTable.F_TEST_RESULT_HISTORY.id} = '{kid}'";
+                                    SQLServer.ExecuteNonQuery(updateSQL);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        private static void SelectTestItem(string pid,string typeNo, string stationName, string testItem, string joinDateTime,string user)
+        {
+            var selectSQL = $"select top 1 {DbTable.F_TEST_LOG_DATA.TEST_ITEM},{DbTable.F_TEST_LOG_DATA.LIMIT}," +
+                $"{DbTable.F_TEST_LOG_DATA.CURRENT_VALUE},{DbTable.F_TEST_LOG_DATA.TEST_RESULT} from " +
+                $"{DbTable.F_TEST_LOG_DATA_NAME} where {DbTable.F_TEST_LOG_DATA.PRODUCT_SN} = '{pid}' AND " +
+                $"{DbTable.F_TEST_LOG_DATA.STATION_NAME} = '{stationName}' AND " +
+                $"{DbTable.F_TEST_LOG_DATA.TEST_ITEM} = '{testItem}' AND " +
+                $"{DbTable.F_TEST_LOG_DATA.JOIN_DATE_TIME} = '{joinDateTime}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow dbReader in dt.Rows)
+                {
+                    var tstItem = dbReader[0].ToString();
+                    var limit = dbReader[1].ToString();
+                    var currentValue = dbReader[2].ToString();
+                    var testResult = dbReader[3].ToString();
+
+                    UpdateTestLogHistory(pid, typeNo, stationName, tstItem, limit, currentValue, testResult, user);
+                }
+            }
+        }
+
+        private void UpdateAllPcbBind()
+        { 
+        }
+
+        private void AddUnRepeatPCBAdata()
+        {
+            
+        }
         #endregion
     }
 }

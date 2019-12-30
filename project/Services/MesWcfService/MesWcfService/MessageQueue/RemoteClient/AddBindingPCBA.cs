@@ -110,16 +110,35 @@ namespace MesWcfService.MessageQueue.RemoteClient
 
         private static void AddTestResultHistoryBindSN(string pcbsn,string shellsn)
         {
-            var selectSQL = $"select top 1 * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcbsn}' AND {DbTable.F_TEST_RESULT_HISTORY.productSN} = '{shellsn}'";
-            var updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.productSN} WHERE {DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcbsn}'";
-            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
-            if (dt.Rows.Count < 1)
+            var selectSQL = $"select top 1 {DbTable.F_TEST_RESULT_HISTORY.id}," +
+                $"{DbTable.F_TEST_RESULT_HISTORY.productSN} from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcbsn}' ";
+            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            if (dbReader.HasRows)
             {
-                //不存在绑定关系，添加绑定外壳
-                SQLServer.ExecuteNonQuery(updateSQL);
+                while (dbReader.Read())
+                {
+                    var kid = dbReader[0].ToString();
+                    var sid = dbReader[1].ToString();
+                    if (sid == "")
+                    {
+                        //不存在绑定关系，添加绑定外壳
+                        var updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
+                            $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{shellsn}' " +
+                            $"WHERE {DbTable.F_TEST_RESULT_HISTORY.id} = '{kid}'";
+                        SQLServer.ExecuteNonQuery(updateSQL);
+                    }
+                }
             }
+        }
+
+        public static void UpdatebindTestResultHistory(string pid,string sid,int state)
+        {
+            var updateSQL = $"update {DbTable.F_TEST_RESULT_HISTORY_NAME} set " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.bindState} = '{state}' where " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' and " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sid}'";
+            SQLServer.ExecuteNonQuery(updateSQL);
         }
 
         public static DataSet SelectStationList(string processName)

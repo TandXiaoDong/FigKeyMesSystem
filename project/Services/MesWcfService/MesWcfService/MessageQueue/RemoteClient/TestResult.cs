@@ -63,6 +63,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var teamLeader = array[4].Trim();
             var admin = array[5].Trim();
             var joinDateTime = array[6].Trim();
+            var currentDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             LogHelper.Log.Info("【更新出站记录】");
             if (sn == "")
             {
@@ -89,7 +90,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             if (row > 0)
             {
                 LogHelper.Log.Info("【更新出站结果】STATUS_SUCCESS=0X00");
-                UpdateStationOutResult(sn,typeNo,station,result);
+                UpdateStationOutResult(sn,typeNo,station,result,currentDate,currentDate);
                 return ConvertTestResultCode(UpdateTestResultEnum.STATUS_SUCCESS);
             }
             else
@@ -126,20 +127,20 @@ namespace MesWcfService.MessageQueue.RemoteClient
         /// <param name="sn"></param>
         /// <param name="processName"></param>
         /// <param name="station"></param>
-        private static void UpdateTestResultHistory(string sn, string processName,string station)
+        public static void UpdateTestResultHistory(string sn, string processName,string station,string stationInDate,string updateDate)
         {
             UpdatePcbaTestHistory(sn);
             var insertSQL = "";
             var updateSQL = "";
             //int shellCodeLen = ReadShellCodeLength();
             //int pcbaCodeLen = ReadPCBACodeLength();
-            var currentDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
             if (station == "烧录工站")
             {
                 insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.pcbaSN}," +
                          $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.burnStationName}," +
                          $"{DbTable.F_TEST_RESULT_HISTORY.burnDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
-                         $"VALUES('{sn}','{processName}','{station}','{currentDate}','{currentDate}')";
+                         $"VALUES('{sn}','{processName}','{station}','{stationInDate}','{updateDate}')";
                 var recordStatus = IsExistBurnStationRecord(sn, station);
                 if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
                 {
@@ -151,8 +152,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     //update
                     updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.burnStationName} = '{station}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.burnDateIn} = '{currentDate}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.burnDateIn} = '{stationInDate}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
@@ -164,7 +165,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.pcbaSN}," +
                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName}," +
                        $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
-                       $"VALUES('{sn}','{processName}','{station}','{currentDate}','{currentDate}')";
+                       $"VALUES('{sn}','{processName}','{station}','{stationInDate}','{updateDate}')";
                 var recordStatus = IsExistBurnStationRecord(sn, station);
                 if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
                 {
@@ -176,8 +177,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     //update
                     updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName} = '{station}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn} = '{currentDate}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn} = '{stationInDate}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
@@ -189,7 +190,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.pcbaSN}," +
                           $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.shellStationName}," +
                           $"{DbTable.F_TEST_RESULT_HISTORY.shellDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
-                          $"VALUES('{sn}','{processName}','{station}','{currentDate}','{currentDate}')";
+                          $"VALUES('{sn}','{processName}','{station}','{stationInDate}','{updateDate}')";
                 var recordStatus = IsExistBurnStationRecord(sn, station);
                 if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
                 {
@@ -201,8 +202,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     //update
                     updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{station}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.shellDateIn} = '{currentDate}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.shellDateIn} = '{stationInDate}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
@@ -214,7 +215,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.productSN}," +
                       $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.airtageStationName}," +
                       $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
-                      $"VALUES('{sn}','{processName}','{station}','{currentDate}','{currentDate}')";
+                      $"VALUES('{sn}','{processName}','{station}','{stationInDate}','{updateDate}')";
                 var recordStatus = IsExistBurnStationRecord(sn, station);
                 if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
                 {
@@ -226,8 +227,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     //update
                     updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateIn} = '{currentDate}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateIn} = '{stationInDate}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
@@ -239,7 +240,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.productSN}," +
                         $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.stentStationName}," +
                         $"{DbTable.F_TEST_RESULT_HISTORY.stentDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
-                        $"VALUES('{sn}','{processName}','{station}','{currentDate}','{currentDate}')";
+                        $"VALUES('{sn}','{processName}','{station}','{stationInDate}','{updateDate}')";
                 var recordStatus = IsExistBurnStationRecord(sn, station);
                 if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
                 {
@@ -251,8 +252,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     //update
                     updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.stentDateIn} = '{currentDate}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.stentDateIn} = '{stationInDate}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
@@ -264,7 +265,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.productSN}," +
                         $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.productStationName}," +
                         $"{DbTable.F_TEST_RESULT_HISTORY.productDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
-                        $"VALUES('{sn}','{processName}','{station}','{currentDate}','{currentDate}')";
+                        $"VALUES('{sn}','{processName}','{station}','{stationInDate}','{updateDate}')";
                 var recordStatus = IsExistBurnStationRecord(sn, station);
                 if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
                 {
@@ -276,8 +277,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     //update
                     updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.productDateIn} = '{currentDate}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productDateIn} = '{stationInDate}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
@@ -286,16 +287,16 @@ namespace MesWcfService.MessageQueue.RemoteClient
             }
         }
 
-        private static void UpdatePcbaTestHistory(string sn)
+        public static void UpdatePcbaTestHistory(string sn)
         {
             //根据传入SN查询是否已经存在
             //历史表不存在且绑定记录表不存在-则插入
             //历史表不存在且绑定记录表存在--此SN为外壳SN--不插入
             //历史表存在--不插入
             var selectSQL = $"select top 1 * from {DbTable.F_TEST_PCBA_NAME} where " +
-                $"{DbTable.F_TEST_PCBA.PRODUCT_SN} = '{sn}'";
-            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
-            if (dt.Rows.Count > 0)
+                $"{DbTable.F_TEST_PCBA.PCBA_SN} = '{sn}'";
+            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            if (dbReader.HasRows)
             {
                 //已存在数据/不插入
             }
@@ -304,8 +305,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 //不存在数据，查询是否已绑定
                 selectSQL = $"select top 1 * from {DbTable.F_BINDING_PCBA_NAME} where " +
                     $"({DbTable.F_BINDING_PCBA.SN_OUTTER} = '{sn}' OR {DbTable.F_BINDING_PCBA.SN_PCBA} = '{sn}') AND {DbTable.F_BINDING_PCBA.BINDING_STATE} = '1'";
-                dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
-                if (dt.Rows.Count > 0)
+                dbReader = SQLServer.ExecuteDataReader(selectSQL);
+                if (dbReader.HasRows)
                 {
                     //已存在绑定记录/不插入
                 }
@@ -318,7 +319,60 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 }
             }
         }
-             
+
+        //更新出站结果
+        public static void UpdateStationOutResult(string sn, string typeNo, string station, string testResult, string dateOut, string updateDate)
+        {
+            var updateSQL = "";
+            //var currentDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var testLog = TestLogData.IsExistStationInRecord(sn, typeNo, station);
+
+            #region station type
+            if (station == "烧录工站")
+            {
+                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.burnTestResult} = '{testResult}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.burnDateOut} = '{dateOut}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+            }
+            else if (station == "灵敏度测试工站")
+            {
+                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.sensibilityTestResult} = '{testResult}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateOut} = '{dateOut}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+            }
+            else if (station == "外壳装配工站")
+            {
+                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{testResult}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.shellDateOut} = '{dateOut}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+            }
+            else if (station == "气密测试工站")
+            {
+                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.airtageTestResult} = '{testResult}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateOut} = '{dateOut}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+            }
+            else if (station == "支架装配工站")
+            {
+                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.stentTestResult} = '{testResult}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.stentDateOut} = '{dateOut}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+            }
+            else if (station == "成品测试工站")
+            {
+                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.productTestResult} = '{testResult}'," +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productDateOut} = '{dateOut}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
+            }
+            #endregion
+
+            if (testLog.pcbaTestStationInStatus == TestLogData.PcbaTestStationInStatusEnum.stationIn_not_stationOut)
+            {
+                //update testItem
+                var upRow = SQLServer.ExecuteNonQuery(updateSQL);
+                //LogHelper.Log.Info($"【更新测试项新表-出站结果】{station} 影响行数=" + upRow);
+            }
+        }
 
         private static int ReadShellCodeLength()
         {
@@ -496,7 +550,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 //查询该工站是否有数据
                 var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.airtageStationName} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}'";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
@@ -534,7 +588,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 //查询该工站是否有数据
                 var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.stentStationName} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}'";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
@@ -573,7 +627,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 //查询该工站是否有数据
                 var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.productStationName} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
+                $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}'";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
@@ -590,59 +644,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
         }
         #endregion
 
-        private static void UpdateStationOutResult(string sn,string typeNo,string station,string testResult)
-        {
-            var updateSQL = "";
-            var currentDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            var testLog = TestLogData.IsExistStationInRecord(sn, typeNo, station);
-
-            #region station type
-            if (station == "烧录工站")
-            {
-                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.burnTestResult} = '{testResult}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.burnDateOut} = '{currentDate}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
-            }
-            else if (station == "灵敏度测试工站")
-            {
-                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.sensibilityTestResult} = '{testResult}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateOut} = '{currentDate}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
-            }
-            else if (station == "外壳装配工站")
-            {
-                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{testResult}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.shellDateOut} = '{currentDate}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
-            }
-            else if (station == "气密测试工站")
-            {
-                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.airtageTestResult} = '{testResult}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateOut} = '{currentDate}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
-            }
-            else if (station == "支架装配工站")
-            {
-                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.stentTestResult} = '{testResult}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.stentDateOut} = '{currentDate}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
-            }
-            else if (station == "成品测试工站")
-            {
-                updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET {DbTable.F_TEST_RESULT_HISTORY.productTestResult} = '{testResult}'," +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.productDateOut} = '{currentDate}',{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{currentDate}' WHERE " +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
-            }
-            #endregion
-
-            if (testLog.pcbaTestStationInStatus == TestLogData.PcbaTestStationInStatusEnum.stationIn_not_stationOut)
-            {
-                //update testItem
-                var upRow = SQLServer.ExecuteNonQuery(updateSQL);
-                LogHelper.Log.Info($"【更新测试项新表】{station} 影响行数=" + upRow);
-            }
-        }
-
+        
         private static int UpdateTestResult(string sn ,string typeNo,string station,
             string result,string teamder,string admin,string joinDateTime)
         {
@@ -698,6 +700,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 string[] array = queue.Dequeue();
                 string sn = array[0];
                 string currentStation = array[1];
+                var currentDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 LogHelper.Log.Info("测试端查询测试结果,站位为" + currentStation + " SN="+sn);
                 //根据当前工艺与站位，查询其上一站位
                 //查询当前工艺流程
@@ -711,7 +714,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     int row = InsertTestResult(sn, processName, currentStation);
                     if (row > 0)
                     {
-                        UpdateTestResultHistory(sn,processName,currentStation);
+                        UpdateTestResultHistory(sn,processName,currentStation,currentDate,currentDate);
                         LogHelper.Log.Info("【插入进站记录-第一站】成功");
                     }
                     else
@@ -852,7 +855,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                                 int row = InsertTestResult(sn, processName, currentStation);
                                 if (row > 0)
                                 {
-                                    UpdateTestResultHistory(sn, processName, currentStation);
+                                    UpdateTestResultHistory(sn, processName, currentStation,currentDate,currentDate);
                                     LogHelper.Log.Info("【插入进站记录-】成功");
                                 }
                                 else
@@ -884,7 +887,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     int row = InsertTestResult(sn,processName,currentStation);
                     if (row > 0)
                     {
-                        UpdateTestResultHistory(sn, processName, currentStation);
+                        UpdateTestResultHistory(sn, processName, currentStation,currentDate,currentDate);
                         LogHelper.Log.Info("【插入进站记录】成功");
                     }
                     else

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MesAPI.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MesAPI.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.0.175:8085/MesService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:simpleType name="LoginResult">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="USER_NAME_ERR" />
+      <xs:enumeration value="USER_PWD_ERR" />
+      <xs:enumeration value="USER_NAME_PWD_ERR" />
+      <xs:enumeration value="FAIL_EXCEP" />
+      <xs:enumeration value="SUCCESS" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="LoginResult" nillable="true" type="tns:LoginResult" />
+  <xs:simpleType name="RegisterResult">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="REGISTER_SUCCESS" />
+      <xs:enumeration value="REGISTER_EXIST_USER" />
+      <xs:enumeration value="REGISTER_FAIL_SQL" />
+      <xs:enumeration value="REGISTER_ERR" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="RegisterResult" nillable="true" type="tns:RegisterResult" />
+  <xs:complexType name="ArrayOfStation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Station" nillable="true" type="tns:Station" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStation" nillable="true" type="tns:ArrayOfStation" />
+  <xs:complexType name="Station">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ProcessName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProcessState" type="xs:int" />
+      <xs:element minOccurs="0" name="Result" type="xs:int" />
+      <xs:element minOccurs="0" name="StationID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpdateDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Station" nillable="true" type="tns:Station" />
+  <xs:simpleType name="MaterialStockState">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PUT_IN_STOCK">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STOCK_USE_COMPLED">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STOCK_STATEMETN">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PUT_IN_STOCK_AND_STATEMENT">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MaterialStockState" nillable="true" type="tns:MaterialStockState" />
+  <xs:complexType name="ArrayOfQuanlityHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="QuanlityHistory" nillable="true" type="tns:QuanlityHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfQuanlityHistory" nillable="true" type="tns:ArrayOfQuanlityHistory" />
+  <xs:complexType name="QuanlityHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HistoryNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="MaterialCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QuanlityHistoryData" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QuanlityHistory" nillable="true" type="tns:QuanlityHistory" />
+  <xs:complexType name="ArrayOfProductMaterial">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductMaterial" nillable="true" type="tns:ProductMaterial" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProductMaterial" nillable="true" type="tns:ArrayOfProductMaterial" />
+  <xs:complexType name="ProductMaterial">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Describle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaterialCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaterialName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" type="xs:int" />
+      <xs:element minOccurs="0" name="Stock" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Update_Date" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductMaterial" nillable="true" type="tns:ProductMaterial" />
+  <xs:complexType name="MaterialResultInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MaterialCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaterialResultData" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="MaterialRowCount" type="xs:int" />
+      <xs:element minOccurs="0" name="PcbaSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductTypeNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MaterialResultInfo" nillable="true" type="tns:MaterialResultInfo" />
+  <xs:complexType name="ProgramVersionHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Admin" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductTypeNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProgrameDataSet" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="ProgrameHistoryNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="ProgrameName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProgramePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TeamLeader" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpdateDate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProgramVersionHistory" nillable="true" type="tns:ProgramVersionHistory" />
+  <xs:complexType name="ArrayOfProgramVersionHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProgramVersionHistory" nillable="true" type="tns:ProgramVersionHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProgramVersionHistory" nillable="true" type="tns:ArrayOfProgramVersionHistory" />
+  <xs:complexType name="TestStandSpecHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Admin" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LimitValue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductTypeNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SpecDataSet" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="SpecHistoryNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="StationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TeamLeader" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TestItem" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpdateDate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TestStandSpecHistory" nillable="true" type="tns:TestStandSpecHistory" />
+  <xs:complexType name="ArrayOfTestStandSpecHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TestStandSpecHistory" nillable="true" type="tns:TestStandSpecHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTestStandSpecHistory" nillable="true" type="tns:ArrayOfTestStandSpecHistory" />
+  <xs:complexType name="PackageProductHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BindState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OutCaseCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PackageCaseData" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="PackageCaseNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="ProductTypeNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PackageProductHistory" nillable="true" type="tns:PackageProductHistory" />
+  <xs:complexType name="TestResultHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PcbaSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductTypeNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TestResultDataSet" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="TestResultNumber" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TestResultHistory" nillable="true" type="tns:TestResultHistory" />
+  <xs:complexType name="CheckPackageProductHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BindState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckPackageCaseData" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="CheckPackageCaseNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="OutCaseCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductTypeNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CheckPackageProductHistory" nillable="true" type="tns:CheckPackageProductHistory" />
+  <xs:simpleType name="MaterialStockEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="STATUS_SUCCESS" />
+      <xs:enumeration value="STATUS_NONE_MODIFY" />
+      <xs:enumeration value="STATUS_FAIL" />
+      <xs:enumeration value="ERROR_MATERIAL_IS_NOT_EXIST" />
+      <xs:enumeration value="STATUS_NOT_ZERO_STOCK" />
+      <xs:enumeration value="STATUS_STOCK_NOT_SMALLER_AMOUNTED" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MaterialStockEnum" nillable="true" type="tns:MaterialStockEnum" />
+  <xs:complexType name="ArrayOfTestResultHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TestResultHistory" nillable="true" type="tns:TestResultHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTestResultHistory" nillable="true" type="tns:ArrayOfTestResultHistory" />
+  <xs:complexType name="ArrayOfTestLogResultHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TestLogResultHistory" nillable="true" type="tns:TestLogResultHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTestLogResultHistory" nillable="true" type="tns:ArrayOfTestLogResultHistory" />
+  <xs:complexType name="TestLogResultHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HistoryDataSet" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="HistoryLogNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="JoinDateTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PcbaSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProcessName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StationInDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StationName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TestLogResultHistory" nillable="true" type="tns:TestLogResultHistory" />
+  <xs:complexType name="ArrayOfMaterialResultInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MaterialResultInfo" nillable="true" type="tns:MaterialResultInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMaterialResultInfo" nillable="true" type="tns:ArrayOfMaterialResultInfo" />
+  <xs:complexType name="ArrayOfPackageProductHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PackageProductHistory" nillable="true" type="tns:PackageProductHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPackageProductHistory" nillable="true" type="tns:ArrayOfPackageProductHistory" />
+  <xs:complexType name="ArrayOfCheckPackageProductHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CheckPackageProductHistory" nillable="true" type="tns:CheckPackageProductHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCheckPackageProductHistory" nillable="true" type="tns:ArrayOfCheckPackageProductHistory" />
+</xs:schema>

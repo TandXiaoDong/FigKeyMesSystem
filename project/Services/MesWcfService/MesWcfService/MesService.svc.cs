@@ -814,6 +814,7 @@ namespace MesWcfService
              * 2）外壳异常：更新所有外壳状态
              * 3）PCBA与外壳都异常：更新所有PCBA与所有外壳异常状态
              */
+            AddBindingPCBA.UpdatebindTestResultHistory(pcbaSn,outterSn,bindingState);
             var updateBindState = "";//更新绑定状态
             var updateState = "";//更新PCBA/外壳状态
             if (pcbaState == 0 && outterState == 1)
@@ -871,6 +872,7 @@ namespace MesWcfService
             {
                 var bindStateUpdate = "";
                 var stateUpdate = "";
+                AddBindingPCBA.UpdatebindTestResultHistory(pcbaSn, outterSn, bindingState);
                 if (pcbaState == 1 && outterState == 0)
                 {
                     stateUpdate = $"update {DbTable.F_BINDING_PCBA_NAME} SET " +
@@ -1121,5 +1123,11 @@ namespace MesWcfService
             }
         }
         #endregion
+
+        [SwaggerWcfTag("MesServcie 服务")]
+        public void CopyDataSource()
+        {
+            TestLogData.CopyDataSource2NewTable();
+        }
     }
 }

@@ -148,10 +148,10 @@ namespace TestAPI.MesServiceTest {
         System.Threading.Tasks.Task<string> UpdatePackageStorageAsync(string productTypeNo, int capacity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/QueryPCBAMes", ReplyAction="http://tempuri.org/IMesService/QueryPCBAMesResponse")]
-        System.Data.DataSet QueryPCBAMes(string pcbasn);
+        MesManager.MesServiceTest.PCBABindHistory QueryPCBAMes(string pcbasn, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/QueryPCBAMes", ReplyAction="http://tempuri.org/IMesService/QueryPCBAMesResponse")]
-        System.Threading.Tasks.Task<System.Data.DataSet> QueryPCBAMesAsync(string pcbasn);
+        System.Threading.Tasks.Task<MesManager.MesServiceTest.PCBABindHistory> QueryPCBAMesAsync(string pcbasn, int pageIndex, int pageSize);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdatePcbaBindingState", ReplyAction="http://tempuri.org/IMesService/UpdatePcbaBindingStateResponse")]
         bool UpdatePcbaBindingState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState);
@@ -200,6 +200,12 @@ namespace TestAPI.MesServiceTest {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteUser", ReplyAction="http://tempuri.org/IMesService/DeleteUserResponse")]
         System.Threading.Tasks.Task<string[]> DeleteUserAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CopyDataSource", ReplyAction="http://tempuri.org/IMesService/CopyDataSourceResponse")]
+        void CopyDataSource();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CopyDataSource", ReplyAction="http://tempuri.org/IMesService/CopyDataSourceResponse")]
+        System.Threading.Tasks.Task CopyDataSourceAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -405,12 +411,12 @@ namespace TestAPI.MesServiceTest {
             return base.Channel.UpdatePackageStorageAsync(productTypeNo, capacity);
         }
         
-        public System.Data.DataSet QueryPCBAMes(string pcbasn) {
-            return base.Channel.QueryPCBAMes(pcbasn);
+        public MesManager.MesServiceTest.PCBABindHistory QueryPCBAMes(string pcbasn, int pageIndex, int pageSize) {
+            return base.Channel.QueryPCBAMes(pcbasn, pageIndex, pageSize);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataSet> QueryPCBAMesAsync(string pcbasn) {
-            return base.Channel.QueryPCBAMesAsync(pcbasn);
+        public System.Threading.Tasks.Task<MesManager.MesServiceTest.PCBABindHistory> QueryPCBAMesAsync(string pcbasn, int pageIndex, int pageSize) {
+            return base.Channel.QueryPCBAMesAsync(pcbasn, pageIndex, pageSize);
         }
         
         public bool UpdatePcbaBindingState(string pcbaSn, string outterSn, int bindingState, int pcbaState, int outterState) {
@@ -475,6 +481,14 @@ namespace TestAPI.MesServiceTest {
         
         public System.Threading.Tasks.Task<string[]> DeleteUserAsync(string username) {
             return base.Channel.DeleteUserAsync(username);
+        }
+        
+        public void CopyDataSource() {
+            base.Channel.CopyDataSource();
+        }
+        
+        public System.Threading.Tasks.Task CopyDataSourceAsync() {
+            return base.Channel.CopyDataSourceAsync();
         }
     }
 }

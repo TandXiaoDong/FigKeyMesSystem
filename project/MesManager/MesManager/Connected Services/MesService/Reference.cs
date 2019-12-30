@@ -1861,6 +1861,18 @@ namespace MesManager.MesService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteCheckProductPackageHistory", ReplyAction="http://tempuri.org/IMesService/DeleteCheckProductPackageHistoryResponse")]
         System.Threading.Tasks.Task<int> DeleteCheckProductPackageHistoryAsync(MesManager.MesService.CheckPackageProductHistory[] packageList);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultLogHistory", ReplyAction="http://tempuri.org/IMesService/SelectTestResultLogHistoryResponse")]
+        MesManager.MesService.TestResultHistory SelectTestResultLogHistory(string querySN, string startTime, string endTime, int pageIndex, int pageSize);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultLogHistory", ReplyAction="http://tempuri.org/IMesService/SelectTestResultLogHistoryResponse")]
+        System.Threading.Tasks.Task<MesManager.MesService.TestResultHistory> SelectTestResultLogHistoryAsync(string querySN, string startTime, string endTime, int pageIndex, int pageSize);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultHistory", ReplyAction="http://tempuri.org/IMesService/SelectTestResultHistoryResponse")]
+        MesManager.MesService.TestResultHistory SelectTestResultHistory(string querySN, int pageIndex, int pageSize);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultHistory", ReplyAction="http://tempuri.org/IMesService/SelectTestResultHistoryResponse")]
+        System.Threading.Tasks.Task<MesManager.MesService.TestResultHistory> SelectTestResultHistoryAsync(string querySN, int pageIndex, int pageSize);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2472,6 +2484,22 @@ namespace MesManager.MesService {
         
         public System.Threading.Tasks.Task<int> DeleteCheckProductPackageHistoryAsync(MesManager.MesService.CheckPackageProductHistory[] packageList) {
             return base.Channel.DeleteCheckProductPackageHistoryAsync(packageList);
+        }
+        
+        public MesManager.MesService.TestResultHistory SelectTestResultLogHistory(string querySN, string startTime, string endTime, int pageIndex, int pageSize) {
+            return base.Channel.SelectTestResultLogHistory(querySN, startTime, endTime, pageIndex, pageSize);
+        }
+        
+        public System.Threading.Tasks.Task<MesManager.MesService.TestResultHistory> SelectTestResultLogHistoryAsync(string querySN, string startTime, string endTime, int pageIndex, int pageSize) {
+            return base.Channel.SelectTestResultLogHistoryAsync(querySN, startTime, endTime, pageIndex, pageSize);
+        }
+        
+        public MesManager.MesService.TestResultHistory SelectTestResultHistory(string querySN, int pageIndex, int pageSize) {
+            return base.Channel.SelectTestResultHistory(querySN, pageIndex, pageSize);
+        }
+        
+        public System.Threading.Tasks.Task<MesManager.MesService.TestResultHistory> SelectTestResultHistoryAsync(string querySN, int pageIndex, int pageSize) {
+            return base.Channel.SelectTestResultHistoryAsync(querySN, pageIndex, pageSize);
         }
     }
 }

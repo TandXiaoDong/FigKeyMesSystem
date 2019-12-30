@@ -263,6 +263,12 @@ namespace MesManager.MesServiceTest {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteUser", ReplyAction="http://tempuri.org/IMesService/DeleteUserResponse")]
         System.Threading.Tasks.Task<string[]> DeleteUserAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CopyDataSource", ReplyAction="http://tempuri.org/IMesService/CopyDataSourceResponse")]
+        void CopyDataSource();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CopyDataSource", ReplyAction="http://tempuri.org/IMesService/CopyDataSourceResponse")]
+        System.Threading.Tasks.Task CopyDataSourceAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -538,6 +544,14 @@ namespace MesManager.MesServiceTest {
         
         public System.Threading.Tasks.Task<string[]> DeleteUserAsync(string username) {
             return base.Channel.DeleteUserAsync(username);
+        }
+        
+        public void CopyDataSource() {
+            base.Channel.CopyDataSource();
+        }
+        
+        public System.Threading.Tasks.Task CopyDataSourceAsync() {
+            return base.Channel.CopyDataSourceAsync();
         }
     }
 }

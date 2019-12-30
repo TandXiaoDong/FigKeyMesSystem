@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://192.168.0.110:8085/MesService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model" />
-  <xs:import schemaLocation="http://192.168.0.110:8085/MesService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://192.168.0.175:8085/MesService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model" />
+  <xs:import schemaLocation="http://192.168.0.175:8085/MesService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="TestCommunication">
     <xs:complexType>
       <xs:sequence>
@@ -57,6 +57,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetUserID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetUserIDResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetAllUserInfo">
     <xs:complexType>
       <xs:sequence />
@@ -86,8 +100,6 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="pwd" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="phone" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="userType" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -102,6 +114,7 @@
   <xs:element name="ModifyUserPassword">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="userID" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="pwd" nillable="true" type="xs:string" />
       </xs:sequence>
@@ -217,7 +230,7 @@
   <xs:element name="InsertStationResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="InsertStationResult" type="xs:int" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="InsertStationResult" nillable="true" type="q4:ArrayOfStation" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -233,6 +246,23 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="SetCurrentProcessResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProcessOrder">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="process" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="station" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+        <xs:element minOccurs="0" name="user" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProcessOrderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateProcessOrderResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -291,7 +321,7 @@
   <xs:element name="CommitTypeStation">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="dctData" nillable="true" type="q4:ArrayOfKeyValueOfstringArrayOfstringty7Ep6D1" />
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="dctData" nillable="true" type="q5:ArrayOfKeyValueOfstringArrayOfstringty7Ep6D1" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -363,6 +393,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codeRID" nillable="true" type="xs:string" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="stockStateEnum" type="q6:MaterialStockState" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -409,6 +440,34 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="DeleteMaterialBasicMsg">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="queryCondition" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteMaterialBasicMsgResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteMaterialBasicMsgResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteQuanlityMsg">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="quanlityList" nillable="true" type="q7:ArrayOfQuanlityHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteQuanlityMsgResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteQuanlityMsgResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="DeleteMaterial">
     <xs:complexType>
       <xs:sequence>
@@ -438,20 +497,22 @@
   <xs:element name="CommitProductMaterial">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="pmList" nillable="true" type="q5:ArrayOfProductMaterial" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="pmList" nillable="true" type="q8:ArrayOfProductMaterial" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CommitProductMaterialResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="CommitProductMaterialResult" nillable="true" type="q6:ArrayOfProductMaterial" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="CommitProductMaterialResult" nillable="true" type="q9:ArrayOfProductMaterial" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SelectProductMaterial">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="queryCondition" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SelectProductMaterialResponse">
@@ -476,7 +537,7 @@
   <xs:element name="DeleteProductMaterial">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="material" nillable="true" type="q7:ProductMaterial" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="material" nillable="true" type="q10:ProductMaterial" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -526,25 +587,15 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="materialCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SelectMaterialBasicMsgResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="SelectMaterialBasicMsgResult" nillable="true">
-          <xs:complexType>
-            <xs:annotation>
-              <xs:appinfo>
-                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
-              </xs:appinfo>
-            </xs:annotation>
-            <xs:sequence>
-              <xs:element ref="xs:schema" />
-              <xs:any />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectMaterialBasicMsgResult" nillable="true" type="q11:MaterialResultInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -669,6 +720,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="DeleteProductPackage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="queryCondition" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="state" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProductPackageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteProductPackageResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SelectProductBindingRecord">
     <xs:complexType>
       <xs:sequence>
@@ -729,25 +795,29 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="productTypeNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SelectTestProgrameVersionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="SelectTestProgrameVersionResult" nillable="true">
-          <xs:complexType>
-            <xs:annotation>
-              <xs:appinfo>
-                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
-              </xs:appinfo>
-            </xs:annotation>
-            <xs:sequence>
-              <xs:element ref="xs:schema" />
-              <xs:any />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectTestProgrameVersionResult" nillable="true" type="q12:ProgramVersionHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteTestProgrameVersion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="programeList" nillable="true" type="q13:ArrayOfProgramVersionHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteTestProgrameVersionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteTestProgrameVersionResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -755,25 +825,29 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="productTypeNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SelectTestLimitConfigResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="SelectTestLimitConfigResult" nillable="true">
-          <xs:complexType>
-            <xs:annotation>
-              <xs:appinfo>
-                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
-              </xs:appinfo>
-            </xs:annotation>
-            <xs:sequence>
-              <xs:element ref="xs:schema" />
-              <xs:any />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectTestLimitConfigResult" nillable="true" type="q14:TestStandSpecHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteTestLimitConfig">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="specList" nillable="true" type="q15:ArrayOfTestStandSpecHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteTestLimitConfigResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteTestLimitConfigResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -874,25 +948,15 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="materialCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SelectQuanlityManagerResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="SelectQuanlityManagerResult" nillable="true">
-          <xs:complexType>
-            <xs:annotation>
-              <xs:appinfo>
-                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
-              </xs:appinfo>
-            </xs:annotation>
-            <xs:sequence>
-              <xs:element ref="xs:schema" />
-              <xs:any />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectQuanlityManagerResult" nillable="true" type="q16:QuanlityHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -966,25 +1030,15 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="queryFilter" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SelectPackageStorageResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="SelectPackageStorageResult" nillable="true">
-          <xs:complexType>
-            <xs:annotation>
-              <xs:appinfo>
-                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
-              </xs:appinfo>
-            </xs:annotation>
-            <xs:sequence>
-              <xs:element ref="xs:schema" />
-              <xs:any />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectPackageStorageResult" nillable="true" type="q17:PackageProductHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -992,34 +1046,39 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="querySN" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SelectTestResultDetailResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="SelectTestResultDetailResult" nillable="true">
-          <xs:complexType>
-            <xs:annotation>
-              <xs:appinfo>
-                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
-              </xs:appinfo>
-            </xs:annotation>
-            <xs:sequence>
-              <xs:element ref="xs:schema" />
-              <xs:any />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectTestResultDetailResult" nillable="true" type="q18:TestResultHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectTestResultLogLatestPage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="queryFilter" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startTime" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endTime" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectTestResultLogLatestPageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SelectTestResultLogLatestPageResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SelectTestResultLogDetail">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="queryFilter" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="startTime" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="endTime" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pageNumber" type="xs:int" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1039,6 +1098,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteTestLogData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="queryCondition" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startTime" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endTime" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteTestLogDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteTestLogDataResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1104,25 +1179,15 @@
         <xs:element minOccurs="0" name="queryFilter" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="state" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="IsShowNumber" type="xs:boolean" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SelectPackageProductCheckResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="SelectPackageProductCheckResult" nillable="true">
-          <xs:complexType>
-            <xs:annotation>
-              <xs:appinfo>
-                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
-              </xs:appinfo>
-            </xs:annotation>
-            <xs:sequence>
-              <xs:element ref="xs:schema" />
-              <xs:any />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectPackageProductCheckResult" nillable="true" type="q19:CheckPackageProductHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1139,7 +1204,7 @@
   <xs:element name="ModifyMaterialStockResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="ModifyMaterialStockResult" type="q8:MaterialStockEnum" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="ModifyMaterialStockResult" type="q20:MaterialStockEnum" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1154,6 +1219,135 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="UpdateInsernResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateAllProductTypeNo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="oldTypeNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newTypeNo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateAllProductTypeNoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProcess">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="processName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProcessResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteProcessResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectUseAllPcbaSN">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectUseAllPcbaSNResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectUseAllPcbaSNResult" nillable="true" type="q21:ArrayOfTestResultHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteTestLogHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="logList" nillable="true" type="q22:ArrayOfTestLogResultHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteTestLogHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteTestLogHistoryResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteMaterialBasicHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="materialList" nillable="true" type="q23:ArrayOfMaterialResultInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteMaterialBasicHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteMaterialBasicHistoryResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProductPackageHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="packageList" nillable="true" type="q24:ArrayOfPackageProductHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProductPackageHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteProductPackageHistoryResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteCheckProductPackageHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="packageList" nillable="true" type="q25:ArrayOfCheckPackageProductHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteCheckProductPackageHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteCheckProductPackageHistoryResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectTestResultLogHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="querySN" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startTime" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endTime" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectTestResultLogHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectTestResultLogHistoryResult" nillable="true" type="q26:TestResultHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectTestResultHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="querySN" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectTestResultHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectTestResultHistoryResult" nillable="true" type="q27:TestResultHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
