@@ -1129,5 +1129,35 @@ namespace MesWcfService
         {
             TestLogData.CopyDataSource2NewTable();
         }
+
+        [SwaggerWcfTag("MesServcie 服务")]
+        public void UpdateAllPcbBind()
+        {
+            var selectSQL = $"select {DbTable.F_Test_Result.SN} from {DbTable.F_TEST_RESULT_NAME}";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    var pid = dr[0].ToString();
+                    selectSQL = $"select * from {DbTable.F_TEST_PCBA_NAME} where {DbTable.F_TEST_PCBA.PCBA_SN}= '{pid}'";
+                    dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                    if (dt.Rows.Count < 1)
+                    {
+                        //本表没有数据
+                        //查询是否是外壳
+                        selectSQL = $"select * from {DbTable.F_BINDING_PCBA_NAME} where {DbTable.F_BINDING_PCBA.SN_OUTTER} = '{pid}'";
+                        dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                        if (dt.Rows.Count < 1)
+                        {
+                            //插入本地
+                            var insertSQL = $"insert into {DbTable.F_TEST_PCBA_NAME}({DbTable.F_TEST_PCBA.PCBA_SN},{DbTable.F_TEST_PCBA.UPDATE_DATE}) values(" +
+                                $"'{pid}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
+                            int row = SQLServer.ExecuteNonQuery(insertSQL);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

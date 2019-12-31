@@ -21,6 +21,7 @@ using MesAPI.Common;
 using System.Data.Common;
 using CommonUtils.DEncrypt;
 using CommonUtils.FileHelper;
+using System.Diagnostics;
 
 namespace MesAPI
 {
@@ -771,7 +772,7 @@ namespace MesAPI
                 var process = SelectCurrentTProcess();
                 string configPath = defaultRoot + ":\\StationConfig\\外壳装配工站\\" + process + "\\" + "外壳装配工站_" + process + "_config.ini";
                 int.TryParse(INIFile.GetValue(process, "设置PCB条码长度位数", configPath).Trim(), out shellLen);
-                LogHelper.Log.Info("【配置文件路径】" + configPath + "len="+shellLen);
+                //LogHelper.Log.Info("【配置文件路径】" + configPath + "len="+shellLen);
                 return shellLen;
             }
             catch (Exception ex)
@@ -1019,31 +1020,43 @@ namespace MesAPI
 
         public TestResultHistory SelectTestResultHistory(string querySN,int pageIndex,int pageSize)
         {
+            LogHelper.Log.Info("开始查询...");
             TestResultHistory testResultHistory = new TestResultHistory();
             DataSet ds = new DataSet();
             DataTable dt = InitTestResultDataTable(true);
             var selectPCBA = "";
-            if(querySN == "")
+            querySN = querySN.Trim();
+            if (querySN == "")
                 selectPCBA = $"select {DbTable.F_TEST_PCBA.PCBA_SN} from {DbTable.F_TEST_PCBA_NAME} ";
             else 
                 selectPCBA = $"select {DbTable.F_TEST_PCBA.PCBA_SN} from {DbTable.F_TEST_PCBA_NAME} where {DbTable.F_TEST_PCBA.PCBA_SN} like '%{querySN}%'";
             
-            var dbReader = SQLServer.ExecuteDataReader(selectPCBA);
-            if (dbReader.HasRows)
+            var dtRead = SQLServer.ExecuteDataSet(selectPCBA).Tables[0];
+            LogHelper.Log.Info("查询PCB完毕，开始查询明细..."+selectPCBA);
+            if (dtRead.Rows.Count > 0)
             {
                 int i = 0;
                 int id = 0;
                 int startIndex = (pageIndex - 1) * pageSize;
-                while (dbReader.Read())
+                Stopwatch stopwatch = new Stopwatch();
+                TimeSpan timeSpan = new TimeSpan();
+                foreach (DataRow dbReader in dtRead.Rows)
                 {
                     if (i >= startIndex && i < pageIndex * pageSize)
                     {
+                        stopwatch.Start();
                         var pid = dbReader[0].ToString();
                         AddTestResultHistory(dt,id,pid);
                         id++;
                     }
+                    if (i == (pageIndex * pageSize) - 1)
+                    {
+                        stopwatch.Stop();
+                        timeSpan = stopwatch.Elapsed;
+                    }
                     i++;
                 }
+                LogHelper.Log.Info("查询结束..."+timeSpan.TotalMilliseconds);
                 ds.Tables.Add(dt);
                 testResultHistory.TestResultNumber = i;
                 testResultHistory.TestResultDataSet = ds;
@@ -1060,12 +1073,12 @@ namespace MesAPI
             TestResultHistory testResultHistory = new TestResultHistory();
             DataSet ds = new DataSet();
             DataTable dt = InitTestResultDataTable(true);
-            Dictionary<string, string> keyValues = new Dictionary<string, string>();
+            querySN = querySN.Trim();
             var selectLog = "";
             if (querySN == "")
-                selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' && {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}'";
+                selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}'";
             else
-                selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_PCBA.PCBA_SN} like '%{querySN}%' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' && {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}'";
+                selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_PCBA.PCBA_SN} like '%{querySN}%' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}'";
             var dbReader = SQLServer.ExecuteDataReader(selectLog);
             if (dbReader.HasRows)
             {
@@ -1076,6 +1089,7 @@ namespace MesAPI
                 {
                     if (i >= startIndex && i < pageIndex * pageSize)
                     {
+                        Dictionary<string, string> keyValues = new Dictionary<string, string>();
                         var pid = dbReader[1].ToString();
                         var sid = dbReader[2].ToString();
                         var typeNo = dbReader[3].ToString();

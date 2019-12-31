@@ -193,31 +193,23 @@ namespace MesManager.DB
                     while(dbReader.Read())
                     {
                         var pcbaSN = dbReader[0].ToString();
-                        var productTypeNo = dbReader[1].ToString();
-                        TestResultHistory queryTestObj = new TestResultHistory();
+                        if (pcbaSN.Length == pcbaLen)
+                        {
+                            //是PCBA
+                            var productTypeNo = dbReader[1].ToString();
+                            TestResultHistory queryTestObj = new TestResultHistory();
 
-                        queryTestObj.PcbaSN = pcbaSN;
-                        queryTestObj.ProductTypeNo = productTypeNo;
-                        queryTestObj.ShellCodeLen = shellLen;
-                        queryTestObj.PcbaCodeLen = pcbaLen;
-                        pcbaCacheList.Add(queryTestObj);
-                        //if (pcbaSN.Length == pcbaLen)
-                        //{
-                        //    //是PCBA
-                        //    var productTypeNo = dbReader[1].ToString();
-                        //    TestResultHistory queryTestObj = new TestResultHistory();
-
-                        //    queryTestObj.PcbaSN = pcbaSN;
-                        //    queryTestObj.ProductTypeNo = productTypeNo;
-                        //    queryTestObj.ShellCodeLen = shellLen;
-                        //    queryTestObj.PcbaCodeLen = pcbaLen;
-                        //    var pcbaObj = pcbaCacheList.Find(m => m.PcbaSN == pcbaSN);
-                        //    if (pcbaObj == null)
-                        //    {
-                        //        pcbaCacheList.Add(queryTestObj);
-                        //        i++;
-                        //    }
-                        //}
+                            queryTestObj.PcbaSN = pcbaSN;
+                            queryTestObj.ProductTypeNo = productTypeNo;
+                            queryTestObj.ShellCodeLen = shellLen;
+                            queryTestObj.PcbaCodeLen = pcbaLen;
+                            var pcbaObj = pcbaCacheList.Find(m => m.PcbaSN == pcbaSN);
+                            if (pcbaObj == null)
+                            {
+                                pcbaCacheList.Add(queryTestObj);
+                                i++;
+                            }
+                        }
                     }
                     LogHelper.Log.Info("开始查询明细...");
                     //开始查询明细
