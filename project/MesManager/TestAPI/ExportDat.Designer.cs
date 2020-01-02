@@ -34,6 +34,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -51,7 +52,14 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
-            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.btn_testItem = new System.Windows.Forms.Button();
+            this.tb_pcb = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tb_station = new System.Windows.Forms.Label();
+            this.btn_upTestResult = new System.Windows.Forms.Button();
+            this.btn_bindPid = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -72,6 +80,14 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.btn_bindPid);
+            this.panel1.Controls.Add(this.btn_upTestResult);
+            this.panel1.Controls.Add(this.tb_station);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.tb_pcb);
+            this.panel1.Controls.Add(this.btn_testItem);
+            this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
@@ -81,8 +97,18 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(870, 44);
+            this.panel1.Size = new System.Drawing.Size(870, 168);
             this.panel1.TabIndex = 3;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(613, 10);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(116, 23);
+            this.button5.TabIndex = 5;
+            this.button5.Text = "查询_新表log";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
@@ -243,24 +269,87 @@
             // radGridView1
             // 
             this.radGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridView1.Location = new System.Drawing.Point(0, 44);
+            this.radGridView1.Location = new System.Drawing.Point(0, 168);
             // 
             // 
             // 
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition2;
             this.radGridView1.Name = "radGridView1";
-            this.radGridView1.Size = new System.Drawing.Size(870, 379);
+            this.radGridView1.Size = new System.Drawing.Size(870, 255);
             this.radGridView1.TabIndex = 38;
             // 
-            // button5
+            // button6
             // 
-            this.button5.Location = new System.Drawing.Point(613, 10);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(116, 23);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "查询_新表log";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button6.Location = new System.Drawing.Point(403, 68);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 6;
+            this.button6.Text = "查询上一站";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // btn_testItem
+            // 
+            this.btn_testItem.Location = new System.Drawing.Point(278, 120);
+            this.btn_testItem.Name = "btn_testItem";
+            this.btn_testItem.Size = new System.Drawing.Size(100, 23);
+            this.btn_testItem.TabIndex = 7;
+            this.btn_testItem.Text = "更新测试项";
+            this.btn_testItem.UseVisualStyleBackColor = true;
+            this.btn_testItem.Click += new System.EventHandler(this.btn_testItem_Click);
+            // 
+            // tb_pcb
+            // 
+            this.tb_pcb.Location = new System.Drawing.Point(48, 65);
+            this.tb_pcb.Name = "tb_pcb";
+            this.tb_pcb.Size = new System.Drawing.Size(100, 21);
+            this.tb_pcb.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 68);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(23, 12);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "pid";
+            // 
+            // tb_station
+            // 
+            this.tb_station.AutoSize = true;
+            this.tb_station.Location = new System.Drawing.Point(171, 68);
+            this.tb_station.Name = "tb_station";
+            this.tb_station.Size = new System.Drawing.Size(29, 12);
+            this.tb_station.TabIndex = 11;
+            this.tb_station.Text = "工站";
+            // 
+            // btn_upTestResult
+            // 
+            this.btn_upTestResult.Location = new System.Drawing.Point(403, 120);
+            this.btn_upTestResult.Name = "btn_upTestResult";
+            this.btn_upTestResult.Size = new System.Drawing.Size(100, 23);
+            this.btn_upTestResult.TabIndex = 12;
+            this.btn_upTestResult.Text = "更新测试结果";
+            this.btn_upTestResult.UseVisualStyleBackColor = true;
+            this.btn_upTestResult.Click += new System.EventHandler(this.btn_upTestResult_Click);
+            // 
+            // btn_bindPid
+            // 
+            this.btn_bindPid.Location = new System.Drawing.Point(548, 120);
+            this.btn_bindPid.Name = "btn_bindPid";
+            this.btn_bindPid.Size = new System.Drawing.Size(75, 23);
+            this.btn_bindPid.TabIndex = 13;
+            this.btn_bindPid.Text = "外壳绑定";
+            this.btn_bindPid.UseVisualStyleBackColor = true;
+            this.btn_bindPid.Click += new System.EventHandler(this.btn_bindPid_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(206, 66);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 20);
+            this.comboBox1.TabIndex = 14;
             // 
             // ExportDat
             // 
@@ -309,5 +398,13 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btn_testItem;
+        private System.Windows.Forms.Label tb_station;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tb_pcb;
+        private System.Windows.Forms.Button btn_upTestResult;
+        private System.Windows.Forms.Button btn_bindPid;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

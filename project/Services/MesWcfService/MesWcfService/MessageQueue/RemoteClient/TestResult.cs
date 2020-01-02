@@ -166,7 +166,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName}," +
                        $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
                        $"VALUES('{sn}','{processName}','{station}','{stationInDate}','{updateDate}')";
-                var recordStatus = IsExistBurnStationRecord(sn, station);
+                var recordStatus = IsExistSensibilityStationRecord(sn, station);
                 if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
                 {
                     //insert new row
@@ -191,7 +191,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                           $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.shellStationName}," +
                           $"{DbTable.F_TEST_RESULT_HISTORY.shellDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
                           $"VALUES('{sn}','{processName}','{station}','{stationInDate}','{updateDate}')";
-                var recordStatus = IsExistBurnStationRecord(sn, station);
+                var recordStatus = IsExistShellStationRecord(sn, station);
                 if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
                 {
                     //insert new row
@@ -216,7 +216,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                       $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.airtageStationName}," +
                       $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
                       $"VALUES('{sn}','{processName}','{station}','{stationInDate}','{updateDate}')";
-                var recordStatus = IsExistBurnStationRecord(sn, station);
+                var recordStatus = IsExistAirtageStationRecord(sn, station);
                 if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
                 {
                     //insert new row
@@ -229,7 +229,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}'," +
                     $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateIn} = '{stationInDate}'," +
                     $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
                     int row = SQLServer.ExecuteNonQuery(updateSQL);
@@ -241,7 +241,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                         $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.stentStationName}," +
                         $"{DbTable.F_TEST_RESULT_HISTORY.stentDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
                         $"VALUES('{sn}','{processName}','{station}','{stationInDate}','{updateDate}')";
-                var recordStatus = IsExistBurnStationRecord(sn, station);
+                var recordStatus = IsExistStentStationRecord(sn, station);
                 if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
                 {
                     //insert new row
@@ -254,7 +254,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}'," +
                     $"{DbTable.F_TEST_RESULT_HISTORY.stentDateIn} = '{stationInDate}'," +
                     $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
                     int row = SQLServer.ExecuteNonQuery(updateSQL);
@@ -266,7 +266,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                         $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.productStationName}," +
                         $"{DbTable.F_TEST_RESULT_HISTORY.productDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}) " +
                         $"VALUES('{sn}','{processName}','{station}','{stationInDate}','{updateDate}')";
-                var recordStatus = IsExistBurnStationRecord(sn, station);
+                var recordStatus = IsExistProductStationRecord(sn, station);
                 if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
                 {
                     //insert new row
@@ -279,7 +279,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}'," +
                     $"{DbTable.F_TEST_RESULT_HISTORY.productDateIn} = '{stationInDate}'," +
                     $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} = '{updateDate}' WHERE " +
-                    $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}' AND " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo} = '{processName}' AND " +
                     $"{DbTable.F_TEST_RESULT_HISTORY.id} = '{recordStatus.pcbaID}'";
                     int row = SQLServer.ExecuteNonQuery(updateSQL);
@@ -413,6 +413,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
         }
 
         #region 查询工站是否有记录
+
         /// <summary>
         /// 查询烧录工站是否存在记录
         /// </summary>
@@ -428,7 +429,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+                $"{DbTable.F_TEST_RESULT_HISTORY.id} DESC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
             {
@@ -437,7 +438,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.burnStationName} = '{station}' " +
-                $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+                $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} DESC";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
                 {
@@ -467,7 +468,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+                $"{DbTable.F_TEST_RESULT_HISTORY.id} DESC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
             {
@@ -475,7 +476,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName} = '{station}'";
+                $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName} = '{station}' " +
+                $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} DESC";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
                 {
@@ -505,7 +507,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+                $"{DbTable.F_TEST_RESULT_HISTORY.id} DESC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
             {
@@ -513,7 +515,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.shellStationName} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{station}'";
+                $"{DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{station}' " +
+                 $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} DESC";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
                 {
@@ -543,7 +546,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' ORDER BY " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+                $"{DbTable.F_TEST_RESULT_HISTORY.id} DESC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
             {
@@ -551,7 +554,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.airtageStationName} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}'";
+                $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}' " +
+                $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} DESC";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
                 {
@@ -581,7 +585,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' ORDER BY " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+                $"{DbTable.F_TEST_RESULT_HISTORY.id} DESC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
             {
@@ -589,7 +593,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.stentStationName} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}'";
+                $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}' " +
+                 $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} DESC";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
                 {
@@ -620,7 +625,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' ORDER BY " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.updateDate} DESC";
+                $"{DbTable.F_TEST_RESULT_HISTORY.id} DESC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
             {
@@ -628,7 +633,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 var stationSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.productStationName} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}'";
+                $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}' " +
+                 $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} DESC";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
                 {
@@ -643,7 +649,6 @@ namespace MesWcfService.MessageQueue.RemoteClient
             return testResult;
         }
         #endregion
-
         
         private static int UpdateTestResult(string sn ,string typeNo,string station,
             string result,string teamder,string admin,string joinDateTime)

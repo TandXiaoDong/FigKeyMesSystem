@@ -318,7 +318,6 @@ namespace MesAPI.DB
             public const string productItem_workElect = "[productItem_workElect]";
             public const string productItem_dormantElect = "[productItem_dormantElect]";
             public const string productItem_inspectResult = "[productItem_inspectResult]";
-            public const string productItem_inspectItem = "[productItem_inspectItem]";
         }
     }
 }

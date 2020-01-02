@@ -71,7 +71,6 @@ namespace MesWcfService.MessageQueue.RemoteClient
         public const string Product_Work_Electric_Test = "工作电流";
         public const string Product_DormantElect = "休眠电流";
         public const string Product_Inspect_Result = "目检";
-        public const string Product_InspectItem = "目检";
         #endregion
 
         private static List<string> BurnTestItemList()
@@ -140,7 +139,6 @@ namespace MesWcfService.MessageQueue.RemoteClient
             testItemList.Add(Product_Work_Electric_Test);
             testItemList.Add(Product_DormantElect);
             testItemList.Add(Product_Inspect_Result);
-            testItemList.Add(Product_InspectItem);
             return testItemList;
         }
 
@@ -445,9 +443,9 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.productItem_dormantElect} = '{testItemString}' WHERE " +
                         $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
                 }
-                else if (testItem == Product_InspectItem)
+                else if (testItem == Product_Inspect_Result)
                 {
-                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.productItem_inspectItem} = '{testItemString}' WHERE " +
+                    updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " + $"{DbTable.F_TEST_RESULT_HISTORY.productItem_inspectResult} = '{testItemString}' WHERE " +
                         $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND {DbTable.F_TEST_RESULT_HISTORY.id} = '{testLog.pcbaID}'";
                 }
                 else if (testItem == Product_Inspect_Result)
@@ -595,9 +593,9 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     {
                         var typeNo = dbReader[0].ToString();
                         var pid = dbReader[1].ToString();
-                            if (pid != "017 B19C19017501")
+                            if (pid != "017 B19A17011502" && pid != "A571E20311K112600131HE00110123" && pid != "A571E20311K112600525HE00110123")
                                 continue;
-                        var station = dbReader[3].ToString();
+                            var station = dbReader[3].ToString();
                         var result = dbReader[4].ToString();
                         var dateIn = dbReader[5].ToString();
                         if(dateIn != "")
@@ -694,7 +692,6 @@ namespace MesWcfService.MessageQueue.RemoteClient
                         //更新完毕
                         i++;
                     }
-
                     });
 
                     UpdateAllPcbBind();
@@ -709,10 +706,10 @@ namespace MesWcfService.MessageQueue.RemoteClient
 
         private static void AddTestResultHistoryBindSN(string sn)
         {
-            var selectPidSQL = $"select top 1 {DbTable.F_TEST_RESULT_HISTORY.id}," +
+            var selectPidSQL = $"select {DbTable.F_TEST_RESULT_HISTORY.id}," +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{sn}'";
-            var selectTidSQL = $"select top 1 {DbTable.F_TEST_RESULT_HISTORY.id}," +
+            var selectTidSQL = $"select {DbTable.F_TEST_RESULT_HISTORY.id}," +
                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
                $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}'";
 
@@ -784,6 +781,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 }
             }
         }
+
         private static void SelectTestItem(string pid,string typeNo, string stationName, string testItem, string joinDateTime)
         {
             var selectSQL = $"select top 1 {DbTable.F_TEST_LOG_DATA.TEST_ITEM},{DbTable.F_TEST_LOG_DATA.LIMIT}," +
@@ -807,7 +805,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             }
         }
 
-        private static void UpdateHistoryBindStatus()
+        public static void UpdateHistoryBindStatus()
         {
             var selectSQL = $"select {DbTable.F_TEST_RESULT_HISTORY.pcbaSN},{DbTable.F_TEST_RESULT_HISTORY.productSN} from " +
                 $"{DbTable.F_TEST_RESULT_HISTORY_NAME} ";
@@ -834,7 +832,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             }
         }
 
-        private static void UpdateAllPcbBind()
+        public static void UpdateAllPcbBind()
         {
             var selectSQL = $"select {DbTable.F_Test_Result.SN} from {DbTable.F_TEST_RESULT_NAME}";
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
@@ -857,6 +855,46 @@ namespace MesWcfService.MessageQueue.RemoteClient
                             var insertSQL = $"insert into {DbTable.F_TEST_PCBA_NAME}({DbTable.F_TEST_PCBA.PCBA_SN},{DbTable.F_TEST_PCBA.UPDATE_DATE}) values(" +
                                 $"'{pid}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
                             int row = SQLServer.ExecuteNonQuery(insertSQL);
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void UpdateUnBind2BindResult()
+        {
+            //select distinct pcbaSN,productSN,bindState from f_testResultHistory where pcbaSN = '017 B19A17011502'-- > 1
+            //select* from f_testResultHistory where pcbaSN = '' and bindState = '0' order by ID desc
+            //update f_testResultHistory set where
+            var selectSQL = $"select {DbTable.F_TEST_PCBA.PCBA_SN} from {DbTable.F_TEST_PCBA_NAME}";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    var pid = dr[0].ToString();
+                    selectSQL = $"select distinct {DbTable.F_TEST_RESULT_HISTORY.pcbaSN},{DbTable.F_TEST_RESULT_HISTORY.productSN}," +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.bindState} from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}'";
+                    dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                    if (dt.Rows.Count > 1)
+                    {
+                        //存在已解绑与已绑定的记录
+                        //将已解绑的数据更新到现有记录
+                        selectSQL = $"select top 1 * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' and " +
+                            $"{DbTable.F_TEST_RESULT_HISTORY.bindState} = '0' order by desc";
+                        dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                        if (dt.Rows.Count > 0)
+                        {
+                            //更新每个工站记录
+                            #region 烧录工站
+                            var updateSQL = $"update {DbTable.F_TEST_RESULT_HISTORY_NAME} set {DbTable.F_TEST_RESULT_HISTORY.burnStationName} = '{dt.Rows[0][4].ToString()}'," +
+                                $"{DbTable.F_TEST_RESULT_HISTORY.burnDateIn}='{dt.Rows[0][0].ToString()}',{DbTable.F_TEST_RESULT_HISTORY.burnDateOut}='{dt.Rows[0][0].ToString()}'," +
+                                $"{DbTable.F_TEST_RESULT_HISTORY.burnTestResult}='{dt.Rows[0][0].ToString()}',{DbTable.F_TEST_RESULT_HISTORY.burnOperator}='{dt.Rows[0][0].ToString()}'," +
+                                $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_burn}='{dt.Rows[0][0].ToString()}',{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage13_5}='{dt.Rows[0][0].ToString()}'," +
+                                $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage5}='{dt.Rows[0][0].ToString()}',{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage3_3_1}='{dt.Rows[0][0].ToString()}'," +
+                                $"{DbTable.F_TEST_RESULT_HISTORY.burnItem_voltage3_3_2}='{dt.Rows[0][0].ToString()}',{DbTable.F_TEST_RESULT_HISTORY.burnItem_softVersion} ='{dt.Rows[0][0].ToString()}' " +
+                                $"where {DbTable.F_TEST_RESULT_HISTORY.pcbaSN}='{pid}' and {DbTable.F_TEST_RESULT_HISTORY.bindState}='1'";
+                            #endregion
                         }
                     }
                 }

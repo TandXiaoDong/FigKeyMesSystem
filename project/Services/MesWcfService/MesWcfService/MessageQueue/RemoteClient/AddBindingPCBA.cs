@@ -110,13 +110,13 @@ namespace MesWcfService.MessageQueue.RemoteClient
 
         private static void AddTestResultHistoryBindSN(string pcbsn,string shellsn)
         {
-            var selectSQL = $"select top 1 {DbTable.F_TEST_RESULT_HISTORY.id}," +
+            var selectSQL = $"select {DbTable.F_TEST_RESULT_HISTORY.id}," +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcbsn}' ";
-            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
-            if (dbReader.HasRows)
+                $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcbsn}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
             {
-                while (dbReader.Read())
+                foreach (DataRow dbReader in dt.Rows)
                 {
                     var kid = dbReader[0].ToString();
                     var sid = dbReader[1].ToString();
@@ -124,7 +124,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     {
                         //不存在绑定关系，添加绑定外壳
                         var updateSQL = $"UPDATE {DbTable.F_TEST_RESULT_HISTORY_NAME} SET " +
-                            $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{shellsn}' " +
+                            $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{shellsn}',{DbTable.F_TEST_RESULT_HISTORY.bindState}='1' " +
                             $"WHERE {DbTable.F_TEST_RESULT_HISTORY.id} = '{kid}'";
                         SQLServer.ExecuteNonQuery(updateSQL);
                     }

@@ -60,6 +60,7 @@ namespace TestAPI
             //this.radGridView1.VirtualMode = true;
             this.radGridView1.CellValuePushed += RadGridView1_CellValuePushed;
             this.radGridView1.CellValueNeeded += RadGridView1_CellValueNeeded;
+            this.comboBox1.Items.AddRange(new string[] { "烧录工站", "灵敏度测试工站", "外壳装配工站", "气密测试工站", "支架装配工站", "成品测试工站" });
         }
 
         private void RadGridView1_CellValueNeeded(object sender, GridViewCellValueEventArgs e)
@@ -317,6 +318,108 @@ namespace TestAPI
             this.radGridView1.EndEdit();
             this.radGridView1.BestFitColumns();
             LogHelper.Log.Info("显示完毕...");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            //查询上一站
+            //第一个站或不是
+            var station = this.comboBox1.SelectedItem.ToString();
+            var pid = "017 B19A17011990";
+            var tid = "A571E20311K112600998HE00110123";
+            if (station == "烧录工站")
+            {
+                serverTest.SelectLastTestResult(pid, station);
+            }
+            else if (station == "灵敏度测试工站")
+            {
+                serverTest.SelectLastTestResult(pid, station);
+            }
+            else if (station == "外壳装配工站")
+            {
+                serverTest.SelectLastTestResult(pid, station);
+            }
+            else if (station == "气密测试工站")
+            {
+                serverTest.SelectLastTestResult(tid, station);
+            }
+            else if (station == "支架装配工站")
+            {
+                serverTest.SelectLastTestResult(tid, station);
+            }
+            else if (station == "成品测试工站")
+            {
+                serverTest.SelectLastTestResult(tid, station);
+            }
+        }
+
+        private void btn_testItem_Click(object sender, EventArgs e)
+        {
+            var station = this.comboBox1.Text;
+            var result = "";
+            if (station == "烧录工站")
+            {
+                result = serverTest.UpdateTestLog("HTS-B2004-03-02", station, "017 B19A17011990", "烧录", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-01");
+            }
+            else if (station == "灵敏度测试工站")
+            {
+                result = serverTest.UpdateTestLog("HTS-B2004-03-02", station, "017 B19A17011990", "工作电流", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-02");
+            }
+            else if (station == "外壳装配工站")
+            {
+                result = serverTest.UpdateTestLog("HTS-B2004-03-02", station, "017 B19A17011990", "后盖组装", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-03");
+            }
+            else if (station == "气密测试工站")
+            {
+                result = serverTest.UpdateTestLog("HTS-B2004-03-02", station, "A571E20311K112600998HE00110123", "工作电流", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-04");
+            }
+            else if (station == "支架装配工站")
+            {
+                result = serverTest.UpdateTestLog("HTS-B2004-03-02", station, "A571E20311K112600998HE00110123", "右支架", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-05");
+            }
+            else if (station == "成品测试工站")
+            {
+                result = serverTest.UpdateTestLog("HTS-B2004-03-02", station, "A571E20311K112600998HE00110123", "目检", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-06");
+            }
+            MessageBox.Show(result+"");
+        }
+
+        private void btn_upTestResult_Click(object sender, EventArgs e)
+        {
+            var station = this.comboBox1.Text;
+            var result = "";
+            if (station == "烧录工站")
+            {
+                result=serverTest.UpdateTestResultData("017 B19A17011990", "HTS-B2004-03-02", station, "pass", "had", "hs", "2020-01-01-01");
+            }
+            else if (station == "灵敏度测试工站")
+            {
+                result=serverTest.UpdateTestResultData("017 B19A17011990", "HTS-B2004-03-02", station, "pass", "had", "hs", "2020-01-01-02");
+            }
+            else if (station == "外壳装配工站")
+            {
+                result=serverTest.UpdateTestResultData("017 B19A17011990", "HTS-B2004-03-02", station, "pass", "had", "hs", "2020-01-01-03");
+            }
+            else if (station == "气密测试工站")
+            {
+                result=serverTest.UpdateTestResultData("A571E20311K112600998HE00110123", "HTS-B2004-03-02", station, "pass", "had", "hs", "2020-01-01-04");
+            }
+            else if (station == "支架装配工站")
+            {
+                result=serverTest.UpdateTestResultData("A571E20311K112600998HE00110123", "HTS-B2004-03-02", station, "pass", "had", "hs", "2020-01-01-05");
+            }
+            else if (station == "成品测试工站")
+            {
+                result=serverTest.UpdateTestResultData("A571E20311K112600998HE00110123", "HTS-B2004-03-02", station, "pass", "had", "hs", "2020-01-01-06");
+            }
+            MessageBox.Show(result+"");
+        }
+
+        private void btn_bindPid_Click(object sender, EventArgs e)
+        {
+            //外壳绑定
+            var result =serverTest.BindingPCBA("017 B19A17011990", "A571E20311K112600998HE00110123", "A19083100060&S2.999&1.2.02.182&50&20190831&1T20190831001", "HTS-B2004-03-02");
+            MessageBox.Show(result+"");
         }
     }
 }
