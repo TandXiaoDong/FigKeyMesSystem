@@ -329,64 +329,54 @@ namespace MesManager.UI
             this.radGridView1.DataSource = null;
             this.radGridView1.Update();
             this.label_delStatus.Visible = false;
-            if (currentPage == 1)
-            {
-                #region update select date
-                if (rbtn_today.Checked)
-                {
-                    startTime = DateTime.Now.ToString("yyyy-MM-dd") + " 00:00:00";
-                    endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
-                }
-                else if (rbtn_oneMonth.Checked)
-                {
-                    startTime = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd") + " 00:00:00";
-                    endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
-                }
-                else if (rbtn_threeMonth.Checked)
-                {
-                    startTime = DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd") + " 00:00:00";
-                    endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
-                }
-                else if (rbtn_oneYear.Checked)
-                {
-                    startTime = DateTime.Now.AddYears(-1).ToString("yyyy-MM-dd") + " 00:00:00";
-                    endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
-                }
-                else if (rbtn_custom.Checked)
-                {
-                    startTime = this.pickerStartTime.Text;
-                    endTime = this.pickerEndTime.Text;
-                }
-                #endregion
 
-                int totalNumber = await serviceClient.SelectTestResultLogLatestPageAsync(this.tool_queryCondition.Text, startTime, endTime);
-                if (totalNumber % pageSize > 0)
-                {
-                    pageCount = totalNumber / pageSize + 1;
-                }
-                else
-                {
-                    pageCount = totalNumber / pageSize;
-                }
-                //bindSource
-                var dtSource = InitBindRowSource();
-                bindingSource1.DataSource = dtSource;
-                this.bindingNavigator1.BindingSource = bindingSource1;
-            }
-            var ds = await serviceClient.SelectTestResultLogDetailAsync(currentPage,pageSize);
-            if (ds.Tables.Count < 1)
+            #region update select date
+            if (rbtn_today.Checked)
             {
-                this.radGridView1.DataSource = null;
-                return;
+                startTime = DateTime.Now.ToString("yyyy-MM-dd") + " 00:00:00";
+                endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
             }
+            else if (rbtn_oneMonth.Checked)
+            {
+                startTime = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd") + " 00:00:00";
+                endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
+            }
+            else if (rbtn_threeMonth.Checked)
+            {
+                startTime = DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd") + " 00:00:00";
+                endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
+            }
+            else if (rbtn_oneYear.Checked)
+            {
+                startTime = DateTime.Now.AddYears(-1).ToString("yyyy-MM-dd") + " 00:00:00";
+                endTime = DateTime.Now.ToString("yyyy-MM-dd") + " 23:59:59";
+            }
+            else if (rbtn_custom.Checked)
+            {
+                startTime = this.pickerStartTime.Text;
+                endTime = this.pickerEndTime.Text;
+            }
+            #endregion
+
+            var logHistory = await serviceClient.SelectTestResultLogHistoryAsync(this.tool_queryCondition.Text, startTime, endTime, currentPage, pageSize);
+            if (logHistory.TestResultNumber % pageSize > 0)
+            {
+                pageCount = logHistory.TestResultNumber / pageSize + 1;
+            }
+            else
+            {
+                pageCount = logHistory.TestResultNumber / pageSize;
+            }
+            //bindSource
+            var dtSource = InitBindRowSource();
+            bindingSource1.DataSource = dtSource;
+            this.bindingNavigator1.BindingSource = bindingSource1;
             LogHelper.Log.Info("log查询-结果查询完毕");
-            var dt = ds.Tables[0];
+            var dt = logHistory.TestResultDataSet.Tables[0];
             this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             this.radGridView1.BeginEdit();
             this.radGridView1.DataSource = null;
             this.radGridView1.DataSource = dt;
-            //this.bindingSource1.DataSource = dt;
-            //this.bindingNavigator1.BindingSource = bindingSource1;
             this.radGridView1.EndEdit();
             this.radGridView1.BestFitColumns();
             LogHelper.Log.Info("log查询-显示完成");

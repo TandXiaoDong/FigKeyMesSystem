@@ -510,12 +510,7 @@ namespace MesManager.UI
             //var pcbaHis = (await serviceClient.SelectUseAllPcbaSNAsync());
             //MessageBox.Show(pcbaHis.Length+"");
             //LogHelper.Log.Info("清空显示完毕...");
-            //var testResultObj = await serviceClient.SelectTestResultDetailAsync(filter, currentPage, pageSize);
-            TestResultQuery.TestResultHistory testResultObj = null;
-            await Task.Run(() =>
-            {
-                testResultObj = TestResultQuery.SelectTestResultDetail(filter,currentPage,pageSize);
-            });
+            var testResultObj = await serviceClient.SelectTestResultHistoryAsync(filter, currentPage, pageSize);
             //LogHelper.Log.Info("查询数据完毕...");
             if (testResultObj.TestResultNumber % pageSize > 0)
             {

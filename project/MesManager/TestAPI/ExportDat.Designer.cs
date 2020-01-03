@@ -30,10 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExportDat));
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             this.button1 = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.btn_bindPid = new System.Windows.Forms.Button();
+            this.btn_upTestResult = new System.Windows.Forms.Button();
+            this.tb_station = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tb_pcb = new System.Windows.Forms.TextBox();
+            this.btn_testItem = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -52,14 +60,7 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
-            this.button6 = new System.Windows.Forms.Button();
-            this.btn_testItem = new System.Windows.Forms.Button();
-            this.tb_pcb = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tb_station = new System.Windows.Forms.Label();
-            this.btn_upTestResult = new System.Windows.Forms.Button();
-            this.btn_bindPid = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -80,6 +81,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button7);
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Controls.Add(this.btn_bindPid);
             this.panel1.Controls.Add(this.btn_upTestResult);
@@ -99,6 +101,79 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(870, 168);
             this.panel1.TabIndex = 3;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(207, 90);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 20);
+            this.comboBox1.TabIndex = 14;
+            // 
+            // btn_bindPid
+            // 
+            this.btn_bindPid.Location = new System.Drawing.Point(548, 120);
+            this.btn_bindPid.Name = "btn_bindPid";
+            this.btn_bindPid.Size = new System.Drawing.Size(75, 23);
+            this.btn_bindPid.TabIndex = 13;
+            this.btn_bindPid.Text = "外壳绑定";
+            this.btn_bindPid.UseVisualStyleBackColor = true;
+            this.btn_bindPid.Click += new System.EventHandler(this.btn_bindPid_Click);
+            // 
+            // btn_upTestResult
+            // 
+            this.btn_upTestResult.Location = new System.Drawing.Point(403, 120);
+            this.btn_upTestResult.Name = "btn_upTestResult";
+            this.btn_upTestResult.Size = new System.Drawing.Size(100, 23);
+            this.btn_upTestResult.TabIndex = 12;
+            this.btn_upTestResult.Text = "更新测试结果";
+            this.btn_upTestResult.UseVisualStyleBackColor = true;
+            this.btn_upTestResult.Click += new System.EventHandler(this.btn_upTestResult_Click);
+            // 
+            // tb_station
+            // 
+            this.tb_station.AutoSize = true;
+            this.tb_station.Location = new System.Drawing.Point(172, 92);
+            this.tb_station.Name = "tb_station";
+            this.tb_station.Size = new System.Drawing.Size(29, 12);
+            this.tb_station.TabIndex = 11;
+            this.tb_station.Text = "工站";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(11, 92);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(23, 12);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "pid";
+            // 
+            // tb_pcb
+            // 
+            this.tb_pcb.Location = new System.Drawing.Point(49, 89);
+            this.tb_pcb.Name = "tb_pcb";
+            this.tb_pcb.Size = new System.Drawing.Size(100, 21);
+            this.tb_pcb.TabIndex = 8;
+            // 
+            // btn_testItem
+            // 
+            this.btn_testItem.Location = new System.Drawing.Point(252, 120);
+            this.btn_testItem.Name = "btn_testItem";
+            this.btn_testItem.Size = new System.Drawing.Size(100, 23);
+            this.btn_testItem.TabIndex = 7;
+            this.btn_testItem.Text = "更新测试项";
+            this.btn_testItem.UseVisualStyleBackColor = true;
+            this.btn_testItem.Click += new System.EventHandler(this.btn_testItem_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(126, 120);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 6;
+            this.button6.Text = "查询上一站";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button5
             // 
@@ -273,83 +348,20 @@
             // 
             // 
             // 
-            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition2;
+            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
             this.radGridView1.Size = new System.Drawing.Size(870, 255);
             this.radGridView1.TabIndex = 38;
             // 
-            // button6
+            // button7
             // 
-            this.button6.Location = new System.Drawing.Point(403, 68);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "查询上一站";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // btn_testItem
-            // 
-            this.btn_testItem.Location = new System.Drawing.Point(278, 120);
-            this.btn_testItem.Name = "btn_testItem";
-            this.btn_testItem.Size = new System.Drawing.Size(100, 23);
-            this.btn_testItem.TabIndex = 7;
-            this.btn_testItem.Text = "更新测试项";
-            this.btn_testItem.UseVisualStyleBackColor = true;
-            this.btn_testItem.Click += new System.EventHandler(this.btn_testItem_Click);
-            // 
-            // tb_pcb
-            // 
-            this.tb_pcb.Location = new System.Drawing.Point(48, 65);
-            this.tb_pcb.Name = "tb_pcb";
-            this.tb_pcb.Size = new System.Drawing.Size(100, 21);
-            this.tb_pcb.TabIndex = 8;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 68);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(23, 12);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "pid";
-            // 
-            // tb_station
-            // 
-            this.tb_station.AutoSize = true;
-            this.tb_station.Location = new System.Drawing.Point(171, 68);
-            this.tb_station.Name = "tb_station";
-            this.tb_station.Size = new System.Drawing.Size(29, 12);
-            this.tb_station.TabIndex = 11;
-            this.tb_station.Text = "工站";
-            // 
-            // btn_upTestResult
-            // 
-            this.btn_upTestResult.Location = new System.Drawing.Point(403, 120);
-            this.btn_upTestResult.Name = "btn_upTestResult";
-            this.btn_upTestResult.Size = new System.Drawing.Size(100, 23);
-            this.btn_upTestResult.TabIndex = 12;
-            this.btn_upTestResult.Text = "更新测试结果";
-            this.btn_upTestResult.UseVisualStyleBackColor = true;
-            this.btn_upTestResult.Click += new System.EventHandler(this.btn_upTestResult_Click);
-            // 
-            // btn_bindPid
-            // 
-            this.btn_bindPid.Location = new System.Drawing.Point(548, 120);
-            this.btn_bindPid.Name = "btn_bindPid";
-            this.btn_bindPid.Size = new System.Drawing.Size(75, 23);
-            this.btn_bindPid.TabIndex = 13;
-            this.btn_bindPid.Text = "外壳绑定";
-            this.btn_bindPid.UseVisualStyleBackColor = true;
-            this.btn_bindPid.Click += new System.EventHandler(this.btn_bindPid_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(206, 66);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 20);
-            this.comboBox1.TabIndex = 14;
+            this.button7.Location = new System.Drawing.Point(262, 41);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 15;
+            this.button7.Text = "查询log";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // ExportDat
             // 
@@ -406,5 +418,6 @@
         private System.Windows.Forms.Button btn_upTestResult;
         private System.Windows.Forms.Button btn_bindPid;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button7;
     }
 }

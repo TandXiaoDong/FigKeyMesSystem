@@ -45,6 +45,7 @@ namespace TestAPI
         private enum QueryType
         {
             oldTable,
+            oldTableLog,
             newTable,
             newTableLog
 
@@ -227,6 +228,10 @@ namespace TestAPI
             else if (queryType == QueryType.newTableLog)
             {
                 QueryNewLogData();
+            }
+            else if (queryType == QueryType.oldTableLog)
+            {
+                SelectTestResultDetail();
             }
         }
 
@@ -420,6 +425,58 @@ namespace TestAPI
             //外壳绑定
             var result =serverTest.BindingPCBA("017 B19A17011990", "A571E20311K112600998HE00110123", "A19083100060&S2.999&1.2.02.182&50&20190831&1T20190831001", "HTS-B2004-03-02");
             MessageBox.Show(result+"");
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            queryType = QueryType.oldTableLog;
+            SelectTestResultDetail();
+        }
+
+        async private void SelectTestResultDetail()
+        {
+            LogHelper.Log.Info("log查询-开始");
+
+            if (this.textBox1.Text != "")
+            {
+                this.currentPage = 1;//根据条件查询
+                this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            }
+            this.radGridView1.DataSource = null;
+            this.radGridView1.Update();
+            if (currentPage == 1)
+            {
+                int totalNumber = await serverClient.SelectTestResultLogLatestPageAsync(this.textBox1.Text, "2010-01-01", "2029-09-09");
+                if (totalNumber % pageSize > 0)
+                {
+                    pageCount = totalNumber / pageSize + 1;
+                }
+                else
+                {
+                    pageCount = totalNumber / pageSize;
+                }
+                //bindSource
+                var dtSource = InitBindRowSource();
+                bindingSource1.DataSource = dtSource;
+                this.bindingNavigator1.BindingSource = bindingSource1;
+            }
+            var ds = await serverClient.SelectTestResultLogDetailAsync(currentPage, pageSize);
+            if (ds.Tables.Count < 1)
+            {
+                this.radGridView1.DataSource = null;
+                return;
+            }
+            LogHelper.Log.Info("log查询-结果查询完毕");
+            var dt = ds.Tables[0];
+            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
+            this.radGridView1.BeginEdit();
+            this.radGridView1.DataSource = null;
+            this.radGridView1.DataSource = dt;
+            //this.bindingSource1.DataSource = dt;
+            //this.bindingNavigator1.BindingSource = bindingSource1;
+            this.radGridView1.EndEdit();
+            this.radGridView1.BestFitColumns();
+            LogHelper.Log.Info("log查询-显示完成");
         }
     }
 }
