@@ -1026,7 +1026,6 @@ namespace MesAPI
             DataTable dt = InitTestResultDataTable(true);
             var selectPCBA = "";
             querySN = querySN.Trim();
-            querySN = "";
             if (querySN == "")
                 selectPCBA = $"select {DbTable.F_TEST_PCBA.PCBA_SN} from {DbTable.F_TEST_PCBA_NAME} ";
             else 
@@ -1057,7 +1056,7 @@ namespace MesAPI
                     }
                     i++;
                 }
-                LogHelper.Log.Info("查询结束..."+timeSpan.TotalMilliseconds);
+                LogHelper.Log.Info("查询结束..."+timeSpan.TotalMilliseconds+" "+dt.Rows.Count);
                 ds.Tables.Add(dt);
                 testResultHistory.TestResultNumber = i;
                 testResultHistory.TestResultDataSet = ds;

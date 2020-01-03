@@ -429,7 +429,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.id} DESC";
+                $"{DbTable.F_TEST_RESULT_HISTORY.id} ASC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
             {
@@ -438,7 +438,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.burnStationName} = '{station}' " +
-                $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} DESC";
+                $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} ASC";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
                 {
@@ -468,7 +468,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.id} DESC";
+                $"{DbTable.F_TEST_RESULT_HISTORY.id} ASC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
             {
@@ -477,7 +477,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName} = '{station}' " +
-                $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} DESC";
+                $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} ASC";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
                 {
@@ -507,7 +507,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' ORDER BY " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.id} DESC";
+                $"{DbTable.F_TEST_RESULT_HISTORY.id} ASC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
             {
@@ -516,7 +516,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pcba}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{station}' " +
-                 $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} DESC";
+                 $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} ASC";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
                 {
@@ -546,7 +546,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' ORDER BY " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.id} DESC";
+                $"{DbTable.F_TEST_RESULT_HISTORY.id} ASC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
             {
@@ -555,7 +555,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}' " +
-                $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} DESC";
+                $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} ASC";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
                 {
@@ -585,7 +585,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' ORDER BY " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.id} DESC";
+                $"{DbTable.F_TEST_RESULT_HISTORY.id} ASC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
             {
@@ -594,7 +594,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}' " +
-                 $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} DESC";
+                 $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} ASC";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
                 {
@@ -625,7 +625,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var selectPCBALastestSQL = $"SELECT TOP 1 {DbTable.F_TEST_RESULT_HISTORY.id} " +
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' ORDER BY " +
-                $"{DbTable.F_TEST_RESULT_HISTORY.id} DESC";
+                $"{DbTable.F_TEST_RESULT_HISTORY.id} ASC";
             var dtPcbaData = SQLServer.ExecuteDataSet(selectPCBALastestSQL).Tables[0];
             if (dtPcbaData.Rows.Count > 0)
             {
@@ -634,7 +634,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 $"FROM {DbTable.F_TEST_RESULT_HISTORY_NAME} WHERE " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productSN} = '{sn}' AND " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}' " +
-                 $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} DESC";
+                 $"ORDER BY {DbTable.F_TEST_RESULT_HISTORY.id} ASC";
                 var dtStationData = SQLServer.ExecuteDataSet(stationSQL).Tables[0];
                 if (dtStationData.Rows.Count > 0)
                 {

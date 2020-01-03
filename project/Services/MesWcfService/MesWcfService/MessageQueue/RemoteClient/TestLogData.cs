@@ -593,9 +593,11 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     {
                         var typeNo = dbReader[0].ToString();
                         var pid = dbReader[1].ToString();
-                            if (pid != "017 B19A17011502" && pid != "A571E20311K112600131HE00110123" && pid != "A571E20311K112600525HE00110123")
-                                continue;
-                            var station = dbReader[3].ToString();
+                            //if (pid != "017 B19A17011502" && pid != "A571E20311K112600131HE00110123" && pid != "A571E20311K112600525HE00110123")
+                            //    continue;
+                            //if (pid != "017 B19C19017501" && pid != "A571E20311K122400091EE00111133")
+                            //    continue;
+                        var station = dbReader[3].ToString();
                         var result = dbReader[4].ToString();
                         var dateIn = dbReader[5].ToString();
                         if(dateIn != "")
@@ -688,7 +690,6 @@ namespace MesWcfService.MessageQueue.RemoteClient
 
                         //3）更新出战结果
                         TestResult.UpdateStationOutResult(pid, typeNo, station, result, dateOut, updateDate,user);
-
                         //更新完毕
                         i++;
                     }
@@ -702,6 +703,11 @@ namespace MesWcfService.MessageQueue.RemoteClient
             {
                 LogHelper.Log.Info(ex.Message+ex.StackTrace);
             }
+        }
+
+        private static void IsExistCopyData()
+        { 
+
         }
 
         private static void AddTestResultHistoryBindSN(string sn)
