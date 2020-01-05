@@ -262,6 +262,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
             var updateSQL = "";
             var testItemString = testItem + "," + limit + "," + curValue + "," + testResult;
             var testLog = IsExistStationInRecord(sn, typeNo, station);
+
             if (station == "烧录工站")
             {
                 #region testItem type
@@ -465,7 +466,11 @@ namespace MesWcfService.MessageQueue.RemoteClient
             {
                 //update testItem
                 var upRow = SQLServer.ExecuteNonQuery(updateSQL);
-                //LogHelper.Log.Info($"【更新测试项新表】{station} 影响行数=" + upRow);
+                LogHelper.Log.Info($"【更新测试项新表】{station} 影响行数=" + upRow + " " + updateSQL);
+            }
+            else
+            {
+                LogHelper.Log.Info("status="+testLog.pcbaTestStationInStatus);
             }
         }
 
@@ -611,7 +616,9 @@ namespace MesWcfService.MessageQueue.RemoteClient
                         var user = dbReader[10].ToString();
                         var joinDate = dbReader[12].ToString();
 
-                        LogHelper.Log.Info($"开始更新...第{i}条 {pid} {typeNo} {station} {result} {dateIn} {dateOut} {updateDate} {user}");
+                            if (IsExistCopyData(station, dateIn))
+                                continue;
+                            LogHelper.Log.Info($"开始更新...第{i}条 {pid} {typeNo} {station} {result} {dateIn} {dateOut} {updateDate} {user}");
                         //1）更新进站记录
                         TestResult.UpdateTestResultHistory(pid, typeNo, station, dateIn, updateDate);
 
@@ -705,9 +712,49 @@ namespace MesWcfService.MessageQueue.RemoteClient
             }
         }
 
-        private static void IsExistCopyData()
-        { 
-
+        private static bool IsExistCopyData(string station,string stationDateIn)
+        {
+            var selectSQL = "";
+            if (station == "烧录工站")
+            {
+                selectSQL = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.burnStationName} = '{station}' and " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.burnDateIn}='{stationDateIn}'";
+            }
+            else if (station == "灵敏度测试工站")
+            {
+                selectSQL = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName} = '{station}' and " +
+                    $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn}='{stationDateIn}'";
+            }
+            else if (station == "外壳装配工站")
+            {
+                selectSQL = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                   $"{DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{station}' and " +
+                   $"{DbTable.F_TEST_RESULT_HISTORY.shellDateIn}='{stationDateIn}'";
+            }
+            else if (station == "气密测试工站")
+            {
+                selectSQL = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                   $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}' and " +
+                   $"{DbTable.F_TEST_RESULT_HISTORY.airtageDateIn}='{stationDateIn}'";
+            }
+            else if (station == "支架装配工站")
+            {
+                selectSQL = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                   $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}' and " +
+                   $"{DbTable.F_TEST_RESULT_HISTORY.stentDateIn}='{stationDateIn}'";
+            }
+            else if (station == "成品测试工站")
+            {
+                selectSQL = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                   $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}' and " +
+                   $"{DbTable.F_TEST_RESULT_HISTORY.productDateIn}='{stationDateIn}'";
+            }
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count > 0)
+                return true;
+            return false;
         }
 
         private static void AddTestResultHistoryBindSN(string sn)
@@ -840,13 +887,22 @@ namespace MesWcfService.MessageQueue.RemoteClient
 
         public static void UpdateAllPcbBind()
         {
-            var selectSQL = $"select {DbTable.F_Test_Result.SN} from {DbTable.F_TEST_RESULT_NAME}";
+            var selectSQL = $"select {DbTable.F_Test_Result.SN},{DbTable.F_Test_Result.STATION_IN_DATE}," +
+                $"{DbTable.F_Test_Result.STATION_OUT_DATE} from {DbTable.F_TEST_RESULT_NAME} " +
+                $"order by {DbTable.F_Test_Result.STATION_IN_DATE} desc";
             var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
             if (dt.Rows.Count > 0)
             {
                 foreach (DataRow dr in dt.Rows)
                 {
                     var pid = dr[0].ToString();
+                    var dateIn = dr[1].ToString();
+                    var dateOut = dr[2].ToString();
+                    var updateDate = "";
+                    if (dateOut != "")
+                        updateDate = dateOut;
+                    else
+                        updateDate = dateIn;
                     selectSQL = $"select * from {DbTable.F_TEST_PCBA_NAME} where {DbTable.F_TEST_PCBA.PCBA_SN}= '{pid}'";
                     dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
                     if (dt.Rows.Count < 1)
@@ -859,7 +915,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                         {
                             //插入本地
                             var insertSQL = $"insert into {DbTable.F_TEST_PCBA_NAME}({DbTable.F_TEST_PCBA.PCBA_SN},{DbTable.F_TEST_PCBA.UPDATE_DATE}) values(" +
-                                $"'{pid}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
+                                $"'{pid}','{updateDate}')";
                             int row = SQLServer.ExecuteNonQuery(insertSQL);
                         }
                     }

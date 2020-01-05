@@ -1133,7 +1133,7 @@ namespace MesWcfService
         [SwaggerWcfTag("MesServcie 服务")]
         public void UpdateAllPcbBind()
         {
-            TestLogData.UpdateHistoryBindStatus();
+            //TestLogData.UpdateHistoryBindStatus();
             TestLogData.UpdateAllPcbBind();
         }
     }

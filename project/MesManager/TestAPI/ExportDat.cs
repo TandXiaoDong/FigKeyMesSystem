@@ -325,6 +325,8 @@ namespace TestAPI
             LogHelper.Log.Info("显示完毕...");
         }
 
+        private string productTypeNo = "HTS-B2018-01-01";
+
         private void button6_Click(object sender, EventArgs e)
         {
             //查询上一站
@@ -364,27 +366,27 @@ namespace TestAPI
             var result = "";
             if (station == "烧录工站")
             {
-                result = serverTest.UpdateTestLog("HTS-B2004-03-02", station, "017 B19A17011990", "烧录", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-01");
+                result = serverTest.UpdateTestLog(productTypeNo, station, "017 B19A17011990", "烧录", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-01");
             }
             else if (station == "灵敏度测试工站")
             {
-                result = serverTest.UpdateTestLog("HTS-B2004-03-02", station, "017 B19A17011990", "工作电流", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-02");
+                result = serverTest.UpdateTestLog(productTypeNo, station, "017 B19A17011990", "工作电流", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-02");
             }
             else if (station == "外壳装配工站")
             {
-                result = serverTest.UpdateTestLog("HTS-B2004-03-02", station, "017 B19A17011990", "后盖组装", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-03");
+                result = serverTest.UpdateTestLog(productTypeNo, station, "017 B19A17011990", "后盖组装", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-03");
             }
             else if (station == "气密测试工站")
             {
-                result = serverTest.UpdateTestLog("HTS-B2004-03-02", station, "A571E20311K112600998HE00110123", "工作电流", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-04");
+                result = serverTest.UpdateTestLog(productTypeNo, station, "A571E20311K112600998HE00110123", "气密测试", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-04");
             }
             else if (station == "支架装配工站")
             {
-                result = serverTest.UpdateTestLog("HTS-B2004-03-02", station, "A571E20311K112600998HE00110123", "右支架", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-05");
+                result = serverTest.UpdateTestLog(productTypeNo, station, "A571E20311K112600998HE00110123", "右支架", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-05");
             }
             else if (station == "成品测试工站")
             {
-                result = serverTest.UpdateTestLog("HTS-B2004-03-02", station, "A571E20311K112600998HE00110123", "目检", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-06");
+                result = serverTest.UpdateTestLog(productTypeNo, station, "A571E20311K112600998HE00110123", "目检", "limit001", "passed", "passed", "adm", "adm", "2020-01-01-06");
             }
             MessageBox.Show(result+"");
         }
@@ -395,27 +397,27 @@ namespace TestAPI
             var result = "";
             if (station == "烧录工站")
             {
-                result=serverTest.UpdateTestResultData("017 B19A17011990", "HTS-B2004-03-02", station, "pass", "had", "hs", "2020-01-01-01");
+                result=serverTest.UpdateTestResultData("017 B19A17011990", productTypeNo, station, "pass", "had", "hs", "2020-01-01-01");
             }
             else if (station == "灵敏度测试工站")
             {
-                result=serverTest.UpdateTestResultData("017 B19A17011990", "HTS-B2004-03-02", station, "pass", "had", "hs", "2020-01-01-02");
+                result=serverTest.UpdateTestResultData("017 B19A17011990", productTypeNo, station, "pass", "had", "hs", "2020-01-01-02");
             }
             else if (station == "外壳装配工站")
             {
-                result=serverTest.UpdateTestResultData("017 B19A17011990", "HTS-B2004-03-02", station, "pass", "had", "hs", "2020-01-01-03");
+                result=serverTest.UpdateTestResultData("017 B19A17011990", productTypeNo, station, "pass", "had", "hs", "2020-01-01-03");
             }
             else if (station == "气密测试工站")
             {
-                result=serverTest.UpdateTestResultData("A571E20311K112600998HE00110123", "HTS-B2004-03-02", station, "pass", "had", "hs", "2020-01-01-04");
+                result=serverTest.UpdateTestResultData("A571E20311K112600998HE00110123", productTypeNo, station, "pass", "had", "hs", "2020-01-01-04");
             }
             else if (station == "支架装配工站")
             {
-                result=serverTest.UpdateTestResultData("A571E20311K112600998HE00110123", "HTS-B2004-03-02", station, "pass", "had", "hs", "2020-01-01-05");
+                result=serverTest.UpdateTestResultData("A571E20311K112600998HE00110123", productTypeNo, station, "pass", "had", "hs", "2020-01-01-05");
             }
             else if (station == "成品测试工站")
             {
-                result=serverTest.UpdateTestResultData("A571E20311K112600998HE00110123", "HTS-B2004-03-02", station, "pass", "had", "hs", "2020-01-01-06");
+                result=serverTest.UpdateTestResultData("A571E20311K112600998HE00110123", productTypeNo, station, "pass", "had", "hs", "2020-01-01-06");
             }
             MessageBox.Show(result+"");
         }
@@ -423,7 +425,7 @@ namespace TestAPI
         private void btn_bindPid_Click(object sender, EventArgs e)
         {
             //外壳绑定
-            var result =serverTest.BindingPCBA("017 B19A17011990", "A571E20311K112600998HE00110123", "A19083100060&S2.999&1.2.02.182&50&20190831&1T20190831001", "HTS-B2004-03-02");
+            var result =serverTest.BindingPCBA("017 B19A17011990", "A571E20311K112600998HE00110123", "A19083100060&S2.999&1.2.02.182&50&20190831&1T20190831001", productTypeNo);
             MessageBox.Show(result+"");
         }
 

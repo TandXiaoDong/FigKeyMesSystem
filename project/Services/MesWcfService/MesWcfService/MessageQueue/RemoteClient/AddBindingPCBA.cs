@@ -73,6 +73,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 var row = SQLServer.ExecuteNonQuery(upDateSQL);
                 if (row > 0)
                 {
+                    TestResult.UpdatePcbaTestHistory(sn_pcba);
                     LogHelper.Log.Info("【PCB恢复绑定】成功");
                     return "OK";
                 }
@@ -98,6 +99,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 if (isRes > 0)
                 {
                     LogHelper.Log.Info("【PCB绑定成功】" + insertSQL);
+                    TestResult.UpdatePcbaTestHistory(sn_pcba);
                     return "OK";
                 }
                 else

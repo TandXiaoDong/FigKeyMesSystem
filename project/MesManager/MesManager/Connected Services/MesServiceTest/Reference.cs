@@ -269,6 +269,12 @@ namespace MesManager.MesServiceTest {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/CopyDataSource", ReplyAction="http://tempuri.org/IMesService/CopyDataSourceResponse")]
         System.Threading.Tasks.Task CopyDataSourceAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateAllPcbBind", ReplyAction="http://tempuri.org/IMesService/UpdateAllPcbBindResponse")]
+        void UpdateAllPcbBind();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/UpdateAllPcbBind", ReplyAction="http://tempuri.org/IMesService/UpdateAllPcbBindResponse")]
+        System.Threading.Tasks.Task UpdateAllPcbBindAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -552,6 +558,14 @@ namespace MesManager.MesServiceTest {
         
         public System.Threading.Tasks.Task CopyDataSourceAsync() {
             return base.Channel.CopyDataSourceAsync();
+        }
+        
+        public void UpdateAllPcbBind() {
+            base.Channel.UpdateAllPcbBind();
+        }
+        
+        public System.Threading.Tasks.Task UpdateAllPcbBindAsync() {
+            return base.Channel.UpdateAllPcbBindAsync();
         }
     }
 }

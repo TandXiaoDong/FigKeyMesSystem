@@ -226,36 +226,36 @@
     <EmbeddedResource Include="TestTreeView.resx">
       <DependentUpon>TestTreeView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Connected Services\MesServiceTest\MesService.wsdl" />
+    <None Include="Connected Services\MesServiceTest\MesService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesServiceTest\MesService1.wsdl" />
+    <None Include="Connected Services\MesServiceTest\MesService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesServiceTest\MesService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MesServiceTest\MesService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\MesServiceTest\MesService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService41.xsd">
+    <None Include="Connected Services\MesService\MesService.wsdl" />
+    <None Include="Connected Services\MesService\MesService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService42.xsd">
+    <None Include="Connected Services\MesService\MesService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService43.xsd">
+    <None Include="Connected Services\MesService\MesService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesServiceTest\MesService44.xsd">
+    <None Include="Connected Services\MesService\MesService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MesService\MesService1.wsdl" />
-    <None Include="Connected Services\MesService\MesService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\MesService\MesService51.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\MesService\MesService52.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\MesService\MesService53.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\MesService\MesService54.xsd">
+    <None Include="Connected Services\MesService\MesService4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -340,10 +340,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MesServiceTest\MesService.disco" />
+    <None Include="Connected Services\MesService\MesService.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MesService\MesService1.disco" />
+    <None Include="Connected Services\MesServiceTest\MesService1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
