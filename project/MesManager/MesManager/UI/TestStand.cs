@@ -488,23 +488,19 @@ namespace MesManager.UI
                 return;
             //var returnRes = serviceClient.DeleteTestLogData(this.currentQueryCondition.Trim(),startTime,endTime);
             List<MesService.TestLogResultHistory> testLogResultHistoryList = new List<MesService.TestLogResultHistory>();
-            await Task.Run(()=>
-            {
+            //await Task.Run(() =>
+            //{
                 this.label_delStatus.Visible = true;
                 this.label_delStatus.Text = "正在检索历史关联数据，请耐心等待...";
                 this.label_delStatus.ForeColor = Color.Red;
                 foreach (GridViewRowInfo rowInfo in this.radGridView1.Rows)
                 {
-                    MesService.TestLogResultHistory testLogResultHistory = new MesService.TestLogResultHistory();
-                    testLogResultHistory.ProcessName = rowInfo.Cells[3].Value.ToString();
-                    testLogResultHistory.PcbaSN = rowInfo.Cells[1].Value.ToString();
-                    testLogResultHistory.ProductSN = rowInfo.Cells[2].Value.ToString();
-                    var testStand = GetCurrentRowStationName(rowInfo);
-                    testLogResultHistory.StationInDate = testStand.logStationInDate;
-                    testLogResultHistory.StationName = testStand.logStationName;
-                    testLogResultHistoryList.Add(testLogResultHistory);
+                    var processName = rowInfo.Cells[3].Value.ToString();
+                    var pcbaSN = rowInfo.Cells[1].Value.ToString();
+                    var productSN = rowInfo.Cells[2].Value.ToString();
+                    AddCurrentRowStationInfo(rowInfo, testLogResultHistoryList,processName,pcbaSN,productSN);
                 }
-            });
+            //});
             var delRow = await serviceClient.DeleteTestLogHistoryAsync(testLogResultHistoryList.ToArray());
             if (delRow > 0)
             {
@@ -582,9 +578,8 @@ namespace MesManager.UI
             MessageBox.Show("未删除任何数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private TestStand GetCurrentRowStationName(GridViewRowInfo rowInfo)
+        private void AddCurrentRowStationInfo(GridViewRowInfo rowInfo, List<MesService.TestLogResultHistory> historyList,string processName,string pid,string sid)
         {
-            TestStand testStand = new TestStand();
             var stationInDate_burn = rowInfo.Cells[5].Value.ToString();
             var stationInDate_sen = rowInfo.Cells[15].Value.ToString();
             var stationInDate_shell = rowInfo.Cells[27].Value.ToString();
@@ -594,43 +589,64 @@ namespace MesManager.UI
 
             if (!string.IsNullOrEmpty(stationInDate_burn))
             {
-                testStand.logStationName = "烧录工站";
-                testStand.logStationInDate = stationInDate_burn;
-                return testStand;
+                MesService.TestLogResultHistory history = new MesService.TestLogResultHistory();
+                history.ProcessName = processName;
+                history.PcbaSN = pid;
+                history.ProductSN = sid;
+                history.StationName = "烧录工站";
+                history.StationInDate = stationInDate_burn;
+                historyList.Add(history);
             }
-            else if (!string.IsNullOrEmpty(stationInDate_sen))
+            if (!string.IsNullOrEmpty(stationInDate_sen))
             {
-                testStand.logStationName = "灵敏度测试工站";
-                testStand.logStationInDate = stationInDate_sen;
-                return testStand;
+                MesService.TestLogResultHistory history = new MesService.TestLogResultHistory();
+                history.ProcessName = processName;
+                history.PcbaSN = pid;
+                history.ProductSN = sid;
+                history.StationName = "灵敏度测试工站";
+                history.StationInDate = stationInDate_sen;
+                historyList.Add(history);
             }
-            else if (!string.IsNullOrEmpty(stationInDate_shell))
+            if (!string.IsNullOrEmpty(stationInDate_shell))
             {
-                testStand.logStationName = "外壳装配工站";
-                testStand.logStationInDate = stationInDate_shell;
-                return testStand;
+                MesService.TestLogResultHistory history = new MesService.TestLogResultHistory();
+                history.ProcessName = processName;
+                history.PcbaSN = pid;
+                history.ProductSN = sid;
+                history.StationName = "外壳装配工站";
+                history.StationInDate = stationInDate_shell;
+                historyList.Add(history);
             }
-            else if (!string.IsNullOrEmpty(stationInDate_air))
+            if (!string.IsNullOrEmpty(stationInDate_air))
             {
-                testStand.logStationName = "气密测试工站";
-                testStand.logStationInDate = stationInDate_air;
-                return testStand;
+                MesService.TestLogResultHistory history = new MesService.TestLogResultHistory();
+                history.ProcessName = processName;
+                history.PcbaSN = pid;
+                history.ProductSN = sid;
+                history.StationName = "气密测试工站";
+                history.StationInDate = stationInDate_air;
+                historyList.Add(history);
             }
-            else if (!string.IsNullOrEmpty(stationInDate_stent))
+            if (!string.IsNullOrEmpty(stationInDate_stent))
             {
-                testStand.logStationName = "支架装配工站";
-                testStand.logStationInDate = stationInDate_stent;
-                return testStand;
+                MesService.TestLogResultHistory history = new MesService.TestLogResultHistory();
+                history.ProcessName = processName;
+                history.PcbaSN = pid;
+                history.ProductSN = sid;
+                history.StationName = "支架装配工站";
+                history.StationInDate = stationInDate_stent;
+                historyList.Add(history);
             }
-            else if (!string.IsNullOrEmpty(stationInDate_product))
+            if (!string.IsNullOrEmpty(stationInDate_product))
             {
-                testStand.logStationName = "成品测试工站";
-                testStand.logStationInDate = stationInDate_product;
-                return testStand;
+                MesService.TestLogResultHistory history = new MesService.TestLogResultHistory();
+                history.ProcessName = processName;
+                history.PcbaSN = pid;
+                history.ProductSN = sid;
+                history.StationName = "成品测试工站";
+                history.StationInDate = stationInDate_product;
+                historyList.Add(history);
             }
-            testStand.logStationName = "";
-            testStand.logStationInDate = "";
-            return testStand;
         }
     }
 }

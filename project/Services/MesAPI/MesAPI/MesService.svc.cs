@@ -1082,9 +1082,9 @@ namespace MesAPI
             querySN = querySN.Trim();
             var selectLog = "";
             if (querySN == "")
-                selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}'";
+                selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}' order by {DbTable.F_TEST_RESULT_HISTORY.updateDate} desc";
             else
-                selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_PCBA.PCBA_SN} like '%{querySN}%' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}'";
+                selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_PCBA.PCBA_SN} like '%{querySN}%' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}' order by {DbTable.F_TEST_RESULT_HISTORY.updateDate} desc";
             var dbReader = SQLServer.ExecuteDataReader(selectLog);
             if (dbReader.HasRows)
             {
@@ -3172,46 +3172,201 @@ namespace MesAPI
             if (logList.Count < 1)
                 return 0;
             int delRow = 0;
-            foreach (var logItem in logList)
+            try
             {
-                var joinDateTime = "";
-                var selectJoinTimeSQL = $"SELECT {DbTable.F_Test_Result.JOIN_DATE_TIME} FROM " +
-                            $"{DbTable.F_TEST_RESULT_NAME} WHERE " +
-                            $"{DbTable.F_Test_Result.PROCESS_NAME} = '{logItem.ProcessName}' " +
-                            $"AND ({DbTable.F_Test_Result.SN} = '{logItem.PcbaSN}' " +
-                            $"OR {DbTable.F_Test_Result.SN} = '{logItem.ProductSN}') " +
-                            $"AND {DbTable.F_Test_Result.STATION_NAME} = '{logItem.StationName}' " +
-                            $"AND {DbTable.F_Test_Result.STATION_IN_DATE} = '{logItem.StationInDate}'";
-                var dt = SQLServer.ExecuteDataSet(selectJoinTimeSQL).Tables[0];
-                if (dt.Rows.Count > 0)
+                foreach (var logItem in logList)
                 {
-                    joinDateTime = dt.Rows[0][0].ToString();
-                    //delete
-                    var deleteLogResultSQL = $"DELETE FROM {DbTable.F_TEST_LOG_DATA_NAME} WHERE " +
-                            $"{DbTable.F_TEST_LOG_DATA.TYPE_NO} = '{logItem.ProcessName}' " +
-                            $"AND ({DbTable.F_TEST_LOG_DATA.PRODUCT_SN} = '{logItem.PcbaSN}' " +
-                            $"OR {DbTable.F_TEST_LOG_DATA.PRODUCT_SN} = '{logItem.ProductSN}') " +
-                            $"AND {DbTable.F_TEST_LOG_DATA.STATION_NAME} = '{logItem.StationName}' " +
-                            $"AND {DbTable.F_TEST_LOG_DATA.JOIN_DATE_TIME} = '{joinDateTime}'";
-                    LogHelper.Log.Info("deleteLogResultSQL=" + deleteLogResultSQL);
-                    var dr2 = SQLServer.ExecuteNonQuery(deleteLogResultSQL);
-                    if (dr2 > 0)
+                    var joinDateTime = "";
+                    var selectJoinTimeSQL = $"SELECT {DbTable.F_Test_Result.JOIN_DATE_TIME} FROM " +
+                                $"{DbTable.F_TEST_RESULT_NAME} WHERE " +
+                                $"{DbTable.F_Test_Result.PROCESS_NAME} = '{logItem.ProcessName}' " +
+                                $"AND ({DbTable.F_Test_Result.SN} = '{logItem.PcbaSN}' " +
+                                $"OR {DbTable.F_Test_Result.SN} = '{logItem.ProductSN}') " +
+                                $"AND {DbTable.F_Test_Result.STATION_NAME} = '{logItem.StationName}' " +
+                                $"AND {DbTable.F_Test_Result.STATION_IN_DATE} = '{logItem.StationInDate}'";
+                   //LogHelper.Log.Info($"selectJoinTimeSQL=" + selectJoinTimeSQL);
+                    var dt = SQLServer.ExecuteDataSet(selectJoinTimeSQL).Tables[0];
+                    if (dt.Rows.Count > 0)
                     {
-                        var deleteResultSQL = $"DELETE FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
-                            $"{DbTable.F_Test_Result.PROCESS_NAME} = '{logItem.ProcessName}' " +
-                            $"AND ({DbTable.F_Test_Result.SN} = '{logItem.PcbaSN}' " +
-                            $"OR {DbTable.F_Test_Result.SN} = '{logItem.ProductSN}') " +
-                            $"AND {DbTable.F_Test_Result.STATION_NAME} = '{logItem.StationName}' " +
-                            $"AND {DbTable.F_Test_Result.STATION_IN_DATE} = '{logItem.StationInDate}'";
-                        var dr1 = SQLServer.ExecuteNonQuery(deleteResultSQL);
-                        if (dr1 > 0 && dr2 > 0)
+                        joinDateTime = dt.Rows[0][0].ToString();
+                        //delete
+                        var deleteLogResultSQL = $"DELETE FROM {DbTable.F_TEST_LOG_DATA_NAME} WHERE " +
+                                $"{DbTable.F_TEST_LOG_DATA.TYPE_NO} = '{logItem.ProcessName}' " +
+                                $"AND ({DbTable.F_TEST_LOG_DATA.PRODUCT_SN} = '{logItem.PcbaSN}' " +
+                                $"OR {DbTable.F_TEST_LOG_DATA.PRODUCT_SN} = '{logItem.ProductSN}') " +
+                                $"AND {DbTable.F_TEST_LOG_DATA.STATION_NAME} = '{logItem.StationName}' " +
+                                $"AND {DbTable.F_TEST_LOG_DATA.JOIN_DATE_TIME} = '{joinDateTime}'";
+                        //LogHelper.Log.Info("deleteLogResultSQL=" + deleteLogResultSQL);
+                        var dr2 = SQLServer.ExecuteNonQuery(deleteLogResultSQL);
+                        if (dr2 > 0)
                         {
-                            delRow++;
+                            var deleteResultSQL = $"DELETE FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
+                                $"{DbTable.F_Test_Result.PROCESS_NAME} = '{logItem.ProcessName}' " +
+                                $"AND ({DbTable.F_Test_Result.SN} = '{logItem.PcbaSN}' " +
+                                $"OR {DbTable.F_Test_Result.SN} = '{logItem.ProductSN}') " +
+                                $"AND {DbTable.F_Test_Result.STATION_NAME} = '{logItem.StationName}' " +
+                                $"AND {DbTable.F_Test_Result.STATION_IN_DATE} = '{logItem.StationInDate}'";
+                            var dr1 = SQLServer.ExecuteNonQuery(deleteResultSQL);
+                            if (dr1 > 0 && dr2 > 0)
+                            {
+                                delRow++;
+                                //开始删除新表
+                                DeleteMaterialBindRecord(logItem.PcbaSN, logItem.ProductSN);
+                                DeleteTestLogHistoryNewDB(logItem.PcbaSN, logItem.ProductSN, logItem.ProcessName, logItem.StationName, logItem.StationInDate);
+                            }
+                        }
+                        else
+                        {
+                            //join date time is null
+                            if (joinDateTime == "")
+                            {
+                                //未出站
+                                var deleteResultSQL = $"DELETE FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
+                                $"{DbTable.F_Test_Result.PROCESS_NAME} = '{logItem.ProcessName}' " +
+                                $"AND ({DbTable.F_Test_Result.SN} = '{logItem.PcbaSN}' " +
+                                $"OR {DbTable.F_Test_Result.SN} = '{logItem.ProductSN}') " +
+                                $"AND {DbTable.F_Test_Result.STATION_NAME} = '{logItem.StationName}' " +
+                                $"AND {DbTable.F_Test_Result.STATION_IN_DATE} = '{logItem.StationInDate}'";
+                                var dr1 = SQLServer.ExecuteNonQuery(deleteResultSQL);
+                                if (dr1 > 0)
+                                {
+                                    delRow++;
+                                    //开始删除新表
+                                    DeleteMaterialBindRecord(logItem.PcbaSN, logItem.ProductSN);
+                                    DeleteTestLogHistoryNewDB(logItem.PcbaSN, logItem.ProductSN, logItem.ProcessName, logItem.StationName, logItem.StationInDate);
+                                }
+                            }
                         }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error(ex.Message+ex.StackTrace);
+            }
             return delRow;
+        }
+
+        private void DeleteMaterialBindRecord(string pid,string sid)
+        {
+            var selectSQL = $"select * from {DbTable.F_MATERIAL_STATISTICS_NAME}  where " +
+                $"{DbTable.F_Material_Statistics.PCBA_SN}='{pid}' or {DbTable.F_Material_Statistics.PCBA_SN}='{sid}'";
+            var dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (dt.Rows.Count < 1)
+            {
+                var deleteSQL = "";
+                if (pid != "")
+                {
+                    deleteSQL = $"DELETE FROM {DbTable.F_BINDING_PCBA_NAME} where {DbTable.F_BINDING_PCBA.SN_PCBA}='{pid}'";
+                }
+                else if (sid != "")
+                {
+                    deleteSQL = $"DELETE FROM {DbTable.F_BINDING_PCBA_NAME} where {DbTable.F_BINDING_PCBA.SN_OUTTER}='{sid}'";
+                }
+                else if (sid != "" && pid != "")
+                {
+                    deleteSQL = $"DELETE FROM {DbTable.F_BINDING_PCBA_NAME} where {DbTable.F_BINDING_PCBA.SN_PCBA}='{pid}' or {DbTable.F_BINDING_PCBA.SN_OUTTER}='{sid}'";
+                }
+                SQLServer.ExecuteNonQuery(deleteSQL);
+                //new tb
+                deleteSQL = $"delete from {DbTable.F_TEST_PCBA_NAME} where {DbTable.F_TEST_PCBA.PCBA_SN}='{pid}'";
+                SQLServer.ExecuteNonQuery(deleteSQL);
+            }
+        }
+        private void DeleteTestLogHistoryNewDB(string pid,string sid ,string typeNo,string station,string stationDateIn)
+        {
+            var deleteSQL = "";
+            if (station == "烧录工站")
+            {
+                if (pid != "")
+                {
+                    deleteSQL = $"delete from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.pcbaSN}='{pid}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.burnStationName} = '{station}' and {DbTable.F_TEST_RESULT_HISTORY.burnDateIn}='{stationDateIn}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}='{typeNo}'";
+                }
+                else if (sid != "")
+                {
+                    deleteSQL = $"delete from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.productSN}='{sid}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.burnStationName} = '{station}' and {DbTable.F_TEST_RESULT_HISTORY.burnDateIn}='{stationDateIn}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}='{typeNo}'";
+                }
+            }
+            else if (station == "灵敏度测试工站")
+            {
+                if (pid != "")
+                {
+                    deleteSQL = $"delete from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.pcbaSN}='{pid}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName} = '{station}' and {DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn}='{stationDateIn}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}='{typeNo}'";
+                }
+                else if (sid != "")
+                {
+                    deleteSQL = $"delete from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.productSN}='{sid}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName} = '{station}' and {DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn}='{stationDateIn}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}='{typeNo}'";
+                }
+            }
+            else if (station == "外壳装配工站")
+            {
+                if (pid != "")
+                {
+                    deleteSQL = $"delete from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.pcbaSN}='{pid}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{station}' and {DbTable.F_TEST_RESULT_HISTORY.shellDateIn}='{stationDateIn}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}='{typeNo}'";
+                }
+                else if (sid != "")
+                {
+                    deleteSQL = $"delete from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.productSN}='{sid}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '{station}' and {DbTable.F_TEST_RESULT_HISTORY.shellDateIn}='{stationDateIn}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}='{typeNo}'";
+                }
+            }
+            else if (station == "气密测试工站")
+            {
+                if (pid != "")
+                {
+                    deleteSQL = $"delete from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.pcbaSN}='{pid}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}' and {DbTable.F_TEST_RESULT_HISTORY.airtageDateIn}='{stationDateIn}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}='{typeNo}'";
+                }
+                else if (sid != "")
+                {
+                    deleteSQL = $"delete from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.productSN}='{sid}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.airtageStationName} = '{station}' and {DbTable.F_TEST_RESULT_HISTORY.airtageDateIn}='{stationDateIn}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}='{typeNo}'";
+                }
+            }
+            else if (station == "支架装配工站")
+            {
+                if (pid != "")
+                {
+                    deleteSQL = $"delete from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.pcbaSN}='{pid}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}' and {DbTable.F_TEST_RESULT_HISTORY.stentDateIn}='{stationDateIn}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}='{typeNo}'";
+                }
+                else if (sid != "")
+                {
+                    deleteSQL = $"delete from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.productSN}='{sid}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.stentStationName} = '{station}' and {DbTable.F_TEST_RESULT_HISTORY.stentDateIn}='{stationDateIn}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}='{typeNo}'";
+                }
+            }
+            else if (station == "成品测试工站")
+            {
+                if (pid != "")
+                {
+                    deleteSQL = $"delete from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.pcbaSN}='{pid}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}' and {DbTable.F_TEST_RESULT_HISTORY.productDateIn}='{stationDateIn}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}='{typeNo}'";
+                }
+                else if (sid != "")
+                {
+                    deleteSQL = $"delete from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.productSN}='{sid}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '{station}' and {DbTable.F_TEST_RESULT_HISTORY.productDateIn}='{stationDateIn}' and " +
+                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo}='{typeNo}'";
+                }
+            }
+            SQLServer.ExecuteNonQuery(deleteSQL);
         }
 
         private int CheckTestLogDeleteRemainData()
@@ -3974,6 +4129,8 @@ namespace MesAPI
                 {
                     LogHelper.Log.Info("【删除绑定记录-删除全部】已删除过站记录，删除全部绑定记录");
                     delCount = SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                    deleteBindedMsg = $"delete from {DbTable.F_TEST_PCBA_NAME}";
+                    SQLServer.ExecuteNonQuery(deleteBindedMsg);
                 }
             }
             else
@@ -4014,6 +4171,7 @@ namespace MesAPI
                                          $"AND " +
                                          $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{shellSN}'";
                                 var delRow = SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                DeleteTestPCBANewDB(pcbSN);
                                 delCount += delRow;
                             }
                         }
@@ -4036,6 +4194,7 @@ namespace MesAPI
                                          $"AND " +
                                          $"{DbTable.F_BINDING_PCBA.SN_OUTTER} = '{shellSN}'";
                                 var delRow = SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                DeleteTestPCBANewDB(pcbSN);
                                 delCount += delRow;
                             }
                         }
@@ -4072,6 +4231,8 @@ namespace MesAPI
                                         $"AND " +
                                         $"{DbTable.F_BINDING_PCBA.MATERIAL_CODE} = '{materialCode}'";
                                     var delRow = SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                    LogHelper.Log.Info("开始删除="+snPCBA);
+                                    DeleteTestPCBANewDB(snPCBA);
                                     delCount += delRow;
                                 }
                             }
@@ -4110,6 +4271,7 @@ namespace MesAPI
                                             $"AND " +
                                             $"{DbTable.F_BINDING_PCBA.MATERIAL_CODE} = '{materialCode}'";
                                         var delRow = SQLServer.ExecuteNonQuery(deleteBindedMsg);
+                                        DeleteTestPCBANewDB(snPCBA);
                                         delCount += delRow;
                                     }
                                 }
@@ -4124,6 +4286,14 @@ namespace MesAPI
             }
             LogHelper.Log.Info("【删除物料统计后--查询删除绑定记录】删除绑定记录="+delCount);
             return delCount;
+        }
+
+        private void DeleteTestPCBANewDB(string pid)
+        {
+            if (pid == "")
+                return;
+            var deleteSQL = $"delete from {DbTable.F_TEST_PCBA_NAME} where {DbTable.F_TEST_PCBA.PCBA_SN}='{pid}'";
+            SQLServer.ExecuteNonQuery(deleteSQL); 
         }
 
         private MaterialResultInfo SelectMaterialDetail(DataTable dataSourceMaterialBasic,string selectSQL, int pageIndex, int pageSize)
@@ -4219,6 +4389,7 @@ namespace MesAPI
                     {
                         //delete bind history
                         var drow2 = SQLServer.ExecuteNonQuery(deleteBindSQL);
+                        DeleteTestPCBANewDB(materialItem.PcbaSN);
                         LogHelper.Log.Info("删除绑定记录="+deleteBindSQL+" delRow="+drow2);
                     }
                     delRow++;
