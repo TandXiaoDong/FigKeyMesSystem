@@ -1027,46 +1027,53 @@ namespace MesAPI
             DataTable dt = InitTestResultDataTable(true);
             var selectPCBA = "";
             querySN = querySN.Trim();
-            if (querySN == "")
+            try
             {
-                selectPCBA = $"select {DbTable.F_TEST_PCBA.PCBA_SN} from {DbTable.F_TEST_PCBA_NAME} order by {DbTable.F_TEST_PCBA.UPDATE_DATE} desc";
-            }
-            else
-            {
-                selectPCBA = $"select top 1 {DbTable.F_TEST_RESULT_HISTORY.pcbaSN} from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
-                   $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} like '%{querySN}%' OR {DbTable.F_TEST_RESULT_HISTORY.productSN} like '%{querySN}%' " +
-                   $"order by {DbTable.F_TEST_PCBA.UPDATE_DATE} DESC";
-            }
-            var dtRead = SQLServer.ExecuteDataSet(selectPCBA).Tables[0];
-            LogHelper.Log.Info("查询PCB完毕，开始查询明细..."+selectPCBA);
-            if (dtRead.Rows.Count > 0)
-            {
-                int i = 0;
-                int id = 1;
-                int startIndex = (pageIndex - 1) * pageSize;
-                Stopwatch stopwatch = new Stopwatch();
-                TimeSpan timeSpan = new TimeSpan();
-                foreach (DataRow dbReader in dtRead.Rows)
+                if (querySN == "")
                 {
-                    if (i >= startIndex && i < pageIndex * pageSize)
-                    {
-                        stopwatch.Start();
-                        var pid = dbReader[0].ToString();
-                        AddTestResultHistory(dt, id, pid);
-                        id++;
-                    }
-                    if (i == (pageIndex * pageSize) - 1)
-                    {
-                        stopwatch.Stop();
-                        timeSpan = stopwatch.Elapsed;
-                    }
-                    i++;
+                    selectPCBA = $"select {DbTable.F_TEST_PCBA.PCBA_SN} from {DbTable.F_TEST_PCBA_NAME} order by {DbTable.F_TEST_PCBA.UPDATE_DATE} desc";
                 }
-                LogHelper.Log.Info("查询结束..." + timeSpan.TotalMilliseconds + " " + dt.Rows.Count);
-                ds.Tables.Add(dt);
-                testResultHistory.TestResultNumber = i;
-                testResultHistory.TestResultDataSet = ds;
-                return testResultHistory;
+                else
+                {
+                    selectPCBA = $"select top 1 {DbTable.F_TEST_RESULT_HISTORY.pcbaSN} from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
+                       $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} like '%{querySN}%' OR {DbTable.F_TEST_RESULT_HISTORY.productSN} like '%{querySN}%' " +
+                       $"order by {DbTable.F_TEST_PCBA.UPDATE_DATE} DESC";
+                }
+                var dtRead = SQLServer.ExecuteDataSet(selectPCBA).Tables[0];
+                LogHelper.Log.Info("查询PCB完毕，开始查询明细..." + selectPCBA);
+                if (dtRead.Rows.Count > 0)
+                {
+                    int i = 0;
+                    int id = 1;
+                    int startIndex = (pageIndex - 1) * pageSize;
+                    Stopwatch stopwatch = new Stopwatch();
+                    TimeSpan timeSpan = new TimeSpan();
+                    foreach (DataRow dbReader in dtRead.Rows)
+                    {
+                        if (i >= startIndex && i < pageIndex * pageSize)
+                        {
+                            stopwatch.Start();
+                            var pid = dbReader[0].ToString();
+                            AddTestResultHistory(dt, id, pid);
+                            id++;
+                        }
+                        if (i == (pageIndex * pageSize) - 1)
+                        {
+                            stopwatch.Stop();
+                            timeSpan = stopwatch.Elapsed;
+                        }
+                        i++;
+                    }
+                    LogHelper.Log.Info("查询结束..." + timeSpan.TotalMilliseconds + " " + dt.Rows.Count);
+                    ds.Tables.Add(dt);
+                    testResultHistory.TestResultNumber = i;
+                    testResultHistory.TestResultDataSet = ds;
+                    return testResultHistory;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Error(ex.Message+ex.StackTrace);
             }
             ds.Tables.Add(dt);
             testResultHistory.TestResultNumber = 0;
@@ -1084,7 +1091,7 @@ namespace MesAPI
             if (querySN == "")
                 selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}' order by {DbTable.F_TEST_RESULT_HISTORY.updateDate} desc";
             else
-                selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_PCBA.PCBA_SN} like '%{querySN}%' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}' order by {DbTable.F_TEST_RESULT_HISTORY.updateDate} desc";
+                selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where ({DbTable.F_TEST_PCBA.PCBA_SN} like '%{querySN}%' OR {DbTable.F_TEST_RESULT_HISTORY.productSN} like '%{querySN}%' ) AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}' order by {DbTable.F_TEST_RESULT_HISTORY.updateDate} desc";
             var dbReader = SQLServer.ExecuteDataReader(selectLog);
             if (dbReader.HasRows)
             {
@@ -1258,6 +1265,7 @@ namespace MesAPI
                 $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' and {DbTable.F_TEST_RESULT_HISTORY.bindState} ='1'  and " +
                 $"{DbTable.F_TEST_RESULT_HISTORY.burnStationName} = '烧录工站' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.burnDateIn} DESC";
+            LogHelper.Log.Info("烧录="+selectDetailSQL);
             var stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
             if (stationResultData.Rows.Count > 0)
             {
@@ -1398,7 +1406,7 @@ namespace MesAPI
                  $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' and {DbTable.F_TEST_RESULT_HISTORY.bindState}='1' and " +
                  $"{DbTable.F_TEST_RESULT_HISTORY.shellStationName} = '外壳装配工站' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.shellDateIn} DESC";
             stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
-
+            LogHelper.Log.Info("外壳=" + selectDetailSQL);
             if (stationResultData.Rows.Count > 0)
             {
                 IsExistValidRecord = true;
@@ -1573,9 +1581,8 @@ namespace MesAPI
               $"{DbTable.F_TEST_RESULT_HISTORY.productItem_inspectResult} " +
               $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
               $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' and {DbTable.F_TEST_RESULT_HISTORY.bindState}='1' and" +
-              $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '成品测试工站' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.productDateIn}";
+              $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '成品测试工站' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.productDateIn} DESC";
             stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
-
             if (stationResultData.Rows.Count > 0)
             {
                 IsExistValidRecord = true;
@@ -1599,7 +1606,7 @@ namespace MesAPI
             $"{DbTable.F_TEST_RESULT_HISTORY.productItem_inspectResult} " +
             $"from {DbTable.F_TEST_RESULT_HISTORY_NAME} where " +
             $"{DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}'  and" +
-            $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '成品测试工站' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.productDateIn}";
+            $"{DbTable.F_TEST_RESULT_HISTORY.productStationName} = '成品测试工站' ORDER BY {DbTable.F_TEST_RESULT_HISTORY.productDateIn} DESC";
                 stationResultData = SQLServer.ExecuteDataSet(selectDetailSQL).Tables[0];
 
                 if (stationResultData.Rows.Count > 0)
@@ -1632,21 +1639,28 @@ namespace MesAPI
             var showTestResult = "";
             if (testItemString.Contains(","))
             {
-                var itemArray = testItemString.Split(new char[] { ','},StringSplitOptions.None);
-                var testCurrentValue = itemArray[2];
-                var testResult = itemArray[3];
-                var currentValue = testCurrentValue.Trim().ToLower();
-                if (currentValue == "true" || currentValue == "passed")
+                var itemArray = testItemString.Split(new char[] { ','});
+                if (itemArray.Length > 3)
                 {
-                    showTestResult = "Passed";
-                }
-                else if (currentValue == "failed" || currentValue == "false")
-                {
-                    showTestResult = "Failed";
+                    var testCurrentValue = itemArray[2];
+                    var testResult = itemArray[3];
+                    var currentValue = testCurrentValue.Trim().ToLower();
+                    if (currentValue == "true" || currentValue == "passed")
+                    {
+                        showTestResult = "Passed";
+                    }
+                    else if (currentValue == "failed" || currentValue == "false")
+                    {
+                        showTestResult = "Failed";
+                    }
+                    else
+                    {
+                        showTestResult = testResult + "," + testCurrentValue;
+                    }
                 }
                 else
                 {
-                    showTestResult = testResult + "," + testCurrentValue;
+                    LogHelper.Log.Error("testItemString=" + testItemString);
                 }
             }
             return showTestResult;
@@ -3962,14 +3976,15 @@ namespace MesAPI
              * 判断查询条件的类型
              */
             #region SQL
-            var selectSQL = $"SELECT DISTINCT " +
-                $"a.{DbTable.F_Material_Statistics.MATERIAL_CODE} 物料编码," +
-                $"a.{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO} 产品型号," +
-                $"a.{DbTable.F_Material_Statistics.PCBA_SN}," +
-                $"a.{DbTable.F_Material_Statistics.MATERIAL_AMOUNT} 当前使用数量," +
-                $"a.{DbTable.F_Material_Statistics.MATERIAL_CURRENT_REMAIN} 当前剩余数量 " +
+            var selectSQL = $"SELECT " +
+                $"{DbTable.F_Material_Statistics.MATERIAL_CODE} 物料编码," +
+                $"{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO} 产品型号," +
+                $"{DbTable.F_Material_Statistics.PCBA_SN}," +
+                $"{DbTable.F_Material_Statistics.MATERIAL_AMOUNT} 当前使用数量," +
+                $"{DbTable.F_Material_Statistics.MATERIAL_CURRENT_REMAIN} 当前剩余数量 " +
                 $"FROM " +
-                $"{DbTable.F_MATERIAL_STATISTICS_NAME} a ";
+                $"{DbTable.F_MATERIAL_STATISTICS_NAME} order by {DbTable.F_Material_Statistics.UPDATE_DATE} desc";
+
             selectMsgOfMaterialSQL = $"SELECT DISTINCT " +
                 $"{DbTable.F_Material_Statistics.MATERIAL_CODE} ," +
                 $"{DbTable.F_Material_Statistics.PRODUCT_TYPE_NO}," +
@@ -3991,7 +4006,8 @@ namespace MesAPI
                     $"FROM " +
                     $"{DbTable.F_MATERIAL_STATISTICS_NAME} " +
                     $"WHERE " +
-                    $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{pcbaSN}%' ";
+                    $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{pcbaSN}%' " +
+                    $"order by {DbTable.F_Material_Statistics.UPDATE_DATE} desc";
             }
             else if (pcbaSN == "" && productSN != "")
             {
@@ -4004,7 +4020,8 @@ namespace MesAPI
                     $"FROM " +
                     $"{DbTable.F_MATERIAL_STATISTICS_NAME} " +
                     $"WHERE " +
-                    $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{productSN}%' ";
+                    $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{productSN}%' " +
+                    $"order by {DbTable.F_Material_Statistics.UPDATE_DATE} desc";
             }
             else if (pcbaSN != "" && productSN != "")
             {
@@ -4019,7 +4036,8 @@ namespace MesAPI
                     $"WHERE " +
                     $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{productSN}%' " +
                     $"OR " +
-                    $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{pcbaSN}%'";
+                    $"{DbTable.F_Material_Statistics.PCBA_SN} like '%{pcbaSN}%' " +
+                    $"order by {DbTable.F_Material_Statistics.UPDATE_DATE} desc";
             }
             else
             {

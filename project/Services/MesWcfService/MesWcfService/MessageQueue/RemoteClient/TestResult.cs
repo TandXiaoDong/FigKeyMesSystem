@@ -170,7 +170,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                 insertSQL = $"INSERT INTO {DbTable.F_TEST_RESULT_HISTORY_NAME}({DbTable.F_TEST_RESULT_HISTORY.pcbaSN}," +
                        $"{DbTable.F_TEST_RESULT_HISTORY.productTypeNo},{DbTable.F_TEST_RESULT_HISTORY.sensibilityStationName}," +
                        $"{DbTable.F_TEST_RESULT_HISTORY.sensibilityDateIn},{DbTable.F_TEST_RESULT_HISTORY.updateDate}," +
-                       $"{DbTable.F_TEST_RESULT_HISTORY.productSN},'{DbTable.F_TEST_RESULT_HISTORY.bindState}') " +
+                       $"{DbTable.F_TEST_RESULT_HISTORY.productSN},{DbTable.F_TEST_RESULT_HISTORY.bindState}) " +
                        $"VALUES('{sn}','{processName}','{station}','{stationInDate}','{updateDate}','{recordStatus.productSN}','{recordStatus.bindState}')";
                 if (recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.currentStationExist || recordStatus.pcbaTestResultStatusEnum == PcbaTestResultStatusEnum.pcbaNotExist)
                 {

@@ -720,7 +720,7 @@ namespace MesManager.UI
 
         private void BindingNavigatorPositionItem_TextChanged(object sender, EventArgs e)
         {
-            //this.bindingNavigatorPositionItem.Text = currentPage.ToString();
+            this.bindingNavigatorPositionItem.Text = currentPage.ToString();
         }
 
         private void BindingNavigatorCountItem_TextChanged(object sender, EventArgs e)

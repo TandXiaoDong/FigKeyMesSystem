@@ -943,7 +943,7 @@ namespace MesWcfService.MessageQueue.RemoteClient
                         //存在已解绑与已绑定的记录
                         //将已解绑的数据更新到现有记录
                         selectSQL = $"select top 1 * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.pcbaSN} = '{pid}' and " +
-                            $"{DbTable.F_TEST_RESULT_HISTORY.bindState} = '0' order by desc";
+                            $"{DbTable.F_TEST_RESULT_HISTORY.bindState} = '0' order by {DbTable.F_TEST_RESULT_HISTORY.id} desc";
                         dt = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
                         if (dt.Rows.Count > 0)
                         {

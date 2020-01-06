@@ -325,7 +325,7 @@ namespace TestAPI
             LogHelper.Log.Info("显示完毕...");
         }
 
-        private string productTypeNo = "HTS-B2018-01-01";
+        private string productTypeNo = "HTS-B2018-02-01";
 
         private void button6_Click(object sender, EventArgs e)
         {
