@@ -3738,7 +3738,7 @@ namespace MesAPI
                     $"{DbTable.F_MATERIAL_PN.MATERIAL_NAME}," +
                     $"{DbTable.F_MATERIAL_PN.USER_NAME}) VALUES(" +
                     $"'{materialPN}','{materialName}','{username}')";
-                LogHelper.Log.Info("【更新物料PN】"+insertSQL);
+                LogHelper.Log.Info("【插入物料PN】"+insertSQL);
                 return SQLServer.ExecuteNonQuery(insertSQL);
             }
         }
@@ -3829,6 +3829,7 @@ namespace MesAPI
                             //UpdateMaterialStock(material.TypeNo, material.MaterialCode, material.Stock);
                         }
                     }
+
                     UpdateMaterialPN(material.MaterialCode, material.MaterialName, material.UserName);
                 }
             }

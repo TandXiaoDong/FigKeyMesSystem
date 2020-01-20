@@ -537,6 +537,7 @@ namespace MesManager.UI
             }
             pmListTemp.Clear();
             MesService.ProductMaterial[] materialList = await serviceClient.CommitProductMaterialAsync(productMaterialList);
+
             foreach (var material in materialList)
             {
                 if (material.Result != 1)
