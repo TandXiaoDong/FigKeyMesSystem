@@ -46,6 +46,8 @@
             this.tb_burn_programePath = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel19 = new Telerik.WinControls.UI.RadLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tb_burn_sendCanID = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel151 = new Telerik.WinControls.UI.RadLabel();
             this.tb_burn_canID = new Telerik.WinControls.UI.RadTextBox();
             this.tb_burn_productID = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
@@ -379,8 +381,6 @@
             this.materialTheme1 = new Telerik.WinControls.Themes.MaterialTheme();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.materialPinkTheme1 = new Telerik.WinControls.Themes.MaterialPinkTheme();
-            this.tb_burn_sendCanID = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel151 = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
             this.dwBurn.SuspendLayout();
@@ -398,6 +398,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_burn_programePath)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel19)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_burn_sendCanID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel151)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_burn_canID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_burn_productID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).BeginInit();
@@ -717,14 +719,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel42)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_common_pcbCodeLen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel40)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_burn_sendCanID)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel151)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.dwBurn;
+            this.radDock1.ActiveWindow = this.dwSensibility;
             this.radDock1.CausesValidation = false;
             this.radDock1.Controls.Add(this.documentContainer2);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -927,6 +927,25 @@
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "波特率";
+            // 
+            // tb_burn_sendCanID
+            // 
+            this.tb_burn_sendCanID.Location = new System.Drawing.Point(133, 254);
+            this.tb_burn_sendCanID.Name = "tb_burn_sendCanID";
+            this.tb_burn_sendCanID.Size = new System.Drawing.Size(185, 36);
+            this.tb_burn_sendCanID.TabIndex = 18;
+            this.tb_burn_sendCanID.ThemeName = "Material";
+            // 
+            // radLabel151
+            // 
+            this.radLabel151.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radLabel151.Location = new System.Drawing.Point(6, 269);
+            this.radLabel151.Name = "radLabel151";
+            this.radLabel151.Size = new System.Drawing.Size(101, 21);
+            this.radLabel151.TabIndex = 17;
+            this.radLabel151.Text = "发送CAN ID：";
+            this.radLabel151.ThemeName = "Material";
             // 
             // tb_burn_canID
             // 
@@ -1342,7 +1361,7 @@
             // 
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 0;
+            this.documentTabStrip1.SelectedIndex = 1;
             this.documentTabStrip1.Size = new System.Drawing.Size(1278, 747);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
@@ -4297,25 +4316,6 @@
             this.radLabel40.Text = "设置PCB条码长度位数：";
             this.radLabel40.ThemeName = "Material";
             // 
-            // tb_burn_sendCanID
-            // 
-            this.tb_burn_sendCanID.Location = new System.Drawing.Point(133, 254);
-            this.tb_burn_sendCanID.Name = "tb_burn_sendCanID";
-            this.tb_burn_sendCanID.Size = new System.Drawing.Size(185, 36);
-            this.tb_burn_sendCanID.TabIndex = 18;
-            this.tb_burn_sendCanID.ThemeName = "Material";
-            // 
-            // radLabel151
-            // 
-            this.radLabel151.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.radLabel151.Location = new System.Drawing.Point(6, 269);
-            this.radLabel151.Name = "radLabel151";
-            this.radLabel151.Size = new System.Drawing.Size(101, 21);
-            this.radLabel151.TabIndex = 17;
-            this.radLabel151.Text = "发送CAN ID：";
-            this.radLabel151.ThemeName = "Material";
-            // 
             // StandConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -4352,6 +4352,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel19)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_burn_sendCanID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel151)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_burn_canID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_burn_productID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).EndInit();
@@ -4699,8 +4701,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel42)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_common_pcbCodeLen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel40)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_burn_sendCanID)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel151)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
