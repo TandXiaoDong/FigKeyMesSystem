@@ -19,16 +19,16 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://192.168.0.175:8086/MesService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://192.168.0.110:8086/MesService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="MesService1.wsdl" MetadataType="Wsdl" ID="598c89f1-c88a-4645-85ea-c382554e4c1d" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?wsdl" />
-    <MetadataFile FileName="MesService1.disco" MetadataType="Disco" ID="60c779b5-857a-4b0d-b8bd-89caaca07106" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?disco" />
-    <MetadataFile FileName="MesService.xsd" MetadataType="Schema" ID="e6054c20-3c54-42d7-a00f-b676f2800227" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?xsd=xsd4" />
-    <MetadataFile FileName="MesService1.xsd" MetadataType="Schema" ID="8835153e-9f3e-4804-ab31-e1e5caee3a35" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?xsd=xsd1" />
-    <MetadataFile FileName="MesService2.xsd" MetadataType="Schema" ID="af0b29c5-9235-4dc9-a6fd-c12028475840" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?xsd=xsd0" />
-    <MetadataFile FileName="MesService3.xsd" MetadataType="Schema" ID="59f22709-2778-4ee8-a0e5-c6c4321290b2" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?xsd=xsd3" />
-    <MetadataFile FileName="MesService4.xsd" MetadataType="Schema" ID="d37dfd6f-7daa-444d-b3fb-6cd31c32e10d" SourceId="1" SourceUrl="http://192.168.0.175:8086/MesService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MesService5.xsd" MetadataType="Schema" ID="3b9ce328-f34c-4e3f-953d-003001d75625" SourceId="1" SourceUrl="http://192.168.0.110:8086/MesService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MesService51.xsd" MetadataType="Schema" ID="43fc602d-51f6-4fd4-bd6c-8abd228037bc" SourceId="1" SourceUrl="http://192.168.0.110:8086/MesService.svc?xsd=xsd3" />
+    <MetadataFile FileName="MesService52.xsd" MetadataType="Schema" ID="48c3710d-a844-46be-911f-b807311aefcc" SourceId="1" SourceUrl="http://192.168.0.110:8086/MesService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MesService.wsdl" MetadataType="Wsdl" ID="d4f5ebac-a3de-4194-abae-4d77fe93f056" SourceId="1" SourceUrl="http://192.168.0.110:8086/MesService.svc?wsdl" />
+    <MetadataFile FileName="MesService53.xsd" MetadataType="Schema" ID="c5783a98-a024-4a66-8a96-1697474314f2" SourceId="1" SourceUrl="http://192.168.0.110:8086/MesService.svc?xsd=xsd4" />
+    <MetadataFile FileName="MesService.disco" MetadataType="Disco" ID="c5e074b2-fbf8-492e-8d6c-dae382a2d193" SourceId="1" SourceUrl="http://192.168.0.110:8086/MesService.svc?disco" />
+    <MetadataFile FileName="MesService54.xsd" MetadataType="Schema" ID="3bbe0608-6879-4091-8ee6-8fe1155872c4" SourceId="1" SourceUrl="http://192.168.0.110:8086/MesService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

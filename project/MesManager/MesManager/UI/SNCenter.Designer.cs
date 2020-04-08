@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SNCenter));
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition6 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition7 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition8 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition9 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition10 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition3 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition4 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition5 = new Telerik.WinControls.UI.TableViewDefinition();
             this.chamferedRectShape1 = new Telerik.WinControls.ChamferedRectShape();
             this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -246,6 +246,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "位置";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -331,7 +332,7 @@
             // 
             // 
             this.radGridViewSn.MasterTemplate.HorizontalScrollState = Telerik.WinControls.UI.ScrollState.AlwaysShow;
-            this.radGridViewSn.MasterTemplate.ViewDefinition = tableViewDefinition6;
+            this.radGridViewSn.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridViewSn.Name = "radGridViewSn";
             this.radGridViewSn.Size = new System.Drawing.Size(1262, 621);
             this.radGridViewSn.TabIndex = 10;
@@ -490,7 +491,7 @@
             // 
             // 
             // 
-            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition7;
+            this.radGridViewPackage.MasterTemplate.ViewDefinition = tableViewDefinition2;
             this.radGridViewPackage.Name = "radGridViewPackage";
             this.radGridViewPackage.Size = new System.Drawing.Size(1262, 618);
             this.radGridViewPackage.TabIndex = 32;
@@ -608,7 +609,7 @@
             // 
             // 
             // 
-            this.radGridViewMaterial.MasterTemplate.ViewDefinition = tableViewDefinition8;
+            this.radGridViewMaterial.MasterTemplate.ViewDefinition = tableViewDefinition3;
             this.radGridViewMaterial.Name = "radGridViewMaterial";
             this.radGridViewMaterial.Padding = new System.Windows.Forms.Padding(1);
             this.radGridViewMaterial.Size = new System.Drawing.Size(1262, 623);
@@ -727,7 +728,7 @@
             // 
             // 
             // 
-            this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition9;
+            this.radGridViewCheck.MasterTemplate.ViewDefinition = tableViewDefinition4;
             this.radGridViewCheck.Name = "radGridViewCheck";
             this.radGridViewCheck.Size = new System.Drawing.Size(1262, 620);
             this.radGridViewCheck.TabIndex = 11;
@@ -845,7 +846,7 @@
             // 
             // 
             // 
-            this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition10;
+            this.radGridViewQuanlity.MasterTemplate.ViewDefinition = tableViewDefinition5;
             this.radGridViewQuanlity.Name = "radGridViewQuanlity";
             this.radGridViewQuanlity.Size = new System.Drawing.Size(1262, 620);
             this.radGridViewQuanlity.TabIndex = 10;

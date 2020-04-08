@@ -3402,7 +3402,16 @@ namespace MesAPI
                             }
                             else
                             {
-                                LogHelper.Log.Info($"deleteResultSQL3={deleteResultSQL}");
+                                //LogHelper.Log.Info($"deleteResultSQL3={deleteResultSQL}");
+                                deleteResultSQL = $"DELETE FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
+                                $"{DbTable.F_Test_Result.PROCESS_NAME} = '{logItem.ProcessName}' " +
+                                $"AND ({DbTable.F_Test_Result.SN} = '{logItem.PcbaSN}' " +
+                                $"OR {DbTable.F_Test_Result.SN} = '{logItem.ProductSN}') ";
+                                dr1 = SQLServer.ExecuteNonQuery(deleteResultSQL);
+                                if (dr1 > 0)
+                                {
+                                    delRow++;
+                                }
                             }
                         }
                         else
@@ -3429,7 +3438,16 @@ namespace MesAPI
                                 }
                                 else
                                 {
-                                    LogHelper.Log.Info($"deleteResultSQL4={deleteResultSQL}" + dr1);
+                                    //LogHelper.Log.Info($"deleteResultSQL4={deleteResultSQL}" + dr1);
+                                    deleteResultSQL = $"DELETE FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
+                                    $"{DbTable.F_Test_Result.PROCESS_NAME} = '{logItem.ProcessName}' " +
+                                    $"AND ({DbTable.F_Test_Result.SN} = '{logItem.PcbaSN}' " +
+                                    $"OR {DbTable.F_Test_Result.SN} = '{logItem.ProductSN}') ";
+                                    dr1 = SQLServer.ExecuteNonQuery(deleteResultSQL);
+                                    if (dr1 > 0)
+                                    {
+                                        delRow++;
+                                    }
                                 }
                             }
                         }
@@ -3449,7 +3467,12 @@ namespace MesAPI
                         }
                         else 
                         {
-                            LogHelper.Log.Info($"deleteLogResultSQL6={deleteLogResultSQL}"+dr0); 
+                            //LogHelper.Log.Info($"deleteLogResultSQL6={deleteLogResultSQL}"+dr0); 
+                            deleteLogResultSQL = $"DELETE FROM {DbTable.F_TEST_LOG_DATA_NAME} WHERE " +
+                                $"{DbTable.F_TEST_LOG_DATA.TYPE_NO} = '{logItem.ProcessName}' " +
+                                $"AND ({DbTable.F_TEST_LOG_DATA.PRODUCT_SN} = '{logItem.PcbaSN}' " +
+                                $"OR {DbTable.F_TEST_LOG_DATA.PRODUCT_SN} = '{logItem.ProductSN}') ";
+                            SQLServer.ExecuteNonQuery(deleteLogResultSQL);
                         }
                         //LogHelper.Log.Info($"deleteLogResultSQL={deleteLogResultSQL}"+dr0); 
 
@@ -3466,7 +3489,12 @@ namespace MesAPI
                         }
                         else
                         {
-                            LogHelper.Log.Info($"deleteResultSQL5={deleteResultSQL}" + dr1);
+                            //LogHelper.Log.Info($"deleteResultSQL5={deleteResultSQL}" + dr1);
+                            deleteResultSQL = $"DELETE FROM {DbTable.F_TEST_RESULT_NAME} WHERE " +
+                                $"{DbTable.F_Test_Result.PROCESS_NAME} = '{logItem.ProcessName}' " +
+                                $"AND ({DbTable.F_Test_Result.SN} = '{logItem.PcbaSN}' " +
+                                $"OR {DbTable.F_Test_Result.SN} = '{logItem.ProductSN}') ";
+                            SQLServer.ExecuteNonQuery(deleteLogResultSQL);
                         }
 
                         //开始删除新表
