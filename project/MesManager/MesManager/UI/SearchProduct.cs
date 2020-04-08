@@ -130,7 +130,7 @@ namespace MesManager.UI
             else if (rb_unbinded.CheckState == CheckState.Checked)
                 bindState = "0";
             var checkPackage = await serviceClient.SelectPackageProductCheckAsync(queryCondition,bindState,false,currentPage,pageSize);
-            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1, false);
+            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1, false,true,0);
             this.radGridView1.AutoSizeColumnsMode = Telerik.WinControls.UI.GridViewAutoSizeColumnsMode.None;
             this.radGridView1.ReadOnly = true;
             if (checkPackage.CheckPackageCaseNumber % pageSize > 0)

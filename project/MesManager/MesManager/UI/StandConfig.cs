@@ -16,6 +16,7 @@ using MesManager.CommonEnum;
 using MesManager.Common;
 using System.IO;
 using System.Configuration;
+using System.Threading.Tasks;
 
 namespace MesManager.UI
 {
@@ -48,7 +49,6 @@ namespace MesManager.UI
         public StandConfig()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterParent;
             System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false;
         }
 

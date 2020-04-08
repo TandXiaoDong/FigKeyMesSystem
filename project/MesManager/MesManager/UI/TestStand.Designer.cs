@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestStand));
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition10 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition11 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition12 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition7 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition8 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition9 = new Telerik.WinControls.UI.TableViewDefinition();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tool_queryCondition = new System.Windows.Forms.ToolStripComboBox();
@@ -57,6 +57,7 @@
             this.tool_logData = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label_delStatus = new Telerik.WinControls.UI.RadLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.rbtn_threeMonth = new System.Windows.Forms.RadioButton();
             this.rbtn_oneMonth = new System.Windows.Forms.RadioButton();
@@ -70,11 +71,10 @@
             this.documentContainer2 = new Telerik.WinControls.UI.Docking.DocumentContainer();
             this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
             this.tool_specCfg = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.tool_programv = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.crystalTheme1 = new Telerik.WinControls.Themes.CrystalTheme();
             this.gridSpec = new Telerik.WinControls.UI.RadGridView();
+            this.tool_programv = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.gridProgrameVersion = new Telerik.WinControls.UI.RadGridView();
-            this.label_delStatus = new Telerik.WinControls.UI.RadLabel();
+            this.crystalTheme1 = new Telerik.WinControls.Themes.CrystalTheme();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -85,6 +85,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.label_delStatus)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pickerEndTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pickerStartTime)).BeginInit();
@@ -93,12 +94,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
             this.documentTabStrip1.SuspendLayout();
             this.tool_specCfg.SuspendLayout();
-            this.tool_programv.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridSpec)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridSpec.MasterTemplate)).BeginInit();
+            this.tool_programv.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridProgrameVersion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridProgrameVersion.MasterTemplate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label_delStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -321,7 +321,7 @@
             // 
             // 
             // 
-            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition10;
+            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition7;
             this.radGridView1.Name = "radGridView1";
             this.radGridView1.Size = new System.Drawing.Size(1264, 506);
             this.radGridView1.TabIndex = 19;
@@ -341,14 +341,23 @@
             this.panel2.Size = new System.Drawing.Size(1264, 55);
             this.panel2.TabIndex = 14;
             // 
+            // label_delStatus
+            // 
+            this.label_delStatus.Location = new System.Drawing.Point(935, 17);
+            this.label_delStatus.Name = "label_delStatus";
+            this.label_delStatus.Size = new System.Drawing.Size(68, 20);
+            this.label_delStatus.TabIndex = 17;
+            this.label_delStatus.Text = "radLabel1";
+            this.label_delStatus.ThemeName = "Crystal";
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.29412F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.70588F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.15789F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.84211F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 93F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 94F));
             this.tableLayoutPanel1.Controls.Add(this.rbtn_threeMonth, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbtn_oneMonth, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbtn_today, 0, 0);
@@ -367,7 +376,7 @@
             this.rbtn_threeMonth.AutoSize = true;
             this.rbtn_threeMonth.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_threeMonth.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_threeMonth.Location = new System.Drawing.Point(156, 3);
+            this.rbtn_threeMonth.Location = new System.Drawing.Point(155, 3);
             this.rbtn_threeMonth.Name = "rbtn_threeMonth";
             this.rbtn_threeMonth.Size = new System.Drawing.Size(84, 49);
             this.rbtn_threeMonth.TabIndex = 16;
@@ -380,9 +389,9 @@
             this.rbtn_oneMonth.AutoSize = true;
             this.rbtn_oneMonth.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_oneMonth.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_oneMonth.Location = new System.Drawing.Point(57, 3);
+            this.rbtn_oneMonth.Location = new System.Drawing.Point(61, 3);
             this.rbtn_oneMonth.Name = "rbtn_oneMonth";
-            this.rbtn_oneMonth.Size = new System.Drawing.Size(93, 49);
+            this.rbtn_oneMonth.Size = new System.Drawing.Size(88, 49);
             this.rbtn_oneMonth.TabIndex = 15;
             this.rbtn_oneMonth.TabStop = true;
             this.rbtn_oneMonth.Text = "最近一个月";
@@ -395,7 +404,7 @@
             this.rbtn_today.ForeColor = System.Drawing.Color.Black;
             this.rbtn_today.Location = new System.Drawing.Point(3, 3);
             this.rbtn_today.Name = "rbtn_today";
-            this.rbtn_today.Size = new System.Drawing.Size(48, 49);
+            this.rbtn_today.Size = new System.Drawing.Size(52, 49);
             this.rbtn_today.TabIndex = 14;
             this.rbtn_today.TabStop = true;
             this.rbtn_today.Text = "当天";
@@ -406,7 +415,7 @@
             this.rbtn_oneYear.AutoSize = true;
             this.rbtn_oneYear.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_oneYear.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_oneYear.Location = new System.Drawing.Point(246, 3);
+            this.rbtn_oneYear.Location = new System.Drawing.Point(245, 3);
             this.rbtn_oneYear.Name = "rbtn_oneYear";
             this.rbtn_oneYear.Size = new System.Drawing.Size(76, 49);
             this.rbtn_oneYear.TabIndex = 18;
@@ -419,9 +428,9 @@
             this.rbtn_custom.AutoSize = true;
             this.rbtn_custom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtn_custom.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_custom.Location = new System.Drawing.Point(328, 3);
+            this.rbtn_custom.Location = new System.Drawing.Point(327, 3);
             this.rbtn_custom.Name = "rbtn_custom";
-            this.rbtn_custom.Size = new System.Drawing.Size(88, 49);
+            this.rbtn_custom.Size = new System.Drawing.Size(89, 49);
             this.rbtn_custom.TabIndex = 13;
             this.rbtn_custom.TabStop = true;
             this.rbtn_custom.Text = "自定义日期";
@@ -519,6 +528,20 @@
             this.tool_specCfg.Size = new System.Drawing.Size(1264, 561);
             this.tool_specCfg.Text = "SPEC配置";
             // 
+            // gridSpec
+            // 
+            this.gridSpec.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridSpec.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridSpec.Location = new System.Drawing.Point(0, 0);
+            // 
+            // 
+            // 
+            this.gridSpec.MasterTemplate.ViewDefinition = tableViewDefinition8;
+            this.gridSpec.Name = "gridSpec";
+            this.gridSpec.Size = new System.Drawing.Size(1264, 561);
+            this.gridSpec.TabIndex = 20;
+            this.gridSpec.ThemeName = "Breeze";
+            // 
             // tool_programv
             // 
             this.tool_programv.Controls.Add(this.gridProgrameVersion);
@@ -529,20 +552,6 @@
             this.tool_programv.Size = new System.Drawing.Size(1264, 561);
             this.tool_programv.Text = "程序版本";
             // 
-            // gridSpec
-            // 
-            this.gridSpec.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridSpec.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gridSpec.Location = new System.Drawing.Point(0, 0);
-            // 
-            // 
-            // 
-            this.gridSpec.MasterTemplate.ViewDefinition = tableViewDefinition11;
-            this.gridSpec.Name = "gridSpec";
-            this.gridSpec.Size = new System.Drawing.Size(1264, 561);
-            this.gridSpec.TabIndex = 20;
-            this.gridSpec.ThemeName = "Breeze";
-            // 
             // gridProgrameVersion
             // 
             this.gridProgrameVersion.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -551,20 +560,11 @@
             // 
             // 
             // 
-            this.gridProgrameVersion.MasterTemplate.ViewDefinition = tableViewDefinition12;
+            this.gridProgrameVersion.MasterTemplate.ViewDefinition = tableViewDefinition9;
             this.gridProgrameVersion.Name = "gridProgrameVersion";
             this.gridProgrameVersion.Size = new System.Drawing.Size(1264, 561);
             this.gridProgrameVersion.TabIndex = 20;
             this.gridProgrameVersion.ThemeName = "Breeze";
-            // 
-            // label_delStatus
-            // 
-            this.label_delStatus.Location = new System.Drawing.Point(935, 17);
-            this.label_delStatus.Name = "label_delStatus";
-            this.label_delStatus.Size = new System.Drawing.Size(68, 20);
-            this.label_delStatus.TabIndex = 17;
-            this.label_delStatus.Text = "radLabel1";
-            this.label_delStatus.ThemeName = "Crystal";
             // 
             // TestStand
             // 
@@ -597,6 +597,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.label_delStatus)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pickerEndTime)).EndInit();
@@ -606,12 +607,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
             this.documentTabStrip1.ResumeLayout(false);
             this.tool_specCfg.ResumeLayout(false);
-            this.tool_programv.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridSpec.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridSpec)).EndInit();
+            this.tool_programv.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridProgrameVersion.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridProgrameVersion)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label_delStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

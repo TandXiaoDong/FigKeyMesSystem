@@ -1263,163 +1263,6 @@ namespace MesManager.MesService {
         STATUS_STOCK_NOT_SMALLER_AMOUNTED = 5,
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TestLogResultHistory", Namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model")]
-    [System.SerializableAttribute()]
-    public partial class TestLogResultHistory : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Data.DataSet HistoryDataSetField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int HistoryLogNumberField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string JoinDateTimeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PcbaSNField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ProcessNameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ProductSNField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StationInDateField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StationNameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Data.DataSet HistoryDataSet {
-            get {
-                return this.HistoryDataSetField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.HistoryDataSetField, value) != true)) {
-                    this.HistoryDataSetField = value;
-                    this.RaisePropertyChanged("HistoryDataSet");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int HistoryLogNumber {
-            get {
-                return this.HistoryLogNumberField;
-            }
-            set {
-                if ((this.HistoryLogNumberField.Equals(value) != true)) {
-                    this.HistoryLogNumberField = value;
-                    this.RaisePropertyChanged("HistoryLogNumber");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string JoinDateTime {
-            get {
-                return this.JoinDateTimeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.JoinDateTimeField, value) != true)) {
-                    this.JoinDateTimeField = value;
-                    this.RaisePropertyChanged("JoinDateTime");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PcbaSN {
-            get {
-                return this.PcbaSNField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PcbaSNField, value) != true)) {
-                    this.PcbaSNField = value;
-                    this.RaisePropertyChanged("PcbaSN");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ProcessName {
-            get {
-                return this.ProcessNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ProcessNameField, value) != true)) {
-                    this.ProcessNameField = value;
-                    this.RaisePropertyChanged("ProcessName");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ProductSN {
-            get {
-                return this.ProductSNField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ProductSNField, value) != true)) {
-                    this.ProductSNField = value;
-                    this.RaisePropertyChanged("ProductSN");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string StationInDate {
-            get {
-                return this.StationInDateField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.StationInDateField, value) != true)) {
-                    this.StationInDateField = value;
-                    this.RaisePropertyChanged("StationInDate");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string StationName {
-            get {
-                return this.StationNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.StationNameField, value) != true)) {
-                    this.StationNameField = value;
-                    this.RaisePropertyChanged("StationName");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MesService.IMesService")]
     public interface IMesService {
@@ -1839,10 +1682,10 @@ namespace MesManager.MesService {
         System.Threading.Tasks.Task<MesManager.MesService.TestResultHistory[]> SelectUseAllPcbaSNAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestLogHistory", ReplyAction="http://tempuri.org/IMesService/DeleteTestLogHistoryResponse")]
-        int DeleteTestLogHistory(MesManager.MesService.TestLogResultHistory[] logList);
+        int DeleteTestLogHistory(string queryStr, string startTime, string endTime);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteTestLogHistory", ReplyAction="http://tempuri.org/IMesService/DeleteTestLogHistoryResponse")]
-        System.Threading.Tasks.Task<int> DeleteTestLogHistoryAsync(MesManager.MesService.TestLogResultHistory[] logList);
+        System.Threading.Tasks.Task<int> DeleteTestLogHistoryAsync(string queryStr, string startTime, string endTime);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/DeleteMaterialBasicHistory", ReplyAction="http://tempuri.org/IMesService/DeleteMaterialBasicHistoryResponse")]
         int DeleteMaterialBasicHistory(MesManager.MesService.MaterialResultInfo[] materialList);
@@ -1873,6 +1716,24 @@ namespace MesManager.MesService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectTestResultHistory", ReplyAction="http://tempuri.org/IMesService/SelectTestResultHistoryResponse")]
         System.Threading.Tasks.Task<MesManager.MesService.TestResultHistory> SelectTestResultHistoryAsync(string querySN, int pageIndex, int pageSize);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectAllTestResultLogHistory", ReplyAction="http://tempuri.org/IMesService/SelectAllTestResultLogHistoryResponse")]
+        MesManager.MesService.TestResultHistory SelectAllTestResultLogHistory(string querySN, string startTime, string endTime);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectAllTestResultLogHistory", ReplyAction="http://tempuri.org/IMesService/SelectAllTestResultLogHistoryResponse")]
+        System.Threading.Tasks.Task<MesManager.MesService.TestResultHistory> SelectAllTestResultLogHistoryAsync(string querySN, string startTime, string endTime);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectAllTestLimitConfig", ReplyAction="http://tempuri.org/IMesService/SelectAllTestLimitConfigResponse")]
+        MesManager.MesService.TestStandSpecHistory SelectAllTestLimitConfig(string productTypeNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectAllTestLimitConfig", ReplyAction="http://tempuri.org/IMesService/SelectAllTestLimitConfigResponse")]
+        System.Threading.Tasks.Task<MesManager.MesService.TestStandSpecHistory> SelectAllTestLimitConfigAsync(string productTypeNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectAllTestProgrameVersion", ReplyAction="http://tempuri.org/IMesService/SelectAllTestProgrameVersionResponse")]
+        MesManager.MesService.ProgramVersionHistory SelectAllTestProgrameVersion(string productTypeNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesService/SelectAllTestProgrameVersion", ReplyAction="http://tempuri.org/IMesService/SelectAllTestProgrameVersionResponse")]
+        System.Threading.Tasks.Task<MesManager.MesService.ProgramVersionHistory> SelectAllTestProgrameVersionAsync(string productTypeNo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2454,12 +2315,12 @@ namespace MesManager.MesService {
             return base.Channel.SelectUseAllPcbaSNAsync();
         }
         
-        public int DeleteTestLogHistory(MesManager.MesService.TestLogResultHistory[] logList) {
-            return base.Channel.DeleteTestLogHistory(logList);
+        public int DeleteTestLogHistory(string queryStr, string startTime, string endTime) {
+            return base.Channel.DeleteTestLogHistory(queryStr, startTime, endTime);
         }
         
-        public System.Threading.Tasks.Task<int> DeleteTestLogHistoryAsync(MesManager.MesService.TestLogResultHistory[] logList) {
-            return base.Channel.DeleteTestLogHistoryAsync(logList);
+        public System.Threading.Tasks.Task<int> DeleteTestLogHistoryAsync(string queryStr, string startTime, string endTime) {
+            return base.Channel.DeleteTestLogHistoryAsync(queryStr, startTime, endTime);
         }
         
         public int DeleteMaterialBasicHistory(MesManager.MesService.MaterialResultInfo[] materialList) {
@@ -2500,6 +2361,30 @@ namespace MesManager.MesService {
         
         public System.Threading.Tasks.Task<MesManager.MesService.TestResultHistory> SelectTestResultHistoryAsync(string querySN, int pageIndex, int pageSize) {
             return base.Channel.SelectTestResultHistoryAsync(querySN, pageIndex, pageSize);
+        }
+        
+        public MesManager.MesService.TestResultHistory SelectAllTestResultLogHistory(string querySN, string startTime, string endTime) {
+            return base.Channel.SelectAllTestResultLogHistory(querySN, startTime, endTime);
+        }
+        
+        public System.Threading.Tasks.Task<MesManager.MesService.TestResultHistory> SelectAllTestResultLogHistoryAsync(string querySN, string startTime, string endTime) {
+            return base.Channel.SelectAllTestResultLogHistoryAsync(querySN, startTime, endTime);
+        }
+        
+        public MesManager.MesService.TestStandSpecHistory SelectAllTestLimitConfig(string productTypeNo) {
+            return base.Channel.SelectAllTestLimitConfig(productTypeNo);
+        }
+        
+        public System.Threading.Tasks.Task<MesManager.MesService.TestStandSpecHistory> SelectAllTestLimitConfigAsync(string productTypeNo) {
+            return base.Channel.SelectAllTestLimitConfigAsync(productTypeNo);
+        }
+        
+        public MesManager.MesService.ProgramVersionHistory SelectAllTestProgrameVersion(string productTypeNo) {
+            return base.Channel.SelectAllTestProgrameVersion(productTypeNo);
+        }
+        
+        public System.Threading.Tasks.Task<MesManager.MesService.ProgramVersionHistory> SelectAllTestProgrameVersionAsync(string productTypeNo) {
+            return base.Channel.SelectAllTestProgrameVersionAsync(productTypeNo);
         }
     }
 }

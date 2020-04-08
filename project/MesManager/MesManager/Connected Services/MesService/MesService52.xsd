@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MesAPI.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MesAPI.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://192.168.0.105:8085/MesService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://192.168.0.175:8085/MesService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:simpleType name="LoginResult">
     <xs:restriction base="xs:string">
       <xs:enumeration value="USER_NAME_ERR" />
@@ -286,37 +286,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfTestResultHistory" nillable="true" type="tns:ArrayOfTestResultHistory" />
-  <xs:complexType name="ArrayOfTestLogResultHistory">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="TestLogResultHistory" nillable="true" type="tns:TestLogResultHistory" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfTestLogResultHistory" nillable="true" type="tns:ArrayOfTestLogResultHistory" />
-  <xs:complexType name="TestLogResultHistory">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="HistoryDataSet" nillable="true">
-        <xs:complexType>
-          <xs:annotation>
-            <xs:appinfo>
-              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
-            </xs:appinfo>
-          </xs:annotation>
-          <xs:sequence>
-            <xs:element ref="xs:schema" />
-            <xs:any />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element minOccurs="0" name="HistoryLogNumber" type="xs:int" />
-      <xs:element minOccurs="0" name="JoinDateTime" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PcbaSN" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ProcessName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ProductSN" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="StationInDate" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="StationName" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="TestLogResultHistory" nillable="true" type="tns:TestLogResultHistory" />
   <xs:complexType name="ArrayOfMaterialResultInfo">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="MaterialResultInfo" nillable="true" type="tns:MaterialResultInfo" />

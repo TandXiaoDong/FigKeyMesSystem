@@ -253,7 +253,7 @@ namespace MesAPI
         List<TestResultHistory> SelectUseAllPcbaSN();
 
         [OperationContract]
-        int DeleteTestLogHistory(List<TestLogResultHistory> logList);
+        int DeleteTestLogHistory(string queryStr,string startTime,string endTime);
 
         [OperationContract]
         int DeleteMaterialBasicHistory(List<MaterialResultInfo> materialList);
@@ -269,5 +269,14 @@ namespace MesAPI
 
         [OperationContract]
         TestResultHistory SelectTestResultHistory(string querySN, int pageIndex, int pageSize);
+
+        [OperationContract]
+        TestResultHistory SelectAllTestResultLogHistory(string querySN, string startTime, string endTime);
+
+        [OperationContract]
+        TestStandSpecHistory SelectAllTestLimitConfig(string productTypeNo);
+
+        [OperationContract]
+        ProgramVersionHistory SelectAllTestProgrameVersion(string productTypeNo);
     }
 }

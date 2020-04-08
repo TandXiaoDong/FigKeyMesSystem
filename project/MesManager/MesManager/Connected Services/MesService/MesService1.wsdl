@@ -2,11 +2,11 @@
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MesService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://192.168.0.105:8085/MesService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://192.168.0.105:8085/MesService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://192.168.0.105:8085/MesService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model" />
-      <xsd:import schemaLocation="http://192.168.0.105:8085/MesService.svc?xsd=xsd3" />
-      <xsd:import schemaLocation="http://192.168.0.105:8085/MesService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://192.168.0.175:8085/MesService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://192.168.0.175:8085/MesService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://192.168.0.175:8085/MesService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model" />
+      <xsd:import schemaLocation="http://192.168.0.175:8085/MesService.svc?xsd=xsd3" />
+      <xsd:import schemaLocation="http://192.168.0.175:8085/MesService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IMesService_TestCommunication_InputMessage">
@@ -459,6 +459,24 @@
   <wsdl:message name="IMesService_SelectTestResultHistory_OutputMessage">
     <wsdl:part name="parameters" element="tns:SelectTestResultHistoryResponse" />
   </wsdl:message>
+  <wsdl:message name="IMesService_SelectAllTestResultLogHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectAllTestResultLogHistory" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectAllTestResultLogHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectAllTestResultLogHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectAllTestLimitConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectAllTestLimitConfig" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectAllTestLimitConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectAllTestLimitConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectAllTestProgrameVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectAllTestProgrameVersion" />
+  </wsdl:message>
+  <wsdl:message name="IMesService_SelectAllTestProgrameVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectAllTestProgrameVersionResponse" />
+  </wsdl:message>
   <wsdl:portType name="IMesService">
     <wsdl:operation name="TestCommunication">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/TestCommunication" message="tns:IMesService_TestCommunication_InputMessage" />
@@ -759,6 +777,18 @@
     <wsdl:operation name="SelectTestResultHistory">
       <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectTestResultHistory" message="tns:IMesService_SelectTestResultHistory_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectTestResultHistoryResponse" message="tns:IMesService_SelectTestResultHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectAllTestResultLogHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectAllTestResultLogHistory" message="tns:IMesService_SelectAllTestResultLogHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectAllTestResultLogHistoryResponse" message="tns:IMesService_SelectAllTestResultLogHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectAllTestLimitConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectAllTestLimitConfig" message="tns:IMesService_SelectAllTestLimitConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectAllTestLimitConfigResponse" message="tns:IMesService_SelectAllTestLimitConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectAllTestProgrameVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesService/SelectAllTestProgrameVersion" message="tns:IMesService_SelectAllTestProgrameVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesService/SelectAllTestProgrameVersionResponse" message="tns:IMesService_SelectAllTestProgrameVersion_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMesService" type="tns:IMesService">
@@ -1438,10 +1468,37 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SelectAllTestResultLogHistory">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectAllTestResultLogHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectAllTestLimitConfig">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectAllTestLimitConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectAllTestProgrameVersion">
+      <soap:operation soapAction="http://tempuri.org/IMesService/SelectAllTestProgrameVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="MesService">
     <wsdl:port name="BasicHttpBinding_IMesService" binding="tns:BasicHttpBinding_IMesService">
-      <soap:address location="http://192.168.0.105:8085/MesService.svc" />
+      <soap:address location="http://192.168.0.175:8085/MesService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

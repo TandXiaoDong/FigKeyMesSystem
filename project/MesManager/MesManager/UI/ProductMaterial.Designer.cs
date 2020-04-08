@@ -35,9 +35,9 @@
             Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn4 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn5 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn6 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition3 = new Telerik.WinControls.UI.TableViewDefinition();
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition3 = new Telerik.WinControls.UI.TableViewDefinition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductMaterial));
             this.radDock1 = new Telerik.WinControls.UI.Docking.RadDock();
             this.dw_materialBind = new Telerik.WinControls.UI.Docking.DocumentWindow();
@@ -95,7 +95,7 @@
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.dw_materialBind;
+            this.radDock1.ActiveWindow = this.dw_stockManager;
             this.radDock1.Controls.Add(this.documentContainer1);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radDock1.IsCleanUpTarget = true;
@@ -164,7 +164,7 @@
             gridViewTextBoxColumn4,
             gridViewTextBoxColumn5,
             gridViewTextBoxColumn6});
-            this.radGridViewBind.MasterTemplate.ViewDefinition = tableViewDefinition1;
+            this.radGridViewBind.MasterTemplate.ViewDefinition = tableViewDefinition3;
             this.radGridViewBind.Name = "radGridViewBind";
             this.radGridViewBind.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.radGridViewBind.Size = new System.Drawing.Size(1266, 663);
@@ -278,7 +278,7 @@
             // 
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 1;
+            this.documentTabStrip1.SelectedIndex = 0;
             this.documentTabStrip1.Size = new System.Drawing.Size(1276, 724);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
@@ -339,7 +339,7 @@
             // 
             // 
             // 
-            this.radGridViewStock.MasterTemplate.ViewDefinition = tableViewDefinition2;
+            this.radGridViewStock.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridViewStock.Name = "radGridViewStock";
             this.radGridViewStock.Size = new System.Drawing.Size(1266, 655);
             this.radGridViewStock.TabIndex = 20;
@@ -369,7 +369,7 @@
             // 
             // 
             // 
-            this.radGridViewStockOut.MasterTemplate.ViewDefinition = tableViewDefinition3;
+            this.radGridViewStockOut.MasterTemplate.ViewDefinition = tableViewDefinition2;
             this.radGridViewStockOut.Name = "radGridViewStockOut";
             this.radGridViewStockOut.Size = new System.Drawing.Size(1266, 4);
             this.radGridViewStockOut.TabIndex = 0;

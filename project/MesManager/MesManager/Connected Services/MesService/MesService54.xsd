@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://192.168.0.105:8085/MesService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model" />
-  <xs:import schemaLocation="http://192.168.0.105:8085/MesService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://192.168.0.175:8085/MesService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MesAPI.Model" />
+  <xs:import schemaLocation="http://192.168.0.175:8085/MesService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="TestCommunication">
     <xs:complexType>
       <xs:sequence>
@@ -1264,7 +1264,9 @@
   <xs:element name="DeleteTestLogHistory">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="logList" nillable="true" type="q22:ArrayOfTestLogResultHistory" />
+        <xs:element minOccurs="0" name="queryStr" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startTime" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endTime" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1278,7 +1280,7 @@
   <xs:element name="DeleteMaterialBasicHistory">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="materialList" nillable="true" type="q23:ArrayOfMaterialResultInfo" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="materialList" nillable="true" type="q22:ArrayOfMaterialResultInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1292,7 +1294,7 @@
   <xs:element name="DeleteProductPackageHistory">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="packageList" nillable="true" type="q24:ArrayOfPackageProductHistory" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="packageList" nillable="true" type="q23:ArrayOfPackageProductHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1306,7 +1308,7 @@
   <xs:element name="DeleteCheckProductPackageHistory">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="packageList" nillable="true" type="q25:ArrayOfCheckPackageProductHistory" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="packageList" nillable="true" type="q24:ArrayOfCheckPackageProductHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1331,7 +1333,7 @@
   <xs:element name="SelectTestResultLogHistoryResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectTestResultLogHistoryResult" nillable="true" type="q26:TestResultHistory" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectTestResultLogHistoryResult" nillable="true" type="q25:TestResultHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1347,7 +1349,51 @@
   <xs:element name="SelectTestResultHistoryResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectTestResultHistoryResult" nillable="true" type="q27:TestResultHistory" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectTestResultHistoryResult" nillable="true" type="q26:TestResultHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectAllTestResultLogHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="querySN" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startTime" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endTime" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectAllTestResultLogHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectAllTestResultLogHistoryResult" nillable="true" type="q27:TestResultHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectAllTestLimitConfig">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="productTypeNo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectAllTestLimitConfigResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectAllTestLimitConfigResult" nillable="true" type="q28:TestStandSpecHistory" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectAllTestProgrameVersion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="productTypeNo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectAllTestProgrameVersionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/MesAPI.Model" minOccurs="0" name="SelectAllTestProgrameVersionResult" nillable="true" type="q29:ProgramVersionHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
