@@ -289,15 +289,15 @@ namespace MesManager
         {
             try
             {
-                var checkState = INIFile.GetValue(INI_CONFIG_SECTION,INI_CONFIG_REMBER,configPath);
+                var checkState = INIFile.GetValue(INI_CONFIG_SECTION,INI_CONFIG_REMBER,configPath).ToString();
                 if (!string.IsNullOrEmpty(checkState))
                 {
                     var curCbxState = (CheckState)Enum.Parse(typeof(CheckState),checkState);
                     cb_memberpwd.CheckState = curCbxState;
                     if (curCbxState == CheckState.Checked)
                     {
-                        tbx_username.Text = INIFile.GetValue(INI_CONFIG_SECTION, INI_CONFIG_USER, configPath);
-                        tbx_pwd.Text = INIFile.GetValue(INI_CONFIG_SECTION, INI_CONFIG_PWD, configPath);
+                        tbx_username.Text = INIFile.GetValue(INI_CONFIG_SECTION, INI_CONFIG_USER, configPath).ToString();
+                        tbx_pwd.Text = INIFile.GetValue(INI_CONFIG_SECTION, INI_CONFIG_PWD, configPath).ToString();
                     }
                 }
             }

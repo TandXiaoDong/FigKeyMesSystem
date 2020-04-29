@@ -508,7 +508,8 @@ namespace MesManager.UI
                 });
             }
 
-            GridViewExport.ImportToCSV(dt, desPath);
+            if (!GridViewExport.ImportToCSV(dt, desPath))
+                return;
             //export data complete
             MessageBox.Show("导出完成！", "提示", MessageBoxButtons.OK);
             this.tool_export.Enabled = true;
