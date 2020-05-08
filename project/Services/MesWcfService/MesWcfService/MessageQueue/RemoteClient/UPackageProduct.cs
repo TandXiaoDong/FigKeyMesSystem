@@ -270,9 +270,10 @@ namespace MesWcfService.MessageQueue.RemoteClient
                         $"{DbTable.F_Out_Case_Product.REMARK}," +
                         $"{DbTable.F_Out_Case_Product.TEAM_LEADER}," +
                         $"{DbTable.F_Out_Case_Product.ADMIN}," +
-                        $"{DbTable.F_Out_Case_Product.BINDING_DATE}) VALUES(" +
+                        $"{DbTable.F_Out_Case_Product.BINDING_DATE}," +
+                        $"{DbTable.F_Out_Case_Product.UPDATE_DATE}) VALUES(" +
                         $"'{outCaseCode}','{snOutter}','{typeNo}','{stationName}'," +
-                        $"'{bindingState}','{remark}','{teamdLeader}','{admin}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
+                        $"'{bindingState}','{remark}','{teamdLeader}','{admin}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
 
                     string updateSQL = $"UPDATE " +
                         $"{DbTable.F_OUT_CASE_PRODUCT_NAME} SET " +
@@ -281,7 +282,8 @@ namespace MesWcfService.MessageQueue.RemoteClient
                     $"{DbTable.F_Out_Case_Product.REMARK} = '{remark}'," +
                     $"{DbTable.F_Out_Case_Product.TEAM_LEADER} = '{teamdLeader}'," +
                     $"{DbTable.F_Out_Case_Product.ADMIN} = '{admin}'," +
-                    $"{DbTable.F_Out_Case_Product.UPDATE_DATE} = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' " +
+                    $"{DbTable.F_Out_Case_Product.UPDATE_DATE} = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'," +
+                    $"{DbTable.F_Out_Case_Product.BINDING_DATE} = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' " +
                     $"WHERE " +
                     $"{DbTable.F_Out_Case_Product.OUT_CASE_CODE} = '{outCaseCode}' " +
                     $"AND " +

@@ -752,7 +752,7 @@ namespace MesAPI
                 var defaultRoot = ConfigurationManager.AppSettings["shellCodeRoot"].ToString();
                 var process = SelectCurrentTProcess();
                 string configPath = defaultRoot + ":\\StationConfig\\外壳装配工站\\" + process + "\\" + "外壳装配工站_" + process + "_config.ini";
-                int.TryParse(INIFile.GetValue(process, "设置外壳条码长度位数", configPath).Trim(), out shellLen);
+                int.TryParse(INIFile.GetValue(process, "设置外壳条码长度位数", configPath).ToString().Trim(), out shellLen);
                 //LogHelper.Log.Info("【配置文件路径】" + configPath + "len="+shellLen);
                 return shellLen;
             }
@@ -771,7 +771,7 @@ namespace MesAPI
                 var defaultRoot = ConfigurationManager.AppSettings["shellCodeRoot"].ToString();
                 var process = SelectCurrentTProcess();
                 string configPath = defaultRoot + ":\\StationConfig\\外壳装配工站\\" + process + "\\" + "外壳装配工站_" + process + "_config.ini";
-                int.TryParse(INIFile.GetValue(process, "设置PCB条码长度位数", configPath).Trim(), out shellLen);
+                int.TryParse(INIFile.GetValue(process, "设置PCB条码长度位数", configPath).ToString().Trim(), out shellLen);
                 //LogHelper.Log.Info("【配置文件路径】" + configPath + "len="+shellLen);
                 return shellLen;
             }
@@ -5233,7 +5233,11 @@ namespace MesAPI
                     var admin = dbReader[4].ToString();
                     var remark = dbReader[5].ToString();
                     var bindingDate = dbReader[6].ToString();
-                    var productState = "已解包";
+                    var productState = "";
+                    if (state == "0")
+                        productState = "已解包";
+                    else
+                        productState = "已绑定";
                     DataRow dr = dataSourceProductCheck.NewRow();
                     dr[CHECK_ORDER] = orderID;
                     dr[CHECK_CASE_CODE] = caseCode;
