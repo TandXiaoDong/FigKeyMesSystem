@@ -267,6 +267,7 @@ namespace MesManager.UI
         {
             serviceClient = new MesService.MesServiceClient();
             serviceClientTest = new MesServiceTest.MesServiceClient();
+
             this.rbtn_material_stock.CheckState = CheckState.Checked;
             this.cb_materialState.Items.Add("关闭");
             this.cb_materialState.SelectedIndex = 0;
@@ -551,7 +552,7 @@ namespace MesManager.UI
             MessageBox.Show("解除绑定失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        private void UpdateBindState(int state)
+        private async void UpdateBindState(int state)
         {
             var caseSN = this.tb_caseSN.Text;
             var productSN = this.tb_productSN.Text;
@@ -578,7 +579,7 @@ namespace MesManager.UI
                 MessageBox.Show("工站名称不能为空！", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            string[] result = serviceClientTest.UpdatePackageProductBindingMsg(caseSN, productSN, productTypeNo, stationName, state.ToString(), remark, MESMainForm.currentUser,MESMainForm.currentUser);
+            string[] result = await serviceClientTest.UpdatePackageProductBindingMsgAsync(caseSN, productSN, productTypeNo, stationName, state.ToString(), remark, MESMainForm.currentUser,MESMainForm.currentUser);
 
             if (result[0] == "0X01")
             {

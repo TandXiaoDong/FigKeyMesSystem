@@ -5192,7 +5192,7 @@ namespace MesAPI
                      $"{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '{state}' AND " +
                      $"{DbTable.F_PRODUCT_PACKAGE.SN_OUTTER} like '%{queryFilter}%'";
             }
-            LogHelper.Log.Info(selectSQL);
+            LogHelper.Log.Info("SelectPackageProductCheck=" + selectSQL);
             var dbReader = SQLServer.ExecuteDataReader(selectSQL);
             if (!dbReader.HasRows)
             {
