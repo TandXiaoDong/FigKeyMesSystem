@@ -349,6 +349,12 @@ namespace MesWcfService.MessageQueue.RemoteClient
                                 }
                                 else if (bindingState == "1")
                                 {
+                                    if (IsOutCaseFull(outCaseCode, typeNo))//已装满
+                                    {
+                                        LogHelper.Log.Info("【更新产品打包】0X01 STATUS_FULL");
+                                        resultArray[0] = "0X01"; //STATUS_FULL
+                                        return resultArray;
+                                    }
                                     //重新绑定
                                     int usRes = SQLServer.ExecuteNonQuery(updateSQL);
                                     if (usRes > 0)

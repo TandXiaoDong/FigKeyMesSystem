@@ -618,14 +618,15 @@ namespace MesAPI
                 $"order by {DbTable.F_Test_Result.STATION_IN_DATE} desc";
             try
             {
-                var dbReader = SQLServer.ExecuteDataReader(selectSQL);
-                if (dbReader.HasRows)
+                //var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+                var data = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                if (data.Rows.Count > 0)
                 {
                     pcbaCacheList.Clear();
                     var pcbaLen = ReadPCBACodeLength();
                     if (pcbaLen == 0)
                         pcbaLen = 16;
-                    while (dbReader.Read())
+                    foreach(DataRow dbReader in data.Rows)
                     {
                         TestResultHistory testResultHistory = new TestResultHistory();
                         var pcbaSN = dbReader[0].ToString();
@@ -1092,13 +1093,14 @@ namespace MesAPI
                 selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}' order by {DbTable.F_TEST_RESULT_HISTORY.updateDate} desc";
             else
                 selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where ({DbTable.F_TEST_PCBA.PCBA_SN} like '%{querySN}%' OR {DbTable.F_TEST_RESULT_HISTORY.productSN} like '%{querySN}%' ) AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}' order by {DbTable.F_TEST_RESULT_HISTORY.updateDate} desc";
-            var dbReader = SQLServer.ExecuteDataReader(selectLog);
-            if (dbReader.HasRows)
+            //var dbReader = SQLServer.ExecuteDataReader(selectLog);
+            var data = SQLServer.ExecuteDataSet(selectLog).Tables[0];
+            if (data.Rows.Count > 0)
             {
                 int i = 0;
                 int id = 0;
                 int startIndex = (pageIndex - 1) * pageSize;
-                while (dbReader.Read())
+                foreach(DataRow dbReader in data.Rows)
                 {
                     if (i >= startIndex && i < pageIndex * pageSize)
                     {
@@ -1257,12 +1259,13 @@ namespace MesAPI
             else
                 selectLog = $"select * from {DbTable.F_TEST_RESULT_HISTORY_NAME} where ({DbTable.F_TEST_PCBA.PCBA_SN} like '%{querySN}%' OR {DbTable.F_TEST_RESULT_HISTORY.productSN} like '%{querySN}%' ) AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} >= '{startTime}' AND {DbTable.F_TEST_RESULT_HISTORY.updateDate} <= '{endTime}' order by {DbTable.F_TEST_RESULT_HISTORY.updateDate} desc";
             //LogHelper.Log.Info("开始查询...\r\n"+selectLog);
-            var dbReader = SQLServer.ExecuteDataReader(selectLog);
-            if (dbReader.HasRows)
+            //var dbReader = SQLServer.ExecuteDataReader(selectLog);
+            var data = SQLServer.ExecuteDataSet(selectLog).Tables[0];
+            if (data.Rows.Count > 0)
             {
                 int i = 0;
                 int id = 0;
-                while (dbReader.Read())
+                foreach(DataRow dbReader in data.Rows)
                 {
                     //Dictionary<string, string> keyValues = new Dictionary<string, string>();
                     var pid = dbReader[1].ToString();
@@ -4669,8 +4672,9 @@ namespace MesAPI
         {
             MaterialResultInfo materialResultInfo = new MaterialResultInfo();
             DataSet ds = new DataSet();
-            DbDataReader dataReader = SQLServer.ExecuteDataReader(selectSQL);
-            if (!dataReader.HasRows)
+            //DbDataReader dataReader = SQLServer.ExecuteDataReader(selectSQL);
+            var data = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (data.Rows.Count < 1)
             {
                 ds.Tables.Add(dataSourceMaterialBasic);
                 materialResultInfo.MaterialResultData = ds;
@@ -4681,7 +4685,7 @@ namespace MesAPI
             int i = 0;
             int id = 0;
             int startIndex = (pageIndex - 1) * pageSize;
-            while (dataReader.Read())
+            foreach (DataRow dataReader in data.Rows)
             {
                 if (i >= startIndex && i < pageSize * pageIndex)
                 {
@@ -4723,7 +4727,6 @@ namespace MesAPI
                 }
                 i++;
             }
-            dataReader.Close();
             ds.Tables.Add(dataSourceMaterialBasic);
             materialResultInfo.MaterialResultData = ds;
             materialResultInfo.MaterialRowCount = i;
@@ -5193,8 +5196,10 @@ namespace MesAPI
                      $"{DbTable.F_PRODUCT_PACKAGE.SN_OUTTER} like '%{queryFilter}%'";
             }
             LogHelper.Log.Info("SelectPackageProductCheck=" + selectSQL);
-            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
-            if (!dbReader.HasRows)
+            //ExecuteDataReader 独占连接，当连接多时，会超时
+            //var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            var data = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (data.Rows.Count < 1)
             {
                 selectSQL = $"SELECT {rowNumber}{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} 箱子编码," +
                      $"{DbTable.F_PRODUCT_PACKAGE.SN_OUTTER} 产品SN," +
@@ -5209,8 +5214,8 @@ namespace MesAPI
                      $"{DbTable.F_PRODUCT_PACKAGE.BINDING_STATE} = '{state}' AND " +
                      $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} like '%{queryFilter}%'";
                 LogHelper.Log.Info(selectSQL);
-                dbReader = SQLServer.ExecuteDataReader(selectSQL);
-                if (!dbReader.HasRows)
+                data = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                if (data.Rows.Count < 1)
                 {
                     ds.Tables.Add(dataSourceProductCheck);
                     checkPackageProduct.CheckPackageCaseData = ds;
@@ -5221,7 +5226,7 @@ namespace MesAPI
             int i = 0;
             int id = 0;
             int startIndex = (pageIndex - 1) * pageSize;
-            while (dbReader.Read())
+            foreach(DataRow dbReader in data.Rows)
             {
                 if (i >= startIndex && i < pageSize * pageIndex)
                 {
@@ -5257,6 +5262,7 @@ namespace MesAPI
             ds.Tables.Add(dataSourceProductCheck);
             checkPackageProduct.CheckPackageCaseNumber = i;
             checkPackageProduct.CheckPackageCaseData = ds;
+            
             return checkPackageProduct;
         }
 
@@ -5295,7 +5301,7 @@ namespace MesAPI
             dataSourceProductPackage.Columns.Add(CASE_STORAGE_CAPACITY);
             dataSourceProductPackage.Columns.Add(CASE_AMOUNTED);
             DataSet ds = new DataSet();
-            DbDataReader dataReader = null;
+            //DbDataReader dataReader = null;
             if (queryFilter == "")
             {
                 selectSQL = $"SELECT " +
@@ -5324,8 +5330,9 @@ namespace MesAPI
                     $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE}," +
                     $"{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} ";
             }
-            dataReader = SQLServer.ExecuteDataReader(selectSQL);
-            if (!dataReader.HasRows)
+            //dataReader = SQLServer.ExecuteDataReader(selectSQL);
+            var data = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (data.Rows.Count < 1)
             {
                 selectSQL = $"SELECT " +
                 $"a.{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE} 箱子编码," +
@@ -5339,8 +5346,9 @@ namespace MesAPI
                 $"{DbTable.F_PRODUCT_PACKAGE.OUT_CASE_CODE}," +
                 $"{DbTable.F_PRODUCT_PACKAGE.TYPE_NO} ";
                 LogHelper.Log.Info("packagetype:" + selectSQL);
-                dataReader = SQLServer.ExecuteDataReader(selectSQL);
-                if (!dataReader.HasRows)
+                //dataReader = SQLServer.ExecuteDataReader(selectSQL);
+                data = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+                if (data.Rows.Count < 1)
                 {
                     ds.Tables.Add(dataSourceProductPackage);
                     packageProductHistory.PackageCaseNumber = 0;
@@ -5351,7 +5359,7 @@ namespace MesAPI
             int i = 0;
             int id = 0;
             int startIndex = (pageIndex - 1) * pageSize;
-            while (dataReader.Read())
+            foreach (DataRow dataReader in data.Rows)
             {
                 if (i >= startIndex && i < pageSize * pageIndex)
                 {
@@ -5367,7 +5375,6 @@ namespace MesAPI
                 }
                 i++;
             }
-            dataReader.Close();
             LogHelper.Log.Info(selectSQL);
             ds.Tables.Add(dataSourceProductPackage);
             packageProductHistory.PackageCaseNumber = i;
@@ -5648,15 +5655,17 @@ namespace MesAPI
             int i = 0;
             int id = 0;
             int startIndex = (pageIndex - 1) * pageSize;
-            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
-            if (!dbReader.HasRows)
+            //var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            var data = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+
+            if (data.Rows.Count < 1)
             {
                 ds.Tables.Add(dt);
                 testStandSpecHistory.SpecDataSet = ds;
                 testStandSpecHistory.SpecHistoryNumber = 0;
                 return testStandSpecHistory;
             }
-            while (dbReader.Read())
+          foreach(DataRow dbReader in data.Rows)
             {
                 if (i >= startIndex && i < pageSize * pageIndex)
                 {
@@ -5724,15 +5733,16 @@ namespace MesAPI
             }
             int i = 0;
             int id = 0;
-            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
-            if (!dbReader.HasRows)
+            //var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            var data = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (data.Rows.Count < 1)
             {
                 ds.Tables.Add(dt);
                 testStandSpecHistory.SpecDataSet = ds;
                 testStandSpecHistory.SpecHistoryNumber = 0;
                 return testStandSpecHistory;
             }
-            while (dbReader.Read())
+            foreach (DataRow dbReader in data.Rows)
             {
                 DataRow dr = dt.NewRow();
                 dr[SPEC_ORDER] = id + 1;
@@ -5821,15 +5831,16 @@ namespace MesAPI
             int i = 0;
             int id = 0;
             int startIndex = (pageIndex - 1) * pageSize;
-            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
-            if (!dbReader.HasRows)
+            //var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            var data = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (data.Rows.Count < 1)
             {
                 ds.Tables.Add(dt);
                 programVersionHistory.ProgrameDataSet = ds;
                 programVersionHistory.ProgrameHistoryNumber = 0;
                 return programVersionHistory;
             }
-            while (dbReader.Read())
+            foreach (DataRow dbReader in data.Rows)
             {
                 if (i >= startIndex && i < pageIndex * pageSize)
                 {
@@ -5898,15 +5909,16 @@ namespace MesAPI
 
             int i = 0;
             int id = 0;
-            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
-            if (!dbReader.HasRows)
+            //var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            var data = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (data.Rows.Count < 1)
             {
                 ds.Tables.Add(dt);
                 programVersionHistory.ProgrameDataSet = ds;
                 programVersionHistory.ProgrameHistoryNumber = 0;
                 return programVersionHistory;
             }
-            while (dbReader.Read())
+            foreach (DataRow dbReader in data.Rows)
             {
                 DataRow dr = dt.NewRow();
                 dr[VERSION_ORDER] = id + 1;
@@ -6142,15 +6154,16 @@ namespace MesAPI
             int id = 0;
             int startIndex = (pageIndex - 1) * pageSize;
 
-            var dbReader = SQLServer.ExecuteDataReader(selectSQL);
-            if (!dbReader.HasRows)
+            //var dbReader = SQLServer.ExecuteDataReader(selectSQL);
+            var data = SQLServer.ExecuteDataSet(selectSQL).Tables[0];
+            if (data.Rows.Count < 1)
             {
                 ds.Tables.Add(dataSourceQuanlity);
                 quanlityHistory.QuanlityHistoryData = ds;
                 quanlityHistory.HistoryNumber = 0;
                 return quanlityHistory;
             }
-            while (dbReader.Read())
+            foreach (DataRow dbReader in data.Rows)
             {
                 if (i >= startIndex && i < pageIndex * pageSize)
                 {
